@@ -16,14 +16,14 @@ A role-based development workflow plugin that turns Claude Code into a full dev 
 ### Plugin Installation (Recommended)
 
 ```
-/install-plugin xiaobei930/claude-code-best-practices
+/install-plugin xiaobei930/cc-best
 ```
 
 ### Manual Installation
 
 ```json
 {
-  "plugins": ["https://github.com/xiaobei930/claude-code-best-practices"]
+  "plugins": ["https://github.com/xiaobei930/cc-best"]
 }
 ```
 
@@ -81,9 +81,9 @@ A role-based development workflow plugin that turns Claude Code into a full dev 
 
 ## Links
 
-- **Full Repository**: [github.com/xiaobei930/claude-code-best-practices](https://github.com/xiaobei930/claude-code-best-practices)
-- **Quick Start Guide**: [quickstart.md](https://github.com/xiaobei930/claude-code-best-practices/blob/main/docs/guides/quickstart.md)
-- **Advanced Guide**: [advanced.md](https://github.com/xiaobei930/claude-code-best-practices/blob/main/docs/guides/advanced.md)
+- **Full Repository**: [github.com/xiaobei930/cc-best](https://github.com/xiaobei930/cc-best)
+- **Quick Start Guide**: [quickstart.md](https://github.com/xiaobei930/cc-best/blob/main/docs/guides/quickstart.md)
+- **Advanced Guide**: [advanced.md](https://github.com/xiaobei930/cc-best/blob/main/docs/guides/advanced.md)
 
 ## License
 
