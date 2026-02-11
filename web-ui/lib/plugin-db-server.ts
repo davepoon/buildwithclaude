@@ -746,6 +746,136 @@ export async function getPluginOnlyCount(): Promise<number> {
 }
 
 /**
+ * Get list of marketplaces for skill filter dropdown
+ * Same as getPluginMarketplaces() but counts only type='skill' items
+ */
+export async function getSkillMarketplaces(): Promise<MarketplaceOption[]> {
+  // Get local Build with Claude skill count
+  const localPlugins = getLocalBuildWithClaudePlugins()
+  const localSkillCount = localPlugins.filter(p => p.type === 'skill').length
+
+  // Count actual skills from the plugins table, joined with marketplaces for display metadata
+  const dbSkillCounts = await db
+    .select({
+      id: marketplaces.id,
+      name: marketplaces.name,
+      displayName: marketplaces.displayName,
+      count: sql<number>`count(*)`,
+    })
+    .from(plugins)
+    .innerJoin(marketplaces, eq(plugins.marketplaceId, marketplaces.id))
+    .where(and(eq(plugins.active, true), eq(plugins.type, 'skill'), eq(marketplaces.active, true)))
+    .groupBy(marketplaces.id, marketplaces.name, marketplaces.displayName)
+    .orderBy(desc(sql`count(*)`))
+
+  // Also get skills with marketplaceName but no matching marketplaceId
+  const unmatchedSkills = await db
+    .select({
+      marketplaceName: plugins.marketplaceName,
+      count: sql<number>`count(*)`,
+    })
+    .from(plugins)
+    .where(and(eq(plugins.active, true), eq(plugins.type, 'skill'), sql`${plugins.marketplaceId} IS NULL`))
+    .groupBy(plugins.marketplaceName)
+
+  // Start with Build with Claude from local files
+  const results: MarketplaceOption[] = [{
+    id: BUILD_WITH_CLAUDE_ID,
+    name: BUILD_WITH_CLAUDE_ID,
+    displayName: BUILD_WITH_CLAUDE_MARKETPLACE,
+    pluginCount: localSkillCount,
+  }]
+
+  // Add DB marketplaces that actually have skills (skip Build with Claude as we handle it locally)
+  const existingNames = new Set([BUILD_WITH_CLAUDE_MARKETPLACE])
+  for (const m of dbSkillCounts) {
+    if (!existingNames.has(m.displayName)) {
+      results.push({
+        id: m.id,
+        name: m.name,
+        displayName: m.displayName,
+        pluginCount: Number(m.count),
+      })
+      existingNames.add(m.displayName)
+    }
+  }
+
+  // Add any unmatched marketplace names from plugins that aren't already in results
+  for (const pm of unmatchedSkills) {
+    if (pm.marketplaceName && !existingNames.has(pm.marketplaceName)) {
+      results.push({
+        id: pm.marketplaceName,
+        name: pm.marketplaceName,
+        displayName: pm.marketplaceName,
+        pluginCount: Number(pm.count),
+      })
+      existingNames.add(pm.marketplaceName)
+    }
+  }
+
+  // Sort by count descending
+  return results.sort((a, b) => b.pluginCount - a.pluginCount)
+}
+
+/**
+ * Get unique skill categories with counts from all sources (local + database)
+ */
+export async function getSkillCategories(): Promise<PluginCategory[]> {
+  const categoryCounts: Record<string, number> = {}
+
+  // Get categories from database plugins where type='skill'
+  try {
+    const dbCategories = await db
+      .select({ category: sql<string>`unnest(${plugins.categories})` })
+      .from(plugins)
+      .where(and(
+        eq(plugins.active, true),
+        eq(plugins.type, 'skill')
+      ))
+
+    for (const row of dbCategories) {
+      if (row.category) {
+        categoryCounts[row.category] = (categoryCounts[row.category] || 0) + 1
+      }
+    }
+  } catch (e) {
+    console.warn('Error fetching database skill categories:', e)
+  }
+
+  // Also include local skill categories
+  const localPlugins = getLocalBuildWithClaudePlugins()
+  const skillsOnly = localPlugins.filter(p => p.type === 'skill')
+  for (const p of skillsOnly) {
+    const category = p.category || 'uncategorized'
+    categoryCounts[category] = (categoryCounts[category] || 0) + 1
+  }
+
+  return Object.entries(categoryCounts)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count)
+}
+
+/**
+ * Get total count of skills (type='skill' only) from all sources
+ */
+export async function getSkillOnlyCount(): Promise<number> {
+  // Count local skills
+  const localPlugins = getLocalBuildWithClaudePlugins()
+  const localCount = localPlugins.filter(p => p.type === 'skill').length
+
+  // Count database skills
+  const dbCount = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(plugins)
+    .where(and(
+      eq(plugins.active, true),
+      eq(plugins.type, 'skill')
+    ))
+
+  return localCount + Number(dbCount[0]?.count || 0)
+}
+
+/**
  * Get skills paginated
  */
 export async function getSkillsPaginated(options: {

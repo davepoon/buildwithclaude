@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { Check, Copy, Github } from 'lucide-react'
+import { Check, Copy, Github, Terminal } from 'lucide-react'
 import type { UnifiedPlugin } from '@/lib/plugin-types'
 
 interface UnifiedPluginCardProps {
@@ -83,8 +83,22 @@ function getDetailUrl(plugin: UnifiedPlugin): string {
   }
 }
 
+function getOpenClawCommand(plugin: UnifiedPlugin): string {
+  const name = plugin.name
+  if (plugin.marketplaceName === 'Build with Claude') {
+    return `mkdir -p ~/.openclaw/skills/${name} && curl -sL https://raw.githubusercontent.com/davepoon/buildwithclaude/main/plugins/all-skills/skills/${name}/SKILL.md -o ~/.openclaw/skills/${name}/SKILL.md`
+  }
+  // For external marketplace skills with a repository
+  if (plugin.repository) {
+    const repoUrl = plugin.repository.replace('github.com', 'raw.githubusercontent.com').replace(/\/$/, '')
+    return `mkdir -p ~/.openclaw/skills/${name} && curl -sL ${repoUrl}/main/skills/${name}/SKILL.md -o ~/.openclaw/skills/${name}/SKILL.md`
+  }
+  return `mkdir -p ~/.openclaw/skills/${name} && curl -sL <SKILL.md URL> -o ~/.openclaw/skills/${name}/SKILL.md`
+}
+
 export function UnifiedPluginCard({ plugin }: UnifiedPluginCardProps) {
   const [copied, setCopied] = useState(false)
+  const [copiedClaw, setCopiedClaw] = useState(false)
   const isExternal = isExternalPlugin(plugin)
 
   const githubUrl = plugin.file
@@ -106,6 +120,15 @@ export function UnifiedPluginCard({ plugin }: UnifiedPluginCardProps) {
     if (githubUrl) {
       window.open(githubUrl, '_blank')
     }
+  }
+
+  const handleCopyOpenClaw = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const cmd = getOpenClawCommand(plugin)
+    await navigator.clipboard.writeText(cmd)
+    setCopiedClaw(true)
+    setTimeout(() => setCopiedClaw(false), 2000)
   }
 
   const cardContent = (
@@ -171,6 +194,22 @@ export function UnifiedPluginCard({ plugin }: UnifiedPluginCardProps) {
             </TooltipTrigger>
             <TooltipContent>View on GitHub</TooltipContent>
           </Tooltip>
+          {plugin.type === 'skill' && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-7 px-2 text-xs text-muted-foreground hover:text-foreground"
+                  onClick={handleCopyOpenClaw}
+                >
+                  {copiedClaw ? <Check className="h-3 w-3 mr-1" /> : <Terminal className="h-3 w-3 mr-1" />}
+                  {copiedClaw ? 'Copied' : 'OpenClaw'}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Copy OpenClaw install command</TooltipContent>
+            </Tooltip>
+          )}
         </div>
       </TooltipProvider>
     </div>

@@ -15,6 +15,8 @@ interface SkillPageClientProps {
 export function SkillPageClient({ skill }: SkillPageClientProps) {
   const [copied, setCopied] = useState(false)
   const [copiedPath, setCopiedPath] = useState(false)
+  const [copiedClawCmd, setCopiedClawCmd] = useState(false)
+  const [copiedClawPath, setCopiedClawPath] = useState(false)
   const categoryName = generateCategoryDisplayName(skill.category)
 
   const installPath = `~/.claude/skills/${skill.slug}/SKILL.md`
@@ -131,6 +133,55 @@ export function SkillPageClient({ skill }: SkillPageClientProps) {
                   }}
                 >
                   {copiedPath ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* OpenClaw Installation */}
+        <div className="mb-10">
+          <h2 className="text-lg font-medium mb-4">OpenClaw Installation</h2>
+          <p className="text-sm text-muted-foreground mb-4">
+            This skill is compatible with <span className="font-medium text-foreground">OpenClaw</span>. Install it with a single command:
+          </p>
+          <div className="space-y-4">
+            <div>
+              <p className="text-sm text-muted-foreground mb-2">
+                One-line install
+              </p>
+              <div className="bg-card rounded-lg p-4 font-mono text-sm flex items-center justify-between gap-2 border border-border">
+                <span className="break-all">{`mkdir -p ~/.openclaw/skills/${skill.slug} && curl -sL https://raw.githubusercontent.com/davepoon/buildwithclaude/main/plugins/all-skills/skills/${skill.slug}/SKILL.md -o ~/.openclaw/skills/${skill.slug}/SKILL.md`}</span>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="shrink-0"
+                  onClick={async () => {
+                    await navigator.clipboard.writeText(`mkdir -p ~/.openclaw/skills/${skill.slug} && curl -sL https://raw.githubusercontent.com/davepoon/buildwithclaude/main/plugins/all-skills/skills/${skill.slug}/SKILL.md -o ~/.openclaw/skills/${skill.slug}/SKILL.md`)
+                    setCopiedClawCmd(true)
+                    setTimeout(() => setCopiedClawCmd(false), 2000)
+                  }}
+                >
+                  {copiedClawCmd ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                </Button>
+              </div>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground mb-2">
+                Or manually place SKILL.md at
+              </p>
+              <div className="bg-card rounded-lg p-4 font-mono text-sm flex items-center justify-between border border-border">
+                <span>~/.openclaw/skills/{skill.slug}/SKILL.md</span>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={async () => {
+                    await navigator.clipboard.writeText(`~/.openclaw/skills/${skill.slug}/SKILL.md`)
+                    setCopiedClawPath(true)
+                    setTimeout(() => setCopiedClawPath(false), 2000)
+                  }}
+                >
+                  {copiedClawPath ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                 </Button>
               </div>
             </div>

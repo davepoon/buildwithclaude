@@ -4,24 +4,57 @@ import { useState, useEffect } from 'react'
 import { ArrowRight, Sparkles, X } from 'lucide-react'
 import Link from 'next/link'
 
-const STORAGE_KEY = 'create-marketplace-banner-dismissed'
+const VARIANT_CONFIG = {
+  marketplace: {
+    storageKey: 'create-marketplace-banner-dismissed',
+    title: 'Create Your Own Marketplace',
+    description: (
+      <>
+        Add a{' '}
+        <code className="px-1.5 py-0.5 rounded bg-primary/10 text-primary text-xs font-mono">
+          marketplace.json
+        </code>{' '}
+        to your GitHub repo. We&apos;ll automatically index your plugins for thousands of
+        developers to discover.
+      </>
+    ),
+  },
+  skill: {
+    storageKey: 'create-skill-banner-dismissed',
+    title: 'Share Your Skills',
+    description: (
+      <>
+        Add skills to your{' '}
+        <code className="px-1.5 py-0.5 rounded bg-primary/10 text-primary text-xs font-mono">
+          marketplace.json
+        </code>{' '}
+        and we&apos;ll automatically index them for developers to discover.
+      </>
+    ),
+  },
+} as const
 
-export function CreateMarketplaceBanner() {
+interface CreateMarketplaceBannerProps {
+  variant?: 'marketplace' | 'skill'
+}
+
+export function CreateMarketplaceBanner({ variant = 'marketplace' }: CreateMarketplaceBannerProps) {
+  const config = VARIANT_CONFIG[variant]
   const [isDismissed, setIsDismissed] = useState(true) // Start hidden to avoid flash
   const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
     // Check localStorage on mount
-    const dismissed = localStorage.getItem(STORAGE_KEY)
+    const dismissed = localStorage.getItem(config.storageKey)
     setIsDismissed(dismissed === 'true')
-  }, [])
+  }, [config.storageKey])
 
   const handleDismiss = () => {
     setIsVisible(false)
     // Wait for fade animation then update state
     setTimeout(() => {
       setIsDismissed(true)
-      localStorage.setItem(STORAGE_KEY, 'true')
+      localStorage.setItem(config.storageKey, 'true')
     }, 300)
   }
 
@@ -55,15 +88,10 @@ export function CreateMarketplaceBanner() {
             </span>
           </div>
           <h3 className="text-lg font-serif tracking-tight mb-1">
-            Create Your Own Marketplace
+            {config.title}
           </h3>
           <p className="text-sm text-muted-foreground max-w-md">
-            Add a{' '}
-            <code className="px-1.5 py-0.5 rounded bg-primary/10 text-primary text-xs font-mono">
-              marketplace.json
-            </code>{' '}
-            to your GitHub repo. We&apos;ll automatically index your plugins for thousands of
-            developers to discover.
+            {config.description}
           </p>
         </div>
 
