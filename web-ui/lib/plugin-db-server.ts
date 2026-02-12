@@ -298,12 +298,18 @@ export async function getPluginsPaginated(options: {
 
   // Marketplace filter for database (skip BWC since we handle it locally)
   if (marketplaceId && marketplaceId !== 'all') {
-    conditions.push(
-      or(
-        eq(plugins.marketplaceId, marketplaceId),
-        eq(plugins.marketplaceName, marketplaceId)
+    // Only compare against marketplace_id (UUID column) if the value is a valid UUID
+    const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(marketplaceId)
+    if (isUUID) {
+      conditions.push(
+        or(
+          eq(plugins.marketplaceId, marketplaceId),
+          eq(plugins.marketplaceName, marketplaceId)
+        )
       )
-    )
+    } else {
+      conditions.push(eq(plugins.marketplaceName, marketplaceId))
+    }
   }
 
   // Category filter (supports comma-separated categories with OR logic)
