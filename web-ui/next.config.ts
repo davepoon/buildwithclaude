@@ -2,6 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  experimental: {
+    serverActions: {
+      allowedOrigins: ['buildwithclaude.com', 'www.buildwithclaude.com'],
+    },
+  },
   async headers() {
     return [
       {
