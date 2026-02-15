@@ -1,0 +1,22 @@
+{
+  "name": "memesh",
+  "version": "2.8.10",
+  "description": "Persistent memory for Claude Code with semantic search and knowledge graph. Remembers architecture decisions, coding patterns, and project context across sessions.",
+  "author": {
+    "name": "PCIRCLE AI",
+    "url": "https://github.com/PCIRCLE-AI"
+  },
+  "homepage": "https://github.com/PCIRCLE-AI/claude-code-buddy",
+  "repository": "https://github.com/PCIRCLE-AI/claude-code-buddy",
+  "license": "AGPL-3.0",
+  "keywords": [
+    "memory",
+    "mcp",
+    "knowledge-graph",
+    "context",
+    "semantic-search",
+    "persistent-memory",
+    "claude-code",
+    "ai-memory"
+  ]
+}
