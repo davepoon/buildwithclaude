@@ -3,6 +3,7 @@ import { mcpServers, mcpServerStats } from '@/lib/db/schema'
 import type { MCPServerDB } from '@/lib/db/schema'
 import { eq, ilike, or, sql, desc, asc, and } from 'drizzle-orm'
 import { MCP_CATEGORIES } from './mcp-types'
+import { safeDbQuery } from '@/lib/db/safe-query'
 
 export type SortOption = 'relevance' | 'stars' | 'downloads' | 'name' | 'updated'
 
@@ -156,20 +157,24 @@ export async function getMCPServersPaginated(options: {
   // Execute query
   const whereClause = conditions.length > 0 ? and(...conditions) : undefined
 
-  const [results, countResult] = await Promise.all([
-    db
-      .select()
-      .from(mcpServers)
-      .where(whereClause)
-      .orderBy(orderBy)
-      .limit(limit)
-      .offset(offset),
+  const { data: [results, countResult] } = await safeDbQuery(
+    () => Promise.all([
+      db
+        .select()
+        .from(mcpServers)
+        .where(whereClause)
+        .orderBy(orderBy)
+        .limit(limit)
+        .offset(offset),
 
-    db
-      .select({ count: sql<number>`count(*)` })
-      .from(mcpServers)
-      .where(whereClause),
-  ])
+      db
+        .select({ count: sql<number>`count(*)` })
+        .from(mcpServers)
+        .where(whereClause),
+    ]),
+    [[] as any[], [{ count: 0 }]],
+    'getMCPServersPaginated',
+  )
 
   const total = Number(countResult[0]?.count || 0)
 
@@ -186,11 +191,15 @@ export async function getMCPServersPaginated(options: {
  * Get MCP server by slug
  */
 export async function getMCPServerBySlug(slug: string): Promise<MCPServerWithParsedJSON | null> {
-  const result = await db
-    .select()
-    .from(mcpServers)
-    .where(eq(mcpServers.slug, slug))
-    .limit(1)
+  const { data: result } = await safeDbQuery(
+    () => db
+      .select()
+      .from(mcpServers)
+      .where(eq(mcpServers.slug, slug))
+      .limit(1),
+    [],
+    'getMCPServerBySlug',
+  )
 
   if (!result.length) return null
   return transformToMCPServerWithParsedJSON(result[0])
@@ -200,14 +209,18 @@ export async function getMCPServerBySlug(slug: string): Promise<MCPServerWithPar
  * Get category metadata with counts from database
  */
 export async function getMCPCategoriesFromDB(): Promise<CategoryWithCount[]> {
-  const categoryCounts = await db
-    .select({
-      category: mcpServers.category,
-      count: sql<number>`count(*)`,
-    })
-    .from(mcpServers)
-    .where(eq(mcpServers.active, true))
-    .groupBy(mcpServers.category)
+  const { data: categoryCounts } = await safeDbQuery(
+    () => db
+      .select({
+        category: mcpServers.category,
+        count: sql<number>`count(*)`,
+      })
+      .from(mcpServers)
+      .where(eq(mcpServers.active, true))
+      .groupBy(mcpServers.category),
+    [],
+    'getMCPCategoriesFromDB',
+  )
 
   const countMap = new Map<string, number>()
   for (const row of categoryCounts) {
@@ -235,34 +248,46 @@ export async function getMCPCategoriesFromDB(): Promise<CategoryWithCount[]> {
  */
 export async function getMCPServerStatsFromDB(): Promise<MCPServerStatsResult> {
   // Count by source
-  const sourceStats = await db
-    .select({
-      sourceRegistry: mcpServers.sourceRegistry,
-      count: sql<number>`count(*)`,
-    })
-    .from(mcpServers)
-    .where(eq(mcpServers.active, true))
-    .groupBy(mcpServers.sourceRegistry)
+  const { data: sourceStats } = await safeDbQuery(
+    () => db
+      .select({
+        sourceRegistry: mcpServers.sourceRegistry,
+        count: sql<number>`count(*)`,
+      })
+      .from(mcpServers)
+      .where(eq(mcpServers.active, true))
+      .groupBy(mcpServers.sourceRegistry),
+    [],
+    'getMCPServerStats:bySource',
+  )
 
   // Count by category
-  const categoryStats = await db
-    .select({
-      category: mcpServers.category,
-      count: sql<number>`count(*)`,
-    })
-    .from(mcpServers)
-    .where(eq(mcpServers.active, true))
-    .groupBy(mcpServers.category)
+  const { data: categoryStats } = await safeDbQuery(
+    () => db
+      .select({
+        category: mcpServers.category,
+        count: sql<number>`count(*)`,
+      })
+      .from(mcpServers)
+      .where(eq(mcpServers.active, true))
+      .groupBy(mcpServers.category),
+    [],
+    'getMCPServerStats:byCategory',
+  )
 
   // Count by verification
-  const verificationStats = await db
-    .select({
-      verificationStatus: mcpServers.verificationStatus,
-      count: sql<number>`count(*)`,
-    })
-    .from(mcpServers)
-    .where(eq(mcpServers.active, true))
-    .groupBy(mcpServers.verificationStatus)
+  const { data: verificationStats } = await safeDbQuery(
+    () => db
+      .select({
+        verificationStatus: mcpServers.verificationStatus,
+        count: sql<number>`count(*)`,
+      })
+      .from(mcpServers)
+      .where(eq(mcpServers.active, true))
+      .groupBy(mcpServers.verificationStatus),
+    [],
+    'getMCPServerStats:byVerification',
+  )
 
   const bySource: Record<string, number> = {}
   let total = 0
@@ -290,17 +315,21 @@ export async function getMCPServerStatsFromDB(): Promise<MCPServerStatsResult> {
  * Get featured/popular MCP servers based on engagement score
  */
 export async function getFeaturedMCPServersFromDB(limit: number = 10): Promise<MCPServerWithParsedJSON[]> {
-  const results = await db
-    .select()
-    .from(mcpServers)
-    .where(
-      and(
-        eq(mcpServers.active, true),
-        eq(mcpServers.verificationStatus, 'verified')
+  const { data: results } = await safeDbQuery(
+    () => db
+      .select()
+      .from(mcpServers)
+      .where(
+        and(
+          eq(mcpServers.active, true),
+          eq(mcpServers.verificationStatus, 'verified')
+        )
       )
-    )
-    .orderBy(sql`COALESCE(${mcpServers.dockerPulls}, 0) + COALESCE(${mcpServers.githubStars}, 0) * 100 DESC`)
-    .limit(limit)
+      .orderBy(sql`COALESCE(${mcpServers.dockerPulls}, 0) + COALESCE(${mcpServers.githubStars}, 0) * 100 DESC`)
+      .limit(limit),
+    [],
+    'getFeaturedMCPServersFromDB',
+  )
 
   return results.map(transformToMCPServerWithParsedJSON)
 }
@@ -309,15 +338,19 @@ export async function getFeaturedMCPServersFromDB(limit: number = 10): Promise<M
  * Get list of unique source registries for filter dropdown
  */
 export async function getMCPSourceRegistries(): Promise<Array<{ id: string; name: string; count: number }>> {
-  const sources = await db
-    .select({
-      sourceRegistry: mcpServers.sourceRegistry,
-      count: sql<number>`count(*)`,
-    })
-    .from(mcpServers)
-    .where(eq(mcpServers.active, true))
-    .groupBy(mcpServers.sourceRegistry)
-    .orderBy(sql`count(*) DESC`)
+  const { data: sources } = await safeDbQuery(
+    () => db
+      .select({
+        sourceRegistry: mcpServers.sourceRegistry,
+        count: sql<number>`count(*)`,
+      })
+      .from(mcpServers)
+      .where(eq(mcpServers.active, true))
+      .groupBy(mcpServers.sourceRegistry)
+      .orderBy(sql`count(*) DESC`),
+    [],
+    'getMCPSourceRegistries',
+  )
 
   const sourceNames: Record<string, string> = {
     'official-mcp': 'Official MCP',
@@ -340,10 +373,14 @@ export async function recordMCPServerStats(
   serverId: string,
   stats: { githubStars?: number; dockerPulls?: number; npmDownloads?: number }
 ): Promise<void> {
-  await db.insert(mcpServerStats).values({
-    mcpServerId: serverId,
-    githubStars: stats.githubStars ?? 0,
-    dockerPulls: stats.dockerPulls ?? 0,
-    npmDownloads: stats.npmDownloads ?? 0,
-  })
+  await safeDbQuery(
+    () => db.insert(mcpServerStats).values({
+      mcpServerId: serverId,
+      githubStars: stats.githubStars ?? 0,
+      dockerPulls: stats.dockerPulls ?? 0,
+      npmDownloads: stats.npmDownloads ?? 0,
+    }),
+    undefined as any,
+    'recordMCPServerStats',
+  )
 }

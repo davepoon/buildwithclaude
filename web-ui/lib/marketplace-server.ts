@@ -2,6 +2,7 @@ import { desc, asc, eq, sql, ilike, or, and } from 'drizzle-orm'
 import type { MarketplaceRegistry } from './marketplace-types'
 import { db } from './db/client'
 import { marketplaces } from './db/schema'
+import { safeDbQuery } from './db/safe-query'
 
 export type SortOption = 'relevance' | 'stars' | 'newest' | 'oldest' | 'name' | 'name-desc'
 
@@ -114,22 +115,30 @@ export async function getMarketplacesPaginated(
   }
 
   // Get total count
-  const countResult = await db
-    .select({ count: sql<number>`count(*)` })
-    .from(marketplaces)
-    .where(whereClause)
+  const { data: countResult } = await safeDbQuery(
+    () => db
+      .select({ count: sql<number>`count(*)` })
+      .from(marketplaces)
+      .where(whereClause),
+    [{ count: 0 }],
+    'getMarketplacesPaginated:count',
+  )
 
   const total = Number(countResult[0]?.count || 0)
 
   // Get paginated results with sorting
   const orderByClause = getOrderBy(sort)
-  const results = await db
-    .select()
-    .from(marketplaces)
-    .where(whereClause)
-    .orderBy(...orderByClause)
-    .limit(limit)
-    .offset(offset)
+  const { data: results } = await safeDbQuery(
+    () => db
+      .select()
+      .from(marketplaces)
+      .where(whereClause)
+      .orderBy(...orderByClause)
+      .limit(limit)
+      .offset(offset),
+    [],
+    'getMarketplacesPaginated:results',
+  )
 
   return {
     marketplaces: results.map(transformRow),
@@ -154,14 +163,18 @@ export async function getMarketplaceTotals(): Promise<{
   totalSkills: number
   totalMarketplaces: number
 }> {
-  const result = await db
-    .select({
-      totalPlugins: sql<number>`sum(plugin_count)`,
-      totalSkills: sql<number>`sum(skill_count)`,
-      totalMarketplaces: sql<number>`count(*)`,
-    })
-    .from(marketplaces)
-    .where(eq(marketplaces.active, true))
+  const { data: result } = await safeDbQuery(
+    () => db
+      .select({
+        totalPlugins: sql<number>`sum(plugin_count)`,
+        totalSkills: sql<number>`sum(skill_count)`,
+        totalMarketplaces: sql<number>`count(*)`,
+      })
+      .from(marketplaces)
+      .where(eq(marketplaces.active, true)),
+    [{ totalPlugins: 0, totalSkills: 0, totalMarketplaces: 0 }],
+    'getMarketplaceTotals',
+  )
 
   return {
     totalPlugins: Number(result[0]?.totalPlugins || 0),
@@ -174,11 +187,15 @@ export async function getMarketplaceTotals(): Promise<{
  * Get a single marketplace by ID or name
  */
 export async function getMarketplaceById(id: string): Promise<MarketplaceRegistry | null> {
-  const results = await db
-    .select()
-    .from(marketplaces)
-    .where(or(eq(marketplaces.id, id), eq(marketplaces.name, id), eq(marketplaces.namespace, id)))
-    .limit(1)
+  const { data: results } = await safeDbQuery(
+    () => db
+      .select()
+      .from(marketplaces)
+      .where(or(eq(marketplaces.id, id), eq(marketplaces.name, id), eq(marketplaces.namespace, id)))
+      .limit(1),
+    [],
+    'getMarketplaceById',
+  )
 
   if (results.length > 0) {
     return transformRow(results[0])

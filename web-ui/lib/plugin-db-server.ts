@@ -2,6 +2,7 @@ import { db } from '@/lib/db/client'
 import { plugins, skills, marketplaces } from '@/lib/db/schema'
 import { eq, ilike, or, sql, desc, asc, and, inArray } from 'drizzle-orm'
 import type { UnifiedPlugin, PluginType } from './plugin-types'
+import { safeDbQuery } from '@/lib/db/safe-query'
 
 // Import local plugin loaders for Build with Claude plugins
 import { getAllSubagents } from './subagents-server'
@@ -377,37 +378,41 @@ export async function getPluginsPaginated(options: {
 
   const whereClause = conditions.length > 0 ? and(...conditions) : undefined
 
-  // Query database
-  const [dbResults, dbCountResult] = await Promise.all([
-    db
-      .select({
-        id: plugins.id,
-        name: plugins.name,
-        namespace: plugins.namespace,
-        slug: plugins.slug,
-        description: plugins.description,
-        version: plugins.version,
-        author: plugins.author,
-        type: plugins.type,
-        categories: plugins.categories,
-        keywords: plugins.keywords,
-        repository: plugins.repository,
-        stars: plugins.stars,
-        installCommand: plugins.installCommand,
-        marketplaceId: plugins.marketplaceId,
-        marketplaceName: plugins.marketplaceName,
-        updatedAt: plugins.updatedAt,
-      })
-      .from(plugins)
-      .where(whereClause)
-      .orderBy(orderBy)
-      .limit(1000), // Get more to allow merging and deduplication
+  // Query database (wrapped for resilience)
+  const { data: [dbResults, dbCountResult] } = await safeDbQuery(
+    () => Promise.all([
+      db
+        .select({
+          id: plugins.id,
+          name: plugins.name,
+          namespace: plugins.namespace,
+          slug: plugins.slug,
+          description: plugins.description,
+          version: plugins.version,
+          author: plugins.author,
+          type: plugins.type,
+          categories: plugins.categories,
+          keywords: plugins.keywords,
+          repository: plugins.repository,
+          stars: plugins.stars,
+          installCommand: plugins.installCommand,
+          marketplaceId: plugins.marketplaceId,
+          marketplaceName: plugins.marketplaceName,
+          updatedAt: plugins.updatedAt,
+        })
+        .from(plugins)
+        .where(whereClause)
+        .orderBy(orderBy)
+        .limit(1000),
 
-    db
-      .select({ count: sql<number>`count(*)` })
-      .from(plugins)
-      .where(whereClause),
-  ])
+      db
+        .select({ count: sql<number>`count(*)` })
+        .from(plugins)
+        .where(whereClause),
+    ]),
+    [[] as any[], [{ count: 0 }]],
+    'getPluginsPaginated',
+  )
 
   // Transform database results to UnifiedPlugin format
   const dbPlugins: UnifiedPlugin[] = dbResults.map((p) => ({
@@ -475,26 +480,34 @@ export async function getPluginMarketplaces(): Promise<MarketplaceOption[]> {
   const localCount = localPlugins.length
 
   // Get registered marketplaces from marketplaces table
-  const dbMarketplaces = await db
-    .select({
-      id: marketplaces.id,
-      name: marketplaces.name,
-      displayName: marketplaces.displayName,
-      pluginCount: marketplaces.pluginCount,
-    })
-    .from(marketplaces)
-    .where(eq(marketplaces.active, true))
-    .orderBy(desc(marketplaces.pluginCount))
+  const { data: dbMarketplaces } = await safeDbQuery(
+    () => db
+      .select({
+        id: marketplaces.id,
+        name: marketplaces.name,
+        displayName: marketplaces.displayName,
+        pluginCount: marketplaces.pluginCount,
+      })
+      .from(marketplaces)
+      .where(eq(marketplaces.active, true))
+      .orderBy(desc(marketplaces.pluginCount)),
+    [],
+    'getPluginMarketplaces:marketplaces',
+  )
 
   // Also get unique marketplaceNames from plugins (to include sources not in marketplaces table)
-  const pluginMarketplaces = await db
-    .select({
-      marketplaceName: plugins.marketplaceName,
-      count: sql<number>`count(*)`,
-    })
-    .from(plugins)
-    .where(eq(plugins.active, true))
-    .groupBy(plugins.marketplaceName)
+  const { data: pluginMarketplaces } = await safeDbQuery(
+    () => db
+      .select({
+        marketplaceName: plugins.marketplaceName,
+        count: sql<number>`count(*)`,
+      })
+      .from(plugins)
+      .where(eq(plugins.active, true))
+      .groupBy(plugins.marketplaceName),
+    [],
+    'getPluginMarketplaces:pluginSources',
+  )
 
   // Start with Build with Claude from local files
   const results: MarketplaceOption[] = [{
@@ -581,14 +594,18 @@ export async function getPluginStatsForUI(): Promise<{
   }
 
   // Get database stats
-  const typeStats = await db
-    .select({
-      type: plugins.type,
-      count: sql<number>`count(*)`,
-    })
-    .from(plugins)
-    .where(eq(plugins.active, true))
-    .groupBy(plugins.type)
+  const { data: typeStats } = await safeDbQuery(
+    () => db
+      .select({
+        type: plugins.type,
+        count: sql<number>`count(*)`,
+      })
+      .from(plugins)
+      .where(eq(plugins.active, true))
+      .groupBy(plugins.type),
+    [],
+    'getPluginStatsForUI',
+  )
 
   const dbCounts = {
     subagents: 0,
@@ -648,29 +665,37 @@ export async function getPluginStats(): Promise<{
   byMarketplace: Record<string, number>
 }> {
   // Count by type
-  const typeStats = await db
-    .select({
-      type: plugins.type,
-      count: sql<number>`count(*)`,
-    })
-    .from(plugins)
-    .where(eq(plugins.active, true))
-    .groupBy(plugins.type)
+  const { data: typeStats2 } = await safeDbQuery(
+    () => db
+      .select({
+        type: plugins.type,
+        count: sql<number>`count(*)`,
+      })
+      .from(plugins)
+      .where(eq(plugins.active, true))
+      .groupBy(plugins.type),
+    [],
+    'getPluginStats:byType',
+  )
 
   // Count by marketplace
-  const marketplaceStats = await db
-    .select({
-      marketplaceName: plugins.marketplaceName,
-      count: sql<number>`count(*)`,
-    })
-    .from(plugins)
-    .where(eq(plugins.active, true))
-    .groupBy(plugins.marketplaceName)
+  const { data: marketplaceStats } = await safeDbQuery(
+    () => db
+      .select({
+        marketplaceName: plugins.marketplaceName,
+        count: sql<number>`count(*)`,
+      })
+      .from(plugins)
+      .where(eq(plugins.active, true))
+      .groupBy(plugins.marketplaceName),
+    [],
+    'getPluginStats:byMarketplace',
+  )
 
   const byType: Record<string, number> = {}
   let total = 0
 
-  for (const stat of typeStats) {
+  for (const stat of typeStats2) {
     byType[stat.type] = Number(stat.count)
     total += Number(stat.count)
   }
@@ -698,23 +723,23 @@ export async function getPluginCategories(): Promise<PluginCategory[]> {
   const categoryCounts: Record<string, number> = {}
 
   // Get categories from database plugins (semantic categories)
-  try {
-    const dbCategories = await db
+  const { data: dbCategories } = await safeDbQuery(
+    () => db
       .select({ category: sql<string>`unnest(${plugins.categories})` })
       .from(plugins)
       .where(and(
         eq(plugins.active, true),
         eq(plugins.type, 'plugin')
-      ))
+      )),
+    [],
+    'getPluginCategories',
+  )
 
-    // Count database categories
-    for (const row of dbCategories) {
-      if (row.category) {
-        categoryCounts[row.category] = (categoryCounts[row.category] || 0) + 1
-      }
+  // Count database categories
+  for (const row of dbCategories) {
+    if (row.category) {
+      categoryCounts[row.category] = (categoryCounts[row.category] || 0) + 1
     }
-  } catch (e) {
-    console.warn('Error fetching database categories:', e)
   }
 
   // Also include local plugin categories
@@ -740,13 +765,17 @@ export async function getPluginOnlyCount(): Promise<number> {
   const localCount = localPlugins.filter(p => p.type === 'plugin').length
 
   // Count database plugins
-  const dbCount = await db
-    .select({ count: sql<number>`count(*)` })
-    .from(plugins)
-    .where(and(
-      eq(plugins.active, true),
-      eq(plugins.type, 'plugin')
-    ))
+  const { data: dbCount } = await safeDbQuery(
+    () => db
+      .select({ count: sql<number>`count(*)` })
+      .from(plugins)
+      .where(and(
+        eq(plugins.active, true),
+        eq(plugins.type, 'plugin')
+      )),
+    [{ count: 0 }],
+    'getPluginOnlyCount',
+  )
 
   return localCount + Number(dbCount[0]?.count || 0)
 }
@@ -761,28 +790,36 @@ export async function getSkillMarketplaces(): Promise<MarketplaceOption[]> {
   const localSkillCount = localPlugins.filter(p => p.type === 'skill').length
 
   // Count actual skills from the plugins table, joined with marketplaces for display metadata
-  const dbSkillCounts = await db
-    .select({
-      id: marketplaces.id,
-      name: marketplaces.name,
-      displayName: marketplaces.displayName,
-      count: sql<number>`count(*)`,
-    })
-    .from(plugins)
-    .innerJoin(marketplaces, eq(plugins.marketplaceId, marketplaces.id))
-    .where(and(eq(plugins.active, true), eq(plugins.type, 'skill'), eq(marketplaces.active, true)))
-    .groupBy(marketplaces.id, marketplaces.name, marketplaces.displayName)
-    .orderBy(desc(sql`count(*)`))
+  const { data: dbSkillCounts } = await safeDbQuery(
+    () => db
+      .select({
+        id: marketplaces.id,
+        name: marketplaces.name,
+        displayName: marketplaces.displayName,
+        count: sql<number>`count(*)`,
+      })
+      .from(plugins)
+      .innerJoin(marketplaces, eq(plugins.marketplaceId, marketplaces.id))
+      .where(and(eq(plugins.active, true), eq(plugins.type, 'skill'), eq(marketplaces.active, true)))
+      .groupBy(marketplaces.id, marketplaces.name, marketplaces.displayName)
+      .orderBy(desc(sql`count(*)`)),
+    [],
+    'getSkillMarketplaces:joined',
+  )
 
   // Also get skills with marketplaceName but no matching marketplaceId
-  const unmatchedSkills = await db
-    .select({
-      marketplaceName: plugins.marketplaceName,
-      count: sql<number>`count(*)`,
-    })
-    .from(plugins)
-    .where(and(eq(plugins.active, true), eq(plugins.type, 'skill'), sql`${plugins.marketplaceId} IS NULL`))
-    .groupBy(plugins.marketplaceName)
+  const { data: unmatchedSkills } = await safeDbQuery(
+    () => db
+      .select({
+        marketplaceName: plugins.marketplaceName,
+        count: sql<number>`count(*)`,
+      })
+      .from(plugins)
+      .where(and(eq(plugins.active, true), eq(plugins.type, 'skill'), sql`${plugins.marketplaceId} IS NULL`))
+      .groupBy(plugins.marketplaceName),
+    [],
+    'getSkillMarketplaces:unmatched',
+  )
 
   // Start with Build with Claude from local files
   const results: MarketplaceOption[] = [{
@@ -830,22 +867,22 @@ export async function getSkillCategories(): Promise<PluginCategory[]> {
   const categoryCounts: Record<string, number> = {}
 
   // Get categories from database plugins where type='skill'
-  try {
-    const dbCategories = await db
+  const { data: dbSkillCategories } = await safeDbQuery(
+    () => db
       .select({ category: sql<string>`unnest(${plugins.categories})` })
       .from(plugins)
       .where(and(
         eq(plugins.active, true),
         eq(plugins.type, 'skill')
-      ))
+      )),
+    [],
+    'getSkillCategories',
+  )
 
-    for (const row of dbCategories) {
-      if (row.category) {
-        categoryCounts[row.category] = (categoryCounts[row.category] || 0) + 1
-      }
+  for (const row of dbSkillCategories) {
+    if (row.category) {
+      categoryCounts[row.category] = (categoryCounts[row.category] || 0) + 1
     }
-  } catch (e) {
-    console.warn('Error fetching database skill categories:', e)
   }
 
   // Also include local skill categories
@@ -870,15 +907,19 @@ export async function getSkillOnlyCount(): Promise<number> {
   const localCount = localPlugins.filter(p => p.type === 'skill').length
 
   // Count database skills
-  const dbCount = await db
-    .select({ count: sql<number>`count(*)` })
-    .from(plugins)
-    .where(and(
-      eq(plugins.active, true),
-      eq(plugins.type, 'skill')
-    ))
+  const { data: dbSkillCount } = await safeDbQuery(
+    () => db
+      .select({ count: sql<number>`count(*)` })
+      .from(plugins)
+      .where(and(
+        eq(plugins.active, true),
+        eq(plugins.type, 'skill')
+      )),
+    [{ count: 0 }],
+    'getSkillOnlyCount',
+  )
 
-  return localCount + Number(dbCount[0]?.count || 0)
+  return localCount + Number(dbSkillCount[0]?.count || 0)
 }
 
 /**
@@ -928,28 +969,32 @@ export async function getSkillsPaginated(options: {
 
   const whereClause = conditions.length > 0 ? and(...conditions) : undefined
 
-  const [results, countResult] = await Promise.all([
-    db
-      .select({
-        id: skills.id,
-        name: skills.name,
-        slug: skills.slug,
-        description: skills.description,
-        category: skills.category,
-        marketplaceName: skills.marketplaceName,
-        repository: skills.repository,
-      })
-      .from(skills)
-      .where(whereClause)
-      .orderBy(asc(skills.name))
-      .limit(limit)
-      .offset(offset),
+  const { data: [results, countResult] } = await safeDbQuery(
+    () => Promise.all([
+      db
+        .select({
+          id: skills.id,
+          name: skills.name,
+          slug: skills.slug,
+          description: skills.description,
+          category: skills.category,
+          marketplaceName: skills.marketplaceName,
+          repository: skills.repository,
+        })
+        .from(skills)
+        .where(whereClause)
+        .orderBy(asc(skills.name))
+        .limit(limit)
+        .offset(offset),
 
-    db
-      .select({ count: sql<number>`count(*)` })
-      .from(skills)
-      .where(whereClause),
-  ])
+      db
+        .select({ count: sql<number>`count(*)` })
+        .from(skills)
+        .where(whereClause),
+    ]),
+    [[] as any[], [{ count: 0 }]],
+    'getSkillsPaginated',
+  )
 
   const total = Number(countResult[0]?.count || 0)
 
@@ -964,11 +1009,15 @@ export async function getSkillsPaginated(options: {
  * Get plugin by slug or name
  */
 export async function getPluginBySlug(slug: string): Promise<UnifiedPlugin | null> {
-  const result = await db
-    .select()
-    .from(plugins)
-    .where(or(eq(plugins.slug, slug), eq(plugins.name, slug)))
-    .limit(1)
+  const { data: result } = await safeDbQuery(
+    () => db
+      .select()
+      .from(plugins)
+      .where(or(eq(plugins.slug, slug), eq(plugins.name, slug)))
+      .limit(1),
+    [],
+    'getPluginBySlug',
+  )
 
   if (!result.length) return null
 

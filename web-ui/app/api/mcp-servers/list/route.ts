@@ -60,8 +60,8 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error fetching MCP servers:', error)
     return NextResponse.json(
-      { error: 'Failed to fetch MCP servers' },
-      { status: 500 }
+      { servers: [], total: 0, limit, offset, hasMore: false },
+      { status: 200 }
     )
   }
 }

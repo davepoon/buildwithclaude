@@ -1,6 +1,7 @@
 import { db } from '@/lib/db/client'
 import { mcpServers, mcpServerStats } from '@/lib/db/schema'
 import { eq, sql } from 'drizzle-orm'
+import { safeDbQuery } from '@/lib/db/safe-query'
 
 export interface MCPServerIndexResult {
   indexed: number
@@ -141,11 +142,35 @@ export async function syncMCPServerStats(): Promise<StatsSyncResult> {
 
   console.log('Starting MCP server stats sync...')
 
-  // Get all active servers
-  const servers = await db
-    .select()
-    .from(mcpServers)
-    .where(eq(mcpServers.active, true))
+  // Use a minimal column projection so one missing non-critical column
+  // doesn't break the entire scheduled sync run.
+  const { data: servers, fromDb } = await safeDbQuery(
+    () =>
+      db
+        .select({
+          id: mcpServers.id,
+          name: mcpServers.name,
+          sourceRegistry: mcpServers.sourceRegistry,
+          dockerUrl: mcpServers.dockerUrl,
+          githubUrl: mcpServers.githubUrl,
+          githubStars: mcpServers.githubStars,
+          dockerPulls: mcpServers.dockerPulls,
+          npmDownloads: mcpServers.npmDownloads,
+        })
+        .from(mcpServers)
+        .where(eq(mcpServers.active, true)),
+    [],
+    'syncMCPServerStats:loadServers'
+  )
+
+  if (!fromDb) {
+    console.warn('Skipping MCP stats sync because database query failed. This often means the DB schema is behind the app schema.')
+    return {
+      updated: 0,
+      failed: 0,
+      durationMs: Date.now() - startTime,
+    }
+  }
 
   for (const server of servers) {
     try {
