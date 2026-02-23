@@ -1,0 +1,28 @@
+{
+  "name": "agent-triforce",
+  "version": "1.0.0",
+  "description": "Multi-agent development system with three specialized agents (PM, Dev, QA) coordinated through checklist methodology based on The Checklist Manifesto and Boeing's checklist engineering",
+  "author": {
+    "name": "Artemio Padilla",
+    "url": "https://github.com/ArtemioPadilla"
+  },
+  "repository": "https://github.com/ArtemioPadilla/agent-triforce-template",
+  "license": "MIT",
+  "keywords": [
+    "agents",
+    "multi-agent",
+    "workflow-orchestration",
+    "checklist",
+    "pm",
+    "dev",
+    "qa",
+    "prometeo",
+    "forja",
+    "centinela",
+    "feature-spec",
+    "security-audit",
+    "code-health",
+    "release-check",
+    "skills"
+  ]
+}
