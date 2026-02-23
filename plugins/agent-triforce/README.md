@@ -17,7 +17,7 @@ A multi-agent development system with three specialized agents — Prometeo (PM)
 ### Plugin Marketplace (Recommended)
 
 ```
-/plugin marketplace add ArtemioPadilla/agent-triforce-template
+/plugin marketplace add ArtemioPadilla/agent-triforce
 /plugin install agent-triforce@agent-triforce
 ```
 
@@ -27,7 +27,7 @@ Add to your `.claude/settings.json`:
 
 ```json
 {
-  "plugins": ["https://github.com/ArtemioPadilla/agent-triforce-template"]
+  "plugins": ["https://github.com/ArtemioPadilla/agent-triforce"]
 }
 ```
 
@@ -76,7 +76,7 @@ Checklists follow Boorman's design rules:
 
 ## Links
 
-- **Repository**: [github.com/ArtemioPadilla/agent-triforce-template](https://github.com/ArtemioPadilla/agent-triforce-template)
+- **Repository**: [github.com/ArtemioPadilla/agent-triforce](https://github.com/ArtemioPadilla/agent-triforce)
 
 ## License
 
