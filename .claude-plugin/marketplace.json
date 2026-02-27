@@ -25,6 +25,29 @@
   },
   "plugins": [
     {
+      "name": "cashflow",
+      "description": "Personal finance ledger for AI agents. Connect bank accounts via Plaid, query spending, track recurring bills, categorize transactions, and get financial recaps through MCP tools with OAuth authentication.",
+      "version": "0.2.0",
+      "author": {
+        "name": "Adam Messinger",
+        "url": "https://cashflow.tech"
+      },
+      "repository": "https://github.com/cashflow-tech/plugin",
+      "license": "MIT",
+      "keywords": [
+        "finance",
+        "personal-finance",
+        "budgeting",
+        "transactions",
+        "spending",
+        "plaid",
+        "mcp",
+        "oauth"
+      ],
+      "category": "finance",
+      "source": "./plugins/cashflow"
+    },
+    {
       "name": "claude-hud",
       "description": "Real-time statusline HUD for Claude Code - displays context usage, tool activity, agent tracking, and todo progress",
       "version": "1.0.0",

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "cashflow": {
+      "type": "http",
+      "url": "https://cashflow.tech/api/mcp"
+    }
+  }
+}
