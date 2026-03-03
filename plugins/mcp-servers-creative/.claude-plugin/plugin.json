@@ -1,0 +1,21 @@
+{
+  "name": "mcp-servers-creative",
+  "version": "1.0.0",
+  "description": "Turn Claude Code into a visual creative assistant — AI image generation with creative workflow orchestration, prompt engineering, parallel multi-direction output, and 1,300+ curated inspiration library",
+  "author": {
+    "name": "MeiGen",
+    "url": "https://www.meigen.ai"
+  },
+  "repository": "https://github.com/jau123/MeiGen-AI-Design-MCP",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "image-generation",
+    "ai-art",
+    "comfyui",
+    "creative",
+    "design",
+    "prompt-engineering",
+    "meigen"
+  ]
+}
