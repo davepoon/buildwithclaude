@@ -1338,6 +1338,29 @@
       ],
       "category": "skills",
       "source": "./plugins/obsidian-skills"
+    },
+    {
+      "name": "dossier-mcp-server",
+      "description": "MCP server for the dossier automation standard — discover, verify, and execute dossiers (structured automation recipes) from Claude Code",
+      "version": "1.0.4",
+      "author": {
+        "name": "Yuval Dimnik",
+        "email": "yuval.dimnik@gmail.com"
+      },
+      "homepage": "https://github.com/imboard-ai/ai-dossier",
+      "repository": "https://github.com/imboard-ai/ai-dossier",
+      "license": "AGPL-3.0-only",
+      "keywords": [
+        "mcp",
+        "dossier",
+        "automation",
+        "verification",
+        "orchestration",
+        "devops",
+        "infrastructure"
+      ],
+      "category": "mcp-servers",
+      "source": "./plugins/dossier-mcp-server"
     }
   ]
 }
