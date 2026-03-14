@@ -1,0 +1,13 @@
+{
+    "name": "feedoracle-compliance",
+    "version": "1.3.0",
+    "description": "MiCA compliance evidence, stablecoin risk scoring, and tamper-proof audit trail. 27 MCP tools with ES256K-signed responses for regulated tokenized markets.",
+    "author": {
+          "name": "FeedOracle",
+          "url": "https://github.com/feedoracle"
+    },
+    "repository": "https://github.com/feedoracle/feedoracle-compliance",
+    "homepage": "https://feedoracle.io",
+    "license": "MIT-0",
+    "keywords": ["compliance", "mica", "stablecoin", "risk", "audit-trail", "regtech", "mcp"]
+}
