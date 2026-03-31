@@ -216,6 +216,10 @@ Hook implementation...
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
+## Featured Community Plugins
+
+- [pro-workflow](https://github.com/rohitg00/pro-workflow) - Self-correcting memory that learns from corrections across 50+ sessions. 17 skills, 6 agents, 16 commands, 23 hooks. Context engineering, parallel worktrees, agent teams. (1,481 stars)
+
 ## Links
 
 - **Web UI**: [buildwithclaude.com](https://www.buildwithclaude.com)
