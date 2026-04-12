@@ -1,0 +1,20 @@
+{
+  "name": "hooks-safety",
+  "version": "1.0.0",
+  "description": "Essential safety hooks to prevent destructive operations in Claude Code. From cc-safe-setup (655+ hooks).",
+  "author": {
+    "name": "yurukusa",
+    "url": "https://github.com/yurukusa/cc-safe-setup"
+  },
+  "repository": "https://github.com/davepoon/buildwithclaude",
+  "license": "MIT",
+  "keywords": [
+    "hooks",
+    "safety",
+    "rm-protection",
+    "force-push-guard",
+    "credential-leak-guard",
+    "large-file-guard",
+    "root-directory-guard"
+  ]
+}
