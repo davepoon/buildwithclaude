@@ -1,0 +1,19 @@
+{
+  "name": "codex-hud",
+  "owner": {
+    "name": "Haenara Shin"
+  },
+  "metadata": {
+    "description": "Display OpenAI Codex API usage and costs inside Claude Code",
+    "version": "0.4.0"
+  },
+  "plugins": [
+    {
+      "name": "codex-hud",
+      "source": "./",
+      "description": "Track Codex token usage, costs, and rate limits from local session logs and the OpenAI Usage API. Commands: /codex-hud:setup, /codex-hud:usage, /codex-hud:costs, /codex-hud:summary",
+      "category": "monitoring",
+      "tags": ["codex", "openai", "usage", "costs", "monitoring"]
+    }
+  ]
+}
