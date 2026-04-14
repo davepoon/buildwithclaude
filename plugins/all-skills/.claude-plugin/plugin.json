@@ -1,7 +1,7 @@
 {
   "name": "all-skills",
   "version": "1.0.0",
-  "description": "Complete collection of 30 Claude Code skills for document processing, development, business productivity, and creative tasks",
+  "description": "Complete collection of 31 Claude Code skills for document processing, development, business productivity, media safety, and creative tasks",
   "author": {
     "name": "BuildWithClaude Community",
     "url": "https://github.com/davepoon/buildwithclaude"
@@ -38,6 +38,7 @@
     "obsidian-markdown",
     "obsidian-bases",
     "json-canvas",
-    "ios-hig-design-guide"
+    "ios-hig-design-guide",
+    "resemble-detect"
   ]
 }
