@@ -1,0 +1,31 @@
+{
+  "name": "thumbgate",
+  "version": "1.5.0",
+  "description": "Pre-action gates for AI coding agents. Type 👎 on any agent action — ThumbGate captures it, distills a lesson, and blocks the pattern from repeating. 33 pre-action gates, budget enforcement, self-protection, and NIST/SOC2 compliance tags.",
+  "author": {
+    "name": "Igor Ganapolsky",
+    "url": "https://github.com/IgorGanapolsky"
+  },
+  "homepage": "https://thumbgate-production.up.railway.app",
+  "repository": "https://github.com/IgorGanapolsky/ThumbGate",
+  "license": "MIT",
+  "keywords": [
+    "pre-action-gates",
+    "ai-agent-safety",
+    "guardrails",
+    "mcp",
+    "memory",
+    "workflow-hardening",
+    "claude-code",
+    "cursor",
+    "copilot",
+    "destructive-action-prevention"
+  ],
+  "skills": "./skills/",
+  "mcpServers": {
+    "thumbgate": {
+      "command": "npx",
+      "args": ["--yes", "--package", "thumbgate", "thumbgate", "serve"]
+    }
+  }
+}
