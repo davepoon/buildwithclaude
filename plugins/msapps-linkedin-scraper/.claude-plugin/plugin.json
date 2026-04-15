@@ -1,0 +1,13 @@
+{
+  "name": "msapps-linkedin-scraper",
+  "version": "1.0.0",
+  "description": "Scrape LinkedIn profiles and company pages — extract professional data, work history, skills, company info, and recent posts for research and outreach",
+  "author": {
+    "name": "MSApps",
+    "url": "https://github.com/MSApps-Mobile"
+  },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["linkedin", "scraping", "profiles", "companies", "recruiting", "outreach", "research"]
+}

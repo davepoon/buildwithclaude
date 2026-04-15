@@ -1,0 +1,13 @@
+{
+  "name": "msapps-vm-disk-cleanup",
+  "version": "1.0.0",
+  "description": "Fix disk-full errors in Cowork VMs and Claude Code sandboxes — clean caches, temp files, and reclaim space automatically",
+  "author": {
+    "name": "MSApps",
+    "url": "https://github.com/MSApps-Mobile"
+  },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["disk-cleanup", "vm", "cowork", "sandbox", "maintenance", "devops", "space"]
+}

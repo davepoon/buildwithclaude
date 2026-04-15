@@ -1,0 +1,13 @@
+{
+  "name": "msapps-apify-scraper",
+  "version": "1.0.0",
+  "description": "Full Apify web scraping integration — run Actors, manage datasets, key-value stores, schedules, and webhooks for automated data extraction",
+  "author": {
+    "name": "MSApps",
+    "url": "https://github.com/MSApps-Mobile"
+  },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["apify", "scraping", "web-scraping", "data-extraction", "actors", "crawling", "automation"]
+}
