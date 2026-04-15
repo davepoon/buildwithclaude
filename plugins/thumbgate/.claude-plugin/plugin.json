@@ -1,0 +1,13 @@
+{
+  "name": "thumbgate",
+  "version": "1.5.0",
+  "description": "Type 👍 or 👎 on any agent action. ThumbGate captures it, distills a lesson, and blocks the pattern from repeating. 33 pre-action gates, budget enforcement, and prevention rules.",
+  "author": {
+    "name": "Igor Ganapolsky",
+    "url": "https://github.com/IgorGanapolsky"
+  },
+  "repository": "https://github.com/IgorGanapolsky/ThumbGate",
+  "homepage": "https://thumbgate-production.up.railway.app",
+  "license": "MIT",
+  "keywords": ["mcp", "pre-action-gates", "ai-safety", "feedback", "guardrails", "agent-reliability", "prevention-rules"]
+}
