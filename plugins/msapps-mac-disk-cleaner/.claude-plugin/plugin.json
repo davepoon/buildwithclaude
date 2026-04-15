@@ -1,0 +1,10 @@
+{
+  "name": "msapps-mac-disk-cleaner",
+  "version": "1.0.0",
+  "description": "Reclaim disk space on macOS — clean system caches, Xcode derived data, Homebrew leftovers, and find large files",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["macos", "disk-cleanup", "cache", "xcode", "homebrew", "storage", "maintenance"]
+}

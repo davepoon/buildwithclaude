@@ -1,0 +1,10 @@
+{
+  "name": "msapps-gcloud-health-check",
+  "version": "1.0.0",
+  "description": "Google Cloud CLI health check — verify gcloud auth, active project, enabled APIs, billing status, and Cloud Run services",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["gcloud", "gcp", "health-check", "cloud-run", "devops", "monitoring"]
+}

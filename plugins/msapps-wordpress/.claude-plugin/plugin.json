@@ -1,0 +1,10 @@
+{
+  "name": "msapps-wordpress",
+  "version": "1.0.0",
+  "description": "Manage WordPress sites from Claude — create and edit posts, manage users, handle WooCommerce products, and configure settings via REST API",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["wordpress", "cms", "woocommerce", "blog", "posts", "rest-api", "content"]
+}

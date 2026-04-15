@@ -1,0 +1,10 @@
+{
+  "name": "msapps-swift-lsp",
+  "version": "1.0.0",
+  "description": "Swift Language Server Protocol integration — code intelligence, completions, diagnostics, and refactoring for iOS and macOS projects",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["swift", "lsp", "language-server", "ios", "macos", "xcode", "code-intelligence"]
+}

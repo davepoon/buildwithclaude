@@ -1,0 +1,10 @@
+{
+  "name": "msapps-github-health-check",
+  "version": "1.0.0",
+  "description": "GitHub CLI health check — verify gh authentication, list repos, check API rate limits, and test connectivity",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["github", "gh", "health-check", "authentication", "api", "monitoring"]
+}

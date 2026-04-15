@@ -1,0 +1,10 @@
+{
+  "name": "msapps-google-drive-upload",
+  "version": "1.0.0",
+  "description": "Upload any file from Claude directly to Google Drive — unlimited uploads, folder selection, automatic organization",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["google-drive", "upload", "files", "cloud-storage", "backup", "automation"]
+}

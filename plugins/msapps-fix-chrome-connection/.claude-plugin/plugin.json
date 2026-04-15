@@ -1,0 +1,10 @@
+{
+  "name": "msapps-fix-chrome-connection",
+  "version": "1.0.0",
+  "description": "Auto-diagnose and repair broken Chrome MCP connections — fix extension errors, reconnect after account switches, clean stale tabs",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["chrome", "mcp", "connection", "fix", "extension", "debugging", "browser"]
+}
