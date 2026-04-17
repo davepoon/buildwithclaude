@@ -1,7 +1,7 @@
 {
   "name": "project-boundary",
-  "version": "1.0.0",
-  "description": "Security hook that blocks destructive commands and file operations outside the project directory",
+  "version": "1.1.0",
+  "description": "Blocks destructive commands outside the project directory. Allows file operations within the project (refactoring, cleanup) but prevents accidental damage outside it.",
   "author": {
     "name": "Justyna Wojtczak",
     "url": "https://github.com/justi"
@@ -9,10 +9,13 @@
   "repository": "https://github.com/justi/claude-code-project-boundary",
   "license": "MIT",
   "keywords": [
-    "security",
-    "hooks",
     "safety",
-    "guard",
-    "project-boundary"
+    "boundary",
+    "protection",
+    "destructive-commands",
+    "rm",
+    "delete",
+    "project-scope",
+    "dangerously-skip-permissions"
   ]
 }
