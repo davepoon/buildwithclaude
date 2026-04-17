@@ -100,7 +100,7 @@ strip_quotes() {
     p="${p#\'}"
     p="${p%\'}"
   fi
-  echo "$p"
+  printf '%s\n' "$p"
 }
 
 # --- Expand ~ and $HOME in a command argument ---
@@ -121,7 +121,7 @@ expand_path() {
   p="${p/\$HOME/$HOME}"
   # Expand ${HOME}
   p="${p/\$\{HOME\}/$HOME}"
-  echo "$p"
+  printf '%s\n' "$p"
 }
 
 # --- Quote-aware argument tokenizer ---
@@ -159,7 +159,7 @@ tokenize_args() {
   fi
 
   for t in "${tokens[@]}"; do
-    echo "$t"
+    printf '%s\n' "$t"
   done
 }
 
@@ -448,7 +448,7 @@ check_single_command() {
   if echo "$CMD" | grep -qE '^(/bin/)?(sh|bash)[[:space:]]+-'; then
     # Check if all args are flags (start with -), not a script path
     local shell_args
-    shell_args=$(echo "$CMD" | sed -E 's|^(/bin/)?(sh\|bash)[[:space:]]+||')
+    shell_args=$(echo "$CMD" | sed -E 's/^(\/bin\/)?(sh|bash)[[:space:]]+//')
     local has_script=0
     for shell_token in $shell_args; do
       case "$shell_token" in
