@@ -1,0 +1,23 @@
+{
+  "name": "meeting-bots",
+  "description": "Convene a meeting of AI personas (Boss, Pusher, Rookie, Watcher, Cynic) to debate your question. 3 to 10 participants, mix teams (dev, design, product, business, life), add custom personas on the fly.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Karl Certa",
+    "email": "karl.certa@ik.me"
+  },
+  "homepage": "https://github.com/karl-cta/meeting-bots",
+  "repository": "https://github.com/karl-cta/meeting-bots",
+  "license": "MIT",
+  "keywords": [
+    "debate",
+    "multi-agent",
+    "personas",
+    "decision-making",
+    "dev",
+    "design",
+    "product",
+    "business",
+    "life"
+  ]
+}
