@@ -1,0 +1,420 @@
+{
+  "name": "ops",
+  "version": "1.7.0",
+  "description": "Business operations command center for Claude Code \u2014 25 skills, 13 agents, and a smart background daemon that manage communications (WhatsApp/Email/Slack/Telegram), projects, infrastructure (all AWS services), revenue (Stripe + RevenueCat), e-commerce (Shopify), marketing (Klaviyo/Meta/GA4/GSC), monitoring (Datadog/New Relic/OTEL), and voice (Bland AI/ElevenLabs/Whisper). Includes YOLO mode for autonomous operation.",
+  "author": {
+    "name": "Lifecycle Innovations Limited",
+    "url": "https://github.com/Lifecycle-Innovations-Limited"
+  },
+  "homepage": "https://github.com/Lifecycle-Innovations-Limited/claude-ops",
+  "repository": "https://github.com/Lifecycle-Innovations-Limited/claude-ops",
+  "license": "MIT",
+  "keywords": [
+    "business",
+    "operations",
+    "communications",
+    "whatsapp",
+    "email",
+    "slack",
+    "telegram",
+    "linear",
+    "sentry",
+    "infrastructure",
+    "revenue",
+    "yolo",
+    "shopify",
+    "ecommerce",
+    "marketing",
+    "klaviyo",
+    "meta-ads",
+    "ga4",
+    "voice",
+    "bland-ai",
+    "elevenlabs",
+    "whisper",
+    "daemon",
+    "orchestration",
+    "memories",
+    "doppler",
+    "mcp",
+    "1password",
+    "stripe",
+    "revenuecat",
+    "mrr",
+    "aws-monitoring",
+    "shipping",
+    "myparcel",
+    "sendcloud",
+    "dhl",
+    "postnl",
+    "dpd",
+    "ups",
+    "fedex"
+  ],
+  "userConfig": {
+    "telegram_api_id": {
+      "title": "Telegram API ID",
+      "description": "Numeric API ID from https://my.telegram.org/apps. Optional \u2014 run /ops:setup telegram to auto-configure.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "telegram_api_hash": {
+      "title": "Telegram API Hash",
+      "description": "API hash from https://my.telegram.org/apps. Optional \u2014 run /ops:setup telegram to auto-configure.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "telegram_phone": {
+      "title": "Telegram Phone Number",
+      "description": "Your phone number in E.164 format. Optional \u2014 run /ops:setup telegram to auto-configure.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "telegram_session": {
+      "title": "Telegram Session String",
+      "description": "gram.js StringSession. Optional \u2014 run /ops:setup telegram to auto-configure.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "sentry_org": {
+      "title": "Sentry Organization",
+      "description": "Sentry organization slug e.g. 'my-org' (optional)",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    },
+    "linear_team": {
+      "title": "Linear Team Key",
+      "description": "Default Linear team key e.g. 'HEA' (optional)",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    },
+    "aws_region": {
+      "title": "AWS Region",
+      "description": "Default AWS region for infra checks e.g. 'us-east-1' (optional)",
+      "type": "string",
+      "sensitive": false,
+      "default": "us-east-1"
+    },
+    "klaviyo_private_key": {
+      "title": "Klaviyo Private API Key",
+      "description": "Private API key from Klaviyo Settings > API Keys (starts with pk_ or ck_)",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "meta_ads_token": {
+      "title": "Meta Ads Access Token",
+      "description": "Meta Marketing API access token from Facebook Business",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "meta_ad_account_id": {
+      "title": "Meta Ad Account ID",
+      "description": "Ad account ID (format: act_XXXXXXXXX)",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    },
+    "ga4_property_id": {
+      "title": "Google Analytics 4 Property ID",
+      "description": "GA4 property ID (numeric, from Admin > Property Settings)",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    },
+    "google_search_console_site": {
+      "title": "Google Search Console Site URL",
+      "description": "Site URL as registered in Search Console (e.g., https://example.com)",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    },
+    "shopify_store_url": {
+      "title": "Shopify Store URL",
+      "description": "Your Shopify store URL (e.g., mystore.myshopify.com)",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    },
+    "shopify_admin_token": {
+      "title": "Shopify Admin API Token",
+      "description": "Admin API access token from Shopify Partners or custom app",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "shipbob_access_token": {
+      "title": "ShipBob Access Token",
+      "description": "ShipBob Personal Access Token for fulfillment tracking (optional)",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "bland_ai_api_key": {
+      "title": "Bland AI API Key",
+      "description": "API key from https://app.bland.ai \u2014 used for /ops:ops-voice call",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "elevenlabs_api_key": {
+      "title": "ElevenLabs API Key",
+      "description": "API key from https://elevenlabs.io \u2014 used for /ops:ops-voice tts",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "groq_api_key": {
+      "title": "Groq API Key",
+      "description": "API key from https://console.groq.com \u2014 used for /ops:ops-voice transcribe (Whisper)",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "stripe_secret_key": {
+      "title": "Stripe Secret Key",
+      "description": "Stripe secret key (sk_live_... or sk_test_...) for revenue tracking. Prefer Doppler reference.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "revenuecat_api_key": {
+      "title": "RevenueCat API Key",
+      "description": "RevenueCat API key for mobile subscription revenue tracking (V2 API).",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "revenuecat_project_id": {
+      "title": "RevenueCat Project ID",
+      "description": "RevenueCat project ID (from app.revenuecat.com URL)",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    },
+    "datadog_api_key": {
+      "title": "Datadog API Key",
+      "description": "From Datadog Organization Settings > API Keys \u2014 used for /ops:monitor",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "datadog_app_key": {
+      "title": "Datadog Application Key",
+      "description": "From Datadog Organization Settings > Application Keys",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "newrelic_api_key": {
+      "title": "New Relic API Key",
+      "description": "User API Key from one.newrelic.com/api-keys \u2014 used for /ops:monitor",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "newrelic_account_id": {
+      "title": "New Relic Account ID",
+      "description": "Numeric account ID from New Relic admin portal",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    },
+    "otel_endpoint": {
+      "title": "OTEL Backend Endpoint",
+      "description": "Base URL of your OpenTelemetry-compatible backend (e.g., https://otlp.grafana.net)",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    },
+    "telegram_notify_chat_id": {
+      "title": "Telegram Notification Chat ID",
+      "description": "Chat ID to receive fire alerts. Defaults to telegram_phone's DM if unset.",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    },
+    "ntfy_topic": {
+      "title": "ntfy.sh Topic",
+      "description": "Topic name (e.g., claude-ops-fires-<random>) for ntfy.sh pushes. Free, no account required.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "pushover_user_key": {
+      "title": "Pushover User Key",
+      "description": "From https://pushover.net/ \u2014 paired with pushover_app_token.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "pushover_app_token": {
+      "title": "Pushover App Token",
+      "description": "App-specific token from https://pushover.net/apps/build",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "discord_bot_token": {
+      "title": "Discord Bot Token",
+      "description": "Bot token from Discord Developer Portal \u2014 used for channel reads and DMs. Prefer Doppler reference.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "discord_guild_id": {
+      "title": "Discord Guild ID",
+      "description": "Server/guild ID (right-click server in Discord \u2192 Copy ID with Developer Mode enabled)",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    },
+    "discord_default_webhook_url": {
+      "title": "Discord Default Webhook URL",
+      "description": "Optional default webhook URL (https://discord.com/api/webhooks/\u2026) for /ops:comms discord send. Shared with the ops-fires notification sink (which also reads discord_webhook_url).",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "doppler_token": {
+      "title": "Doppler Token",
+      "description": "Doppler service or personal token for the @dopplerhq/mcp-server MCP integration. Generated by /ops:setup or paste manually.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "doppler_project": {
+      "title": "Doppler Default Project",
+      "description": "Default Doppler project slug (e.g. 'my-app'). Used by the Doppler MCP server.",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    },
+    "doppler_config": {
+      "title": "Doppler Default Config",
+      "description": "Default Doppler config name (e.g. 'dev', 'stg', 'prd'). Used by the Doppler MCP server.",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    },
+    "myparcel_api_key": {
+      "title": "MyParcel.nl API Key",
+      "description": "Plain API key from backoffice.myparcel.nl \u2192 Settings \u2192 API. Used by /ops:ops-package. Script base64-encodes it at runtime \u2014 do NOT pre-encode.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "sendcloud_public_key": {
+      "title": "Sendcloud Public Key",
+      "description": "Public key from Sendcloud Panel \u2192 Settings \u2192 Integrations \u2192 Sendcloud API. Paired with sendcloud_private_key.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "sendcloud_private_key": {
+      "title": "Sendcloud Private Key",
+      "description": "Private key from Sendcloud Panel \u2192 Settings \u2192 Integrations \u2192 Sendcloud API. Paired with sendcloud_public_key.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "dhl_parcel_user_id": {
+      "title": "DHL Parcel NL User ID",
+      "description": "User ID issued in My DHL Parcel \u2192 User settings \u2192 API settings. Paired with dhl_parcel_key.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "dhl_parcel_key": {
+      "title": "DHL Parcel NL API Key",
+      "description": "API key from My DHL Parcel \u2192 User settings \u2192 API settings. Paired with dhl_parcel_user_id.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "postnl_api_key": {
+      "title": "PostNL API Key",
+      "description": "apikey from developer.postnl.nl. Required together with postnl_customer_code and postnl_customer_number.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "postnl_customer_code": {
+      "title": "PostNL Customer Code",
+      "description": "Three-letter customer code from your PostNL contract (e.g. DEVC).",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    },
+    "postnl_customer_number": {
+      "title": "PostNL Customer Number",
+      "description": "Eight-digit customer number from your PostNL contract.",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    },
+    "dpd_delis_id": {
+      "title": "DPD DelisID",
+      "description": "DelisID from MyDPD / DPD eSolutions. Paired with dpd_password.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "dpd_password": {
+      "title": "DPD Password",
+      "description": "Password for the DelisID. Exchanged at login for a short-lived token.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "ups_client_id": {
+      "title": "UPS OAuth Client ID",
+      "description": "Client ID from developer.ups.com apps. Paired with ups_client_secret and ups_shipper_number.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "ups_client_secret": {
+      "title": "UPS OAuth Client Secret",
+      "description": "Client secret for the UPS app. Used for OAuth2 client_credentials.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "ups_shipper_number": {
+      "title": "UPS Shipper Number",
+      "description": "Six-character UPS shipper/account number used for billing shipments.",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    },
+    "fedex_client_id": {
+      "title": "FedEx OAuth Client ID",
+      "description": "API Key from developer.fedex.com projects. Paired with fedex_client_secret and fedex_account_number.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "fedex_client_secret": {
+      "title": "FedEx OAuth Client Secret",
+      "description": "Secret Key for the FedEx project. Used for OAuth2 client_credentials.",
+      "type": "string",
+      "sensitive": true,
+      "default": ""
+    },
+    "fedex_account_number": {
+      "title": "FedEx Account Number",
+      "description": "Nine-digit FedEx shipping account number used as the billing party.",
+      "type": "string",
+      "sensitive": false,
+      "default": ""
+    }
+  }
+}

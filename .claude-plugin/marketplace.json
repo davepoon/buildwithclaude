@@ -48,6 +48,36 @@
       "source": "./plugins/cashflow"
     },
     {
+      "name": "claude-ops",
+      "description": "Business operations command center for Claude Code — 30 skills, 14 agents, smart background daemon. Manage communications (WhatsApp/Email/Slack/Telegram), projects, infrastructure (AWS), revenue (Stripe+RevenueCat), e-commerce, marketing, monitoring (Datadog/New Relic/OTEL), and voice. Includes /gtm go-to-market planner, /ops:projects portfolio dashboard, and 4 parallel C-suite agents (YOLO mode).",
+      "version": "1.7.0",
+      "author": {
+        "name": "Lifecycle Innovations Limited",
+        "url": "https://github.com/Lifecycle-Innovations-Limited"
+      },
+      "repository": "https://github.com/Lifecycle-Innovations-Limited/claude-ops",
+      "license": "MIT",
+      "keywords": [
+        "business",
+        "operations",
+        "communications",
+        "whatsapp",
+        "email",
+        "slack",
+        "telegram",
+        "infrastructure",
+        "revenue",
+        "stripe",
+        "monitoring",
+        "datadog",
+        "yolo",
+        "orchestration",
+        "daemon"
+      ],
+      "category": "productivity",
+      "source": "./plugins/claude-ops"
+    },
+    {
       "name": "claude-hud",
       "description": "Real-time statusline HUD for Claude Code - displays context usage, tool activity, agent tracking, and todo progress",
       "version": "1.0.0",
