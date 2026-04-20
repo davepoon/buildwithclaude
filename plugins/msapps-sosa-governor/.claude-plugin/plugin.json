@@ -1,0 +1,10 @@
+{
+  "name": "msapps-sosa-governor",
+  "version": "1.0.0",
+  "description": "SOSA governance engine — enforce supervision policies, trust gradients, and capability boundaries on AI agent actions in real time",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["sosa", "governance", "supervision", "trust", "policy", "agents", "safety"]
+}

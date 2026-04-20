@@ -1,0 +1,13 @@
+{
+  "name": "msapps-apollo",
+  "version": "1.0.0",
+  "description": "Prospect leads and enrich contacts with Apollo.io — search companies, find decision-makers, bulk enrich profiles, and manage outreach campaigns",
+  "author": {
+    "name": "MSApps",
+    "url": "https://github.com/MSApps-Mobile"
+  },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["apollo", "sales", "leads", "prospecting", "enrichment", "crm", "outreach", "b2b"]
+}

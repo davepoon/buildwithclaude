@@ -1,0 +1,10 @@
+{
+  "name": "msapps-kotlin-lsp",
+  "version": "1.0.0",
+  "description": "Kotlin Language Server Protocol integration — code intelligence, completions, diagnostics, and refactoring for Kotlin projects",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["kotlin", "lsp", "language-server", "android", "jvm", "code-intelligence"]
+}

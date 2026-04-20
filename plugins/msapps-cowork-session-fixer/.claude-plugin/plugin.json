@@ -1,0 +1,13 @@
+{
+  "name": "msapps-cowork-session-fixer",
+  "version": "1.0.0",
+  "description": "Fix stuck Cowork sessions — resolve RPC errors, orphaned processes, and connection issues with automated diagnosis and recovery",
+  "author": {
+    "name": "MSApps",
+    "url": "https://github.com/MSApps-Mobile"
+  },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["cowork", "session", "fix", "rpc-error", "recovery", "debugging", "maintenance"]
+}

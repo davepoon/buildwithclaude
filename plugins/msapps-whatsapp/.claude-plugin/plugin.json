@@ -1,0 +1,13 @@
+{
+  "name": "msapps-whatsapp",
+  "version": "1.0.0",
+  "description": "Connect Claude to WhatsApp — search contacts, read conversations, send messages and media files through the WhatsApp Business API",
+  "author": {
+    "name": "MSApps",
+    "url": "https://github.com/MSApps-Mobile"
+  },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["whatsapp", "messaging", "chat", "mcp", "business-api", "contacts", "media"]
+}

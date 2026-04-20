@@ -1,0 +1,10 @@
+{
+  "name": "msapps-youtube-transcriber",
+  "version": "1.0.0",
+  "description": "Transcribe any YouTube video or playlist — no API key required, supports any language, outputs clean formatted text",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["youtube", "transcription", "video", "subtitles", "captions", "multilingual"]
+}

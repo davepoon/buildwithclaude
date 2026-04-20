@@ -1,0 +1,10 @@
+{
+  "name": "msapps-session-backup",
+  "version": "1.0.0",
+  "description": "Daily backups of Claude sessions, skills, and configs to Google Drive — automatic versioning and disaster recovery",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["backup", "google-drive", "sessions", "disaster-recovery", "versioning", "automation"]
+}

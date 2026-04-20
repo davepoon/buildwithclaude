@@ -1,0 +1,10 @@
+{
+  "name": "msapps-token-efficiency-audit",
+  "version": "1.0.0",
+  "description": "Find and fix token waste in Claude plugins and skills — audit descriptions, skill bodies, MCP overhead, and context bloat. Typical savings: 20-50%",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["tokens", "optimization", "audit", "efficiency", "context-window", "cost-reduction"]
+}

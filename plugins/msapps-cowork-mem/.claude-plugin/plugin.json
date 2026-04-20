@@ -1,0 +1,10 @@
+{
+  "name": "msapps-cowork-mem",
+  "version": "1.0.0",
+  "description": "Persistent memory across Cowork sessions — recall decisions, file changes, insights, and errors from previous sessions automatically",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["memory", "persistence", "sessions", "context", "recall", "cowork"]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "msapps-sosa-orchestrator",
+  "version": "1.0.0",
+  "description": "SOSA orchestration layer — coordinate multi-skill workflows with Plan-Act-Verify patterns and structured handoffs between agents",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["sosa", "orchestration", "workflow", "multi-agent", "coordination", "agents"]
+}

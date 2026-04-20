@@ -1,0 +1,10 @@
+{
+  "name": "msapps-zoho-mail-health",
+  "version": "1.0.0",
+  "description": "Zoho Mail health check — verify mail accounts are operational, test send/receive, check DNS records, and monitor deliverability",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["zoho", "email", "health-check", "monitoring", "dns", "deliverability"]
+}

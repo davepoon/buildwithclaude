@@ -1,0 +1,13 @@
+{
+  "name": "msapps-rtl-chat-fixer",
+  "version": "1.0.0",
+  "description": "Fix jumbled RTL/LTR text mixing in Claude responses — proper bidirectional formatting for Hebrew, Arabic, Persian, and Urdu",
+  "author": {
+    "name": "MSApps",
+    "url": "https://github.com/MSApps-Mobile"
+  },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["rtl", "hebrew", "arabic", "persian", "urdu", "bidirectional", "text-formatting", "i18n"]
+}

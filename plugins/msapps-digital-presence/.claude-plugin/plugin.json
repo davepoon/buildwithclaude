@@ -1,0 +1,10 @@
+{
+  "name": "msapps-digital-presence",
+  "version": "1.0.0",
+  "description": "Monitor and manage your digital presence — track brand mentions, social profiles, website uptime, and online reputation across platforms",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["digital-presence", "brand", "monitoring", "social-media", "reputation", "seo"]
+}

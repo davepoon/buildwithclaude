@@ -1,0 +1,10 @@
+{
+  "name": "msapps-x-content-intelligence",
+  "version": "1.0.0",
+  "description": "Scrape X/Twitter for insights and generate content calendars — analyze trends, extract engagement data, and plan social content strategy",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["twitter", "x", "social-media", "content", "analytics", "trends", "calendar"]
+}

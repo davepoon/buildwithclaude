@@ -1,0 +1,10 @@
+{
+  "name": "msapps-notion-memory",
+  "version": "1.0.0",
+  "description": "Long-term memory for Claude via Notion — persist decisions, context, and project state across sessions using Notion databases",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["notion", "memory", "persistence", "sessions", "database", "knowledge-base"]
+}

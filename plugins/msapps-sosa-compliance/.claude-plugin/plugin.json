@@ -1,0 +1,10 @@
+{
+  "name": "msapps-sosa-compliance",
+  "version": "1.0.0",
+  "description": "SOSA compliance auditor — scan plugins and skills against Supervised, Orchestrated, Secured, Agents governance framework",
+  "author": { "name": "MSApps", "url": "https://github.com/MSApps-Mobile" },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["sosa", "compliance", "audit", "governance", "security", "supervision", "agents"]
+}

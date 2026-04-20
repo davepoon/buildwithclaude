@@ -1,0 +1,13 @@
+{
+  "name": "msapps-toggl-time-tracker",
+  "version": "1.0.0",
+  "description": "Track time with Toggl — start and stop timers, log hours to projects, generate weekly reports, and manage time entries from Claude",
+  "author": {
+    "name": "MSApps",
+    "url": "https://github.com/MSApps-Mobile"
+  },
+  "repository": "https://github.com/MSApps-Mobile/claude-plugins",
+  "homepage": "https://msapps.mobi/en/plugins/",
+  "license": "MIT",
+  "keywords": ["toggl", "time-tracking", "timers", "reports", "productivity", "projects", "billing"]
+}
