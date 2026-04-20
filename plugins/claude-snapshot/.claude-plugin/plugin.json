@@ -1,0 +1,23 @@
+{
+  "name": "claude-snapshot",
+  "version": "0.2.0",
+  "description": "Export and apply portable snapshots of your Claude Code setup across machines",
+  "author": {
+    "name": "Rodolfo Moraes",
+    "url": "https://github.com/adhenawer"
+  },
+  "repository": "https://github.com/adhenawer/claude-snapshot",
+  "license": "MIT",
+  "keywords": [
+    "snapshot",
+    "config",
+    "sync",
+    "backup",
+    "setup",
+    "cross-machine",
+    "export",
+    "apply",
+    "diff",
+    "inspect"
+  ]
+}
