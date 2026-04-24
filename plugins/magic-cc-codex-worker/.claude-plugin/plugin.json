@@ -1,0 +1,12 @@
+{
+  "name": "magic-codex",
+  "version": "0.3.3",
+  "description": "Parallel Codex workers inside Claude Code — multi-agent orchestration with git worktree isolation, resumable sessions, and dual-model PR review.",
+  "author": {
+    "name": "Wenqing Yu",
+    "url": "https://github.com/wenqingyu"
+  },
+  "homepage": "https://github.com/wenqingyu/magic-cc-codex-worker",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "keywords": ["codex", "mcp", "agent", "claude-code"]
+}
