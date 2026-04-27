@@ -1,0 +1,7 @@
+[role]
+# model omitted — inherits Codex default.
+sandbox = "read-only"
+approval_policy = "never"
+worktree = false
+timeout_seconds = 900
+developer_instructions = ""

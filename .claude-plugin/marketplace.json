@@ -1433,6 +1433,31 @@
       ],
       "category": "monitoring",
       "source": "./plugins/codex-hud"
+    },
+    {
+      "name": "magic-cc-codex-worker",
+      "description": "Turns OpenAI Codex into a pool of parallel agent workers inside Claude Code. Each worker runs in its own git worktree so parallel edits don't collide. Resumable sessions via Codex's native thread_id, dual-model PR review with materialized detached worktree, and role-based specialization (implementer/reviewer/planner/generic).",
+      "version": "0.3.3",
+      "author": {
+        "name": "Wenqing Yu",
+        "url": "https://github.com/wenqingyu"
+      },
+      "repository": "https://github.com/wenqingyu/magic-cc-codex-worker",
+      "homepage": "https://github.com/wenqingyu/magic-cc-codex-worker",
+      "license": "PolyForm-Noncommercial-1.0.0",
+      "keywords": [
+        "codex",
+        "mcp",
+        "agent",
+        "claude-code",
+        "orchestration",
+        "worktree",
+        "parallel",
+        "multi-agent",
+        "pr-review"
+      ],
+      "category": "orchestration",
+      "source": "./plugins/magic-cc-codex-worker"
     }
   ]
 }
