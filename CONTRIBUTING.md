@@ -29,6 +29,8 @@ Thank you for your interest in contributing to Build with Claude! This guide wil
 
 3. **One purpose per contribution**: Each component should have a single, clear responsibility
 
+4. **Pre-flight your plugin manifest**: Run [`hanko check .`](https://github.com/RoninForge/hanko) on your plugin directory to catch reserved marketplace names (`claude-*`, `anthropic-*`), duplicate hooks declarations, and schema errors before opening a PR. This complements `npm run validate`: Hanko checks the upstream Claude Code plugin schema, the buildwithclaude validators check submission structure.
+
 ## Project Structure
 
 ```
