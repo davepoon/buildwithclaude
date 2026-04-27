@@ -1,0 +1,21 @@
+{
+  "name": "super-init",
+  "version": "0.1.0",
+  "description": "One-command project initialization: code graph, caveman mode, and auto-generated agents tailored to your stack.",
+  "author": {
+    "name": "Ilya A",
+    "url": "https://github.com/apyx-dev"
+  },
+  "license": "MIT",
+  "keywords": ["productivity", "initialization", "agents", "code-graph", "automation",],
+  "commands": "./commands/",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Super Init",
+    "shortDescription": "Project initialization with code graph, caveman, and auto-generated agents.",
+    "longDescription": "Analyzes your project structure, installs code-review-graph for smart context, enables caveman mode for token efficiency, and generates .claude/agents/ with team lead + role-specific agents based on detected tech stack.",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write", "Bash", "Glob", "Grep"],
+    "brandColor": "#10B981"
+  }
+}

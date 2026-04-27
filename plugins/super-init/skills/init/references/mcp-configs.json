@@ -1,0 +1,42 @@
+{
+  "code-review-graph": {
+    "description": "Code knowledge graph for smart context - reduces token usage dramatically",
+    "when": "always",
+    "prerequisites": {
+      "check": "command -v code-review-graph",
+      "install": "pip install code-review-graph && code-review-graph install --platform claude-code -y && code-review-graph build"
+    },
+    "config": {
+      "command": "code-review-graph",
+      "args": ["serve"],
+      "type": "stdio"
+    },
+    "agents": ["lead", "backend", "frontend", "mobile", "devops", "qa"],
+    "tools": [
+      "mcp__code-review-graph__get_minimal_context",
+      "mcp__code-review-graph__query_graph",
+      "mcp__code-review-graph__review_changes"
+    ]
+  },
+  "playwright": {
+    "description": "Browser automation for E2E testing",
+    "when": "qa-agent-created",
+    "prerequisites": {
+      "check": "npx @playwright/mcp@latest --help 2>/dev/null",
+      "install": "npm install -g @playwright/mcp"
+    },
+    "config": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    },
+    "agents": ["qa"],
+    "tools": [
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_fill",
+      "mcp__playwright__browser_select_option",
+      "mcp__playwright__browser_console_messages"
+    ]
+  }
+}
