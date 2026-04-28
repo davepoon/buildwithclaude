@@ -179,10 +179,22 @@ run_write_target_detectors() {
           continue
         fi
       fi
-      # Skip remote paths (user@host:/path or host:/path)
-      if [[ "$TARGET" =~ : ]]; then
-        continue
-      fi
+      # Skip remote rsync paths. Remote syntax requires the `:` to live
+      # in the FIRST path segment (before any `/`):
+      #   host:path           user@host:path
+      #   host::module/path   (daemon form)
+      #   rsync://host/path   (URL form)
+      # A local path may legitimately contain `:` AFTER a slash
+      # (e.g. `../tmp/a:b`); a raw `=~ :` test would skip it and bypass
+      # the boundary check. Reported by Copilot review on PR #137.
+      case "$TARGET" in
+        rsync://*) continue ;;
+      esac
+      _rsync_first_seg="${TARGET%%/*}"
+      case "$_rsync_first_seg" in
+        *:*) continue ;;
+      esac
+      unset _rsync_first_seg
       TARGET=$(expand_path "$TARGET")
       if [[ "$TARGET" != /* ]]; then
         TARGET="$EFFECTIVE_CWD/$TARGET"

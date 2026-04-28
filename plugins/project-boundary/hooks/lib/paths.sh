@@ -117,11 +117,36 @@ expand_path() {
   elif [[ "$p" == "~" ]]; then
     p="$HOME"
   fi
-  # Expand $HOME
-  p="${p/\$HOME/$HOME}"
-  # Expand ${HOME}
-  p="${p/\$\{HOME\}/$HOME}"
-  printf '%s\n' "$p"
+  # Expand $HOME / ${HOME} but NOT when the `$` is backslash-escaped.
+  # Bash treats `\$HOME` as literal "$HOME" — no parameter expansion runs —
+  # so the guard must mirror that or it produces false permits/blocks on
+  # an escaped literal that bash would never expand at exec time.
+  local _out="" _i=0 _n=${#p}
+  while [ $_i -lt $_n ]; do
+    local _c="${p:$_i:1}"
+    if [ "$_c" = "\\" ] && [ $((_i+1)) -lt $_n ]; then
+      # Backslash escape: emit the backslash + next byte verbatim so a
+      # `\$HOME` survives untouched, matching bash's literal handling.
+      _out+="${p:$_i:2}"
+      _i=$((_i+2))
+      continue
+    fi
+    if [ "$_c" = "\$" ]; then
+      if [ "${p:$_i:5}" = "\$HOME" ]; then
+        _out+="$HOME"
+        _i=$((_i+5))
+        continue
+      fi
+      if [ "${p:$_i:7}" = "\${HOME}" ]; then
+        _out+="$HOME"
+        _i=$((_i+7))
+        continue
+      fi
+    fi
+    _out+="$_c"
+    _i=$((_i+1))
+  done
+  printf '%s\n' "$_out"
 }
 
 # --- Check if a resolved path is inside the project directory ---

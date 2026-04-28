@@ -81,7 +81,7 @@ PROJECT_DIR=$(resolve_path "$PROJECT_DIR")
 # so users can inspect/extend without editing the guard logic. See the
 # warning at the top of allowlist.conf — broad entries create bypass risk.
 declare -a ALLOWLIST_PATTERNS=()
-ALLOWLIST_FILE="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}/hooks/allowlist.conf"
+ALLOWLIST_FILE="${CLAUDE_PLUGIN_ROOT:-$(cd "$_GUARD_DIR/.." && pwd)}/hooks/allowlist.conf"
 # Resolve HOME so `~` in patterns matches the canonical form that
 # resolve_path produces for checked paths (handles macOS /var ->
 # /private/var symlink so `~/.claude/**` compares correctly).

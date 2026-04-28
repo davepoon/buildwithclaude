@@ -171,6 +171,12 @@ blank_quoted_heredoc_bodies() {
   # newlines with spaces — needed by split_and_check, which would
   # otherwise treat a newline INSIDE a quoted heredoc body as a
   # command separator and slice the heredoc into pseudo-subcommands.
+  # Build the output as bulk chunks instead of byte-by-byte concat.
+  # The previous inner loop did `out+=" "` once per body byte; on bash
+  # 3.2 (macOS default) that path is O(n²) due to repeated string
+  # reallocation, which slows PreToolUse on large heredocs. Per-range
+  # chunked emit via printf + tr keeps total work O(n). Reported by
+  # Copilot review on PR #137.
   local blank_nl="${2:-preserve}"
   local out="" pos=0 bi=0 nb=${#BS[@]}
   while [ $bi -lt $nb ]; do
@@ -185,16 +191,21 @@ blank_quoted_heredoc_bodies() {
       bs=$((bs-1))
     fi
     if [ $pos -lt $bs ]; then out+="${s:$pos:$((bs-pos))}"; fi
-    local k=0 blen=$((be-bs))
-    while [ $k -lt $blen ]; do
-      local bc="${s:$((bs+k)):1}"
-      if [ "$bc" = $'\n' ] && [ "$blank_nl" != "blank_newlines" ]; then
-        out+=$'\n'
+    local blen=$((be-bs))
+    if [ $blen -gt 0 ]; then
+      local _chunk
+      if [ "$blank_nl" = "blank_newlines" ]; then
+        # Every byte (incl. newlines) collapses to a single space.
+        printf -v _chunk '%*s' "$blen" ''
       else
-        out+=" "
+        # Non-newline bytes → space; newlines preserved at same offsets.
+        # `Z` sentinel guards the trailing-newline strip from $(...) so
+        # a body that ends in `\n` keeps its newline in the result.
+        _chunk=$(printf '%sZ' "${s:$bs:$blen}" | tr -c '\n' ' ')
+        _chunk="${_chunk% }"
       fi
-      k=$((k+1))
-    done
+      out+="$_chunk"
+    fi
     pos=$be; bi=$((bi+1))
   done
   if [ $pos -lt $n ]; then out+="${s:$pos:$((n-pos))}"; fi
