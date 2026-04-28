@@ -54,6 +54,19 @@ Allows destructive operations **within your project** but blocks them **outside*
 - **Path traversal** — `..` segments are resolved before boundary check
 - **`~` and `$HOME` expansion** — `rm ~/file` and `rm $HOME/file` are correctly detected as outside-project
 - **Symlink resolution** — handles macOS `/var` → `/private/var`, dereferences symlink chains in Edit/Write/MultiEdit (fail-closed after 20 hops)
+- **`/dev/null` bit-bucket** — `curl -o /dev/null`, `2>/dev/null`, `tee /dev/null`, `dd of=/dev/null`, and all redirect target forms are allowed so routine probe and silencing workflows don't hit the boundary. Narrow exemption: the discard-only walkers short-circuit *before* `is_write_permitted`; `sed -i /dev/null`, `truncate /dev/null`, and `cp|mv|ln ... /dev/null` remain blocked because each performs a real filesystem write under `/dev/`.
+
+### Path allowlist (`hooks/allowlist.conf`)
+
+Some paths legitimately live outside every project — e.g. Claude Code's auto-memory under `~/.claude/projects/<slug>/memory/`, which needs to persist across projects by design. The allowlist file lets you permit writes to those paths without loosening the project boundary for everything else.
+
+**Format:** one glob pattern per line; `#` starts a comment; `~` expands to `$HOME`; `**` matches across path segments (bash globstar), `*` within a single segment.
+
+**Defaults shipped with the plugin:**
+- `~/.claude/projects/*/memory/**` — Claude Code auto-memory
+
+> [!WARNING]
+> **Do not mass-add entries to the allowlist.** Every entry is an escape hatch from the boundary, and Claude is creative enough to find non-obvious workarounds through allowed paths — for example: symlink-chasing from an allowlisted dir into sensitive files, writing executable content that some other tool later `source`s, or staging payloads in an allowed dir before moving them elsewhere. Widening the allowlist to something like `~/.claude/**` would let Claude overwrite `settings.json` or your shell rc files. Keep entries narrow, purpose-specific, and comment each one with the reason it exists. Prefer asking Claude for explicit per-write permission over adding entries.
 
 ### Known limitations
 
@@ -61,6 +74,30 @@ Allows destructive operations **within your project** but blocks them **outside*
 - Heredoc body contents are not inspected (only the first line of the command, where redirects are handled normally)
 - Brace expansion (`{a,b,c}`) is not enumerated — literal match only
 - `~user/` (home of another user) is not expanded; only `~/` (current user) is handled
+
+### Multiline git commits (`$(cat <<EOF)` is blocked)
+
+The common idiom `git commit -m "$(cat <<'EOF' … EOF)"` is **blocked on purpose** — command substitution `$(…)` is fail-closed because the inner command is not inspectable in the general case (`$(cat && rm /etc/passwd)` looks identical to the parser). Making an exception for one shape of `cat` would just open a new bypass category.
+
+Equivalent patterns that pass the guard:
+
+```bash
+# A) Heredoc piped on stdin — no $(), just a redirect
+git commit -F - <<'EOF'
+Subject line
+
+Body paragraph.
+EOF
+
+# B) Write the message to a file, commit from file
+# (this is what Claude Code falls back to automatically)
+git commit -F .git/COMMIT_EDITMSG_DRAFT
+
+# C) Repeated -m: each flag becomes one paragraph
+git commit -m "Subject line" -m "Body paragraph."
+```
+
+When Claude Code hits the block it will transparently switch to pattern **B** — cost is one extra tool call (Write + Bash instead of single Bash). No user action needed: the plugin registers a `SessionStart` hook that injects a one-line hint into every session, so Claude picks the right workaround on the first try.
 
 ## Install
 

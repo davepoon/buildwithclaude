@@ -5,7 +5,7 @@ category: security
 event: PreToolUse
 matcher: Bash
 language: bash
-version: 1.0.0
+version: 1.8.0
 ---
 
 # project-boundary

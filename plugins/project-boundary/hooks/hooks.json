@@ -1,6 +1,17 @@
 {
   "description": "Blocks file operations outside the project directory",
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat \"${CLAUDE_PLUGIN_ROOT}/hooks/session_hint.md\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash",

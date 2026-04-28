@@ -1372,7 +1372,7 @@
     {
       "name": "project-boundary",
       "description": "Security hook that blocks destructive commands and file operations outside the project directory",
-      "version": "1.0.0",
+      "version": "1.8.0",
       "author": {
         "name": "Justyna Wojtczak",
         "url": "https://github.com/justi"
