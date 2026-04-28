@@ -275,6 +275,26 @@ check_single_command() {
   local CMD_EXPAND_SCAN
   CMD_EXPAND_SCAN=$(blank_quoted_heredoc_bodies "$CMD_RAW")
 
+  # Parallel command-name view: heredoc bodies blanked AND command-name
+  # normalisations re-applied. Used by detectors that match on the live
+  # command-line form (interpreter -c/-e flags, awk system(), etc.) and
+  # would otherwise false-positive on those same patterns sitting inside
+  # a quoted-heredoc body that bash never executes (e.g. a tee/cat
+  # commit-message body that merely *mentions* `awk … system(…)` or
+  # `python -c`). Source MUST be CMD_RAW for the same reason as
+  # CMD_EXPAND_SCAN — the alias-escape pass that strips `\` before a
+  # letter would otherwise downgrade `<<\EOF` to `<<EOF` and re-leak
+  # body bytes into the blanker.
+  local CMD_BLANKED
+  CMD_BLANKED=$(blank_quoted_heredoc_bodies "$CMD_RAW")
+  CMD_BLANKED="$(printf '%s' "$CMD_BLANKED" | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//')"
+  CMD_BLANKED="$(printf '%s' "$CMD_BLANKED" | sed -E 's/(^|[[:space:]])\(+/\1/g; s/\)+($|[[:space:]])/\1/g')"
+  CMD_BLANKED="$(printf '%s' "$CMD_BLANKED" | sed -E 's/\\([a-zA-Z_])/\1/g')"
+  CMD_BLANKED="$(strip_command_name_quotes "$CMD_BLANKED")"
+  CMD_BLANKED="$(printf '%s' "$CMD_BLANKED" | sed -E 's#^/(usr/local/bin|usr/bin|bin|sbin|usr/sbin)/##')"
+  CMD_BLANKED=$(strip_command_name_prefix "$CMD_BLANKED")
+  CMD_BLANKED="$(printf '%s' "$CMD_BLANKED" | sed -E 's/[[:space:]]+/ /g; s/^ //; s/ $//')"
+
   # --- Fail closed on unexpanded $VAR outside single quotes ---
   # `expand_path` only handles ~, $HOME, ${HOME}. Any other $VAR is kept
   # verbatim and then joined under $EFFECTIVE_CWD, so it looks "inside the
@@ -333,47 +353,14 @@ check_single_command() {
     CMD_TOKENS+=("$tok")
   done < <(tokenize_args "$CMD")
 
-  # Parallel token stream built from a heredoc-blanked copy of the
-  # command. Used by detectors that walk tokens looking for a marker
-  # word (sed, truncate, ">"-redirect operator) and would otherwise
-  # pick up heredoc body bytes as if they were live commands.
-  #
-  # Source MUST be CMD_RAW, not CMD: the alias-escape pass that strips
-  # `\` before a letter (so `\rm` → `rm`) also turns `<<\EOF` into
-  # `<<EOF` — i.e. silently downgrades a backslash-escaped (= quoted)
-  # heredoc delimiter to its unquoted twin. blank_quoted_heredoc_bodies
-  # would then see an unquoted heredoc and refuse to blank the body,
-  # re-leaking body bytes into every downstream walker. Blanking BEFORE
-  # the alias-escape strip preserves the heredoc-quoting semantics that
-  # bash itself uses.
-  #
-  # The remaining normalisation passes are then re-applied on the
-  # blanked view so that `\rm`, subshell parens, and `/bin/` prefixes
-  # in the live command-line are still recognised by detectors. Body
-  # bytes are already spaces by this point, so the alias-escape strip
-  # cannot leak through them.
-  local CMD_BLANKED
-  CMD_BLANKED=$(blank_quoted_heredoc_bodies "$CMD_RAW")
-  CMD_BLANKED="$(printf '%s' "$CMD_BLANKED" | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//')"
-  CMD_BLANKED="$(printf '%s' "$CMD_BLANKED" | sed -E 's/(^|[[:space:]])\(+/\1/g; s/\)+($|[[:space:]])/\1/g')"
-  CMD_BLANKED="$(printf '%s' "$CMD_BLANKED" | sed -E 's/\\([a-zA-Z_])/\1/g')"
-  # Strip surrounding quotes from the command-name token — same reason
-  # as for CMD (line ~907). Without this, detectors that walk
-  # CMD_TOKENS_SCAN (sed -i, truncate, redirect-target) miss a quoted
-  # command even after heredoc blanking.
-  CMD_BLANKED="$(strip_command_name_quotes "$CMD_BLANKED")"
-  CMD_BLANKED="$(printf '%s' "$CMD_BLANKED" | sed -E 's#^/(usr/local/bin|usr/bin|bin|sbin|usr/sbin)/##')"
-  # Tokenize-aware /bin/ strip on CMD_BLANKED — MUST match the logic
-  # used on CMD (line 757). The previous broad sed
-  #   s#([^<>|&;[:space:]])[[:space:]]+/(bin|...)/#\1 #g
-  # stripped the prefix from ANY operand whose preceding char was a
-  # regular non-separator (closing quote, letter, digit), rewriting
-  # absolute outside-project targets to bare relative names. Since
-  # CMD_TOKENS_SCAN feeds the sed -i / truncate / redirect walkers,
-  # `sed -i '...' /usr/bin/owned` and `truncate -s 0 /bin/bash` slipped
-  # past the boundary check (Copilot review on commit aa6409b).
-  CMD_BLANKED=$(strip_command_name_prefix "$CMD_BLANKED")
-  CMD_BLANKED="$(printf '%s' "$CMD_BLANKED" | sed -E 's/[[:space:]]+/ /g; s/^ //; s/ $//')"
+  # CMD_TOKENS_SCAN is the parallel token stream built from CMD_BLANKED
+  # (computed above near the top of check_single_command, alongside
+  # CMD_EXPAND_SCAN). Used by detectors that walk tokens looking for a
+  # marker word (sed, truncate, `>`-redirect operator) and would
+  # otherwise pick up heredoc body bytes as if they were live commands.
+  # See the comment on CMD_BLANKED for why the source MUST be CMD_RAW
+  # (alias-escape would silently downgrade `<<\EOF` to its unquoted
+  # twin and re-leak body bytes).
   local -a CMD_TOKENS_SCAN=()
   while IFS= read -r tok; do
     [[ -z "$tok" ]] && continue
@@ -586,8 +573,11 @@ check_single_command() {
   # applies. Flags covered: -c (python), -e (perl/ruby/node), --eval,
   # --execute, -E (perl alias). A dedicated rule catches `awk 'BEGIN{system(
   # "…")}'` and similar because awk programs are the first non-option arg,
-  # not behind a flag — so we detect the `system(` marker in the CMD string.
-  if echo "$CMD" | grep -qE '(^|[[:space:]])(python|python2|python3|perl|ruby|node|nodejs|deno|bun|php|osascript|Rscript)[[:space:]]+(-[a-zA-Z]*[ceE]|--eval|--execute)([[:space:]]|=|$)'; then
+  # not behind a flag — so we detect the `system(` marker in the CMD_BLANKED
+  # view (heredoc bodies stripped) so a tee/cat heredoc whose body merely
+  # mentions `python -c`, `awk … system(…)`, etc. is not false-positively
+  # rejected.
+  if echo "$CMD_BLANKED" | grep -qE '(^|[[:space:]])(python|python2|python3|perl|ruby|node|nodejs|deno|bun|php|osascript|Rscript)[[:space:]]+(-[a-zA-Z]*[ceE]|--eval|--execute)([[:space:]]|=|$)'; then
     echo "BLOCKED: Non-shell interpreter with inline code flag cannot be safely inspected. Ask user for explicit permission." >&2
     exit 2
   fi
@@ -601,12 +591,12 @@ check_single_command() {
   # required a boundary char immediately after the `[rR]`, so
   # `-rsystem('x')` slipped past). Re-reported by Copilot review on
   # commit aa6409b (guard.sh:1068).
-  if echo "$CMD" | grep -qE '(^|[[:space:]])php[[:space:]]+(-[rR][^[:space:]=]*|-[a-zA-Z]*[rR]|--run)([[:space:]]|=|$|'\''|")'; then
+  if echo "$CMD_BLANKED" | grep -qE '(^|[[:space:]])php[[:space:]]+(-[rR][^[:space:]=]*|-[a-zA-Z]*[rR]|--run)([[:space:]]|=|$|'\''|")'; then
     echo "BLOCKED: 'php -r/-R/--run' inline code cannot be safely inspected. Ask user for explicit permission." >&2
     exit 2
   fi
-  if echo "$CMD" | grep -qE '(^|[[:space:]])(g?awk|mawk|nawk)([[:space:]]|$)'; then
-    if echo "$CMD" | grep -qE 'system[[:space:]]*\(|\|[[:space:]]*&?[[:space:]]*"?(sh|bash)'; then
+  if echo "$CMD_BLANKED" | grep -qE '(^|[[:space:]])(g?awk|mawk|nawk)([[:space:]]|$)'; then
+    if echo "$CMD_BLANKED" | grep -qE 'system[[:space:]]*\(|\|[[:space:]]*&?[[:space:]]*"?(sh|bash)'; then
       echo "BLOCKED: awk program with 'system()' / shell pipe cannot be safely inspected. Ask user for explicit permission." >&2
       exit 2
     fi
