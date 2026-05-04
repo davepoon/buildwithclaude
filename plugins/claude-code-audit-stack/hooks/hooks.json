@@ -1,0 +1,17 @@
+{
+  "description": "Auto-prompt claim-auditor whenever a *.report.md file is written or edited. Catches probability-stacking and percentage-vs-percentage-points errors before they shape decisions.",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r 'if ((.tool_input.file_path // \"\") | endswith(\".report.md\")) then \"<system-reminder>A report file was just written or edited at \\(.tool_input.file_path). Before relying on its quantitative claims (probabilities, EV, pass-rates, tail estimates), invoke the claim-auditor subagent against it: Agent(subagent_type=\\\\\\\"claim-auditor\\\\\\\", prompt=\\\\\\\"Audit \\(.tool_input.file_path) at P2 severity floor\\\\\\\"). This catches the math errors that have repeatedly slipped past autonomous research agents (e.g., probability stacking with N×p instead of 1−(1−p)^N, N×worst tail-stacking, conditional vs marginal pass-rate confusion). If the report is purely qualitative or a deploy log, the auditor will return clean — but always check.</system-reminder>\" else empty end' 2>/dev/null || true",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

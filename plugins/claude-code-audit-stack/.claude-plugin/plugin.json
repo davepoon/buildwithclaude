@@ -1,0 +1,23 @@
+{
+  "name": "claude-code-audit-stack",
+  "version": "1.0.0",
+  "description": "Adversarial verification primitives for Claude Code: catches silent skipped restarts, probability-stacking errors in reports, and lost-PID daemon spawns on remote hosts.",
+  "author": {
+    "name": "LaterKidsXD",
+    "url": "https://github.com/LaterKidsXD"
+  },
+  "repository": "https://github.com/LaterKidsXD/claude-code-audit-stack",
+  "license": "MIT",
+  "keywords": [
+    "verification",
+    "audit",
+    "deployment",
+    "devops",
+    "systemd",
+    "quantitative",
+    "trading",
+    "remote-execution",
+    "subagent",
+    "hooks"
+  ]
+}
