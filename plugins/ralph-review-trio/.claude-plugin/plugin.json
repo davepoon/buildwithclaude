@@ -1,0 +1,12 @@
+{
+  "name": "ralph-review-trio",
+  "version": "0.2.0",
+  "description": "Sequential three-tier code review (Haiku surface → Sonnet logic → Opus deep), restart-on-fail. Battle-tested across hundreds of solo issues.",
+  "author": {
+    "name": "hoiung",
+    "url": "https://github.com/hoiung"
+  },
+  "repository": "https://github.com/hoiung/sst3-skills.git",
+  "keywords": ["code-review", "ralph", "claude-code", "multi-model", "sst3"],
+  "license": "MIT"
+}
