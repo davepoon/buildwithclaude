@@ -1,185 +1,105 @@
 # GSD Plugin -- Get Shit Done for Claude Code
 
-**Based on:** [GSD 1.33.0](https://github.com/gsd-build/get-shit-done/releases/tag/v1.33.0) base tree by **TACHES** (Lex Christopherson)
+**Based on:** [GSD 1.41.0](https://github.com/gsd-build/get-shit-done/releases/tag/v1.41.0) base tree by **TACHES** (Lex Christopherson)
 
-A performance-optimized plugin packaging of [GSD](https://github.com/gsd-build/get-shit-done) for Claude Code. Reduces per-turn token overhead by ~92%, adds MCP-backed project state, and bundles everything into a single-install plugin.
+**Plugin version:** `2.42.1`
 
-This project repackages the GSD workflow system as a native Claude Code plugin with additional optimizations: skill isolation via `context: fork`, structured MCP tools replacing prompt injection, and cross-session memory via memdir.
+A performance-optimized plugin packaging of [GSD](https://github.com/gsd-build/get-shit-done) for Claude Code. Skills load on demand instead of via prose-bloated CLAUDE.md, adds an MCP-backed project state surface, auto-resumes across `/compact`, and bundles everything (including the GSD SDK as of v2.42.0) into a single-install plugin with no external prerequisites.
 
 ## Installation
 
-```bash
-# Step 1: Add the marketplace
-claude plugin marketplace add jnuyens/gsd-plugin
+GSD Plugin installs *inside* a Claude Code session, not from your host shell. Three commands at the Claude Code prompt:
 
-# Step 2: Install the plugin
-claude plugin install gsd@gsd-plugin
+```
+/plugin marketplace add jnuyens/gsd-plugin
+/plugin install gsd@gsd-plugin
+/reload-plugins
 ```
 
-That's it. This installs everything: slash commands, agent definitions, hooks, and an MCP server for project state. No manual configuration required. Enable auto-update for the marketplace in Claude Code settings to receive updates automatically.
+That's it. No `npm install`, no `gsd-sdk` global. Slash commands, agent definitions, hooks, and the MCP server all activate after `/reload-plugins`.
+
+> First-time-on-this-machine note: `/plugin marketplace add` clones over SSH, so prime GitHub's host key once with `ssh -T git@github.com` from your shell before running the install commands.
 
 ## What GSD Plugin provides
 
-- **60 slash commands** (`/gsd:*`) for project planning, execution, debugging, and verification
-- **21 agent definitions** for specialized workflow roles (planner, executor, researcher, verifier, etc.)
+- **83 slash commands** (`/gsd:*`) for project planning, execution, debugging, and verification
+- **33 agent definitions** for specialized workflow roles (planner, executor, researcher, verifier, debugger, UI auditor, etc.)
 - **MCP server** exposing project state as queryable resources and mutation tools
-- **Hooks** for session-start context loading, workflow enforcement, and tool-use monitoring
-- **Templates and references** for planning artifacts, summaries, and verification checklists
-- **Memory integration** -- phase outcomes persist across sessions via Claude Code's memdir
+- **Bundled GSD SDK** (v2.42.0+) — the plugin ships its own `gsd-sdk` binary, no `get-shit-done-cc` global install required
+- **Hooks** for session-start context loading, workflow enforcement, checkpoint on compact, tool-use monitoring, and rate-limit fallback hints
+- **Auto-resume across `/compact`** — PreCompact hook writes `.planning/HANDOFF.json`; on the next session, SessionStart auto-invokes `/gsd:resume-work` so Claude continues at the same phase/plan/task with zero manual intervention
+- **Templates and references** for planning artifacts, summaries, verification checklists, and MVP-mode (vertical-slice planning + TDD execution + UAT verification)
+- **Memory integration** — phase outcomes persist across sessions via Claude Code's memdir
 
 ## What changed from upstream GSD
 
 | Aspect | Upstream GSD | This plugin |
-|--------|-------------|-------------|
-| Install | `npx get-shit-done-cc` | `claude plugin marketplace add jnuyens/gsd-plugin && claude plugin install gsd@gsd-plugin` |
-| Context overhead | ~3,000-5,000 tokens/turn via CLAUDE.md | ~200 tokens (92% reduction) |
+|--------|--------------|-------------|
+| Install | `npx get-shit-done-cc` | `/plugin marketplace add jnuyens/gsd-plugin && /plugin install gsd@gsd-plugin` (inside Claude Code) |
+| External prerequisites | `node`, `npm`, `get-shit-done-cc` global package | None (SDK bundled inside the plugin since v2.42.0) |
+| Context overhead | ~3,000-5,000 tokens/turn via CLAUDE.md | ~200 tokens (~92% reduction at idle) |
 | Skill isolation | Inline execution | `context: fork` sub-agent isolation |
-| State access | BashTool roundtrips to gsd-tools | MCP resources + tools |
+| State access | BashTool roundtrips to gsd-tools | MCP resources + tools (with stdio ndjson framing fixed in v2.40.2) |
 | Memory | None | memdir auto-recall across sessions |
+| Auto-resume | Manual restart after `/compact` | PreCompact + SessionStart hooks restore position automatically |
 | Agent definitions | Inline prompt role descriptions | `.claude/agents/*.md` with typed frontmatter |
 
 ## Quick start
 
-1. Install: `claude plugin marketplace add jnuyens/gsd-plugin && claude plugin install gsd@gsd-plugin`
-2. Start a new project: `/gsd:new-project`
-3. Plan your first phase: `/gsd:plan-phase`
-4. Execute: `/gsd:execute-phase`
-5. Verify: `/gsd:verify-work`
+After install:
 
-## Testing without affecting your current GSD install
+1. Start a new project: `/gsd:new-project`
+2. Plan your first phase: `/gsd:plan-phase`
+3. Execute: `/gsd:execute-phase`
+4. Verify: `/gsd:verify-work`
 
-If you already have GSD installed (via `npx get-shit-done-cc` or `~/.claude/get-shit-done/`), you can test this plugin version safely in an isolated environment.
-
-Test the plugin from a fresh project directory without touching your existing install:
-
-```bash
-# 1. Clone this repo somewhere
-git clone https://github.com/jnuyens/gsd-plugin.git ~/src/gsd-plugin
-
-# 2. Move the legacy install out of the way (prevents duplicate commands)
-mv ~/.claude/get-shit-done ~/.claude/get-shit-done-legacy
-
-# 3. Create a throwaway test project
-mkdir ~/test-gsd-plugin && cd ~/test-gsd-plugin
-git init
-
-# 4. Launch Claude Code with the plugin root override
-CLAUDE_PLUGIN_ROOT=~/src/gsd-plugin claude --dangerously-skip-permissions
-
-# 5. Inside the session, only plugin GSD commands are active
-```
-
-To restore your legacy install after testing:
-
-```bash
-mv ~/.claude/get-shit-done-legacy ~/.claude/get-shit-done
-```
-
-The `CLAUDE_PLUGIN_ROOT` env var tells the plugin's `bin/lib/core.cjs` to resolve all paths from the specified directory instead of the default plugin cache.
-
-### What to verify
-
-After launching with the plugin:
-
-1. `/gsd:help` -- lists all 60 commands
-2. `/gsd:progress` -- shows project state (or prompts to create one)
-3. `/gsd:new-project` -- full project initialization flow
-4. Check MCP resources are available (the GSD MCP server should auto-start via plugin manifest)
-
-### Rolling back
-
-To revert to upstream GSD after testing:
-
-```bash
-# Remove the plugin
-claude plugin uninstall gsd
-
-# Your legacy ~/.claude/get-shit-done/ is still in place and working
-```
+For an MVP-style vertical slice with TDD execution and UAT verification: `/gsd:mvp-phase`.
 
 ## Updating
 
-Enable auto-update for the marketplace in Claude Code settings and updates will be applied automatically at startup. For manual updates:
+Enable auto-update for the marketplace in Claude Code settings and updates apply automatically at startup. For manual updates, type at the Claude Code prompt:
 
-```bash
-# Step 1: Pull the latest marketplace catalog from GitHub
-claude plugin marketplace update gsd-plugin
-
-# Step 2: Reinstall the plugin to pick up the new version
-claude plugin install gsd@gsd-plugin
+```
+/plugin marketplace update gsd-plugin
+/plugin install gsd@gsd-plugin
+/reload-plugins
 ```
 
-Note: Step 1 refreshes the marketplace index but does not upgrade the installed plugin. Step 2 is needed to install the new version.
+Note: Step 1 refreshes the marketplace index but does not upgrade the installed plugin. Step 2 installs the new version on disk; Step 3 makes Claude Code pick it up without restarting.
 
 ## Migrating from legacy install
 
-If you previously installed GSD via `get-shit-done-cc` or manual setup, most migration happens automatically.
+If you previously installed GSD via `get-shit-done-cc` or manual setup, most migration happens automatically on your first session after installing the plugin: legacy `~/.claude/get-shit-done/` is moved to `~/.claude/get-shit-done-legacy/`, legacy MCP server / hook / command / skill / agent entries are removed, and the plugin's own copies take over. You'll see a migration summary in the session output.
 
-### What happens automatically
-
-On your first session after installing the plugin, GSD auto-migrates:
-
-- **Moves** `~/.claude/get-shit-done/` to `~/.claude/get-shit-done-legacy/` (safe backup, not deleted)
-- **Moves** `~/.claude/commands/gsd/` to `~/.claude/commands/gsd-legacy/` (prevents duplicate slash commands)
-- **Removes** legacy GSD skill directories (`gsd-*`) from `~/.claude/skills/`
-- **Removes** legacy GSD agent files (`gsd-*.md`) from `~/.claude/agents/`
-- **Removes** legacy GSD MCP server entries from your project's `.mcp.json`
-- **Removes** legacy GSD hook entries from `~/.claude/settings.json`
-- **Removes** legacy hook scripts (`gsd-check-update.js`, `gsd-context-monitor.js`, `gsd-prompt-guard.js`, `gsd-statusline.js`) from `~/.claude/hooks/`
-
-You'll see a summary of what was migrated in the session output.
-
-### What you still need to do manually
-
-#### 1. Install the plugin
+After confirming the plugin works:
 
 ```bash
-claude plugin marketplace add jnuyens/gsd-plugin
-claude plugin install gsd@gsd-plugin
-```
-
-#### 2. Uninstall `get-shit-done-cc` npm package (if installed)
-
-```bash
+# Now safe as of v2.42.0 -- the plugin bundles the SDK
 npm uninstall -g get-shit-done-cc
-```
 
-#### 3. Stop using `/gsd:update`
-
-The `/gsd:update` command is deprecated. Use `claude plugin marketplace update gsd-plugin` to update.
-
-#### 4. Clean up the backup (optional, after verifying the plugin works)
-
-```bash
+# Optional: drop the backup once you're confident
 rm -rf ~/.claude/get-shit-done-legacy/
 ```
 
-### Manual migration audit
+> **Earlier note:** versions ≤ v2.41.0 told users to uninstall `get-shit-done-cc` while the plugin still needed its `gsd-sdk` binary, which silently broke every `/gsd:*` command (issue #4 reported by @ThomasHezard, confirmed by @herman925). v2.41.1 corrected the README; v2.42.0+ removed the prerequisite entirely by bundling the SDK.
 
-To check for any remaining legacy artifacts:
+The `/gsd:update` command is deprecated. Use `/plugin marketplace update gsd-plugin` to update.
 
-```bash
-node bin/gsd-tools.cjs migrate
-```
+## Recent improvements
 
-This prints all legacy GSD artifacts found on your system. To remove them (with confirmation):
+A few user-visible fixes shipped since the original v1.33.0 catalog entry:
 
-```bash
-node bin/gsd-tools.cjs migrate --clean
-```
-
-### Verifying migration
-
-After migration, verify the plugin is active:
-
-1. Start a new Claude Code session
-2. Run `/gsd:help` -- should list all commands
-3. Check that MCP resources are available (the GSD MCP server should auto-start)
+- **v2.42.0–v2.42.1** — Bundled SDK; `/plugin install gsd@gsd-plugin` is now the only install step, no `npm install -g` of anything required ([#4](https://github.com/jnuyens/gsd-plugin/issues/4))
+- **v2.41.0** — Upstream sync to GSD 1.41.0; new `/gsd:mvp-phase` workflow + 8 MVP/SPIDR/user-story references; new workflows for `/gsd:add-backlog`, `/gsd:debug`, `/gsd:thread`
+- **v2.40.2** — MCP stdio transport switched to ndjson framing; `claude mcp list` now reports `gsd: ✓ Connected` and the eight `gsd_*` MCP tools are reachable ([#3](https://github.com/jnuyens/gsd-plugin/issues/3))
+- **v2.40.1** — Suppressed false-positive "subagents not installed" warning for plugin users
+- **CI hardening** — every release now runs an install-smoke test in a clean `debian:trixie` container that catches "works on my laptop, broken on a fresh install" failures before they ship
 
 ## Credits
 
-- **[GSD (Get Shit Done)](https://github.com/gsd-build/get-shit-done)** by TACHES (Lex Christopherson) -- the original workflow framework this plugin is based on
-- Plugin packaging, MCP integration, token optimization, and memory system by Jasper Nuyens
+- **[GSD (Get Shit Done)](https://github.com/gsd-build/get-shit-done)** by TACHES (Lex Christopherson) — the original workflow framework this plugin is based on
+- Plugin packaging, MCP integration, token optimization, bundled SDK, and memory system by Jasper Nuyens
+- Community contributors (issues + patches): @Sovereigntymind, @jesse-smith (#3); @ThomasHezard, @herman925 (#4)
 
 ## License
 

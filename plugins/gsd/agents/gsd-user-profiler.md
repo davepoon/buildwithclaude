@@ -3,7 +3,6 @@ name: gsd-user-profiler
 description: Analyzes extracted session messages across 8 behavioral dimensions to produce a scored developer profile with confidence levels and evidence. Spawned by profile orchestration workflows.
 tools: Read
 color: magenta
-maxTurns: 20
 ---
 
 <role>
@@ -39,7 +38,7 @@ Key characteristics of the input:
 </input>
 
 <reference>
-@$HOME/.claude/get-shit-done/references/user-profiling.md
+@${CLAUDE_PLUGIN_ROOT}/references/user-profiling.md
 
 This is the detection heuristics rubric. Read it in full before analyzing any messages. It defines:
 - The 8 dimensions and their rating spectrums
@@ -53,7 +52,7 @@ This is the detection heuristics rubric. Read it in full before analyzing any me
 <process>
 
 <step name="load_rubric">
-Read the user-profiling reference document at `$HOME/.claude/get-shit-done/references/user-profiling.md` to load:
+Read the user-profiling reference document at `~/.claude/get-shit-done/references/user-profiling.md` to load:
 - All 8 dimension definitions with rating spectrums
 - Signal patterns and detection heuristics per dimension
 - Confidence scoring thresholds (HIGH: 10+ signals across 2+ projects, MEDIUM: 5-9, LOW: <5, UNSCORED: 0)

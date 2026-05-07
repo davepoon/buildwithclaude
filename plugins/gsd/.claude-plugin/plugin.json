@@ -1,6 +1,6 @@
 {
   "name": "gsd",
-  "version": "1.33.0",
+  "version": "2.42.1",
   "description": "Get Shit Done -- a structured workflow plugin for Claude Code that adds planning, execution, and verification commands with MCP-backed project state",
   "author": {
     "name": "Jasper Nuyens"
@@ -17,7 +17,7 @@
   "mcpServers": {
     "gsd": {
       "type": "stdio",
-      "command": "/usr/local/bin/node",
+      "command": "node",
       "args": ["${CLAUDE_PLUGIN_ROOT}/mcp/server.cjs"]
     }
   }
