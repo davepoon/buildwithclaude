@@ -1,5 +1,5 @@
 ---
-name: ops-daemon-manager
+name: daemon-agent
 description: Manages the ops background daemon — start, stop, restart services, check health
 model: claude-sonnet-4-6
 effort: low
