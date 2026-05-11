@@ -1,0 +1,16 @@
+{
+  "name": "archcore-plugins",
+  "owner": {
+    "name": "Archcore"
+  },
+  "metadata": {
+    "description": "Archcore plugins for AI coding agents"
+  },
+  "plugins": [
+    {
+      "name": "archcore",
+      "source": "./",
+      "description": "Make your AI agent code with your project's architecture, rules, and decisions."
+    }
+  ]
+}

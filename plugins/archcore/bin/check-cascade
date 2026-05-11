@@ -1,0 +1,64 @@
+#!/bin/sh
+# PostToolUse cascade check: detect documents that may be stale after update_document.
+# Reads relation graph from .sync-state.json and finds documents that
+# implements/depends_on/extends the updated document.
+# Uses normalized stdin — works across Claude Code, Cursor, and other hosts.
+# Output: via archcore_hook_info or empty. Always exits 0.
+
+SCRIPT_DIR=$(dirname "$0")
+# shellcheck source=lib/normalize-stdin.sh
+. "$SCRIPT_DIR/lib/normalize-stdin.sh"
+
+# Use doc path from normalized stdin
+[ -z "$ARCHCORE_DOC_PATH" ] && exit 0
+
+# Normalize: strip .archcore/ prefix if present
+DOC_REL=$(printf '%s' "$ARCHCORE_DOC_PATH" | sed 's|^\.archcore/||')
+
+# Read sync-state.json for relations
+SYNC_STATE=".archcore/.sync-state.json"
+[ -f "$SYNC_STATE" ] || exit 0
+
+# Find relations where target matches the updated document
+# and type is implements, depends_on, or extends
+# These are documents that depend on the updated doc and may be stale
+
+# Parse relations from sync-state.json (may be pretty-printed or compact).
+# Compact whitespace first, then extract relation triples.
+COMPACT=$(tr -d '\n\r' < "$SYNC_STATE" | sed 's/[[:space:]]*:[[:space:]]*/:/g; s/[[:space:]]*,[[:space:]]*/,/g')
+RELATIONS=$(printf '%s' "$COMPACT" | grep -o '"source":"[^"]*","target":"[^"]*","type":"[^"]*"' 2>/dev/null || true)
+
+[ -z "$RELATIONS" ] && exit 0
+
+printf '%s\n' "$RELATIONS" | while IFS= read -r REL; do
+  # Extract target
+  TARGET=$(printf '%s' "$REL" | grep -o '"target"[[:space:]]*:[[:space:]]*"[^"]*"' | sed 's/.*"target"[[:space:]]*:[[:space:]]*"//;s/"$//')
+  [ "$TARGET" = "$DOC_REL" ] || continue
+
+  # Extract type
+  TYPE=$(printf '%s' "$REL" | grep -o '"type"[[:space:]]*:[[:space:]]*"[^"]*"' | sed 's/.*"type"[[:space:]]*:[[:space:]]*"//;s/"$//')
+
+  # Only cascade-relevant relation types
+  case "$TYPE" in
+    implements|depends_on|extends) ;;
+    *) continue ;;
+  esac
+
+  # Extract source (the potentially stale document)
+  SOURCE=$(printf '%s' "$REL" | grep -o '"source"[[:space:]]*:[[:space:]]*"[^"]*"' | sed 's/.*"source"[[:space:]]*:[[:space:]]*"//;s/"$//')
+
+  printf '  → %s (%s this document)\n' "$SOURCE" "$TYPE"
+done > /tmp/archcore_cascade_$$ 2>/dev/null
+
+AFFECTED=$(cat /tmp/archcore_cascade_$$ 2>/dev/null)
+rm -f /tmp/archcore_cascade_$$ 2>/dev/null
+
+[ -z "$AFFECTED" ] && exit 0
+
+# Build output via normalized helper
+DOC_SHORT=$(printf '%s' "$DOC_REL" | sed 's|.*/||; s|\..*\.md$||; s|-| |g')
+AFFECTED_LINES=$(printf '%s' "$AFFECTED" | tr '\n' ' ')
+
+archcore_hook_info "[Archcore Cascade] Updated \"${DOC_SHORT}\". Documents that may need review: ${AFFECTED_LINES}Run /archcore:actualize for detailed analysis."
+
+exit 0

@@ -1,0 +1,55 @@
+{
+  "name": "archcore",
+  "description": "Make your AI agent code with your project's architecture, rules, and decisions.",
+  "version": "0.3.14",
+  "author": {
+    "name": "Archcore"
+  },
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/archcore-ai/plugin",
+  "repository": "https://github.com/archcore-ai/plugin",
+  "keywords": [
+    "codex",
+    "codex-cli",
+    "agents-md",
+    "mcp",
+    "ai-agents",
+    "ai-coding",
+    "context",
+    "context-engineering",
+    "architecture",
+    "adr",
+    "knowledge-management",
+    "rules",
+    "decisions",
+    "conventions",
+    "git-native",
+    "skills",
+    "subagents",
+    "spec-driven",
+    "documentation",
+    "memory",
+    "specs"
+  ],
+  "skills": "./skills/",
+  "hooks": "./hooks/codex.hooks.json",
+  "mcpServers": "./.codex.mcp.json",
+  "interface": {
+    "displayName": "Archcore",
+    "shortDescription": "Keep Codex aligned with project decisions and architecture.",
+    "longDescription": "Archcore brings project architecture, decisions, rules, and requirements into Codex through skills, hooks, MCP tools, and documentation-focused agents.",
+    "developerName": "Archcore",
+    "category": "Coding",
+    "capabilities": ["Interactive", "Read", "Write"],
+    "websiteURL": "https://github.com/archcore-ai/plugin",
+    "privacyPolicyURL": "https://github.com/archcore-ai/plugin",
+    "termsOfServiceURL": "https://github.com/archcore-ai/plugin",
+    "defaultPrompt": [
+      "Review this work against Archcore docs",
+      "Create an Archcore plan for this change",
+      "Check whether source edits need doc updates"
+    ],
+    "brandColor": "#2563EB",
+    "screenshots": []
+  }
+}

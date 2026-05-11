@@ -1,0 +1,29 @@
+---
+description: Archcore knowledge base context — document types, MCP tools, and conventions for working with .archcore/ documents
+alwaysApply: true
+---
+
+# Archcore — Git-native context for AI coding agents
+
+You have Archcore MCP tools available for managing the `.archcore/` knowledge base.
+
+## MCP Tools
+
+- `list_documents` — query documents by type, status, category, tags
+- `get_document` — read full content + metadata + relations
+- `create_document` — create new document with validation and templating
+- `update_document` — modify existing document
+- `remove_document` — delete document and clean up relations
+- `add_relation` — link two documents (related, implements, extends, depends_on)
+- `remove_relation` — unlink documents
+- `list_relations` — query the relation graph
+
+## Document Types
+
+**Knowledge:** adr (decisions), rfc (proposals), rule (standards), guide (how-tos), doc (reference), spec (contracts)
+**Vision:** prd (requirements), idea (concepts), plan (action plans), mrd, brd, urd, brs, strs, syrs, srs
+**Experience:** task-type (recurring patterns), cpat (code pattern changes)
+
+## Critical Rule
+
+All `.archcore/` document operations MUST go through MCP tools. Never write directly to `.archcore/*.md` files — use `create_document`, `update_document`, or `remove_document` instead. This ensures validation, templates, and the sync manifest stay consistent.

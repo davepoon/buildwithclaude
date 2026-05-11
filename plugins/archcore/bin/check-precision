@@ -1,0 +1,144 @@
+#!/bin/sh
+# PostToolUse hook: emit precision-check warnings for newly created or updated
+# .archcore/ documents. Soft mode — always exits 0, never blocks.
+#
+# Phase 1 of the Precision Initiative (see precision-over-coverage.adr.md).
+# Findings are surfaced via archcore_hook_info as additionalContext so the
+# authoring LLM can choose to revise. Pre-existing documents are unaffected;
+# warnings reflect the state of the document just written.
+#
+# Checks:
+#   1. Forbidden vagueness lexicon (precision-rules.rule.md)
+#   2. Mandatory sections by document type
+#   3. Frontmatter title and status presence
+#   4. Body length above placeholder threshold
+#   5. No cross-document body references to other .archcore/ documents
+#      (precision-rules.rule.md Rule 5 — relations belong in the graph)
+
+SCRIPT_DIR=$(dirname "$0")
+# shellcheck source=lib/normalize-stdin.sh
+. "$SCRIPT_DIR/lib/normalize-stdin.sh"
+
+# --- Filter: only run on document-mutation MCP tools ---
+case "$ARCHCORE_TOOL_NAME" in
+  mcp__archcore__create_document|mcp__archcore__update_document)
+    ;;
+  *)
+    exit 0
+    ;;
+esac
+
+# --- Resolve document path on disk ---
+if [ -z "$ARCHCORE_DOC_PATH" ]; then
+  exit 0
+fi
+
+DOC_FILE="$ARCHCORE_DOC_PATH"
+case "$ARCHCORE_DOC_PATH" in
+  .archcore/*) ;;
+  *) DOC_FILE=".archcore/$ARCHCORE_DOC_PATH" ;;
+esac
+
+[ -f "$DOC_FILE" ] || exit 0
+
+# --- Detect document type from filename pattern slug.<type>.md ---
+DOC_TYPE=$(basename "$DOC_FILE" | sed -n 's/.*\.\([a-z][a-z-]*\)\.md$/\1/p')
+
+# --- Split frontmatter and body (POSIX awk) ---
+HEAD=$(awk 'BEGIN{c=0} /^---$/{c++; if (c==2) exit} c>=1' "$DOC_FILE")
+BODY=$(awk 'BEGIN{c=0} /^---$/{c++; next} c>=2' "$DOC_FILE")
+
+# --- Findings accumulator ---
+FINDINGS=""
+add_finding() {
+  if [ -z "$FINDINGS" ]; then
+    FINDINGS="$1"
+  else
+    FINDINGS="$FINDINGS; $1"
+  fi
+}
+
+# --- Check 1: Forbidden vagueness lexicon ---
+# Source of truth: skills/_shared/precision-rules.md (Rule 1).
+# Hardcoded here for hook performance; keep in sync manually for now.
+FORBIDDEN_EN='\b(appropriate|robust|scalable|modern|various|optimal|efficient|flexible|convenient|seamless|streamlined)\b'
+FORBIDDEN_RU='(оптимальный|удобный|правильный|надёжный|гибкий|современный|передовой|эффективный|масштабируемый)'
+FORBIDDEN_PHRASES='best practices|as needed|world.class|cutting.edge'
+
+HITS=$(printf '%s' "$BODY" | grep -ioE "$FORBIDDEN_EN|$FORBIDDEN_RU|$FORBIDDEN_PHRASES" 2>/dev/null \
+  | tr '[:upper:]' '[:lower:]' | sort -u | head -5 | tr '\n' ',' | sed 's/,$//')
+if [ -n "$HITS" ]; then
+  add_finding "forbidden words ($HITS) — replace with concrete fact, version, or measurement"
+fi
+
+# --- Check 2: Mandatory sections per type ---
+check_section() {
+  _section="$1"
+  if ! printf '%s' "$BODY" | grep -qE "^##[[:space:]]+${_section}([[:space:]]|$)"; then
+    add_finding "missing section: ## $_section"
+  fi
+}
+
+case "$DOC_TYPE" in
+  adr)
+    check_section "Context"
+    check_section "Decision"
+    check_section "Alternatives Considered"
+    check_section "Consequences"
+    ;;
+  rule)
+    check_section "Rule"
+    check_section "Rationale"
+    check_section "Enforcement"
+    ;;
+  spec)
+    check_section "Purpose"
+    check_section "Subject"
+    check_section "Normative Behavior"
+    ;;
+  guide)
+    check_section "Steps"
+    check_section "Verification"
+    ;;
+  rfc)
+    check_section "Summary"
+    check_section "Motivation"
+    check_section "Detailed Design"
+    ;;
+  *)
+    # plan, prd, idea, doc, mrd/brd/urd/etc., cpat, task-type — no structural
+    # checks at this phase; precision-rules still apply.
+    ;;
+esac
+
+# --- Check 3: Frontmatter completeness ---
+if ! printf '%s' "$HEAD" | grep -qE '^title:[[:space:]]*[^[:space:]]'; then
+  add_finding "frontmatter: missing or empty title"
+fi
+if ! printf '%s' "$HEAD" | grep -qE '^status:[[:space:]]*(draft|accepted|rejected)'; then
+  add_finding "frontmatter: missing or invalid status"
+fi
+
+# --- Check 4: Body length (placeholder detection) ---
+BODY_LEN=$(printf '%s' "$BODY" | wc -c | tr -d ' ')
+if [ "$BODY_LEN" -lt 200 ]; then
+  add_finding "body is $BODY_LEN chars (<200, likely placeholder)"
+fi
+
+# --- Check 5: Cross-document body references ---
+# Source of truth: skills/_shared/precision-rules.md Rule 5.
+# Cross-document links belong in the relation graph (mcp__archcore__add_relation),
+# not enumerated as a markdown section in the body. Detect any .archcore/...md
+# path reference; the hook is soft, so false positives are acceptable.
+CROSS_HITS=$(printf '%s' "$BODY" | grep -oE '\.archcore/[A-Za-z0-9_./-]+\.md' 2>/dev/null \
+  | sort -u | head -3 | tr '\n' ',' | sed 's/,$//')
+if [ -n "$CROSS_HITS" ]; then
+  add_finding "body references other .archcore/ documents ($CROSS_HITS) — move these links to the relation graph via mcp__archcore__add_relation"
+fi
+
+# --- Emit soft warnings if any ---
+if [ -n "$FINDINGS" ]; then
+  archcore_hook_info "Precision check on $ARCHCORE_DOC_PATH (soft, non-blocking) — $FINDINGS. See skills/_shared/precision-rules.md and adr-contract.md (plugin-shipped)."
+fi
+
+exit 0

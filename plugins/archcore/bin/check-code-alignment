@@ -1,0 +1,138 @@
+#!/bin/sh
+# PreToolUse Write|Edit hook: inject relevant Archcore context before source edits.
+#
+# Complements check-archcore-write (which blocks direct .archcore/*.md writes).
+# On source-file edits, greps .archcore/ for documents referencing the edit path
+# and emits a compact top-3 summary as additionalContext via the host-normalized
+# hook output helpers. Non-blocking by design: any error or empty result exits 0
+# silently — injection is strictly additive and must never prevent a write.
+#
+# Ranking: specificity (longest matching directory prefix) → type priority
+# (rule > cpat > adr > spec > guide).
+#
+# Escape hatch: set ARCHCORE_DISABLE_INJECTION=1 to silence globally.
+# Source-root override: .archcore/settings.json → codeAlignment.sourceRoots (JSON array).
+
+SCRIPT_DIR=$(dirname "$0")
+# shellcheck source=lib/normalize-stdin.sh
+. "$SCRIPT_DIR/lib/normalize-stdin.sh"
+
+# --- Escape hatches ---
+[ "${ARCHCORE_DISABLE_INJECTION:-}" = "1" ] && archcore_hook_allow
+[ -z "$ARCHCORE_FILE_PATH" ] && archcore_hook_allow
+[ -d ".archcore" ] || archcore_hook_allow
+
+# --- Skip .archcore/ paths (sister hook check-archcore-write handles them) ---
+case "$ARCHCORE_FILE_PATH" in
+  .archcore/*|*/.archcore/*) archcore_hook_allow ;;
+esac
+
+# --- Normalize path to cwd-relative ---
+FP="$ARCHCORE_FILE_PATH"
+case "$FP" in
+  /*)
+    CWD=$(pwd)
+    case "$FP" in
+      "$CWD"/*) FP="${FP#"$CWD"/}" ;;
+      *) archcore_hook_allow ;;
+    esac
+    ;;
+  ./*) FP="${FP#./}" ;;
+esac
+
+# --- Source root filter ---
+DEFAULT_ROOTS="src lib app pkg cmd internal apps packages modules components"
+ROOTS="$DEFAULT_ROOTS"
+
+# Read custom roots from settings.json if present — lightweight JSON array parse.
+if [ -f ".archcore/settings.json" ]; then
+  _raw=$(grep -o '"sourceRoots"[[:space:]]*:[[:space:]]*\[[^]]*\]' .archcore/settings.json 2>/dev/null)
+  if [ -n "$_raw" ]; then
+    _custom=$(printf '%s' "$_raw" | grep -o '"[^"]*"' | sed 's/"//g' | grep -v '^sourceRoots$' | tr '\n' ' ')
+    [ -n "$_custom" ] && ROOTS="$_custom"
+  fi
+fi
+
+_in_root=0
+for _r in $ROOTS; do
+  case "$FP" in
+    "$_r"/*) _in_root=1; break ;;
+  esac
+done
+[ "$_in_root" = "0" ] && archcore_hook_allow
+
+# --- Build candidate tokens, longest (most specific) first ---
+# src/api/handlers/users.ts → "src/api/handlers/", "src/api/", "src/"
+TOKENS=""
+_dir="${FP%/*}"
+# Cap at 5 levels to keep grep cost bounded.
+_i=0
+while [ -n "$_dir" ] && [ "$_dir" != "." ] && [ "$_i" -lt 5 ]; do
+  TOKENS="$TOKENS ${_dir}/"
+  _parent="${_dir%/*}"
+  [ "$_parent" = "$_dir" ] && break
+  _dir="$_parent"
+  _i=$((_i + 1))
+done
+
+[ -z "$TOKENS" ] && archcore_hook_allow
+
+# --- Scan .archcore/ documents, one grep per token (longest first).
+#     A document matched by a longer token is NOT re-scored by shorter ones. ---
+SEEN="/tmp/archcore_align_seen_$$"
+RANKED="/tmp/archcore_align_ranked_$$"
+: > "$SEEN"
+: > "$RANKED"
+trap 'rm -f "$SEEN" "$RANKED"' EXIT INT TERM
+
+for _tok in $TOKENS; do
+  _tok_len=${#_tok}
+  # grep -rlF: recursive, list-matches-only, fixed-string. --include filters files.
+  grep -rlF "$_tok" .archcore --include='*.md' 2>/dev/null | while IFS= read -r _doc; do
+    [ -z "$_doc" ] && continue
+    if grep -qxF "$_doc" "$SEEN" 2>/dev/null; then
+      continue
+    fi
+    _base=$(basename "$_doc" .md)
+    case "$_base" in
+      *.rule)  _prio=5; _type=rule ;;
+      *.cpat)  _prio=4; _type=cpat ;;
+      *.adr)   _prio=3; _type=adr ;;
+      *.spec)  _prio=2; _type=spec ;;
+      *.guide) _prio=1; _type=guide ;;
+      *) continue ;;
+    esac
+    printf '%s\n' "$_doc" >> "$SEEN"
+    # Sortable key: 3-digit token length + 1-digit priority. Higher = better.
+    printf '%03d%d\t%s\t%s\n' "$_tok_len" "$_prio" "$_type" "$_doc" >> "$RANKED"
+  done
+done
+
+[ ! -s "$RANKED" ] && archcore_hook_allow
+
+# --- Take top 3 ---
+TOP=$(sort -r "$RANKED" | head -3)
+
+# --- Render message ---
+MSG=$(
+  printf '[Archcore Context] Before editing %s:\n' "$FP"
+  printf '%s\n' "$TOP" | while IFS="$(printf '\t')" read -r _key _type _doc; do
+    [ -z "$_doc" ] && continue
+    # Title from frontmatter (first 10 lines are enough).
+    _title=$(head -10 "$_doc" 2>/dev/null | grep -m1 '^title:' | sed 's/^title:[[:space:]]*//; s/^"//; s/"$//')
+    if [ -z "$_title" ]; then
+      _slug=$(basename "$_doc" .md)
+      _slug="${_slug%.*}"
+      _title=$(printf '%s' "$_slug" | tr '-' ' ')
+    fi
+    _short=$(printf '%s' "$_doc" | sed 's|^\./||; s|^\.archcore/||')
+    printf -- '- %s: %s [%s]\n' "$_type" "$_title" "$_short"
+  done
+)
+
+# --- Cap at 2 KB ---
+MSG=$(printf '%s' "$MSG" | head -c 2048)
+
+# --- Emit and exit ---
+archcore_hook_pretool_info "$MSG"
+exit 0

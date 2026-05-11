@@ -1,0 +1,62 @@
+#!/bin/sh
+# SessionStart hook: load archcore context via the plugin launcher.
+# Uses normalized stdin — works across Claude Code, Cursor, and other hosts.
+#
+# The launcher handles CLI resolution (ARCHCORE_BIN → PATH → cache → download).
+# We pass ARCHCORE_SKIP_DOWNLOAD=1 so session start never blocks on a network
+# download — if the CLI is not yet cached, the first MCP tool call triggers
+# the download instead. That keeps SessionStart fast and quiet on first use.
+
+SCRIPT_DIR=$(dirname "$0")
+# shellcheck source=lib/normalize-stdin.sh
+. "$SCRIPT_DIR/lib/normalize-stdin.sh"
+
+LAUNCHER="$SCRIPT_DIR/archcore"
+
+# Emit informational context to the agent (structured for Claude Code/Copilot, plain for others).
+_archcore_emit_info() {
+  _msg="$1"
+  case "$ARCHCORE_HOST" in
+    claude-code|copilot)
+      _escaped=$(printf '%s' "$_msg" | sed 's/\\/\\\\/g; s/"/\\"/g' | awk 'BEGIN{ORS="\\n"}{print}')
+      printf '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"%s"}}' "$_escaped"
+      ;;
+    *)
+      printf '%s\n' "$_msg"
+      ;;
+  esac
+}
+
+# shellcheck source=lib/empty-state.sh
+. "$SCRIPT_DIR/lib/empty-state.sh"
+
+# Check if .archcore/ exists. If not, the plugin's MCP server starts in
+# uninitialized mode — the agent can call mcp__archcore__init_project to
+# initialize on demand. No manual setup required.
+if [ ! -d ".archcore" ]; then
+  _init_msg="[Archcore] no .archcore/ directory in this project yet. When the user asks for any Archcore operation (create ADR, audit docs, etc.), call mcp__archcore__init_project once to initialize, then proceed. Do NOT write to .archcore/ directly — hooks will block it."
+  if [ "${ARCHCORE_HIDE_EMPTY_NUDGE:-}" != "1" ]; then
+    _init_msg="${_init_msg} After init, suggest the user run /archcore:bootstrap to seed initial content (stack rule, run-the-app guide, optional import of existing CLAUDE.md / AGENTS.md / .cursorrules). Skip with ARCHCORE_HIDE_EMPTY_NUDGE=1."
+  fi
+  _archcore_emit_info "$_init_msg"
+  exit 0
+fi
+
+# Initialized project — run the host-specific session-start hook via launcher.
+# ARCHCORE_SKIP_DOWNLOAD=1 so we never block on network here.
+printf '%s' "$ARCHCORE_RAW_STDIN" | ARCHCORE_SKIP_DOWNLOAD=1 "$LAUNCHER" hooks "$ARCHCORE_HOST" session-start 2>/dev/null || true
+
+# Empty-state nudge: .archcore/ exists but carries no substantive documents.
+# Emitted as plain text (follows the staleness-output pattern below) so it
+# never competes with the CLI hook's structured output for the same JSON slot.
+if [ "${ARCHCORE_HIDE_EMPTY_NUDGE:-}" != "1" ] && archcore_is_functionally_empty ".archcore"; then
+  echo ""
+  echo "[Archcore] .archcore/ is empty. Run /archcore:bootstrap to seed a stack rule, a run-the-app guide, and (optionally) imports from existing agent-instruction files like CLAUDE.md or AGENTS.md. Skip with ARCHCORE_HIDE_EMPTY_NUDGE=1."
+fi
+
+# Run staleness check (code-document drift detection)
+STALENESS=$("$SCRIPT_DIR/check-staleness" 2>/dev/null) || true
+if [ -n "$STALENESS" ]; then
+  echo ""
+  echo "$STALENESS"
+fi

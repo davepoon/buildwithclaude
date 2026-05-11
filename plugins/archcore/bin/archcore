@@ -1,0 +1,250 @@
+#!/bin/sh
+# archcore launcher — resolves and execs the real archcore CLI.
+#
+# Resolution order:
+#   1. $ARCHCORE_BIN override (if set and executable)
+#   2. `archcore` in PATH (respects an existing global install)
+#   3. <cache>/archcore-v<VERSION> (plugin-managed cache)
+#   4. Download from GitHub Releases into <cache>, verify, cache, use
+#
+# Cache directory, in order of preference:
+#   $CODEX_PLUGIN_DATA/archcore/cli     (Codex CLI plugin data dir — survives updates)
+#   $CLAUDE_PLUGIN_DATA/archcore/cli    (Claude Code plugin data dir — survives updates)
+#   $XDG_DATA_HOME/archcore-plugin/cli
+#   $HOME/.local/share/archcore-plugin/cli
+#
+# Env:
+#   ARCHCORE_BIN            — explicit path to the CLI binary
+#   ARCHCORE_SKIP_DOWNLOAD  — if "1", skip step 4 and exit 1 instead
+#
+# Exit code is the CLI's exit code verbatim. stdin, stdout, stderr pass through.
+
+set -u
+
+SCRIPT_DIR=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
+SELF="$SCRIPT_DIR/archcore"
+
+# --- 0. Honor $ARCHCORE_CWD ---
+#
+# Some hosts (notably Codex) spawn plugin MCP servers with cwd rebased to the
+# plugin install dir (.codex.mcp.json `cwd: "."`). The archcore CLI uses cwd to
+# locate the user's .archcore/, so we'd operate on the plugin cache instead of
+# the user's project.
+#
+# We cannot rely on $PWD: Codex's `.env_clear()` strips it, and even if passed
+# back via the manifest's env_vars allowlist, POSIX shells (/bin/sh, dash,
+# bash --posix) resync $PWD to getcwd() at startup. A custom env var name
+# bypasses both: Codex passes it through when listed in env_vars, and sh does
+# not touch it.
+#
+# Users opt in by setting ARCHCORE_CWD to their project root before launching
+# the host that spawns the MCP. Example wrappers — see
+# .archcore/plugin/codex-mcp-cwd-rebase-to-user-project.idea.md for the full
+# recipes:
+#
+#   # fish: ~/.config/fish/functions/codex.fish
+#   function codex; env ARCHCORE_CWD=$PWD command codex $argv; end
+#
+#   # bash/zsh: ~/.bashrc / ~/.zshrc
+#   codex() { ARCHCORE_CWD="$PWD" command codex "$@"; }
+if [ -n "${ARCHCORE_CWD:-}" ] && [ -d "$ARCHCORE_CWD" ]; then
+  cd "$ARCHCORE_CWD" 2>/dev/null || true
+fi
+
+# --- 0b. Guard: refuse to start MCP from this plugin's install dir ---
+#
+# Without a shell wrapper that sets ARCHCORE_CWD, Codex spawns the MCP child
+# with cwd rebased to the plugin install dir (.codex.mcp.json `cwd: "."`).
+# The CLI would then operate on the plugin's OWN .archcore/ instead of the
+# user's project — a silent, hard-to-diagnose failure.
+#
+# We trip on three converging signals (false positives near-impossible):
+#   1. invoked as `archcore mcp` (only the MCP child is silent; CLI calls
+#      show their cwd to the user)
+#   2. cwd path matches a plugin-cache pattern (Codex installs to
+#      `~/.codex/plugins/cache/<m>/<p>/<v>/`)
+#   3. all three plugin marker files exist in cwd — that combination is
+#      unique to this plugin's repo root
+#
+# Step 0 (above) has already cd'd to $ARCHCORE_CWD when set, so reaching
+# here with cache cwd means the wrapper was not installed.
+#
+# Escape hatch: set ARCHCORE_ALLOW_PLUGIN_CWD=1 to bypass (only for plugin
+# maintainers running MCP against the plugin's own docs intentionally).
+if [ "${1:-}" = "mcp" ] \
+   && [ "${ARCHCORE_ALLOW_PLUGIN_CWD:-0}" != "1" ] \
+   && [ -f .codex-plugin/plugin.json ] \
+   && [ -f .codex.mcp.json ] \
+   && [ -f bin/archcore ]
+then
+  case "$(pwd -P)" in
+    */plugins/cache/*)
+      printf '[archcore launcher] Refusing to start MCP from the plugin install dir.\n' >&2
+      printf '  cwd: %s\n' "$(pwd -P)" >&2
+      printf '  Without ARCHCORE_CWD the MCP would operate on plugin docs, not your project.\n' >&2
+      printf '  Fix — install the shell wrapper once:\n' >&2
+      # shellcheck disable=SC2016  # literal shell snippet; do not expand $PWD/$argv here
+      printf '    fish:  function codex; env ARCHCORE_CWD=$PWD command codex $argv; end\n' >&2
+      # shellcheck disable=SC2016  # literal shell snippet; do not expand $PWD/$@ here
+      printf '    bash:  codex() { ARCHCORE_CWD="$PWD" command codex "$@"; }\n' >&2
+      printf '  See: .archcore/plugin/codex-mcp-cwd-rebase-to-user-project.idea.md\n' >&2
+      exit 1
+      ;;
+  esac
+fi
+
+# --- 1. $ARCHCORE_BIN override ---
+if [ -n "${ARCHCORE_BIN:-}" ] && [ -x "$ARCHCORE_BIN" ]; then
+  exec "$ARCHCORE_BIN" "$@"
+fi
+
+# --- 2. archcore in PATH ---
+# Loop guard: skip if PATH resolves back to this launcher.
+_path_archcore=$(command -v archcore 2>/dev/null || true)
+if [ -n "$_path_archcore" ] && [ "$_path_archcore" != "$SELF" ]; then
+  exec "$_path_archcore" "$@"
+fi
+
+# --- 3. Cache ---
+if [ ! -f "$SCRIPT_DIR/CLI_VERSION" ]; then
+  printf '[archcore launcher] bin/CLI_VERSION not found\n' >&2
+  exit 1
+fi
+VERSION=$(tr -d '[:space:]' < "$SCRIPT_DIR/CLI_VERSION")
+
+# Resolve cache directory.
+if [ -n "${CODEX_PLUGIN_DATA:-}" ]; then
+  CACHE_DIR="$CODEX_PLUGIN_DATA/archcore/cli"
+elif [ -n "${CLAUDE_PLUGIN_DATA:-}" ]; then
+  CACHE_DIR="$CLAUDE_PLUGIN_DATA/archcore/cli"
+elif [ -n "${XDG_DATA_HOME:-}" ]; then
+  CACHE_DIR="$XDG_DATA_HOME/archcore-plugin/cli"
+else
+  CACHE_DIR="${HOME:-/tmp}/.local/share/archcore-plugin/cli"
+fi
+CACHED_BIN="$CACHE_DIR/archcore-v${VERSION}"
+
+if [ -x "$CACHED_BIN" ]; then
+  exec "$CACHED_BIN" "$@"
+fi
+
+# --- 4. Download ---
+if [ "${ARCHCORE_SKIP_DOWNLOAD:-0}" = "1" ]; then
+  printf '[archcore launcher] archcore v%s not cached and ARCHCORE_SKIP_DOWNLOAD=1. Set ARCHCORE_BIN or unset ARCHCORE_SKIP_DOWNLOAD.\n' "$VERSION" >&2
+  exit 1
+fi
+
+# Platform detection
+_os=$(uname -s 2>/dev/null | tr '[:upper:]' '[:lower:]')
+case "$_os" in
+  darwin|linux) ;;
+  *)
+    printf '[archcore launcher] Unsupported OS: %s (on Windows use bin/archcore.cmd)\n' "$_os" >&2
+    exit 1
+    ;;
+esac
+
+_arch=$(uname -m 2>/dev/null)
+case "$_arch" in
+  x86_64|amd64) _arch=amd64 ;;
+  arm64|aarch64) _arch=arm64 ;;
+  *)
+    printf '[archcore launcher] Unsupported architecture: %s\n' "$_arch" >&2
+    exit 1
+    ;;
+esac
+
+_archive="archcore_${_os}_${_arch}.tar.gz"
+_base_url="https://github.com/archcore-ai/cli/releases/download/v${VERSION}"
+_archive_url="${_base_url}/${_archive}"
+_checksums_url="${_base_url}/checksums.txt"
+
+# Tool detection
+_has_curl=0
+_has_wget=0
+command -v curl >/dev/null 2>&1 && _has_curl=1
+command -v wget >/dev/null 2>&1 && _has_wget=1
+if [ "$_has_curl" = "0" ] && [ "$_has_wget" = "0" ]; then
+  printf '[archcore launcher] curl or wget required to download archcore CLI\n' >&2
+  exit 1
+fi
+
+_has_sha256sum=0
+_has_shasum=0
+command -v sha256sum >/dev/null 2>&1 && _has_sha256sum=1
+command -v shasum >/dev/null 2>&1 && _has_shasum=1
+if [ "$_has_sha256sum" = "0" ] && [ "$_has_shasum" = "0" ]; then
+  printf '[archcore launcher] sha256sum or shasum required for checksum verification\n' >&2
+  exit 1
+fi
+
+_tmp=$(mktemp -d 2>/dev/null || mktemp -d -t archcore-launcher)
+[ -n "$_tmp" ] || { printf '[archcore launcher] mktemp failed\n' >&2; exit 1; }
+# shellcheck disable=SC2064  # intentional expansion at trap setup
+trap "rm -rf \"$_tmp\"" EXIT INT TERM
+
+_fetch() {
+  _url="$1"
+  _out="$2"
+  if [ "$_has_curl" = "1" ]; then
+    curl -fsSL --retry 3 -o "$_out" "$_url"
+  else
+    wget -q -O "$_out" "$_url"
+  fi
+}
+
+printf '[archcore launcher] Downloading archcore v%s (%s/%s) — first run, one-time...\n' "$VERSION" "$_os" "$_arch" >&2
+
+if ! _fetch "$_archive_url" "$_tmp/$_archive"; then
+  printf '[archcore launcher] Failed to download %s — check network connectivity or set ARCHCORE_BIN.\n' "$_archive_url" >&2
+  exit 1
+fi
+
+if ! _fetch "$_checksums_url" "$_tmp/checksums.txt"; then
+  printf '[archcore launcher] Failed to download checksums.txt from %s\n' "$_base_url" >&2
+  exit 1
+fi
+
+# Verify checksum
+_expected=$(grep -E "[[:space:]]${_archive}\$" "$_tmp/checksums.txt" | awk '{print $1}' | head -1)
+if [ -z "$_expected" ]; then
+  printf '[archcore launcher] No checksum for %s in checksums.txt\n' "$_archive" >&2
+  exit 1
+fi
+
+if [ "$_has_sha256sum" = "1" ]; then
+  _actual=$(sha256sum "$_tmp/$_archive" | awk '{print $1}')
+else
+  _actual=$(shasum -a 256 "$_tmp/$_archive" | awk '{print $1}')
+fi
+
+if [ "$_actual" != "$_expected" ]; then
+  printf '[archcore launcher] Checksum mismatch for %s (expected %s, got %s)\n' "$_archive" "$_expected" "$_actual" >&2
+  exit 1
+fi
+
+# Extract — try named binary first, fallback to repo name ("cli")
+if ! tar -xzf "$_tmp/$_archive" -C "$_tmp" archcore 2>/dev/null; then
+  if ! tar -xzf "$_tmp/$_archive" -C "$_tmp" 2>/dev/null; then
+    printf '[archcore launcher] Failed to extract %s\n' "$_archive" >&2
+    exit 1
+  fi
+fi
+
+if [ ! -f "$_tmp/archcore" ]; then
+  if [ -f "$_tmp/cli" ]; then
+    mv "$_tmp/cli" "$_tmp/archcore"
+  else
+    printf '[archcore launcher] archcore binary not found in archive\n' >&2
+    exit 1
+  fi
+fi
+
+# Atomic install into cache/
+mkdir -p "$CACHE_DIR"
+_staged="$CACHE_DIR/.archcore-v${VERSION}.$$"
+cp "$_tmp/archcore" "$_staged"
+chmod +x "$_staged"
+mv "$_staged" "$CACHED_BIN"
+
+exec "$CACHED_BIN" "$@"

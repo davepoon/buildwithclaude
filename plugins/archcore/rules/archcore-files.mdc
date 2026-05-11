@@ -1,0 +1,18 @@
+---
+description: Enforce MCP-only operations when working with .archcore/ files
+globs: ".archcore/**"
+alwaysApply: false
+---
+
+# .archcore/ File Operations
+
+You are working with files in the `.archcore/` directory. These are managed documents in the Archcore knowledge base.
+
+**Do not use Write or Edit tools on `.archcore/*.md` files.** Use the Archcore MCP tools instead:
+
+- To create: `create_document(type, filename, ...)`
+- To modify: `update_document(path, ...)`
+- To delete: `remove_document(path)`
+- To link: `add_relation(source, target, type)`
+
+Direct file writes bypass validation, templates, and the sync manifest.

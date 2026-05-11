@@ -1391,6 +1391,40 @@
       "source": "./plugins/project-boundary"
     },
     {
+      "name": "archcore",
+      "description": "Make your AI agent code with your project's architecture, rules, and decisions.",
+      "version": "0.3.14",
+      "author": {
+        "name": "Archcore",
+        "url": "https://github.com/archcore-ai"
+      },
+      "repository": "https://github.com/archcore-ai/plugin",
+      "homepage": "https://github.com/archcore-ai/plugin",
+      "license": "Apache-2.0",
+      "keywords": [
+        "claude-code",
+        "cursor",
+        "claude-code-plugin",
+        "mcp",
+        "ai-agents",
+        "ai-coding",
+        "context-engineering",
+        "architecture",
+        "adr",
+        "knowledge-management",
+        "rules",
+        "decisions",
+        "conventions",
+        "git-native",
+        "skills",
+        "subagents",
+        "spec-driven",
+        "documentation"
+      ],
+      "category": "productivity",
+      "source": "./plugins/archcore"
+    },
+    {
       "name": "shipwright",
       "description": "Describe your app in plain English — Shipwright builds, tests, and deploys it autonomously. 9-phase pipeline, 4 stacks, enterprise-grade safety hooks.",
       "version": "1.0.0",

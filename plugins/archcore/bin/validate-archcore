@@ -1,0 +1,45 @@
+#!/bin/sh
+# PostToolUse hook: validate .archcore/ files after document operations.
+# Handles both Write/Edit (checks file_path) and MCP tools (validates unconditionally).
+# Uses normalized stdin — works across Claude Code, Cursor, and other hosts.
+# Exits 0 always. Outputs via archcore_hook_info when issues found.
+
+SCRIPT_DIR=$(dirname "$0")
+# shellcheck source=lib/normalize-stdin.sh
+. "$SCRIPT_DIR/lib/normalize-stdin.sh"
+
+SHOULD_VALIDATE=false
+
+case "$ARCHCORE_TOOL_NAME" in
+  mcp__archcore__*)
+    # MCP archcore tool — always validate
+    SHOULD_VALIDATE=true
+    ;;
+  *)
+    # Write/Edit — only validate if path is under .archcore/
+    case "$ARCHCORE_FILE_PATH" in
+      *.archcore/*) SHOULD_VALIDATE=true ;;
+    esac
+    ;;
+esac
+
+if [ "$SHOULD_VALIDATE" = false ]; then
+  exit 0
+fi
+
+# Use the launcher. ARCHCORE_SKIP_DOWNLOAD=1: this hook runs with a short
+# timeout after every document mutation — never trigger a network download
+# here. If the CLI is not yet cached, validation silently skips; it will run
+# after the next mutation once the launcher has populated the cache (the
+# first MCP tool call does that).
+LAUNCHER="$SCRIPT_DIR/archcore"
+RESULT=$(ARCHCORE_SKIP_DOWNLOAD=1 timeout 2 "$LAUNCHER" doctor 2>&1) || true
+
+# Check if there are issues
+if printf '%s' "$RESULT" | grep -q '✗\|FAIL\|Error'; then
+  ISSUES=$(printf '%s' "$RESULT" | grep '✗\|FAIL\|Error' | head -5)
+  ISSUES_ESCAPED=$(printf '%s' "$ISSUES" | sed 's/"/\\"/g' | tr '\n' ' ')
+  archcore_hook_info "Archcore validation found issues: ${ISSUES_ESCAPED}. Run archcore doctor --fix to auto-fix orphaned relations."
+fi
+
+exit 0

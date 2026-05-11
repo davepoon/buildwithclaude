@@ -1,0 +1,64 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/bin/session-start"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/bin/check-archcore-write",
+            "timeout": 1
+          },
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/bin/check-code-alignment",
+            "timeout": 1
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "mcp__archcore__create_document|mcp__archcore__update_document|mcp__archcore__remove_document|mcp__archcore__add_relation|mcp__archcore__remove_relation",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/bin/validate-archcore",
+            "timeout": 3
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__archcore__update_document",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/bin/check-cascade",
+            "timeout": 3
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__archcore__create_document|mcp__archcore__update_document",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${PLUGIN_ROOT}/bin/check-precision",
+            "timeout": 3
+          }
+        ]
+      }
+    ]
+  }
+}

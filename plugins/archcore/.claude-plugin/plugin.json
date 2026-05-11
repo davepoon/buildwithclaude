@@ -1,15 +1,15 @@
 {
   "name": "archcore",
-  "version": "0.3.5",
-  "description": "Make your AI agent code with your project's architecture, rules, and decisions. Git-native context (folder conventions, ADRs, team standards) so new code lands in the right place and decisions persist across sessions and agents.",
+  "description": "Make your AI agent code with your project's architecture, rules, and decisions.",
+  "version": "0.3.14",
   "author": {
-    "name": "Archcore",
-    "url": "https://github.com/archcore-ai"
+    "name": "Archcore"
   },
-  "repository": "https://github.com/archcore-ai/archcore-plugin",
   "license": "Apache-2.0",
+  "repository": "https://github.com/archcore-ai/plugin",
   "keywords": [
     "claude-code",
+    "cursor",
     "claude-code-plugin",
     "mcp",
     "ai-agents",
