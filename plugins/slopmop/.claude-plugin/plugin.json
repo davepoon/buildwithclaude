@@ -1,0 +1,26 @@
+{
+  "name": "slopmop",
+  "version": "1.1.0",
+  "description": "Quality gates for AI-assisted codebases — catch the slop LLMs leave behind. Provides refit onboarding, the swab/scour/buff/sail remediation loop, and barnacle friction reporting as a Claude skill and slash commands.",
+  "author": {
+    "name": "ScienceIsNeato",
+    "url": "https://github.com/ScienceIsNeato"
+  },
+  "homepage": "https://github.com/ScienceIsNeato/slop-mop",
+  "repository": "https://github.com/ScienceIsNeato/slop-mop",
+  "license": "Slop-Mop Attribution License v1.0",
+  "keywords": [
+    "quality-gate",
+    "linting",
+    "testing",
+    "code-quality",
+    "ci-cd",
+    "ai",
+    "llm",
+    "vibe-coding",
+    "remediation",
+    "pre-pr"
+  ],
+  "skills": "./skills/",
+  "commands": "./commands/"
+}

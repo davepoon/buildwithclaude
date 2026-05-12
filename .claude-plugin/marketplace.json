@@ -100,6 +100,32 @@
       "source": "./plugins/claude-hud"
     },
     {
+      "name": "slopmop",
+      "description": "Quality gates for AI-assisted codebases. Provides refit onboarding, the swab/scour/buff/sail remediation loop, and barnacle friction reporting as a Claude skill and slash commands.",
+      "version": "1.1.0",
+      "author": {
+        "name": "ScienceIsNeato",
+        "url": "https://github.com/ScienceIsNeato"
+      },
+      "repository": "https://github.com/ScienceIsNeato/slop-mop",
+      "license": "Slop-Mop Attribution License v1.0",
+      "keywords": [
+        "quality-gate",
+        "linting",
+        "testing",
+        "code-quality",
+        "ci-cd",
+        "ai",
+        "llm",
+        "vibe-coding",
+        "remediation",
+        "pre-pr",
+        "claude-code-plugin"
+      ],
+      "category": "code-quality",
+      "source": "./plugins/slopmop"
+    },
+    {
       "name": "agents-blockchain-web3",
       "description": "Specialized agents for blockchain development, smart contracts, and Web3 applications",
       "version": "1.0.0",
