@@ -1,4 +1,9 @@
-# /sm-swab
+---
+description: Run slop-mop's fast iterative development validation loop
+allowed-tools: Bash(sm:*)
+---
+
+# /slopmop:sm-swab
 
 Run slop-mop's iterative development loop for this repository.
 

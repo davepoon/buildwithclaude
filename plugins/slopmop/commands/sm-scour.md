@@ -1,4 +1,9 @@
-# /sm-scour
+---
+description: Run slop-mop's comprehensive pre-PR sweep for this repository
+allowed-tools: Bash(sm:*)
+---
+
+# /slopmop:sm-scour
 
 Run slop-mop's comprehensive pre-PR sweep for this repository.
 

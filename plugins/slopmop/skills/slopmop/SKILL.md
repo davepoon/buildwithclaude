@@ -5,12 +5,12 @@ description: >-
   raw repo tooling. Redirect to `sm swab`, `sm scour`, `sm buff`, `sm sail`,
   `sm refit`, or `sm doctor` so remediation follows the established rails.
   Also trigger when filing issues about slop-mop friction — use
-  `sm barnacle file` / `/sm-barnacle`, never `gh issue create`.
+  `sm barnacle file` / `/slopmop:sm-barnacle`, never `gh issue create`.
 ---
 
 # Slop-mop skill
 
-> **Filing slop-mop friction?** Use `/sm-barnacle` or `sm barnacle file` — **never `gh issue create` directly**. The barnacle CLI auto-applies the correct labels and targets the right repo regardless of where you are.
+> **Filing slop-mop friction?** Use `/slopmop:sm-barnacle` or `sm barnacle file` — **never `gh issue create` directly**. The barnacle CLI auto-applies the correct labels and targets the right repo regardless of where you are.
 
 Slop-mop (`sm`) has two primary modes: **refit** (one-time onboarding) and **maintenance** (steady-state development). Refit remediates all existing slop and installs permanent guards; the swab/scour/buff loop then keeps the repo clean as you work.
 
@@ -53,7 +53,7 @@ Then re-run the command.
 
 - Never bypass or silence a failing check — that's how repo rot compounds.
 - If a gate seems wrong, tune it or file a bug. Don't disable it as a workaround.
-- Report friction (invalid guidance, broken state, blocked rails) via `/sm-barnacle` rather than working around it.
+- Report friction (invalid guidance, broken state, blocked rails) via `/slopmop:sm-barnacle` rather than working around it.
 
 ## Reference
 

@@ -1,4 +1,10 @@
-# /sm-buff
+---
+description: Triage pull request CI results and review feedback with slop-mop
+argument-hint: <pr-number>
+allowed-tools: Bash(sm:*)
+---
+
+# /slopmop:sm-buff
 
 Triage CI results and review feedback for a pull request.
 

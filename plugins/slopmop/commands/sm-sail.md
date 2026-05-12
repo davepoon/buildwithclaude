@@ -1,4 +1,9 @@
-# /sm-sail
+---
+description: Auto-advance the slop-mop workflow loop for this repository
+allowed-tools: Bash(sm:*)
+---
+
+# /slopmop:sm-sail
 
 Auto-advance the slop-mop workflow loop for this repository.
 

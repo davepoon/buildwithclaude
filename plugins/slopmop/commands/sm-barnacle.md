@@ -1,4 +1,9 @@
-# /sm-barnacle — report slop-mop tool friction
+---
+description: Report slop-mop tooling friction with a structured barnacle
+allowed-tools: Bash(sm:*)
+---
+
+# /slopmop:sm-barnacle - report slop-mop tool friction
 
 Use when `sm` itself gives invalid guidance, blocks valid work, produces
 confusing output, or breaks install/upgrade/refit flow.  Do not use this for

@@ -1,4 +1,9 @@
-# /sm-refit
+---
+description: Run slop-mop's one-time repository onboarding remediation rail
+allowed-tools: Bash(sm:*)
+---
+
+# /slopmop:sm-refit
 
 Run slop-mop's one-time onboarding remediation rail for this repository.
 

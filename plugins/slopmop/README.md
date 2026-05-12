@@ -17,11 +17,11 @@ pipx install slopmop[all]
 
 ## What It Provides
 
-- `/sm-refit` for onboarding an existing repository into quality-gated maintenance.
-- `/sm-sail` for running the next obvious slop-mop workflow step.
-- `/sm-swab` for fast local validation during development.
-- `/sm-scour` for comprehensive pre-PR checks.
-- `/sm-buff` for CI and PR feedback triage.
-- `/sm-barnacle` for reporting slop-mop tooling friction.
+- `/slopmop:sm-refit` for onboarding an existing repository into quality-gated maintenance.
+- `/slopmop:sm-sail` for running the next obvious slop-mop workflow step.
+- `/slopmop:sm-swab` for fast local validation during development.
+- `/slopmop:sm-scour` for comprehensive pre-PR checks.
+- `/slopmop:sm-buff` for CI and PR feedback triage.
+- `/slopmop:sm-barnacle` for reporting slop-mop tooling friction.
 
 Repository: https://github.com/ScienceIsNeato/slop-mop
