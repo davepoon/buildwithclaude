@@ -1,3 +1,15 @@
+---
+name: marketing-optimizer
+description: Cross-platform ad budget optimization — reads Meta + Google Ads data, computes blended ROAS, and recommends specific budget shifts.
+model: claude-sonnet-4-5
+effort: high
+maxTurns: 20
+tools:
+  - Bash
+  - Read
+memory: project
+---
+
 # Marketing Optimizer Agent
 
 **Model:** claude-sonnet-4-5
