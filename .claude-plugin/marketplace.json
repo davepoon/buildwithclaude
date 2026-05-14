@@ -1484,6 +1484,30 @@
       ],
       "category": "orchestration",
       "source": "./plugins/magic-cc-codex-worker"
+    },
+    {
+      "name": "vibe-prospecting",
+      "description": "Power your chat with live B2B data to create lead lists, research companies, enrich contacts, personalize outreach, and inspect business signals, tech stacks, events, and website changes. 150M+ businesses and 800M+ professionals via the Explorium MCP.",
+      "version": "0.1.56",
+      "author": {
+        "name": "vibeprospecting.ai",
+        "url": "https://vibeprospecting.ai"
+      },
+      "repository": "https://github.com/explorium-ai/vibeprospecting-plugin",
+      "license": "MIT",
+      "keywords": [
+        "b2b",
+        "prospecting",
+        "leads",
+        "sales",
+        "enrichment",
+        "companies",
+        "contacts",
+        "mcp",
+        "explorium"
+      ],
+      "category": "productivity",
+      "source": "./plugins/vibe-prospecting"
     }
   ]
 }
