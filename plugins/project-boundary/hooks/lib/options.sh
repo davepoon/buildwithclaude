@@ -55,9 +55,20 @@ extract_option_values() {
     local raw_tok="${CMD_TOKENS[$i]}"
     local tok
     tok=$(strip_quotes "$raw_tok")
-    if [ -n "$short" ] && [ "$tok" = "$short" ] && [ $((i + 1)) -lt $n ]; then
-      printf '%s\n' "${CMD_TOKENS[$((i + 1))]}"
-      found=0
+    if [ -n "$short" ]; then
+      if [ "$tok" = "$short" ] && [ $((i + 1)) -lt $n ]; then
+        printf '%s\n' "${CMD_TOKENS[$((i + 1))]}"
+        found=0
+      # Attached short form (sec 112): `-o<val>` / `-O<val>` /
+      # `-t<dir>` / `-D<dir>`. Previously missed — same shape gap
+      # that custom walkers fixed individually for unzip -d
+      # (sec 102) and wget -P (sec 104); closing it here covers
+      # every caller. `${short}?*` requires at least one char
+      # after the flag so bare `-o` doesn't accidentally match.
+      elif [[ "$tok" == "${short}"?* ]]; then
+        printf '%s\n' "${tok#$short}"
+        found=0
+      fi
     fi
     if [ -n "$long" ]; then
       if [ "$tok" = "$long" ] && [ $((i + 1)) -lt $n ]; then
@@ -72,6 +83,118 @@ extract_option_values() {
     i=$((i + 1))
   done
   return $found
+}
+
+# --- Extract option values from a NAMED array ---
+# Like extract_option_values, but operates on any array name (most
+# detectors walk CMD_TOKENS_SCAN, not CMD_TOKENS — the heredoc-blanked
+# token stream — so they cannot reuse extract_option_values).
+#
+# Usage: extract_attached_or_split_from <array_name> <short> <long>
+#   short: e.g. "-f", "" to skip
+#   long:  e.g. "--file", "" to skip
+# Recognises:
+#   -f VAL          (split short)
+#   -fVAL           (attached short — `?*` glob)
+#   --file VAL      (split long)
+#   --file=VAL      (attached long with `=`)
+# Quotes are stripped from each emitted value.
+# Bash 3.2 compatible — uses `eval` for indirect array access (macOS
+# /bin/bash 3.2 has no `local -n` namerefs). Array name is a literal
+# identifier from the caller, never user-controlled.
+extract_attached_or_split_from() {
+  local _arr_name="$1"
+  local _short="$2"
+  local _long="$3"
+  local _n
+  eval "_n=\${#${_arr_name}[@]}"
+  local _i=0
+  while [ $_i -lt $_n ]; do
+    local _raw
+    eval "_raw=\"\${${_arr_name}[\$_i]}\""
+    local _tok
+    _tok=$(strip_quotes "$_raw")
+    if [ -n "$_short" ]; then
+      if [ "$_tok" = "$_short" ] && [ $((_i + 1)) -lt $_n ]; then
+        local _nxt
+        eval "_nxt=\"\${${_arr_name}[\$((_i + 1))]}\""
+        printf '%s\n' "$(strip_quotes "$_nxt")"
+        _i=$((_i + 2)); continue
+      fi
+      if [[ "$_tok" == "${_short}"?* ]]; then
+        printf '%s\n' "${_tok#$_short}"
+      fi
+    fi
+    if [ -n "$_long" ]; then
+      if [ "$_tok" = "$_long" ] && [ $((_i + 1)) -lt $_n ]; then
+        local _nxt
+        eval "_nxt=\"\${${_arr_name}[\$((_i + 1))]}\""
+        printf '%s\n' "$(strip_quotes "$_nxt")"
+        _i=$((_i + 2)); continue
+      fi
+      if [[ "$_tok" == "${_long}="* ]]; then
+        printf '%s\n' "${_tok#${_long}=}"
+      fi
+    fi
+    _i=$((_i + 1))
+  done
+}
+
+# --- Walk path operands of a positional verb ---
+# For tools whose payload is a list of positional PATHs guarded by a
+# fixed set of skip-the-next-token flags (mkfifo, mknod, mkdir, ...).
+# Flag-stripping respects the POSIX `--` separator.
+#
+# Usage: walk_path_operands_from <array_name> <skip_value_flags> <attached_value_flags>
+#   skip_value_flags:     space-separated flag names that consume the
+#                         NEXT token as a value (e.g. "-m --mode -Z").
+#   attached_value_flags: space-separated long flag names whose `=VAL`
+#                         attached form should be skipped (e.g.
+#                         "--mode --context").
+# Walks from index 1 (assumes verb at index 0 — true for CMD_TOKENS /
+# CMD_TOKENS_SCAN after wrapper-stripping). Prints each non-flag
+# positional on its own line, with quotes stripped.
+walk_path_operands_from() {
+  local _arr_name="$1"
+  local _skip_value="$2"
+  local _attached_value="$3"
+  local _n
+  eval "_n=\${#${_arr_name}[@]}"
+  local _i=1
+  local _seen_dd=0
+  while [ $_i -lt $_n ]; do
+    local _raw
+    eval "_raw=\"\${${_arr_name}[\$_i]}\""
+    local _tok
+    _tok=$(strip_quotes "$_raw")
+    if [ $_seen_dd -eq 0 ]; then
+      if [ "$_tok" = "--" ]; then
+        _seen_dd=1; _i=$((_i + 1)); continue
+      fi
+      if [ -z "$_tok" ]; then
+        _i=$((_i + 1)); continue
+      fi
+      local _sf _matched=0
+      for _sf in $_skip_value; do
+        if [ "$_tok" = "$_sf" ]; then _matched=1; break; fi
+      done
+      if [ $_matched -eq 1 ]; then
+        _i=$((_i + 2)); continue
+      fi
+      local _af
+      for _af in $_attached_value; do
+        if [[ "$_tok" == "${_af}="* ]]; then _matched=1; break; fi
+      done
+      if [ $_matched -eq 1 ]; then
+        _i=$((_i + 1)); continue
+      fi
+      if [[ "$_tok" == -* ]]; then
+        _i=$((_i + 1)); continue
+      fi
+    fi
+    printf '%s\n' "$_tok"
+    _i=$((_i + 1))
+  done
 }
 
 # --- Split command into sub-commands and check each ---

@@ -99,3 +99,22 @@ tokenize_args() {
     printf '%s\n' "$t"
   done
 }
+
+# --- Fill a named array with tokenize_args output ---
+# Usage: fill_tokens_from <array_name> <cmd_string>
+# Replaces the open-coded `arr=(); while read tok; arr+=(...); done <
+# <(tokenize_args "$cmd")` boilerplate. guard.sh uses this twice for
+# CMD_TOKENS and twice for CMD_TOKENS_SCAN (once at initial build, once
+# after remote-dispatch rewrite); centralising removes a 4× repeat.
+# Uses eval (not `local -n`) for bash 3.2 compatibility — macOS ships
+# /bin/bash 3.2 and the whole project targets that.
+fill_tokens_from() {
+  local _arr_name="$1"
+  local _src="$2"
+  eval "$_arr_name=()"
+  local _tok
+  while IFS= read -r _tok; do
+    [[ -z "$_tok" ]] && continue
+    eval "$_arr_name+=(\"\$_tok\")"
+  done < <(tokenize_args "$_src")
+}

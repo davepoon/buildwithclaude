@@ -122,7 +122,6 @@ blank_quoted_heredoc_bodies() {
       # on this line, so a later quoted heredoc's blank range covered
       # bytes belonging to an earlier unquoted body, hiding $(...) /
       # backtick / $VAR in the unquoted body from fail-closed scans.
-      # Reported by Copilot review on commit aa6409b.
       if [ ${#HB[@]} -gt 0 ] && [ "${HB[0]}" = "-1" ]; then
         HB[0]=$((lend+1))
         [ $li -eq $((num_lines-1)) ] && HB[0]=$n
@@ -175,8 +174,7 @@ blank_quoted_heredoc_bodies() {
   # The previous inner loop did `out+=" "` once per body byte; on bash
   # 3.2 (macOS default) that path is O(n²) due to repeated string
   # reallocation, which slows PreToolUse on large heredocs. Per-range
-  # chunked emit via printf + tr keeps total work O(n). Reported by
-  # Copilot review on PR #137.
+  # chunked emit via printf + tr keeps total work O(n).
   local blank_nl="${2:-preserve}"
   local out="" pos=0 bi=0 nb=${#BS[@]}
   while [ $bi -lt $nb ]; do

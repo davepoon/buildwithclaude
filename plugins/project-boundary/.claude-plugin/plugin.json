@@ -1,6 +1,6 @@
 {
   "name": "project-boundary",
-  "version": "1.8.0",
+  "version": "1.10.0",
   "description": "Blocks destructive commands outside the project directory. Allows file operations within the project (refactoring, cleanup) but prevents accidental damage outside it.",
   "author": {
     "name": "Justyna Wojtczak",
