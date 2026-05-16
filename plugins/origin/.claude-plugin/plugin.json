@@ -1,0 +1,20 @@
+{
+  "name": "origin",
+  "description": "AI work memory for Claude Code. Carries sessions, decisions, lessons, and project context forward, then turns them into searchable memory and wiki pages.",
+  "version": "0.6.1",
+  "author": {
+    "name": "Qi-Xuan Lu",
+    "url": "https://github.com/7xuanlu"
+  },
+  "homepage": "https://github.com/7xuanlu/origin",
+  "repository": "https://github.com/7xuanlu/origin",
+  "license": "Apache-2.0",
+  "category": "memory",
+  "keywords": [
+    "memory",
+    "knowledge",
+    "context",
+    "recall",
+    "mcp"
+  ]
+}

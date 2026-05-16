@@ -35,7 +35,7 @@ Curated collections maintained in this repository:
 | **Commands** | 175 | Slash commands for automation (`/commit`, `/docs`, `/tdd`) |
 | **Hooks** | 28 | Event-driven automation (notifications, git, formatting) |
 | **Skills** | 26 | Reusable capabilities from plugins |
-| **Plugins** | 50 | Bundled plugin packages by category |
+| **Plugins** | 51 | Bundled plugin packages by category |
 
 ### Community Discovery
 

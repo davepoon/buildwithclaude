@@ -1396,6 +1396,29 @@
       "source": "./plugins/obsidian-skills"
     },
     {
+      "name": "origin",
+      "description": "AI work memory for Claude Code: brief, capture, recall, handoff, and distill, backed by a local daemon and MCP so decisions, lessons, project context, and wiki pages carry across sessions.",
+      "version": "0.6.1",
+      "author": {
+        "name": "Qi-Xuan Lu",
+        "url": "https://github.com/7xuanlu"
+      },
+      "repository": "https://github.com/7xuanlu/origin",
+      "homepage": "https://github.com/7xuanlu/origin/tree/main/plugin",
+      "license": "Apache-2.0",
+      "keywords": [
+        "memory",
+        "claude-code",
+        "mcp",
+        "local-first",
+        "context",
+        "handoff",
+        "wiki"
+      ],
+      "category": "productivity",
+      "source": "./plugins/origin"
+    },
+    {
       "name": "project-boundary",
       "description": "Security hook that blocks destructive commands and file operations outside the project directory",
       "version": "1.8.0",
