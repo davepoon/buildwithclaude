@@ -126,6 +126,42 @@
       "source": "./plugins/slopmop"
     },
     {
+      "name": "archcore",
+      "description": "Make your AI agent code with your project's architecture, rules, and decisions. Git-native context (folder conventions, ADRs, team standards) so new code lands in the right place and decisions persist across sessions and agents.",
+      "version": "0.4.4",
+      "author": {
+        "name": "Archcore",
+        "url": "https://github.com/archcore-ai"
+      },
+      "repository": "https://github.com/archcore-ai/plugin",
+      "license": "Apache-2.0",
+      "keywords": [
+        "claude-code",
+        "cursor",
+        "claude-code-plugin",
+        "mcp",
+        "ai-agents",
+        "ai-coding",
+        "context-engineering",
+        "architecture",
+        "adr",
+        "knowledge-management",
+        "rules",
+        "decisions",
+        "conventions",
+        "git-native",
+        "skills",
+        "subagents",
+        "spec-driven",
+        "documentation"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "archcore-ai/plugin"
+      }
+    },
+    {
       "name": "agents-blockchain-web3",
       "description": "Specialized agents for blockchain development, smart contracts, and Web3 applications",
       "version": "1.0.0",
