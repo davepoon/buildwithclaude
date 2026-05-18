@@ -72,7 +72,7 @@ Uses `claude-haiku-4-5-20251001` for cost efficiency. Typical cost per run: <$0.
 ```markdown
 ---
 type: contact
-name: Deeksha Yadav
+Name: Deeksha Yadav
 email: deeksha@browserstack.com
 company: BrowserStack
 role: Account Manager
