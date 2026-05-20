@@ -1,0 +1,13 @@
+{
+  "name": "memstack",
+  "version": "4.0.2",
+  "description": "127 auto-loading skills for Claude Code with localhost dashboard, 3-agent orchestration, session diary, and token tracking. 85 free, 42 Pro.",
+  "author": {
+    "name": "Claude Weidner",
+    "url": "https://github.com/cwinvestments"
+  },
+  "repository": "https://github.com/cwinvestments/memstack",
+  "homepage": "https://memstack.pro",
+  "license": "MIT",
+  "keywords": ["skills", "framework", "dashboard", "agent-runner", "memory", "diary", "token-tracking", "mcp", "pro"]
+}
