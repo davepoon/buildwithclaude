@@ -120,10 +120,14 @@ export async function indexMarketplaces(): Promise<IndexResult> {
 
   for (const topic of topicQueries) {
     try {
-      const { repos } = await github.searchRepositories(`topic:${topic}`)
-      console.log(`Found ${repos.length} repos for topic: ${topic}`)
-      for (const repo of repos) {
-        repoSet.add(repo.full_name)
+      const first = await github.searchRepositories(`topic:${topic}`)
+      console.log(`Found ${first.totalCount} repos for topic: ${topic}`)
+      const maxPages = Math.min(Math.ceil(first.totalCount / 100), 10)
+      for (let page = 1; page <= maxPages; page++) {
+        const pageResult = page === 1 ? first : await github.searchRepositories(`topic:${topic}`, page)
+        for (const repo of pageResult.repos) {
+          repoSet.add(repo.full_name)
+        }
       }
     } catch (error) {
       console.error(`Topic search failed for "${topic}":`, error)
