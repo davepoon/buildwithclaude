@@ -84,7 +84,9 @@ async function fetchGitHubMarketplacePlugins(
             category: plugin.category,
             keywords: plugin.keywords || plugin.tags,
             skills: plugin.skills,
-            author: plugin.author || repoFullName.split("/")[0],
+            author: typeof plugin.author === 'object'
+              ? plugin.author?.name || repoFullName.split("/")[0]
+              : plugin.author || repoFullName.split("/")[0],
             gitUrl: plugin.repository || `https://github.com/${repoFullName}`,
             stars: 0,
             downloads: 0,
