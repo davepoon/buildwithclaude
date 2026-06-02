@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "command": "node ./hooks/auto-approve-startup.mjs",
+        "matcher": "Read|Write"
+      }
+    ],
+    "postToolUse": [
+      { "command": "node ./hooks/validate-core-md.mjs", "matcher": "Write" },
+      { "command": "node ./hooks/validate-competitors-md.mjs", "matcher": "Write" },
+      { "command": "node ./hooks/validate-hypotheses-md.mjs", "matcher": "Write" },
+      { "command": "node ./hooks/validate-interview-scripts-md.mjs", "matcher": "Write" },
+      { "command": "node ./hooks/validate-interview-md.mjs", "matcher": "Write" },
+      { "command": "node ./hooks/validate-surveys-md.mjs", "matcher": "Write" },
+      { "command": "node ./hooks/validate-mvp-plan-md.mjs", "matcher": "Write" }
+    ]
+  }
+}

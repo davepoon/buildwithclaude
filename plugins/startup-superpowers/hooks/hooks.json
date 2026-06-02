@@ -1,0 +1,75 @@
+{
+  "hooks": {
+    "PreToolUse": [
+    {
+      "matcher": "WebSearch|WebFetch",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"permissionDecision\":\"allow\",\"permissionDecisionReason\":\"Required for web research subagents\"}}'",
+          "timeout": 5
+        }
+      ]
+    },
+    {
+      "matcher": "Read|Write|Edit",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/auto-approve-startup.mjs\"",
+          "timeout": 5
+        }
+      ]
+    }
+  ],
+  "PostToolUse": [
+    {
+      "matcher": "Edit|Write",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/validate-core-md.mjs\"",
+          "timeout": 15,
+          "statusMessage": "Checking startup/core.md conventions..."
+        },
+        {
+          "type": "command",
+          "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/validate-competitors-md.mjs\"",
+          "timeout": 10,
+          "statusMessage": "Checking competitor file conventions..."
+        },
+        {
+          "type": "command",
+          "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/validate-hypotheses-md.mjs\"",
+          "timeout": 10,
+          "statusMessage": "Checking hypothesis file conventions..."
+        },
+        {
+          "type": "command",
+          "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/validate-interview-scripts-md.mjs\"",
+          "timeout": 10,
+          "statusMessage": "Checking interview script conventions..."
+        },
+        {
+          "type": "command",
+          "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/validate-interview-md.mjs\"",
+          "timeout": 10,
+          "statusMessage": "Checking interview analysis conventions..."
+        },
+        {
+          "type": "command",
+          "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/validate-surveys-md.mjs\"",
+          "timeout": 10,
+          "statusMessage": "Checking survey conventions..."
+        },
+        {
+          "type": "command",
+          "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/validate-mvp-plan-md.mjs\"",
+          "timeout": 10,
+          "statusMessage": "Checking MVP plan conventions..."
+        }
+      ]
+    }
+  ]
+  }
+}
