@@ -1,5 +1,6 @@
 ---
 name: immich-photo-manager
+category: storage-docs
 description: "Manage your self-hosted Immich photo library through conversation — natural language search, geographic album curation, duplicate detection, library health audits, and interactive HTML galleries. Install: claude plugin install immich-photo-manager"
 ---
 

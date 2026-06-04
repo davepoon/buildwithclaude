@@ -1,6 +1,6 @@
 ---
 name: morning-ai
-category: data-ai
+category: ai-ml
 description: AI news tracking skill that monitors 80+ entities across 6 free sources (Reddit, HN, GitHub, HuggingFace, arXiv, X/Twitter). Generates scored daily reports with infographics and message digests. Invoke via /morning-ai.
 ---
 

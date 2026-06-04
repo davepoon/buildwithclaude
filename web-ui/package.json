@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node ../scripts/copy-story-assets.js",
     "dev": "next dev",
+    "prebuild": "node ../scripts/copy-story-assets.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test:unit": "node --experimental-strip-types --test lib/indexer/search-pagination.test.ts",
-    "generate-registry": "node ../scripts/generate-registry.js"
+    "generate-registry": "node ../scripts/generate-registry.js",
+    "index:skills": "node scripts/run-skills-index.js"
   },
   "dependencies": {
     "postgres": "^3.4.5",

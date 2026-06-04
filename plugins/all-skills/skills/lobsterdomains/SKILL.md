@@ -1,6 +1,6 @@
 ---
 name: lobsterdomains
-category: web
+category: ecommerce
 description: Register ICANN domains with crypto payments (USDC/USDT/ETH/BTC) via API — built for AI agents
 ---
 

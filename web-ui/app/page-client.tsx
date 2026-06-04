@@ -9,6 +9,8 @@ import type { Skill } from '@/lib/skills-types'
 import type { Subagent } from '@/lib/subagents-types'
 import type { Command } from '@/lib/commands-types'
 import type { Hook } from '@/lib/hooks-types'
+import type { Story } from '@/lib/stories-types'
+import { StoriesStrip } from '@/components/stories/stories-strip'
 
 interface HomePageClientProps {
   pluginCount: number
@@ -21,6 +23,7 @@ interface HomePageClientProps {
   featuredSubagents: Subagent[]
   featuredCommands: Command[]
   featuredHooks: Hook[]
+  featuredStories: Story[]
 }
 
 const words = ['plugins', 'skills', 'tools', 'agents']
@@ -83,6 +86,7 @@ export default function HomePageClient({
   featuredSubagents,
   featuredCommands,
   featuredHooks,
+  featuredStories,
 }: HomePageClientProps) {
   const [wordIndex, setWordIndex] = useState(0)
   const [isVisible, setIsVisible] = useState(true)
@@ -246,6 +250,9 @@ export default function HomePageClient({
           </div>
         </div>
       </section>
+
+      {/* Community stories */}
+      <StoriesStrip stories={featuredStories} />
 
       {/* Browse by type */}
       <section className="py-20 border-t border-border">

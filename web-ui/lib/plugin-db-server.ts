@@ -11,12 +11,13 @@ import { getAllHooks } from './hooks-server'
 import { getAllSkills } from './skills-server'
 import { getAllPlugins as getLocalPlugins } from './plugins-server'
 
-export type SortOption = 'relevance' | 'stars' | 'newest' | 'oldest' | 'name' | 'name-desc' | 'updated'
+export type SortOption = 'relevance' | 'stars' | 'installs' | 'newest' | 'oldest' | 'name' | 'name-desc' | 'updated'
 
 /** Allowed `sort` query values for `/api/plugins/list` — keep in sync with SortOption */
 export const PLUGIN_LIST_SORT_OPTIONS: SortOption[] = [
   'relevance',
   'stars',
+  'installs',
   'newest',
   'oldest',
   'name',
@@ -393,6 +394,9 @@ export async function getPluginsPaginated(options: {
     case 'stars':
       orderBy = sql`COALESCE(${plugins.stars}, 0) DESC`
       break
+    case 'installs':
+      orderBy = sql`COALESCE(${plugins.installs}, 0) DESC, COALESCE(${plugins.stars}, 0) DESC`
+      break
     case 'relevance':
     default:
       if (search) {
@@ -431,6 +435,7 @@ export async function getPluginsPaginated(options: {
           keywords: plugins.keywords,
           repository: plugins.repository,
           stars: plugins.stars,
+          installs: plugins.installs,
           installCommand: plugins.installCommand,
           marketplaceId: plugins.marketplaceId,
           marketplaceName: plugins.marketplaceName,
@@ -462,6 +467,7 @@ export async function getPluginsPaginated(options: {
     marketplaceName: p.marketplaceName || undefined,
     repository: p.repository || undefined,
     stars: p.stars,
+    installs: p.installs,
     installCommand: p.installCommand || undefined,
     namespace: p.namespace,
     author: p.author || undefined,
@@ -1084,6 +1090,7 @@ export async function getPluginBySlug(slug: string): Promise<UnifiedPlugin | nul
     marketplaceName: p.marketplaceName || undefined,
     repository: p.repository || undefined,
     stars: p.stars,
+    installs: p.installs,
     installCommand: p.installCommand || undefined,
     namespace: p.namespace,
     author: p.author || undefined,

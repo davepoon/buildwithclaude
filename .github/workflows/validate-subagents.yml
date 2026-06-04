@@ -9,6 +9,7 @@ on:
       - 'plugins/**/agents/*.md'
       - 'plugins/**/commands/*.md'
       - 'plugins/**/hooks/*.md'
+      - 'plugins/all-skills/skills/*/SKILL.md'
       - '!README.md'
       - '!CONTRIBUTING.md'
       - '.github/workflows/validate-subagents.yml'
@@ -41,6 +42,9 @@ jobs:
     - name: Validate hooks
       run: node scripts/validate-hooks.js
 
+    - name: Validate skills
+      run: node scripts/validate-skills.js
+
     - name: Check for naming inconsistencies
       run: |
         # Check if any agent files have mismatched names
@@ -65,3 +69,4 @@ jobs:
         path: |
           validation-report.txt
           hook-validation-report.json
+          skill-validation-report.txt

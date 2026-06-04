@@ -1,7 +1,11 @@
 import { notFound } from 'next/navigation'
-import { getSkillBySlug, getAllSkills } from '@/lib/skills-server'
+import { getSkillForDetail, getAllSkills } from '@/lib/skills-server'
 import { Metadata } from 'next'
 import { SkillPageClient } from './page-client'
+
+// Local file-skills are prebuilt by generateStaticParams below. DB-imported
+// skills aren't enumerated there, so allow on-demand (ISR) rendering for them.
+export const dynamicParams = true
 
 interface SkillPageProps {
   params: Promise<{
@@ -11,7 +15,7 @@ interface SkillPageProps {
 
 export async function generateMetadata({ params }: SkillPageProps): Promise<Metadata> {
   const { slug } = await params
-  const skill = getSkillBySlug(slug)
+  const skill = await getSkillForDetail(slug)
 
   if (!skill) {
     return {
@@ -34,7 +38,7 @@ export async function generateStaticParams() {
 
 export default async function SkillPage({ params }: SkillPageProps) {
   const { slug } = await params
-  const skill = getSkillBySlug(slug)
+  const skill = await getSkillForDetail(slug)
 
   if (!skill) {
     notFound()

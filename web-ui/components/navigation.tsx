@@ -20,6 +20,7 @@ export function Navigation() {
     { href: "/hooks", label: "Hooks" },
     { href: "/mcp-servers", label: "MCP Servers" },
     { href: "/marketplaces", label: "Marketplaces" },
+    { href: "/stories", label: "Stories" },
     { href: "/contribute", label: "Contribute" },
   ];
 

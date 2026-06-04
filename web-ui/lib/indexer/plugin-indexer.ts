@@ -1,7 +1,7 @@
 import { db } from '@/lib/db/client'
 import { plugins, skills, marketplaces } from '@/lib/db/schema'
 import { getGitHubClient } from '@/lib/github/client'
-import { eq, and, sql } from 'drizzle-orm'
+import { eq, and, sql, inArray } from 'drizzle-orm'
 import { z } from 'zod'
 import { expandSkillCollection } from './skill-expander'
 
@@ -38,7 +38,45 @@ export interface PluginIndexResult {
   indexed: number
   failed: number
   skipped: number
+  unchanged?: number   // marketplaces skipped via change-detection (no new commits)
+  reindexed?: number   // marketplaces that had changes and were re-fetched
+  examined?: number    // marketplaces examined this run (the staleness slice size)
+  skillsInserted?: number
   durationMs: number
+}
+
+// How many marketplaces to examine per run. With change-detection most cost
+// only one metadata request (~2s throttle each), so this stays well under the
+// Trigger.dev maxDuration while the whole catalog refreshes over a few runs.
+const DEFAULT_MARKETPLACE_BATCH = 2500
+
+type PluginUpsertRecord = {
+  name: string
+  namespace: string
+  slug: string
+  marketplaceId: string
+  marketplaceName: string
+  repository: string
+  description: string
+  version: string | undefined
+  author: string
+  type: string
+  categories: string[]
+  keywords: string[]
+  installCommand: string
+  stars: number
+  lastIndexedAt: Date
+}
+
+type SkillUpsertRecord = {
+  name: string
+  slug: string
+  marketplaceId: string
+  marketplaceName: string
+  repository: string
+  description: string
+  category: string | null | undefined
+  lastIndexedAt: Date
 }
 
 /**
@@ -212,58 +250,178 @@ async function fetchGitHubMarketplacePlugins(repoFullName: string): Promise<Plug
 }
 
 /**
- * Index plugins from all active marketplaces
+ * Index plugins from active marketplaces — incrementally.
+ *
+ * Re-fetching all ~6k marketplaces every run exceeds the Trigger.dev maxDuration
+ * (each GitHub request is throttled). Instead, each run:
+ *   1. Examines only the N stalest active marketplaces (round-robin via
+ *      last_indexed_at; NULLS FIRST so never-indexed go first).
+ *   2. Makes one cheap metadata call per marketplace and skips the expensive
+ *      file-fetch + skill-expansion when the repo has no new commits since our
+ *      last full index (pushed_at <= source_pushed_at).
+ *   3. Batches all DB writes.
+ *   4. Always bumps last_indexed_at so processed marketplaces rotate to the back
+ *      of the queue — even when skipped or failed — so the catalog refreshes
+ *      fully over a few runs instead of starving the tail.
  */
-export async function indexPlugins(): Promise<PluginIndexResult> {
+export async function indexPlugins(
+  options: { batchSize?: number } = {},
+): Promise<PluginIndexResult> {
   const startTime = Date.now()
-  let indexed = 0
-  let failed = 0
-  let skipped = 0
+  const batchSize = options.batchSize ?? DEFAULT_MARKETPLACE_BATCH
+  const github = getGitHubClient()
+  const now = new Date()
 
-  // Get all active marketplaces
-  const activeMarketplaces = await db
+  // The N stalest active marketplaces.
+  const marketplaceSlice = await db
     .select({
       id: marketplaces.id,
       name: marketplaces.name,
       displayName: marketplaces.displayName,
       repository: marketplaces.repository,
       namespace: marketplaces.namespace,
+      sourcePushedAt: marketplaces.sourcePushedAt,
     })
     .from(marketplaces)
     .where(eq(marketplaces.active, true))
+    .orderBy(sql`${marketplaces.lastIndexedAt} ASC NULLS FIRST`)
+    .limit(batchSize)
 
-  console.log(`Indexing plugins from ${activeMarketplaces.length} marketplaces...`)
+  console.log(
+    `Incremental plugin index: examining ${marketplaceSlice.length} stalest marketplaces (batch ${batchSize})`,
+  )
+
+  const pluginRecords: PluginUpsertRecord[] = []
+  const skillRecords: SkillUpsertRecord[] = []
+  const collectionNamespaces = new Set<string>()
+  const changedUpdates: Array<{ id: string; pluginCount: number; sourcePushedAt: Date | null }> = []
+  const bumpIds: string[] = [] // unchanged / skipped / failed → bulk last_indexed_at bump
 
   const MAX_SKILL_EXPANSIONS = 10
   const expandedRepos = new Set<string>()
   let expansionCount = 0
 
-  for (const marketplace of activeMarketplaces) {
-    // Skip Build with Claude - loaded from local files in hybrid approach
-    if (marketplace.name === 'davepoon/buildwithclaude' ||
-        marketplace.displayName === 'Build with Claude') {
-      console.log(`Skipping ${marketplace.displayName} - plugins loaded from local files`)
+  let indexed = 0
+  let skillsInserted = 0
+  let skipped = 0
+  let unchanged = 0
+  let reindexed = 0
+  let failed = 0
+
+  // Persist accumulated work in windows so a run killed by maxDuration still
+  // makes durable progress — and the bumped last_indexed_at rotates finished
+  // marketplaces to the back of the queue, so the next run resumes where this
+  // one stopped instead of re-processing the head of the list.
+  const FLUSH_EVERY = 300
+  let processedSinceFlush = 0
+
+  const flush = async () => {
+    if (pluginRecords.length) {
+      const r = await batchUpsertPlugins(pluginRecords)
+      indexed += r.indexed
+      failed += r.failed
+      pluginRecords.length = 0
+    }
+    if (skillRecords.length) {
+      skillsInserted += await batchUpsertSkills(skillRecords)
+      skillRecords.length = 0
+    }
+    // Deactivate parent collection entries that were expanded into individual skills.
+    for (const ns of collectionNamespaces) {
+      try {
+        await db
+          .update(plugins)
+          .set({ active: false, updatedAt: now })
+          .where(and(eq(plugins.namespace, ns), eq(plugins.type, 'skill')))
+      } catch (error) {
+        console.error(`Failed to deactivate collection entry ${ns}:`, error)
+      }
+    }
+    collectionNamespaces.clear()
+    // Changed marketplaces: record new source_pushed_at + plugin count + freshness.
+    for (const u of changedUpdates) {
+      try {
+        await db
+          .update(marketplaces)
+          .set({
+            pluginCount: u.pluginCount,
+            sourcePushedAt: u.sourcePushedAt,
+            lastIndexedAt: now,
+            updatedAt: now,
+          })
+          .where(eq(marketplaces.id, u.id))
+      } catch (error) {
+        console.error(`Failed to update marketplace ${u.id}:`, error)
+      }
+    }
+    changedUpdates.length = 0
+    // Unchanged / skipped / failed: bulk-bump last_indexed_at so they rotate to the back.
+    for (let i = 0; i < bumpIds.length; i += 500) {
+      const chunk = bumpIds.slice(i, i + 500)
+      try {
+        await db
+          .update(marketplaces)
+          .set({ lastIndexedAt: now, updatedAt: now })
+          .where(inArray(marketplaces.id, chunk))
+      } catch (error) {
+        console.error(`Failed to bump ${chunk.length} marketplaces:`, error)
+      }
+    }
+    bumpIds.length = 0
+  }
+
+  for (const marketplace of marketplaceSlice) {
+    if (processedSinceFlush >= FLUSH_EVERY) {
+      await flush()
+      processedSinceFlush = 0
+    }
+    processedSinceFlush++
+
+    // Build with Claude is served from local files — never crawl it, but rotate it.
+    if (
+      marketplace.name === 'davepoon/buildwithclaude' ||
+      marketplace.displayName === 'Build with Claude'
+    ) {
       skipped++
+      bumpIds.push(marketplace.id)
       continue
     }
 
+    const repoPath = marketplace.repository.replace('https://github.com/', '')
+
+    // Change-detection: one cheap metadata request.
+    let repoMeta
     try {
-      // Fetch plugins from GitHub repository
-      const repoPath = marketplace.repository.replace('https://github.com/', '')
+      repoMeta = await github.fetchRepoMetadata(repoPath)
+    } catch (error) {
+      console.error(`Metadata fetch failed for ${repoPath}:`, error)
+      failed++
+      bumpIds.push(marketplace.id) // rotate to back; retry next cycle
+      continue
+    }
+
+    const pushedAt = repoMeta.pushed_at ? new Date(repoMeta.pushed_at) : null
+    const unchangedSinceLastIndex =
+      pushedAt && marketplace.sourcePushedAt && pushedAt <= marketplace.sourcePushedAt
+
+    if (unchangedSinceLastIndex) {
+      unchanged++
+      bumpIds.push(marketplace.id) // source_pushed_at stays; just bump last_indexed_at
+      continue
+    }
+
+    // Changed (or first index): fetch + expand, accumulate for batch upsert.
+    try {
       const fetchedPlugins = await fetchGitHubMarketplacePlugins(repoPath)
-
-      console.log(`Fetched ${fetchedPlugins.length} plugins from ${marketplace.displayName}`)
-
-      // Expand skill collections into individual skills
       const expandedPlugins: Plugin[] = []
-      const collectionNamespaces: Set<string> = new Set()
 
       for (const plugin of fetchedPlugins) {
         const pluginType = determinePluginType(plugin)
-        const isExternalSkillRepo = pluginType === 'skill'
-          && plugin.gitUrl
-          && plugin.gitUrl !== marketplace.repository
-          && expansionCount < MAX_SKILL_EXPANSIONS
+        const isExternalSkillRepo =
+          pluginType === 'skill' &&
+          plugin.gitUrl &&
+          plugin.gitUrl !== marketplace.repository &&
+          expansionCount < MAX_SKILL_EXPANSIONS
 
         if (isExternalSkillRepo) {
           try {
@@ -274,10 +432,7 @@ export async function indexPlugins(): Promise<PluginIndexResult> {
             )
             if (expanded && expanded.length > 0) {
               expansionCount++
-              // Track the collection namespace so we can deactivate it
               collectionNamespaces.add(`@${plugin.namespace}/${plugin.name}`)
-
-              // Replace single collection entry with individual skill entries
               for (const skill of expanded) {
                 expandedPlugins.push({
                   id: `${plugin.namespace}/${skill.slug}`,
@@ -302,116 +457,141 @@ export async function indexPlugins(): Promise<PluginIndexResult> {
           }
         }
 
-        // Keep non-skill or non-expandable plugins as-is
         expandedPlugins.push(plugin)
       }
 
-      // Deactivate parent collection entries that were expanded
-      for (const ns of collectionNamespaces) {
-        try {
-          await db
-            .update(plugins)
-            .set({ active: false, updatedAt: new Date() })
-            .where(and(eq(plugins.namespace, ns), eq(plugins.type, 'skill')))
-        } catch (error) {
-          console.error(`Failed to deactivate collection entry ${ns}:`, error)
-        }
-      }
-
-      // Upsert plugins into database
+      // Accumulate records (skip nameless entries — createSlug needs a name).
       for (const plugin of expandedPlugins) {
-        try {
-          const slug = createSlug(plugin.name)
-          const pluginType = determinePluginType(plugin)
+        if (!plugin.name) continue
+        const pluginType = determinePluginType(plugin)
+        pluginRecords.push({
+          name: plugin.name,
+          namespace: `@${plugin.namespace}/${plugin.name}`,
+          slug: createSlug(plugin.name),
+          marketplaceId: marketplace.id,
+          marketplaceName: marketplace.displayName,
+          repository: plugin.gitUrl || marketplace.repository,
+          description: plugin.description || '',
+          version: plugin.version,
+          author: plugin.author || plugin.namespace,
+          type: pluginType,
+          categories: plugin.category ? [plugin.category] : [],
+          keywords: plugin.keywords || [],
+          installCommand: `bwc add --plugin ${plugin.namespace}/${plugin.name}`,
+          stars: plugin.stars ?? 0,
+          lastIndexedAt: now,
+        })
 
-          await db
-            .insert(plugins)
-            .values({
-              name: plugin.name,
-              namespace: `@${plugin.namespace}/${plugin.name}`,
-              slug,
+        if (plugin.skills && plugin.skills.length > 0) {
+          for (const skillName of plugin.skills) {
+            if (!skillName) continue
+            skillRecords.push({
+              name: skillName,
+              slug: createSlug(skillName),
               marketplaceId: marketplace.id,
               marketplaceName: marketplace.displayName,
               repository: plugin.gitUrl || marketplace.repository,
-              description: plugin.description || '',
-              version: plugin.version,
-              author: plugin.author || plugin.namespace,
-              type: pluginType,
-              categories: plugin.category ? [plugin.category] : [],
-              keywords: plugin.keywords || [],
-              installCommand: `bwc add --plugin ${plugin.namespace}/${plugin.name}`,
-              stars: plugin.stars,
-              lastIndexedAt: new Date(),
+              description: `Skill from ${plugin.name}`,
+              category: plugin.category,
+              lastIndexedAt: now,
             })
-            .onConflictDoUpdate({
-              target: plugins.namespace,
-              set: {
-                description: sql`EXCLUDED.description`,
-                version: sql`EXCLUDED.version`,
-                author: sql`EXCLUDED.author`,
-                type: sql`EXCLUDED.type`,
-                categories: sql`EXCLUDED.categories`,
-                keywords: sql`EXCLUDED.keywords`,
-                stars: sql`EXCLUDED.stars`,
-                lastIndexedAt: sql`EXCLUDED.last_indexed_at`,
-                updatedAt: sql`NOW()`,
-              },
-            })
-
-          // Index skills if present
-          if (plugin.skills && plugin.skills.length > 0) {
-            for (const skillName of plugin.skills) {
-              try {
-                const skillSlug = createSlug(skillName)
-
-                await db
-                  .insert(skills)
-                  .values({
-                    name: skillName,
-                    slug: skillSlug,
-                    marketplaceId: marketplace.id,
-                    marketplaceName: marketplace.displayName,
-                    repository: plugin.gitUrl || marketplace.repository,
-                    description: `Skill from ${plugin.name}`,
-                    category: plugin.category,
-                    lastIndexedAt: new Date(),
-                  })
-                  .onConflictDoNothing()
-              } catch (skillError) {
-                console.error(`Failed to index skill ${skillName}:`, skillError)
-              }
-            }
           }
-
-          indexed++
-        } catch (pluginError) {
-          console.error(`Failed to index plugin ${plugin.name}:`, pluginError)
-          failed++
         }
       }
 
-      // Update marketplace plugin count
-      await db
-        .update(marketplaces)
-        .set({
-          pluginCount: expandedPlugins.length,
-          lastIndexedAt: new Date(),
-          updatedAt: new Date(),
-        })
-        .where(eq(marketplaces.id, marketplace.id))
-
-    } catch (marketplaceError) {
-      console.error(`Failed to index marketplace ${marketplace.displayName}:`, marketplaceError)
+      reindexed++
+      changedUpdates.push({
+        id: marketplace.id,
+        pluginCount: expandedPlugins.length,
+        sourcePushedAt: pushedAt,
+      })
+    } catch (error) {
+      console.error(`Failed to index marketplace ${marketplace.displayName}:`, error)
       failed++
+      bumpIds.push(marketplace.id)
     }
   }
+
+  // Flush the final partial window.
+  await flush()
+
+  console.log(
+    `Incremental plugin index done: examined ${marketplaceSlice.length}, reindexed ${reindexed}, ` +
+      `unchanged ${unchanged}, skipped ${skipped}, failed ${failed}, plugins upserted ${indexed}, skills ${skillsInserted}`,
+  )
 
   return {
     indexed,
     failed,
     skipped,
+    unchanged,
+    reindexed,
+    examined: marketplaceSlice.length,
+    skillsInserted,
     durationMs: Date.now() - startTime,
   }
+}
+
+/**
+ * Batch-upsert plugin records in chunks to avoid thousands of sequential round-trips.
+ */
+async function batchUpsertPlugins(
+  records: PluginUpsertRecord[],
+  chunkSize = 50,
+): Promise<{ indexed: number; failed: number }> {
+  let indexed = 0
+  let failed = 0
+  for (let i = 0; i < records.length; i += chunkSize) {
+    const batch = records.slice(i, i + chunkSize)
+    try {
+      await db
+        .insert(plugins)
+        .values(batch)
+        .onConflictDoUpdate({
+          target: plugins.namespace,
+          set: {
+            description: sql`EXCLUDED.description`,
+            version: sql`EXCLUDED.version`,
+            author: sql`EXCLUDED.author`,
+            type: sql`EXCLUDED.type`,
+            categories: sql`EXCLUDED.categories`,
+            keywords: sql`EXCLUDED.keywords`,
+            stars: sql`EXCLUDED.stars`,
+            marketplaceId: sql`EXCLUDED.marketplace_id`,
+            marketplaceName: sql`EXCLUDED.marketplace_name`,
+            repository: sql`EXCLUDED.repository`,
+            installCommand: sql`EXCLUDED.install_command`,
+            lastIndexedAt: sql`EXCLUDED.last_indexed_at`,
+            updatedAt: sql`NOW()`,
+          },
+        })
+      indexed += batch.length
+    } catch (error) {
+      console.error(`Batch upsert failed for ${batch.length} plugins:`, error)
+      failed += batch.length
+    }
+  }
+  return { indexed, failed }
+}
+
+/**
+ * Batch-insert skill records (collection skills referenced by name).
+ */
+async function batchUpsertSkills(
+  records: SkillUpsertRecord[],
+  chunkSize = 100,
+): Promise<number> {
+  let inserted = 0
+  for (let i = 0; i < records.length; i += chunkSize) {
+    const batch = records.slice(i, i + chunkSize)
+    try {
+      await db.insert(skills).values(batch).onConflictDoNothing()
+      inserted += batch.length
+    } catch (error) {
+      console.error('Batch skill insert failed:', error)
+    }
+  }
+  return inserted
 }
 
 /**

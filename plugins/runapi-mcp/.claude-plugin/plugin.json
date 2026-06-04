@@ -1,0 +1,9 @@
+{
+  "name": "runapi-mcp",
+  "description": "AI image, video, music, audio generation and LLM chat — 130+ models from 18 providers via RunAPI MCP server.",
+  "version": "0.1.7",
+  "author": {
+    "name": "RunAPI",
+    "url": "https://runapi.ai"
+  }
+}

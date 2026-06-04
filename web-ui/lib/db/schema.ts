@@ -48,6 +48,11 @@ export const marketplaces = pgTable(
     verified: boolean('verified').notNull().default(false),
     active: boolean('active').notNull().default(true),
 
+    // Change-detection: the source repo's pushed_at as of our last full index.
+    // If GitHub reports a newer pushed_at, the repo changed and needs re-indexing;
+    // otherwise the incremental indexer skips the expensive file fetch/expansion.
+    sourcePushedAt: timestamp('source_pushed_at', { withTimezone: true }),
+
     // Timestamps
     lastIndexedAt: timestamp('last_indexed_at', { withTimezone: true }),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
@@ -127,6 +132,12 @@ export const plugins = pgTable(
     version: varchar('version', { length: 64 }),
     author: varchar('author', { length: 255 }),
 
+    // Full body (for skills: the SKILL.md markdown body, persisted at index time
+    // so detail pages can render without re-fetching). Nullable; legacy rows fall
+    // back to an on-demand raw.githubusercontent fetch keyed by sourcePath.
+    content: text('content'),
+    sourcePath: varchar('source_path', { length: 512 }), // path of SKILL.md within the source repo
+
     // Classification
     type: varchar('type', { length: 64 }).notNull(), // 'plugin', 'command', 'hook', 'subagent', 'skill'
     categories: text('categories').array(),
@@ -137,6 +148,10 @@ export const plugins = pgTable(
 
     // GitHub signals
     stars: integer('stars').notNull().default(0),
+
+    // skills.sh popularity signal (latest weekly installs from the leaderboard
+    // sparkline). 0 when unknown / not sourced from skills.sh.
+    installs: integer('installs').notNull().default(0),
 
     // Status
     active: boolean('active').notNull().default(true),

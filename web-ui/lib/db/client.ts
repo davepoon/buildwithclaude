@@ -3,7 +3,12 @@ import { drizzle } from 'drizzle-orm/postgres-js'
 import * as schema from './schema'
 
 function createDb() {
-  const client = postgres(process.env.POSTGRES_URL!)
+  // Pool size defaults to postgres-js's 10; override with PG_POOL_MAX (e.g. a
+  // small value for local scripts so they don't exhaust the shared connection
+  // limit while a dev server is running).
+  const client = postgres(process.env.POSTGRES_URL!, {
+    max: process.env.PG_POOL_MAX ? Number(process.env.PG_POOL_MAX) : 10,
+  })
   return drizzle(client, { schema })
 }
 

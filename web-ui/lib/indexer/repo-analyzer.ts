@@ -17,6 +17,7 @@ export interface AnalyzedSkill {
   model?: string
   installCommand?: string
   content?: string
+  sourcePath?: string // path of the SKILL.md within the source repo (for deep links / on-demand refetch)
   source: 'skill-md' | 'plugin-json' | 'marketplace-json' | 'readme-inferred'
 }
 
@@ -275,6 +276,7 @@ async function parseSkillMdFiles(
         model: data.model || undefined,
         installCommand: `npx skills add ${repoFullName}`,
         content: body,
+        sourcePath: filePath,
         source: 'skill-md',
       })
     } catch {

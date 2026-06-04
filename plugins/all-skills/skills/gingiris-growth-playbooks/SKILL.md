@@ -1,7 +1,7 @@
 ---
 name: gingiris-growth-playbooks
 description: "Open-source growth playbooks for AI products, B2B SaaS, and developer tools. Covers Product Hunt launch, GitHub star growth, KOL/UGC strategy, ASO, and community building. MIT licensed."
-category: marketing
+category: social-media
 ---
 
 # Gingiris Growth Playbooks

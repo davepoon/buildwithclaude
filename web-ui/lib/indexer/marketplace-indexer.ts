@@ -62,6 +62,19 @@ const KNOWN_MARKETPLACES = [
   },
 ]
 
+// Curated high-signal skill repositories (owner/repo). Hand-picked from the
+// open agent-skills ecosystem (vercel-labs/skills providers, anthropics/skills,
+// and other well-known SKILL.md repos). Seeded directly into the crawl so we get
+// equivalent coverage to skills.sh without using its key-gated API. These flow
+// through processRepository → processSkillRepository like any discovered repo.
+const SEED_SKILL_REPOS = [
+  'anthropics/skills',
+  'vercel-labs/skills',
+  'obra/superpowers',
+  'addyosmani/agent-skills',
+  'ComposioHQ/awesome-claude-skills',
+]
+
 export interface IndexResult {
   indexed: number
   failed: number
@@ -84,10 +97,16 @@ export async function indexMarketplaces(): Promise<IndexResult> {
   // Add known marketplaces
   KNOWN_MARKETPLACES.forEach((m) => repoSet.add(m.repo))
 
+  // Add curated high-signal skill repos (deduped by the Set; processed via the
+  // processRepository → processSkillRepository fallback like any other repo).
+  SEED_SKILL_REPOS.forEach((r) => repoSet.add(r))
+
   // Search GitHub for marketplace.json files + expanded queries
   const codeQueries = [
     'filename:marketplace.json path:.claude-plugin',
     'filename:SKILL.md',
+    'filename:SKILL.md path:skills',
+    'filename:SKILL.md path:.claude/skills',
     'filename:plugin.json path:.claude',
   ]
 
@@ -110,20 +129,26 @@ export async function indexMarketplaces(): Promise<IndexResult> {
     }
   }
 
-  // Topic-based repository search
+  // Topic-based repository search. These are noisier than the code queries, so
+  // cap pagination lower and rely on the downstream scan + submission gate.
   const topicQueries = [
     'claude-code-skill',
+    'claude-code-skills',
     'claude-skill',
     'agent-skill',
+    'agent-skills',
+    'anthropic-skill',
     'claude-agent-skill',
     'claude-code-plugins',
   ]
+
+  const TOPIC_PAGE_CAP = 3
 
   for (const topic of topicQueries) {
     try {
       const first = await github.searchRepositories(`topic:${topic}`)
       console.log(`Found ${first.totalCount} repos for topic: ${topic}`)
-      const maxPages = getSearchMaxPages(first.totalCount)
+      const maxPages = getSearchMaxPages(first.totalCount, undefined, TOPIC_PAGE_CAP)
       for (let page = 1; page <= maxPages; page++) {
         const pageResult = page === 1 ? first : await github.searchRepositories(`topic:${topic}`, page)
         for (const repo of pageResult.repos) {
@@ -384,6 +409,8 @@ async function processSkillRepository(repoFullName: string): Promise<boolean> {
           installCommand: skill.installCommand || `npx skills add ${repoFullName}`,
           stars: analysis.stars,
           submissionStatus: status,
+          content: skill.content,
+          sourcePath: skill.sourcePath,
           lastIndexedAt: new Date(),
         })
         .onConflictDoUpdate({
@@ -395,6 +422,8 @@ async function processSkillRepository(repoFullName: string): Promise<boolean> {
             installCommand: sql`EXCLUDED.install_command`,
             stars: sql`EXCLUDED.stars`,
             submissionStatus: sql`EXCLUDED.submission_status`,
+            content: sql`EXCLUDED.content`,
+            sourcePath: sql`EXCLUDED.source_path`,
             lastIndexedAt: sql`EXCLUDED.last_indexed_at`,
             updatedAt: sql`NOW()`,
           },

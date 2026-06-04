@@ -27,7 +27,6 @@ import {
 } from '@/components/ui/command'
 import { Badge } from '@/components/ui/badge'
 import { Sparkles, Store, Loader2, ArrowUpDown, Check, ChevronsUpDown, X, Tags } from 'lucide-react'
-import { CreateMarketplaceBanner } from '@/components/create-marketplace-banner'
 import { cn } from '@/lib/utils'
 import type { UnifiedPlugin } from '@/lib/plugin-types'
 import type { MarketplaceOption, SortOption, PluginCategory } from '@/lib/plugin-db-server'
@@ -57,7 +56,7 @@ export default function SkillsPageClient({
   const [debouncedSearch, setDebouncedSearch] = useState('')
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [selectedMarketplace, setSelectedMarketplace] = useState<string>('all')
-  const [sort, setSort] = useState<SortOption>('stars')
+  const [sort, setSort] = useState<SortOption>('installs')
   const [marketplaceOpen, setMarketplaceOpen] = useState(false)
   const [categoryOpen, setCategoryOpen] = useState(false)
 
@@ -112,7 +111,7 @@ export default function SkillsPageClient({
     if (sourceParam) {
       setSelectedMarketplace(sourceParam)
     }
-    if (sortParam && ['relevance', 'stars', 'newest', 'oldest', 'name', 'name-desc'].includes(sortParam)) {
+    if (sortParam && ['relevance', 'stars', 'installs', 'newest', 'oldest', 'name', 'name-desc'].includes(sortParam)) {
       setSort(sortParam as SortOption)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps -- only on mount
@@ -267,8 +266,6 @@ export default function SkillsPageClient({
           </p>
         </div>
 
-        <CreateMarketplaceBanner variant="skill" />
-
         {/* Search, Marketplace Filter, and Sort */}
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
           <Input
@@ -348,6 +345,7 @@ export default function SkillsPageClient({
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="relevance">Relevance</SelectItem>
+              <SelectItem value="installs">Most Installs</SelectItem>
               <SelectItem value="stars">Most Stars</SelectItem>
               <SelectItem value="newest">Newest</SelectItem>
               <SelectItem value="oldest">Oldest</SelectItem>

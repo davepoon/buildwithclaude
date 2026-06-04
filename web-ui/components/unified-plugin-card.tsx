@@ -71,7 +71,9 @@ function getDetailUrl(plugin: UnifiedPlugin): string {
     case 'subagent': return `/subagent/${plugin.name}`
     case 'command': return `/command/${plugin.name}`
     case 'hook': return `/hook/${plugin.name}`
-    case 'skill': return `/skill/${plugin.name}`
+    // Skills always have an on-site detail page (local files + DB-imported); route
+    // by the URL-safe slug, which getSkillForDetail matches against slug or name.
+    case 'skill': return `/skill/${plugin.slug || plugin.name}`
     case 'plugin':
       // Build with Claude plugins have internal detail pages
       if (plugin.marketplaceName === 'Build with Claude') {
@@ -144,13 +146,14 @@ export function UnifiedPluginCard({ plugin }: UnifiedPluginCardProps) {
       <div className="mb-3">
         <h3 className="font-medium mb-1">{plugin.name}</h3>
         <div className="flex flex-wrap items-center gap-1">
-          {plugin.type === 'plugin' && plugin.category && plugin.category !== 'uncategorized' ? (
-            // Show category badge for plugins
-            <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-purple-500/10 text-purple-500">
+          {(plugin.type === 'plugin' || plugin.type === 'skill') && plugin.category && plugin.category !== 'uncategorized' ? (
+            // Show the category (the "kind") instead of the type label — skills keep
+            // the skill (yellow) accent, plugins keep purple.
+            <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${plugin.type === 'skill' ? getTypeBadgeClasses('skill') : 'bg-purple-500/10 text-purple-500'}`}>
               {formatCategoryName(plugin.category)}
             </span>
           ) : (
-            // Show type badge for non-plugins or uncategorized plugins
+            // Fallback to the type badge for uncategorized items.
             <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${getTypeBadgeClasses(plugin.type)}`}>
               {typeLabels[plugin.type]}
             </span>
@@ -158,6 +161,12 @@ export function UnifiedPluginCard({ plugin }: UnifiedPluginCardProps) {
           {plugin.marketplaceName && (
             <span className="px-2 py-0.5 rounded-full bg-indigo-500/10 text-xs text-indigo-500 font-medium truncate max-w-[140px]">
               {plugin.marketplaceName}
+            </span>
+          )}
+          {typeof plugin.installs === 'number' && plugin.installs > 0 && (
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-muted text-xs text-muted-foreground font-medium">
+              <Download className="h-3 w-3" />
+              {plugin.installs.toLocaleString()}
             </span>
           )}
         </div>
@@ -258,8 +267,9 @@ export function UnifiedPluginCard({ plugin }: UnifiedPluginCardProps) {
     </div>
   )
 
-  // Use Link for internal plugins, <a> for external
-  if (isExternal) {
+  // Skills always resolve to our on-site detail page (which itself links out to
+  // the source repo for imported skills). Other external plugins still link out.
+  if (isExternal && plugin.type !== 'skill') {
     return (
       <a href={plugin.repository || '#'} target="_blank" rel="noopener noreferrer">
         {cardContent}

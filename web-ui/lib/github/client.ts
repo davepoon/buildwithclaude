@@ -30,6 +30,7 @@ const GitHubRepoSchema = z.object({
   description: z.string().nullable(),
   stargazers_count: z.number(),
   updated_at: z.string(),
+  pushed_at: z.string().nullable().optional(), // last push to any branch — used for change-detection
   html_url: z.string().url(),
   homepage: z.string().nullable(),
   topics: z.array(z.string()).optional().default([]),

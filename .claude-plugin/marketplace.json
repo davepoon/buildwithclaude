@@ -1567,6 +1567,30 @@
       ],
       "category": "sales-marketing",
       "source": "./plugins/vibe-prospecting"
+    },
+    {
+      "name": "backlogd",
+      "description": "Turn Claude Code into a problem-driven scrum team. You file problems as Linear issues; an agent team runs the empirical Scrum loop (scope, solve, review, adapt) and owns the solutions. An independent reviewer gates every increment against its acceptance criteria, the Definition of Done, and a standards corpus. Runs on your Claude subscription via the official Linear MCP over OAuth — no API keys.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Nicolai Bernsen",
+        "url": "https://github.com/nicolai-bernsen"
+      },
+      "repository": "https://github.com/nicolai-bernsen/backlogd",
+      "license": "MIT",
+      "keywords": [
+        "claude-code",
+        "linear",
+        "scrum",
+        "agents",
+        "product-management",
+        "orchestration"
+      ],
+      "category": "orchestration",
+      "source": {
+        "source": "github",
+        "repo": "nicolai-bernsen/backlogd"
+      }
     }
   ]
 }

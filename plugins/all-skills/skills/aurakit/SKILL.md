@@ -1,5 +1,6 @@
 ---
 name: aurakit
+category: development-code
 description: "Sonnet Amplified fullstack engine. 34 modes, SEC-01~15 OWASP security, 13 runtime hooks, 75% token reduction. Install: npx @smorky85/aurakit"
 ---
 

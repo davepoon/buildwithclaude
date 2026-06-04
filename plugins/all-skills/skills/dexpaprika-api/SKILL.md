@@ -1,5 +1,6 @@
 ---
 name: dexpaprika-api
+category: analytics
 description: "Access DeFi data from DexPaprika: token prices, liquidity pools, OHLCV, transactions across 34+ blockchains and 30M+ pools. Free, no API key needed. Install MCP: add https://mcp.dexpaprika.com/sse as SSE server, or install plugin: /plugin marketplace add coinpaprika/claude-marketplace"
 ---
 

@@ -2,6 +2,7 @@ import { schedules } from '@trigger.dev/sdk/v3'
 import { indexMCPServers, syncMCPServerStats } from '@/lib/indexer/mcp-server-indexer'
 import { indexMarketplaces } from '@/lib/indexer/marketplace-indexer'
 import { indexPlugins } from '@/lib/indexer/plugin-indexer'
+import { indexSkillsFromSkillsSh } from '@/lib/indexer/skills-sh-indexer'
 
 /**
  * Scheduled indexing tasks
@@ -42,6 +43,18 @@ export const scheduledPluginsIndex = schedules.task({
   run: async (payload) => {
     console.log(`Plugins indexing started at ${payload.timestamp}`)
     const result = await indexPlugins()
+    return { ...result, scheduledAt: payload.timestamp }
+  },
+})
+
+// skills.sh - daily at 5 AM UTC (key-less web crawl: discovery + incremental
+// content sync; bounded per run by the staleness slice + windowed flush)
+export const scheduledSkillsShIndex = schedules.task({
+  id: 'scheduled-skills-sh-index',
+  cron: '0 5 * * *',
+  run: async (payload) => {
+    console.log(`skills.sh indexing started at ${payload.timestamp}`)
+    const result = await indexSkillsFromSkillsSh()
     return { ...result, scheduledAt: payload.timestamp }
   },
 })

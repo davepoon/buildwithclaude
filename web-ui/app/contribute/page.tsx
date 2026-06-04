@@ -20,12 +20,38 @@ import {
   Heart,
   Webhook,
   Lightbulb,
-  Puzzle
+  Puzzle,
+  Newspaper
 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+
+const VALID_TABS = ['agents', 'commands', 'hooks', 'skills', 'plugins', 'stories'] as const
+type TabValue = typeof VALID_TABS[number]
 
 export default function ContributePage() {
   const [copiedTemplate, setCopiedTemplate] = useState<string | null>(null)
+  const [activeTab, setActiveTab] = useState<TabValue>('agents')
+
+  useEffect(() => {
+    const sync = () => {
+      const hash = window.location.hash.replace(/^#/, '')
+      if ((VALID_TABS as readonly string[]).includes(hash)) {
+        setActiveTab(hash as TabValue)
+      }
+    }
+    sync()
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
+  }, [])
+
+  const handleTabChange = (value: string) => {
+    if ((VALID_TABS as readonly string[]).includes(value)) {
+      setActiveTab(value as TabValue)
+      if (typeof window !== 'undefined') {
+        history.replaceState(null, '', `#${value}`)
+      }
+    }
+  }
 
   const handleCopy = (template: string, name: string) => {
     navigator.clipboard.writeText(template)
@@ -162,6 +188,44 @@ Example output...
   "keywords": ["keyword1", "keyword2"]
 }`
 
+  const storyTemplate = `---
+slug: my-story-slug                       # kebab-case, must match filename
+title: A short, punchy headline
+excerpt: |
+  One or two sentences that pitch the story. Shows on cards and on the
+  article hero. Aim for ~160 chars — no more than ~220.
+author:
+  name: Your Name
+  handle: yourhandle                       # used as @yourhandle
+  avatarHue: 28                            # 0–360, picks your avatar gradient
+target:
+  name: my-plugin                          # the plugin/skill/etc. the story is about
+  kind: plugin                             # plugin | skill | hook | subagent | command | mcp-server
+  href: /plugin/my-plugin                  # in-app link to that item's page
+category: Plugins                          # Plugins | Skills | Subagents | Commands | Hooks
+platforms:
+  - Claude Code                            # any of: Claude Code, Claude Desktop, Agent SDK, OpenClaw
+cover: brown                               # brown | blue | green | purple (fallback wallpaper)
+date: May 27, 2026                         # human-readable, sorted by parsed date
+readTime: 5                                # estimated minutes
+featured: false                            # show in homepage strip
+pinned: false                              # editor's-pick at top of /stories
+# Optional fields:
+# pullQuote: "One quotable sentence."     # renders as italic blockquote after paragraph 2
+# coverAlt: "Description of cover image"   # alt text for cover.png; falls back to title
+---
+
+Open with the moment the idea hit you, or the problem you were trying to
+solve. The first paragraph gets a drop cap on the article page, so make it
+worth landing on.
+
+Three or four short paragraphs is the sweet spot. If you set pullQuote in
+the frontmatter, it renders as an italic blockquote after paragraph 2 —
+something you'd actually want hanging on the wall.
+
+Close with what you'd do differently, or what you want help with. Stories
+that invite a reply outperform ones that don't.`
+
   const contributionTypes = [
     {
       icon: Sparkles,
@@ -197,6 +261,13 @@ Example output...
       description: 'Bundled plugin packages',
       count: '50',
       color: 'text-orange-400'
+    },
+    {
+      icon: Newspaper,
+      title: 'Stories',
+      description: 'Community posts about what you built',
+      count: '8',
+      color: 'text-pink-400'
     }
   ]
 
@@ -296,7 +367,7 @@ Example output...
         {/* What Can You Contribute */}
         <section className="mb-16">
           <h2 className="text-2xl font-bold mb-6">What Can You Contribute?</h2>
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
             {contributionTypes.map((type) => (
               <Card key={type.title} className="p-4 border-border/50 hover:border-primary/20 transition-all">
                 <div className="flex items-start justify-between mb-3">
@@ -316,13 +387,14 @@ Example output...
 
         {/* Contribution Guides */}
         <section>
-          <Tabs defaultValue="agents" className="w-full" id="contribute-tabs">
-            <TabsList className="grid w-full grid-cols-5 mb-8">
+          <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full" id="contribute-tabs">
+            <TabsList className="grid w-full grid-cols-3 md:grid-cols-6 mb-8">
               <TabsTrigger value="agents">Agents</TabsTrigger>
               <TabsTrigger value="commands">Commands</TabsTrigger>
               <TabsTrigger value="hooks">Hooks</TabsTrigger>
               <TabsTrigger value="skills">Skills</TabsTrigger>
               <TabsTrigger value="plugins">Plugins</TabsTrigger>
+              <TabsTrigger value="stories">Stories</TabsTrigger>
             </TabsList>
 
             {/* Agents Tab */}
@@ -604,6 +676,226 @@ Example output...
                     </li>
                   </ul>
                 </Card>
+              </div>
+            </TabsContent>
+
+            {/* Stories Tab */}
+            <TabsContent value="stories">
+              <div className="space-y-8">
+                <Card className="p-6 border-border/50">
+                  <h3 className="text-xl font-semibold mb-2">Story Location</h3>
+                  <pre className="text-sm text-muted-foreground bg-background/50 px-3 py-2 rounded overflow-x-auto">
+{`stories/<slug>/
+  index.md         (required)
+  cover.png        (optional — also accepts .jpg, .webp, .svg)`}
+                  </pre>
+                  <p className="text-sm text-muted-foreground mt-3">
+                    Each story is a folder. The folder name becomes your story&apos;s URL:{' '}
+                    <code>/stories/&lt;slug&gt;</code>. Use kebab-case, keep it short, and make
+                    sure the <code>slug</code> field in the frontmatter matches the folder name
+                    exactly. Drop a <code>cover.png</code> (or .jpg/.webp/.svg) next to{' '}
+                    <code>index.md</code> to override the palette wallpaper.
+                  </p>
+                </Card>
+
+                <Card className="p-6 border-border/50">
+                  <h3 className="text-xl font-semibold mb-4">Story Structure</h3>
+                  <div className="bg-card rounded-lg border border-border/50 p-4 font-mono text-sm overflow-x-auto">
+                    <pre className="text-muted-foreground">{storyTemplate}</pre>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="mt-4 gap-2"
+                    onClick={() => handleCopy(storyTemplate, 'story')}
+                  >
+                    <Copy className="h-3 w-3" />
+                    {copiedTemplate === 'story' ? 'Copied!' : 'Copy Template'}
+                  </Button>
+                </Card>
+
+                <Card className="p-6 border-border/50">
+                  <h3 className="text-xl font-semibold mb-4">Frontmatter Reference</h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead className="text-left text-muted-foreground border-b border-border/50">
+                        <tr>
+                          <th className="py-2 pr-4 font-medium">Field</th>
+                          <th className="py-2 pr-4 font-medium">Required</th>
+                          <th className="py-2 font-medium">Notes</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-muted-foreground">
+                        {[
+                          ['slug', 'yes', 'Must match folder name. Kebab-case, ≤ 80 chars.'],
+                          ['title', 'yes', 'Headline. Renders in Instrument Serif on cards.'],
+                          ['excerpt', 'yes', 'Card subtitle and article lede. ~160 chars is the sweet spot.'],
+                          ['author.name', 'yes', 'Display name shown on cards and the article hero.'],
+                          ['author.handle', 'yes', 'Renders as @handle in the article byline.'],
+                          ['author.avatarHue', 'yes', 'Integer 0–360. Picks the avatar gradient hue.'],
+                          ['target.name', 'yes', 'Name of the plugin/skill/etc. the story is about.'],
+                          ['target.kind', 'yes', 'One of: plugin, skill, hook, subagent, command, mcp-server.'],
+                          ['target.href', 'yes', 'In-app link to the target (e.g. /plugin/my-plugin). External URLs must be http/https/mailto.'],
+                          ['category', 'yes', 'One of: Plugins, Skills, Subagents, Commands, Hooks.'],
+                          ['platforms', 'yes', 'Array. Any of: Claude Code, Claude Desktop, Agent SDK, OpenClaw.'],
+                          ['cover', 'yes', 'Wallpaper palette: brown, blue, green, or purple. Used when no cover image is supplied.'],
+                          ['date', 'yes', 'Human-readable (e.g. "May 27, 2026"). Used for sorting.'],
+                          ['readTime', 'yes', 'Integer minutes.'],
+                          ['featured', 'no', 'true → eligible for homepage strip. Default false.'],
+                          ['pinned', 'no', 'true → editor’s-pick slot at the top of /stories. Default false.'],
+                          ['pullQuote', 'no', 'Italic blockquote rendered after paragraph 2. Omit for no blockquote.'],
+                          ['coverAlt', 'no', 'Alt text for the cover image. Falls back to the story title.'],
+                          ['cover.{png,jpg,webp,svg}', 'no', 'File next to index.md (not a frontmatter field). Overrides the palette wallpaper as the cover.'],
+                        ].map(([field, required, notes]) => (
+                          <tr key={field} className="border-b border-border/30">
+                            <td className="py-2 pr-4 font-mono text-foreground">{field}</td>
+                            <td className="py-2 pr-4">
+                              {required === 'yes' ? (
+                                <Badge variant="secondary" className="bg-primary/10 text-primary">required</Badge>
+                              ) : (
+                                <Badge variant="outline">optional</Badge>
+                              )}
+                            </td>
+                            <td className="py-2">{notes}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </Card>
+
+                <Card className="p-6 border-border/50">
+                  <h3 className="text-xl font-semibold mb-4">Cover Palettes</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Pick the palette that matches the mood of your post. Each palette renders a
+                    gradient + noise wallpaper plus a tinted glyph drawn from your <code>category</code>.
+                  </p>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    {[
+                      { name: 'brown',  from: '#3a2520', to: '#1f1310', accent: '#c96a50' },
+                      { name: 'blue',   from: '#1f2a3a', to: '#101620', accent: '#5a8fc9' },
+                      { name: 'green',  from: '#1f2f25', to: '#101a14', accent: '#6ab089' },
+                      { name: 'purple', from: '#2a1f3a', to: '#161020', accent: '#9a7ac9' },
+                    ].map(p => (
+                      <div
+                        key={p.name}
+                        className="rounded-lg border border-border/50 overflow-hidden"
+                      >
+                        <div
+                          style={{
+                            height: 64,
+                            background: `linear-gradient(160deg, ${p.from} 0%, ${p.to} 100%)`,
+                            position: 'relative',
+                          }}
+                        >
+                          <div
+                            style={{
+                              position: 'absolute',
+                              inset: 0,
+                              background: `radial-gradient(ellipse at center, ${p.accent}55 0%, transparent 65%)`,
+                            }}
+                          />
+                        </div>
+                        <div className="p-2 text-center">
+                          <code className="text-xs">{p.name}</code>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+
+                <Card className="p-6 border-border/50">
+                  <h3 className="text-xl font-semibold mb-4">Step-by-step: open a PR</h3>
+                  <ol className="space-y-4 text-sm text-muted-foreground list-decimal pl-5">
+                    <li>
+                      <span className="text-foreground font-medium">Fork &amp; branch.</span>{' '}
+                      <code className="bg-background/50 px-1.5 py-0.5 rounded">
+                        gh repo fork davepoon/buildwithclaude --clone
+                      </code>{' '}
+                      then{' '}
+                      <code className="bg-background/50 px-1.5 py-0.5 rounded">
+                        git checkout -b story/&lt;your-slug&gt;
+                      </code>
+                    </li>
+                    <li>
+                      <span className="text-foreground font-medium">Create the folder.</span>{' '}
+                      Add{' '}
+                      <code className="bg-background/50 px-1.5 py-0.5 rounded">
+                        stories/&lt;your-slug&gt;/index.md
+                      </code>{' '}
+                      using the template above. The folder name must match the <code>slug</code> field
+                      and may only contain lowercase letters, numbers, dashes, and underscores.
+                      Optionally drop a <code>cover.png</code> next to <code>index.md</code> for a
+                      custom cover image.
+                    </li>
+                    <li>
+                      <span className="text-foreground font-medium">Link your target.</span>{' '}
+                      Make sure <code>target.href</code> points to a real page on the site (e.g.{' '}
+                      <code>/plugin/&lt;name&gt;</code>, <code>/skill/&lt;name&gt;</code>). If your
+                      plugin isn&apos;t on the site yet, ship it in the same PR or a prior one.
+                    </li>
+                    <li>
+                      <span className="text-foreground font-medium">Preview locally.</span>{' '}
+                      <code className="bg-background/50 px-1.5 py-0.5 rounded">cd web-ui &amp;&amp; npm run dev</code>
+                      , then visit <code>http://localhost:3000/stories/&lt;your-slug&gt;</code> and
+                      <code className="ml-1">/stories</code>. Confirm the card and article render correctly.
+                    </li>
+                    <li>
+                      <span className="text-foreground font-medium">Validate.</span>{' '}
+                      <code className="bg-background/50 px-1.5 py-0.5 rounded">npm test</code>{' '}
+                      from the repo root. Stories aren&apos;t schema-validated today, but this
+                      catches any unrelated regressions.
+                    </li>
+                    <li>
+                      <span className="text-foreground font-medium">Commit &amp; PR.</span>{' '}
+                      <code className="bg-background/50 px-1.5 py-0.5 rounded">
+                        git commit -m &quot;story: add &lt;your-slug&gt;&quot;
+                      </code>
+                      , push, then{' '}
+                      <code className="bg-background/50 px-1.5 py-0.5 rounded">
+                        gh pr create --title &quot;story: &lt;title&gt;&quot;
+                      </code>
+                      . In the PR body, note the target plugin and tag a maintainer if you&apos;d
+                      like editor&apos;s-pick consideration.
+                    </li>
+                    <li>
+                      <span className="text-foreground font-medium">Auto-deploy.</span>{' '}
+                      Once merged to <code>main</code>, the story is live on{' '}
+                      <code>buildwithclaude.com/stories/&lt;your-slug&gt;</code> after the next
+                      build (typically &lt; 2 min).
+                    </li>
+                  </ol>
+                </Card>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <Card className="p-6 border-green-500/20 bg-green-500/5">
+                    <div className="flex items-center gap-2 mb-4">
+                      <CheckCircle2 className="h-5 w-5 text-green-500" />
+                      <h4 className="font-semibold">Stories that get featured</h4>
+                    </div>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Specific: a real plugin/skill, not a roundup</li>
+                      <li>• Honest: what went wrong, not just what worked</li>
+                      <li>• Short: 3–5 paragraphs beats a 2000-word essay</li>
+                      <li>• Quotable: one sentence you&apos;d put on a t-shirt</li>
+                      <li>• Inviting: ends with something a reader can do</li>
+                    </ul>
+                  </Card>
+
+                  <Card className="p-6 border-red-500/20 bg-red-500/5">
+                    <div className="flex items-center gap-2 mb-4">
+                      <XCircle className="h-5 w-5 text-red-500" />
+                      <h4 className="font-semibold">We&apos;ll send these back</h4>
+                    </div>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Pure marketing copy with no specifics</li>
+                      <li>• Promotes a target that doesn&apos;t exist on the site</li>
+                      <li>• Frontmatter <code>slug</code> doesn&apos;t match the filename</li>
+                      <li>• <code>target.href</code> with a <code>javascript:</code> or other non-http scheme (sanitized to <code>#</code>)</li>
+                      <li>• Lifted text from someone else&apos;s post</li>
+                    </ul>
+                  </Card>
+                </div>
               </div>
             </TabsContent>
           </Tabs>

@@ -3,13 +3,37 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, Copy, Download, Check, ExternalLink, Terminal } from 'lucide-react'
+import { ArrowLeft, Copy, Download, Check, ExternalLink, Terminal, Star, GitBranch, ShieldCheck, ShieldAlert, Clock } from 'lucide-react'
 import { type Skill } from '@/lib/skills-types'
 import { generateSkillMarkdown } from '@/lib/utils'
 import { generateCategoryDisplayName } from '@/lib/category-utils'
 
 const getOpenClawCommand = (slug: string) =>
   `curl -sL https://buildwithclaude.com/api/skills/${slug}/download -o /tmp/${slug}.zip && unzip -o /tmp/${slug}.zip -d ~/.claude/skills/ && rm /tmp/${slug}.zip`
+
+const LOCAL_GITHUB_BASE = 'https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills'
+
+/** "https://github.com/owner/repo" -> "owner/repo" */
+function repoShortName(repository: string): string {
+  const match = repository.match(/github\.com\/([^/]+\/[^/?#]+)/)
+  return match ? match[1].replace(/\.git$/, '') : repository
+}
+
+/** Deep link to the SKILL.md (or repo root) on GitHub for an imported skill. */
+function importedGithubUrl(repository: string, sourcePath?: string): string {
+  const short = repoShortName(repository)
+  return sourcePath
+    ? `https://github.com/${short}/blob/HEAD/${sourcePath.replace(/^\/+/, '')}`
+    : `https://github.com/${short}`
+}
+
+function formatDate(iso: string): string {
+  try {
+    return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+  } catch {
+    return iso
+  }
+}
 
 interface SkillPageClientProps {
   skill: Skill
@@ -23,7 +47,16 @@ export function SkillPageClient({ skill }: SkillPageClientProps) {
   const [copiedClawPath, setCopiedClawPath] = useState(false)
   const categoryName = generateCategoryDisplayName(skill.category)
 
-  const installPath = `~/.claude/skills/${skill.slug}/SKILL.md`
+  // Local file-skills keep the original BuildWithClaude install/download flow.
+  // Imported (DB) skills are reference-only: install from their source repo and
+  // link out to GitHub (the zip download API only serves local files).
+  const isLocal = skill.isLocal !== false
+  const installCommand = isLocal
+    ? `npx skills add davepoon/buildwithclaude -s ${skill.slug}`
+    : (skill.installCommand || (skill.repository ? `npx skills add ${repoShortName(skill.repository)}` : ''))
+  const githubUrl = isLocal
+    ? `${LOCAL_GITHUB_BASE}/${skill.slug}`
+    : (skill.repository ? importedGithubUrl(skill.repository, skill.sourcePath) : null)
 
   const handleCopy = async () => {
     const markdown = generateSkillMarkdown(skill)
@@ -76,15 +109,63 @@ export function SkillPageClient({ skill }: SkillPageClientProps) {
               <Button size="sm" variant="ghost" onClick={handleCopy}>
                 {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
               </Button>
-              <Button size="sm" variant="ghost" onClick={handleDownload}>
-                <Download className="h-4 w-4" />
-              </Button>
+              {isLocal && (
+                <Button size="sm" variant="ghost" onClick={handleDownload}>
+                  <Download className="h-4 w-4" />
+                </Button>
+              )}
             </div>
           </div>
           <p className="text-sm text-muted-foreground mb-3">{categoryName}</p>
           <p className="text-lg text-muted-foreground mb-4">{skill.description}</p>
+
+          {/* Metadata strip */}
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
+            {typeof skill.installs === 'number' && skill.installs > 0 && (
+              <span className="inline-flex items-center gap-1.5">
+                <Download className="h-4 w-4" />
+                {skill.installs.toLocaleString()} installs
+              </span>
+            )}
+            {typeof skill.stars === 'number' && skill.stars > 0 && (
+              <span className="inline-flex items-center gap-1.5">
+                <Star className="h-4 w-4" />
+                {skill.stars.toLocaleString()}
+              </span>
+            )}
+            {!isLocal && skill.repository && (
+              <a
+                href={skill.repository}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 hover:text-foreground underline-offset-4 hover:underline"
+              >
+                <GitBranch className="h-4 w-4" />
+                {repoShortName(skill.repository)}
+              </a>
+            )}
+            {skill.firstSeen && (
+              <span className="inline-flex items-center gap-1.5">
+                <Clock className="h-4 w-4" />
+                Added {formatDate(skill.firstSeen)}
+              </span>
+            )}
+            {!isLocal && skill.submissionStatus === 'approved' && (
+              <span className="inline-flex items-center gap-1.5 text-green-600 dark:text-green-500">
+                <ShieldCheck className="h-4 w-4" />
+                Auto-scanned
+              </span>
+            )}
+            {!isLocal && skill.submissionStatus === 'flagged' && (
+              <span className="inline-flex items-center gap-1.5 text-amber-600 dark:text-amber-500">
+                <ShieldAlert className="h-4 w-4" />
+                Pending review
+              </span>
+            )}
+          </div>
+
           {skill.allowedTools && (
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground mt-3">
               <span className="font-medium">Tools:</span> {skill.allowedTools}
             </p>
           )}
@@ -101,135 +182,152 @@ export function SkillPageClient({ skill }: SkillPageClientProps) {
         </div>
 
         {/* Quick Install */}
-        <div className="mb-10">
-          <h2 className="text-lg font-medium mb-4 flex items-center gap-2">
-            <Terminal className="h-5 w-5" />
-            Quick Install
-          </h2>
-          <p className="text-sm text-muted-foreground mb-3">
-            Install this skill with a single command using <a href="https://github.com/vercel-labs/skills" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">npx skills</a>. Works with Claude Code, Cursor, Windsurf, and other agents.
-          </p>
-          <div className="bg-card rounded-lg p-4 font-mono text-sm flex items-center justify-between gap-2 border border-border">
-            <span className="break-all">npx skills add davepoon/buildwithclaude -s {skill.slug}</span>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="shrink-0"
-              onClick={async () => {
-                await navigator.clipboard.writeText(`npx skills add davepoon/buildwithclaude -s ${skill.slug}`)
-                setCopiedNpx(true)
-                setTimeout(() => setCopiedNpx(false), 2000)
-              }}
-            >
-              {copiedNpx ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-            </Button>
-          </div>
-        </div>
-
-        {/* Manual Installation */}
-        <div className="mb-10">
-          <h2 className="text-lg font-medium mb-4">Manual Installation</h2>
-          <div className="space-y-4">
-            <div>
-              <p className="text-sm text-muted-foreground mb-2">
-                Step 1: Click Download to get <code className="bg-muted px-1 rounded">{skill.slug}.zip</code>
-              </p>
-              <Button size="sm" onClick={handleDownload} className="gap-2">
-                <Download className="h-4 w-4" />
-                Download {skill.slug}.zip
+        {installCommand && (
+          <div className="mb-10">
+            <h2 className="text-lg font-medium mb-4 flex items-center gap-2">
+              <Terminal className="h-5 w-5" />
+              Quick Install
+            </h2>
+            <p className="text-sm text-muted-foreground mb-3">
+              Install this skill with a single command using <a href="https://github.com/vercel-labs/skills" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">npx skills</a>. Works with Claude Code, Cursor, Windsurf, and other agents.
+            </p>
+            <div className="bg-card rounded-lg p-4 font-mono text-sm flex items-center justify-between gap-2 border border-border">
+              <span className="break-all">{installCommand}</span>
+              <Button
+                size="sm"
+                variant="ghost"
+                className="shrink-0"
+                onClick={async () => {
+                  await navigator.clipboard.writeText(installCommand)
+                  setCopiedNpx(true)
+                  setTimeout(() => setCopiedNpx(false), 2000)
+                }}
+              >
+                {copiedNpx ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
               </Button>
             </div>
-            <div>
-              <p className="text-sm text-muted-foreground mb-2">
-                Step 2: Extract to <code className="bg-muted px-1 rounded">~/.claude/skills/</code>
-              </p>
-              <div className="bg-card rounded-lg p-4 font-mono text-sm flex items-center justify-between border border-border">
-                <span>unzip {skill.slug}.zip -d ~/.claude/skills/</span>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={async () => {
-                    await navigator.clipboard.writeText(`unzip ${skill.slug}.zip -d ~/.claude/skills/`)
-                    setCopiedPath(true)
-                    setTimeout(() => setCopiedPath(false), 2000)
-                  }}
-                >
-                  {copiedPath ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                </Button>
-              </div>
-            </div>
           </div>
-        </div>
+        )}
 
-        {/* OpenClaw Installation */}
-        <div className="mb-10">
-          <h2 className="text-lg font-medium mb-4">OpenClaw Installation</h2>
-          <p className="text-sm text-muted-foreground mb-4">
-            This skill is compatible with <span className="font-medium text-foreground">OpenClaw</span>. Install it with a single command:
-          </p>
-          <div className="space-y-4">
-            <div>
-              <p className="text-sm text-muted-foreground mb-2">
-                One-line install
-              </p>
-              <div className="bg-card rounded-lg p-4 font-mono text-sm flex items-center justify-between gap-2 border border-border">
-                <span className="break-all">{getOpenClawCommand(skill.slug)}</span>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="shrink-0"
-                  onClick={async () => {
-                    await navigator.clipboard.writeText(getOpenClawCommand(skill.slug))
-                    setCopiedClawCmd(true)
-                    setTimeout(() => setCopiedClawCmd(false), 2000)
-                  }}
-                >
-                  {copiedClawCmd ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                </Button>
-              </div>
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground mb-2">
-                Or extract the zip to
-              </p>
-              <div className="bg-card rounded-lg p-4 font-mono text-sm flex items-center justify-between border border-border">
-                <span>~/.openclaw/skills/{skill.slug}/</span>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={async () => {
-                    await navigator.clipboard.writeText(`~/.openclaw/skills/${skill.slug}/`)
-                    setCopiedClawPath(true)
-                    setTimeout(() => setCopiedClawPath(false), 2000)
-                  }}
-                >
-                  {copiedClawPath ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                </Button>
-              </div>
-            </div>
+        {/* Imported skill notice */}
+        {!isLocal && (
+          <div className="mb-10 p-4 bg-card rounded-lg border border-border">
+            <p className="text-sm text-muted-foreground">
+              This skill is maintained in its source repository
+              {skill.repository && (
+                <> (<a href={skill.repository} target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">{repoShortName(skill.repository)}</a>)</>
+              )}. Install it with the command above, or view the source on GitHub for the latest version.
+            </p>
           </div>
-        </div>
+        )}
+
+        {/* Manual + OpenClaw installation: local files only (zip download serves local files) */}
+        {isLocal && (
+          <>
+            <div className="mb-10">
+              <h2 className="text-lg font-medium mb-4">Manual Installation</h2>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Step 1: Click Download to get <code className="bg-muted px-1 rounded">{skill.slug}.zip</code>
+                  </p>
+                  <Button size="sm" onClick={handleDownload} className="gap-2">
+                    <Download className="h-4 w-4" />
+                    Download {skill.slug}.zip
+                  </Button>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Step 2: Extract to <code className="bg-muted px-1 rounded">~/.claude/skills/</code>
+                  </p>
+                  <div className="bg-card rounded-lg p-4 font-mono text-sm flex items-center justify-between border border-border">
+                    <span>unzip {skill.slug}.zip -d ~/.claude/skills/</span>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={async () => {
+                        await navigator.clipboard.writeText(`unzip ${skill.slug}.zip -d ~/.claude/skills/`)
+                        setCopiedPath(true)
+                        setTimeout(() => setCopiedPath(false), 2000)
+                      }}
+                    >
+                      {copiedPath ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-10">
+              <h2 className="text-lg font-medium mb-4">OpenClaw Installation</h2>
+              <p className="text-sm text-muted-foreground mb-4">
+                This skill is compatible with <span className="font-medium text-foreground">OpenClaw</span>. Install it with a single command:
+              </p>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    One-line install
+                  </p>
+                  <div className="bg-card rounded-lg p-4 font-mono text-sm flex items-center justify-between gap-2 border border-border">
+                    <span className="break-all">{getOpenClawCommand(skill.slug)}</span>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="shrink-0"
+                      onClick={async () => {
+                        await navigator.clipboard.writeText(getOpenClawCommand(skill.slug))
+                        setCopiedClawCmd(true)
+                        setTimeout(() => setCopiedClawCmd(false), 2000)
+                      }}
+                    >
+                      {copiedClawCmd ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                    </Button>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Or extract the zip to
+                  </p>
+                  <div className="bg-card rounded-lg p-4 font-mono text-sm flex items-center justify-between border border-border">
+                    <span>~/.openclaw/skills/{skill.slug}/</span>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={async () => {
+                        await navigator.clipboard.writeText(`~/.openclaw/skills/${skill.slug}/`)
+                        setCopiedClawPath(true)
+                        setTimeout(() => setCopiedClawPath(false), 2000)
+                      }}
+                    >
+                      {copiedClawPath ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
 
         {/* Content */}
-        <div className="mb-10">
-          <h2 className="text-lg font-medium mb-4">Skill Instructions</h2>
-          <div className="bg-card rounded-lg p-6 border border-border prose prose-sm max-w-none">
-            {formattedContent}
+        {skill.content.trim() && (
+          <div className="mb-10">
+            <h2 className="text-lg font-medium mb-4">Skill Instructions</h2>
+            <div className="bg-card rounded-lg p-6 border border-border prose prose-sm max-w-none">
+              {formattedContent}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Actions */}
         <div className="flex gap-3 flex-wrap">
-          <a
-            href={`https://github.com/davepoon/buildwithclaude/tree/main/plugins/all-skills/skills/${skill.slug}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button className="gap-2">
-              <ExternalLink className="h-4 w-4" />
-              View on GitHub
-            </Button>
-          </a>
+          {githubUrl && (
+            <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+              <Button className="gap-2">
+                <ExternalLink className="h-4 w-4" />
+                View on GitHub
+              </Button>
+            </a>
+          )}
           <Link href="/skills">
             <Button variant="outline">Browse More</Button>
           </Link>

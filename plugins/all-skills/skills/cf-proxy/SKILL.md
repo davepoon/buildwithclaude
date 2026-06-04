@@ -1,6 +1,6 @@
 ---
 name: cf-proxy
-category: infrastructure-operations
+category: devops
 description: Deploy a free VLESS proxy/VPN node on Cloudflare Pages using edgetunnel. Automates code download, UUID generation, Pages deployment, free domain registration (DNSExit), DNS configuration, custom domain binding, and client setup for Shadowrocket/v2rayN/Clash. Uses Cloudflare Pages (not Workers) because Pages supports CNAME-based custom domains from any DNS provider, avoiding the need to host DNS on Cloudflare.
 ---
 

@@ -1,5 +1,6 @@
 ---
 name: ios-hig-design-guide
+category: design
 description: Build, update, and apply iOS design specifications using Apple Human Interface Guidelines (HIG) source data. Use when a task asks for iOS UI/UX rules, Apple design standards, component behavior, accessibility constraints, interaction patterns, or feature-level design-spec writing grounded in official HIG pages.
 ---
 

@@ -1,5 +1,6 @@
 ---
 name: tubeify
+category: creative-collaboration
 description: >
   Remove pauses, filler words (um, uh), and dead air from raw YouTube recordings
   via the Tubeify API. Use when the user wants to edit a video, clean up audio,

@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Claude Code Skill Schema",
+  "description": "Schema for validating Claude Code SKILL.md frontmatter",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Unique identifier for the skill (lowercase, hyphen-separated). Must match the directory name."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Clear description of when this skill should be used"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "ai-ml",
+        "analytics",
+        "automation",
+        "business-productivity",
+        "communication",
+        "creative-collaboration",
+        "crm",
+        "customer-support",
+        "design",
+        "development-code",
+        "devops",
+        "document-processing",
+        "ecommerce",
+        "email",
+        "project-management",
+        "security",
+        "social-media",
+        "storage-docs",
+        "uncategorized"
+      ],
+      "description": "Category for organizing the skill"
+    },
+    "allowed-tools": {
+      "type": ["string", "array"],
+      "description": "Tools the skill may use (comma-separated string or list)"
+    },
+    "model": {
+      "type": "string",
+      "description": "Preferred model (opus | sonnet | haiku)"
+    },
+    "license": {
+      "type": "string",
+      "description": "License identifier (e.g. MIT)"
+    },
+    "requires": {
+      "type": "object",
+      "description": "Runtime dependencies, e.g. { \"mcp\": [\"rube\"] }"
+    }
+  },
+  "required": ["name", "description", "category"],
+  "additionalProperties": false
+}

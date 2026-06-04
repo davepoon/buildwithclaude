@@ -1,5 +1,6 @@
 node_modules
 validation-report.txt
+skill-validation-report.txt
 mise.toml
 yarn.lock
 .DS_Store
@@ -12,3 +13,37 @@ yarn.lock
 scripts/mcp-importers/.env
 .mcp.json
 docs
+
+# Build-time copy of story cover images (source lives in stories/<slug>/cover.*)
+web-ui/public/stories
+CLAUDE.md
+GEMINI.md
+
+# Editor + local caches
+.vscode
+__pycache__/
+*.pyc
+scripts/.discovered-plugins.json
+scripts/.plugin-cache.json
+
+# Local-only maintenance scripts (kept on disk, out of the repo)
+scripts/categorize-skills.js
+scripts/fix-skill-names-categories.js
+scripts/fetch-composio-skills.js
+scripts/clean-marketplace-components.js
+scripts/fix-argument-hints.js
+scripts/fix-hooks-marketplace.js
+scripts/remove-hooks-from-marketplace.js
+scripts/migrate-to-plugin-structure.js
+scripts/generate-hooks-config.js
+scripts/generate-marketplace.js
+scripts/generate-mcp-config.js
+scripts/fetch-docker-mcp.js
+scripts/fetch-official-mcp.js
+scripts/docker-hub-api.js
+scripts/enhance-docker-stats.js
+scripts/validate-mcp-servers.js
+scripts/mcp-server-schema.json
+scripts/process-command-file.js
+scripts/process-new-commands.sh
+scripts/mcp-importers/

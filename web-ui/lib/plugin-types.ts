@@ -66,6 +66,7 @@ export interface UnifiedPlugin {
   // For plugins from repositories
   repository?: string
   stars?: number
+  installs?: number
   installCommand?: string
   namespace?: string
   author?: string

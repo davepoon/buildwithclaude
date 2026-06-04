@@ -10,7 +10,8 @@ const path = require('path');
 
 const validators = [
   { name: 'Subagents & Commands', script: 'validate-subagents.js' },
-  { name: 'Hooks', script: 'validate-hooks.js' }
+  { name: 'Hooks', script: 'validate-hooks.js' },
+  { name: 'Skills', script: 'validate-skills.js' }
 ];
 
 const results = [];
