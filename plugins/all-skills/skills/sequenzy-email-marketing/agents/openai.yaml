@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sequenzy Email Marketing"
+  short_description: "Agent guide for using Sequenzy safely"
+  default_prompt: "Use $sequenzy-email-marketing to choose the right Sequenzy workflow and complete the task safely."

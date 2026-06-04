@@ -39,6 +39,11 @@
     "obsidian-bases",
     "json-canvas",
     "ios-hig-design-guide",
-    "resemble-detect"
+    "resemble-detect",
+    "sequenzy-email-marketing",
+    "sequenzy",
+    "email-marketing",
+    "transactional-email",
+    "lifecycle-email"
   ]
 }
