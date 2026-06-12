@@ -1,307 +1,177 @@
-# Envelope Team Skill
-
-You can design and generate `.envelope.json` team definition files — the open standard for AI agent teams. Use this skill whenever the user asks you to build, design, or generate an Envelope team.
-
-## What is an Envelope team?
-
-An `.envelope.json` file describes a team of AI agents: who they are, who they report to, what they can do, and what external services they can access. The file is deployed to [openenvelope.org](https://openenvelope.org), where it becomes a runnable team that can be triggered via the Envelope API, a cron schedule, or MCP clients like Claude.ai and ChatGPT.
-
-The schema is published at `https://schema.openenvelope.org/team/v1.json` and versioned via `@openenvelope/schema` on npm.
-
+---
+name: envelope-team
+category: ai-agents
+description: Design and generate .envelope.json AI agent team definitions — the open standard for multi-agent teams with hierarchy, access policies, human-in-the-loop gates, and cron schedules.
 ---
 
-## File structure
+# Envelope Team
+
+Design and generate `.envelope.json` AI agent team definition files — the open standard for building and deploying multi-agent teams on [Envelope](https://openenvelope.org).
+
+## When to Use This Skill
+
+- User asks to build, design, or generate an Envelope team
+- User describes a workflow that could be automated by a team of AI agents
+- User wants to create a `.envelope.json` file for deployment
+- User needs help with agent hierarchy, access policies, or gates
+
+## What This Skill Does
+
+1. Takes a natural-language description of the team's purpose
+2. Designs the agent hierarchy (supervisor → managers → workers)
+3. Generates a schema-valid `.envelope.json` file
+4. Includes access policies, variables, secrets, and gates as appropriate
+5. Explains any schema concepts the user asks about
+
+## How to Use
+
+### Basic Usage
+
+```
+Build me an Envelope team for customer support triage — one supervisor,
+two agents that read Zendesk tickets, and a Slack notifier for escalations.
+```
+
+```
+Create an Envelope team definition for outbound sales — an SDR manager
+overseeing two SDRs who work HubSpot leads and a RevOps analyst.
+```
+
+### With human-in-the-loop gates
+
+```
+Build an Envelope team that drafts marketing emails and pauses for
+human approval before sending.
+```
+
+## Example
+
+**User**: "Build me an Envelope team for content moderation — a supervisor and two reviewer agents that check posts against community guidelines."
+
+**Output**:
 
 ```json
 {
   "$schema": "https://schema.openenvelope.org/team/v1.json",
-  "name": "Support Triage Team",
-  "slug": "support-triage",
+  "name": "Content Moderation Team",
+  "slug": "content-moderation",
   "version": "1.0.0",
-  "description": "Triages incoming support tickets and routes escalations to Slack.",
+  "description": "A supervisor and two reviewer agents that check posts against community guidelines.",
   "visibility": "team",
-  "category": "support",
+  "category": "ops",
   "requiredVariables": ["companyName"],
-  "requiredSecrets": ["ZENDESK_API_KEY", "SLACK_BOT_TOKEN"],
+  "requiredSecrets": ["MODERATION_API_KEY"],
   "metadata": { "generatedBy": "Claude Code · openenvelope.org" },
-  "agents": [ ... ],
-  "gates": [ ... ]
+  "agents": [
+    {
+      "key": "supervisor",
+      "name": "Moderation Supervisor",
+      "role": "supervisor",
+      "capabilities": ["Route content to reviewer agents", "Aggregate decisions", "Escalate edge cases"],
+      "model": "anthropic:claude-sonnet-4-5",
+      "systemPrompt": "You supervise the content moderation team at {{companyName}}. Delegate each item to a reviewer and consolidate their verdicts."
+    },
+    {
+      "key": "policy-reviewer",
+      "name": "Policy Reviewer",
+      "role": "reviewer",
+      "capabilities": ["Check content against community guidelines", "Flag policy violations"],
+      "model": "anthropic:claude-haiku-3-5",
+      "systemPrompt": "You review content for policy violations at {{companyName}}. Return a verdict of approve, flag, or remove with a reason.",
+      "reportsToKey": "supervisor",
+      "accessPolicy": {
+        "accessPolicyVersion": "1",
+        "rules": [
+          { "host": "api.moderation-service.com", "action": "allow" },
+          { "host": "*", "action": "deny" }
+        ]
+      }
+    },
+    {
+      "key": "spam-reviewer",
+      "name": "Spam Reviewer",
+      "role": "reviewer",
+      "capabilities": ["Detect spam, bot activity, and duplicate content"],
+      "model": "anthropic:claude-haiku-3-5",
+      "systemPrompt": "You detect spam and bot activity at {{companyName}}. Return a verdict of approve, flag, or remove with a confidence score.",
+      "reportsToKey": "supervisor"
+    }
+  ]
 }
 ```
+
+## Schema Reference
 
 ### Top-level fields
 
-| Field | Type | Required | Description |
-|---|---|---|---|
-| `$schema` | string | yes | Always `https://schema.openenvelope.org/team/v1.json` |
-| `name` | string | yes | Human-readable team name |
-| `slug` | string | yes | URL-safe identifier, lowercase, hyphens only |
-| `version` | string | yes | Semver string e.g. `"1.0.0"` |
-| `description` | string | yes | What this team does |
-| `visibility` | string | yes | `"public"` · `"team"` · `"private"` |
-| `category` | string | no | e.g. `"support"`, `"sales"`, `"ops"`, `"finance"` |
-| `requiredVariables` | string[] | no | Non-sensitive config values, interpolated into prompts via `{{varName}}` |
-| `requiredSecrets` | string[] | no | API keys / tokens, stored encrypted, injected as `${SECRET_NAME}` |
-| `schedule` | object | no | Cron schedule (see below) |
-| `metadata` | object | no | Free-form metadata; always include `generatedBy` |
-| `agents` | object[] | yes | The agent definitions (see below) |
-| `gates` | object[] | no | Human-in-the-loop checkpoints (see below) |
-
----
-
-## Agent definitions
-
-Each entry in `agents` describes one agent. Agents form a hierarchy via `reportsToKey`.
-
-```json
-{
-  "key": "supervisor",
-  "name": "Support Supervisor",
-  "role": "supervisor",
-  "capabilities": ["Route tickets by urgency", "Delegate to specialist agents"],
-  "model": "anthropic:claude-sonnet-4-5",
-  "systemPrompt": "You are the support team supervisor at {{companyName}}. ...",
-  "reportsToKey": null,
-  "accessPolicy": { ... }
-}
-```
+| Field | Required | Description |
+|---|---|---|
+| `$schema` | yes | Always `https://schema.openenvelope.org/team/v1.json` |
+| `name` | yes | Human-readable team name |
+| `slug` | yes | URL-safe, lowercase, hyphens only |
+| `version` | yes | Semver e.g. `"1.0.0"` |
+| `description` | yes | What this team does |
+| `visibility` | yes | `"public"` · `"team"` · `"private"` |
+| `requiredVariables` | no | Non-sensitive config, interpolated via `{{varName}}` |
+| `requiredSecrets` | no | API keys, stored encrypted, injected as `${SECRET_NAME}` |
+| `schedule` | no | Cron schedule `{ cron, timezone, task }` |
+| `agents` | yes | Agent definitions |
+| `gates` | no | Human-in-the-loop checkpoints |
 
 ### Agent fields
 
-| Field | Type | Required | Description |
-|---|---|---|---|
-| `key` | string | yes | Unique identifier within this file, used in `reportsToKey` references |
-| `name` | string | yes | Display name |
-| `role` | string | yes | Free-form role label e.g. `"supervisor"`, `"analyst"`, `"sdr"` |
-| `capabilities` | string[] | yes | What this agent can do — used for delegation routing |
-| `model` | string | yes | Model identifier (see models below) |
-| `systemPrompt` | string | yes | The agent's instructions. Use `{{varName}}` for variables and `${SECRET_NAME}` for secrets |
-| `reportsToKey` | string \| null | no | `key` of this agent's manager. Omit or set to `null` for the top-level supervisor |
-| `accessPolicy` | object | no | Outbound HTTP access control (see below) |
+| Field | Required | Description |
+|---|---|---|
+| `key` | yes | Unique identifier within this file |
+| `name` | yes | Display name |
+| `role` | yes | Free-form e.g. `"supervisor"`, `"analyst"`, `"sdr"` |
+| `capabilities` | yes | What this agent can do — used for delegation routing |
+| `model` | yes | e.g. `anthropic:claude-sonnet-4-5`, `anthropic:claude-haiku-3-5` |
+| `systemPrompt` | yes | Agent instructions. Use `{{varName}}` and `${SECRET_NAME}` |
+| `reportsToKey` | no | `key` of manager agent. Omit for the top-level supervisor |
+| `accessPolicy` | no | Outbound HTTP allowlist |
 
-### Hierarchy rules
+### Hierarchy rule
 
-- Exactly **one** agent should have no `reportsToKey` (or `reportsToKey: null`) — this is the supervisor/top agent that receives the initial task.
-- All other agents reference their manager's `key` via `reportsToKey`.
-- The hierarchy can be as deep as needed. Common patterns: flat (supervisor + workers), two-level (supervisor → manager → workers), functional (supervisor → domain leads → specialists).
+Exactly one agent should have no `reportsToKey` — this is the supervisor that receives the initial task. All others reference their manager's `key`.
 
-### Available models
-
-| Model identifier | Notes |
-|---|---|
-| `anthropic:claude-sonnet-4-5` | Default choice — strong reasoning, good cost |
-| `anthropic:claude-sonnet-4-6` | Latest Sonnet — use for complex reasoning tasks |
-| `anthropic:claude-haiku-3-5` | Fast and cheap — good for high-volume leaf agents |
-| `openai:gpt-4o` | OpenAI option |
-| `openai:gpt-4o-mini` | OpenAI budget option |
-
-Use the stronger/more expensive models for supervisors and managers. Use Haiku or mini for leaf agents doing repetitive work.
-
-### Variable and secret interpolation
-
-- `requiredVariables` values are interpolated into `systemPrompt` via `{{varName}}` — baked in at deploy time.
-- `requiredSecrets` values are injected as `${SECRET_NAME}` in prompts and HTTP headers — stored encrypted, never baked in.
-
-Example:
-```json
-"systemPrompt": "You work for {{companyName}}. Use the Zendesk API at https://{{companyName}}.zendesk.com. Auth: Bearer ${ZENDESK_API_KEY}."
-```
-
----
-
-## Access policies
-
-`accessPolicy` controls which outbound HTTP requests an agent is allowed to make. It is optional but strongly recommended for agents that call external APIs.
+### Access policy
 
 ```json
 "accessPolicy": {
   "accessPolicyVersion": "1",
   "rules": [
-    { "host": "api.zendesk.com", "action": "allow" },
-    { "host": "slack.com", "methods": ["POST"], "action": "allow", "reason": "Post to Slack channels only" },
-    { "host": "*", "action": "deny", "reason": "Block all other outbound traffic" }
+    { "host": "api.example.com", "action": "allow" },
+    { "host": "*", "action": "deny" }
   ]
 }
 ```
 
-### Rule fields
-
-| Field | Type | Description |
-|---|---|---|
-| `host` | string | Hostname to match. Use `"*"` as a catch-all |
-| `action` | `"allow"` \| `"deny"` | What to do when this rule matches |
-| `methods` | string[] | Optional — restrict to specific HTTP methods |
-| `pathPrefix` | string | Optional — restrict to URLs starting with this path |
-| `reason` | string | Optional — human-readable explanation |
-
-Rules are evaluated in order; first match wins. Always end with a `{ "host": "*", "action": "deny" }` catch-all if you want a strict allowlist.
-
----
-
-## Human-in-the-loop gates
-
-Gates pause the team at a checkpoint and wait for a human to approve or reject before continuing.
+### Human-in-the-loop gates
 
 ```json
 "gates": [
   {
-    "name": "escalation-review",
+    "name": "approval-check",
     "type": "approval",
-    "trigger": {
-      "afterAgent": "escalation-analyst"
-    },
+    "trigger": { "afterAgent": "drafter" },
     "onApprove": "continue",
     "onReject": "halt"
   }
 ]
 ```
 
-### Gate fields
+## Tips
 
-| Field | Type | Description |
-|---|---|---|
-| `name` | string | Unique gate name within this file |
-| `type` | string | `"approval"` (human must approve/reject) |
-| `trigger.afterAgent` | string | `key` of the agent that triggers the gate when it finishes |
-| `onApprove` | string | What happens on approval: `"continue"` |
-| `onReject` | string | What happens on rejection: `"halt"` |
+- Use `anthropic:claude-sonnet-4-5` for supervisors and managers; `anthropic:claude-haiku-3-5` for leaf agents doing repetitive work
+- Put anything org-specific (company name, support email, Slack channel) in `requiredVariables`
+- End access policy rules with `{ "host": "*", "action": "deny" }` for a strict allowlist
+- Add gates before any agent that sends emails, posts publicly, or makes purchases
+- Validate before deploying: `npx @openenvelope/schema validate ./team.envelope.json`
 
-Gates are resolved via the Envelope API (`POST /api/installs/:id/continue` or `/reject-gate`) or MCP tools.
+## Links
 
----
-
-## Cron schedules
-
-Teams can run on a schedule without being triggered manually.
-
-```json
-"schedule": {
-  "cron": "0 9 * * 1-5",
-  "timezone": "America/New_York",
-  "task": "Run the daily pipeline report and post a summary to Slack."
-}
-```
-
----
-
-## Complete example — sales SDR team
-
-```json
-{
-  "$schema": "https://schema.openenvelope.org/team/v1.json",
-  "name": "Outbound SDR Team",
-  "slug": "outbound-sdr",
-  "version": "1.0.0",
-  "description": "An SDR manager oversees two outbound SDRs who work leads in HubSpot, plus a RevOps analyst who tracks pipeline metrics.",
-  "visibility": "team",
-  "category": "sales",
-  "requiredVariables": ["companyName"],
-  "requiredSecrets": ["HUBSPOT_API_KEY"],
-  "metadata": { "generatedBy": "Claude Code · openenvelope.org" },
-  "agents": [
-    {
-      "key": "sdr-manager",
-      "name": "SDR Manager",
-      "role": "manager",
-      "capabilities": ["Assign leads to SDRs", "Review outreach quality", "Monitor pipeline metrics"],
-      "model": "anthropic:claude-sonnet-4-5",
-      "systemPrompt": "You manage the outbound SDR team at {{companyName}}. Delegate lead outreach to your SDRs and review their work before submission.",
-      "accessPolicy": {
-        "accessPolicyVersion": "1",
-        "rules": [
-          { "host": "api.hubapi.com", "action": "allow" },
-          { "host": "*", "action": "deny" }
-        ]
-      }
-    },
-    {
-      "key": "sdr-1",
-      "name": "SDR — Inbound Leads",
-      "role": "sdr",
-      "capabilities": ["Work inbound HubSpot leads", "Write personalised outreach emails"],
-      "model": "anthropic:claude-haiku-3-5",
-      "systemPrompt": "You are an SDR at {{companyName}}. Fetch inbound leads from HubSpot using ${HUBSPOT_API_KEY} and draft personalised outreach.",
-      "reportsToKey": "sdr-manager",
-      "accessPolicy": {
-        "accessPolicyVersion": "1",
-        "rules": [
-          { "host": "api.hubapi.com", "action": "allow" },
-          { "host": "*", "action": "deny" }
-        ]
-      }
-    },
-    {
-      "key": "sdr-2",
-      "name": "SDR — Outbound Prospecting",
-      "role": "sdr",
-      "capabilities": ["Identify outbound prospects", "Enrich contact data", "Log activities in HubSpot"],
-      "model": "anthropic:claude-haiku-3-5",
-      "systemPrompt": "You are an outbound SDR at {{companyName}}. Research and qualify prospects, then log your findings in HubSpot.",
-      "reportsToKey": "sdr-manager",
-      "accessPolicy": {
-        "accessPolicyVersion": "1",
-        "rules": [
-          { "host": "api.hubapi.com", "action": "allow" },
-          { "host": "*", "action": "deny" }
-        ]
-      }
-    },
-    {
-      "key": "revops-analyst",
-      "name": "RevOps Analyst",
-      "role": "analyst",
-      "capabilities": ["Pull pipeline metrics from HubSpot", "Summarise deal velocity and conversion rates"],
-      "model": "anthropic:claude-haiku-3-5",
-      "systemPrompt": "You are the RevOps analyst at {{companyName}}. Query HubSpot for pipeline metrics and produce a concise summary.",
-      "reportsToKey": "sdr-manager",
-      "accessPolicy": {
-        "accessPolicyVersion": "1",
-        "rules": [
-          { "host": "api.hubapi.com", "action": "allow" },
-          { "host": "*", "action": "deny" }
-        ]
-      }
-    }
-  ]
-}
-```
-
----
-
-## Validation
-
-To validate a generated file before deploying:
-
-```sh
-npx @openenvelope/schema validate ./my-team.envelope.json
-```
-
-Or in a TypeScript project:
-
-```ts
-import { validate } from "@openenvelope/schema";
-
-const result = validate(myDefinition);
-if (!result.ok) console.error(result.errors);
-```
-
----
-
-## Deploying
-
-Once you have a valid `.envelope.json`:
-
-1. **UI**: Go to [openenvelope.org](https://openenvelope.org), sign in, click **New team**, and upload the file.
-2. **API**: `POST /api/templates` with the file contents, then `POST /api/installs` to deploy it. See [openenvelope.org/api-docs](https://openenvelope.org/api-docs) for full reference.
-3. **MCP**: If you have an Envelope API key, use the `run_team` tool via Claude.ai or ChatGPT. See [openenvelope.org/mcp](https://openenvelope.org/mcp).
-
----
-
-## Tips for generating good team definitions
-
-- **Start with the hierarchy**: who is the supervisor, who are the managers, who are the leaf workers?
-- **Write specific system prompts**: vague prompts produce vague agents. Include the agent's exact scope, what it should and shouldn't do, and how it should communicate results to its manager.
-- **Scope access policies tightly**: only allow the hosts each agent actually calls. A catch-all deny rule at the end is good practice.
-- **Name secrets clearly**: `ZENDESK_API_KEY` not `API_KEY`. The deployer sees these names when setting up the team.
-- **Use variables for anything org-specific**: company name, support email, Slack channel — anything that changes per deployment belongs in `requiredVariables`.
-- **Add gates for high-stakes steps**: if an agent is about to send emails, post to social, or make purchases, put a gate before it.
+- [openenvelope.org](https://openenvelope.org) — deploy and run teams
+- [schema.openenvelope.org/team/v1.json](https://schema.openenvelope.org/team/v1.json) — JSON schema
+- [npmjs.com/package/@openenvelope/schema](https://www.npmjs.com/package/@openenvelope/schema) — TypeScript types + validator
+- [openenvelope.org/mcp](https://openenvelope.org/mcp) — run teams via MCP from Claude.ai or ChatGPT
