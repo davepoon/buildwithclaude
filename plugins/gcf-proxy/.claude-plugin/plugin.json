@@ -1,0 +1,9 @@
+{
+  "name": "gcf-proxy",
+  "description": "Save 71% on MCP tool call tokens. Wraps any MCP server with GCF encoding, zero code changes. Session stats hook shows savings per turn.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Blackwell Systems",
+    "url": "https://blackwell-systems.com"
+  }
+}
