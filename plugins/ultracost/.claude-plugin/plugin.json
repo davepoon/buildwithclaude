@@ -1,0 +1,21 @@
+{
+  "name": "ultracost",
+  "version": "0.3.3",
+  "description": "Per-stage model routing for Claude Code ultracode dynamic workflows. Pins an explicit model + effort on every agent() subagent stage, estimates cost before launch, and ships a static guard + PreToolUse gate that flag stages which would silently inherit the session's Opus model.",
+  "author": {
+    "name": "Daniel Kremen",
+    "url": "https://github.com/danielkremen818"
+  },
+  "homepage": "https://github.com/danielkremen818/ultracost#readme",
+  "repository": "https://github.com/danielkremen818/ultracost",
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "ultracode",
+    "dynamic-workflows",
+    "subagents",
+    "model-routing",
+    "cost-optimization"
+  ],
+  "skills": "./skills/"
+}
