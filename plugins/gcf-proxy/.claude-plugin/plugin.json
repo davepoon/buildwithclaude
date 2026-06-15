@@ -1,0 +1,12 @@
+{
+  "name": "gcf-proxy",
+  "description": "Save 71% on MCP tool call tokens. Wraps any MCP server with GCF encoding, zero code changes.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Blackwell Systems",
+    "url": "https://blackwell-systems.com"
+  },
+  "homepage": "https://gcformat.com",
+  "repository": "https://github.com/blackwell-systems/gcf-claude-plugin",
+  "license": "MIT"
+}

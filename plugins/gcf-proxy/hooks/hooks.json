@@ -1,0 +1,14 @@
+{
+  "hooks": [
+    {
+      "event": "SessionStart",
+      "command": "rm -f /tmp/gcf-proxy-stats.json",
+      "timeout": 1000
+    },
+    {
+      "event": "Stop",
+      "command": "node -e \"const fs=require('fs'); try{const d=JSON.parse(fs.readFileSync('/tmp/gcf-proxy-stats.json','utf8')); if(d.calls>0){const s=d.pct_saved.toFixed(0); const tb=d.est_tokens_saved; const saved=tb>=1000?(tb/1000).toFixed(1)+'K':tb; console.log(JSON.stringify({notification:'gcf-proxy: '+d.calls+' tool calls rewritten, '+s+'% fewer tokens (~'+saved+' tokens saved)'}))}}catch(e){}\"",
+      "timeout": 1000
+    }
+  ]
+}
