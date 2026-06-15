@@ -1790,6 +1790,32 @@
         "source": "github",
         "repo": "glitchwerks/claude-github-tools"
       }
+    },
+    {
+      "name": "ultracost",
+      "description": "Per-stage model routing + pre-flight cost gate for Claude Code ultracode dynamic workflows. Pins an explicit model + effort on every agent() subagent stage, estimates cost before launch, and ships a static guard + PreToolUse gate that flag stages which would silently inherit the session's Opus model. Zero dependencies, no telemetry, MIT.",
+      "version": "0.3.7",
+      "author": {
+        "name": "Daniel Kremen",
+        "url": "https://github.com/danielkremen818"
+      },
+      "repository": "https://github.com/danielkremen818/ultracost",
+      "license": "MIT",
+      "keywords": [
+        "claude-code",
+        "claude-code-plugin",
+        "ultracode",
+        "dynamic-workflows",
+        "subagents",
+        "model-routing",
+        "cost-optimization",
+        "finops"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "danielkremen818/ultracost"
+      }
     }
   ]
 }
