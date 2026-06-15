@@ -1,0 +1,22 @@
+{
+  "name": "claude-prompt",
+  "version": "0.1.0",
+  "description": "Rewrites your request into an optimized, reasoning-maximizing prompt (structured context, specificity, meta-instructions for extended thinking, skip-comments that preserve quoted text), then immediately carries it out. Ships the /p command.",
+  "author": {
+    "name": "Daniel Kremen",
+    "url": "https://github.com/danielkremen818"
+  },
+  "homepage": "https://github.com/danielkremen818/claude-prompt#readme",
+  "repository": "https://github.com/danielkremen818/claude-prompt",
+  "license": "MIT",
+  "keywords": [
+    "prompt-engineering",
+    "prompt-optimizer",
+    "meta-prompting",
+    "extended-thinking",
+    "reasoning",
+    "slash-command",
+    "productivity",
+    "claude-code"
+  ]
+}
