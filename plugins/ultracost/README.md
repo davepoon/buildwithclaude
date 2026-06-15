@@ -2,6 +2,10 @@
 
 **Per-stage model routing for Claude Code `ultracode` dynamic workflows.**
 
+It applies to **any** kind of work a dynamic workflow does — frontend, backend,
+research, refactors, audits — not a single domain. Wherever `ultracode` fans out to
+subagents, ultracost governs how each stage is routed.
+
 When `ultracode` is on, the session runs on Opus @ `xhigh` and a single dynamic
 workflow fans out to dozens — up to ~1,000 — subagents that **inherit that session
 model** unless every `agent()` stage is pinned. The built-in workflow guidance even
@@ -45,3 +49,14 @@ npx ultracost init
 - **Repository:** https://github.com/danielkremen818/ultracost
 - **License:** MIT · no telemetry · no network on the hot path
 - **Author:** [danielkremen818](https://github.com/danielkremen818)
+
+## Security & trust
+
+- **Zero runtime and dev dependencies** — there is no supply chain to compromise.
+  Snyk Open Source and `npm audit` report **0 vulnerabilities**.
+- **No telemetry, no network on the hot path.** The only outbound request is the
+  user-invoked `ultracost pricing refresh`; the guard, estimate, and hooks run offline.
+- **Signed releases.** Published to npm with OIDC Trusted Publishing and a signed
+  `--provenance` attestation; every GitHub Action is pinned to a commit SHA.
+- **CodeQL + OpenSSF Scorecard** run in CI. The installer touches only its own files
+  and is fully reversible.
