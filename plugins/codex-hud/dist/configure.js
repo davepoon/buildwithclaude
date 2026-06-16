@@ -5,11 +5,14 @@ const BOOL_KEYS = [
     "showFooter",
     "showUsage",
     "showWeekly",
+    "showModel",
+    "showContext",
     "fallbackToWeek",
 ];
 const NUMBER_KEYS = ["barWidth"];
 const ENUM_KEYS = {
-    layout: ["compact", "expanded", "horizontal"],
+    layout: ["compact", "expanded", "horizontal", "inline"],
+    resetStyle: ["relative", "absolute", "both"],
     language: ["en", "ko"],
 };
 function getDisplayConfig() {
@@ -26,11 +29,14 @@ export function showConfig(asJson = false) {
     const lines = [
         "Current display configuration:",
         "",
-        `  layout         = ${cfg.layout}  (expanded | horizontal | compact)`,
+        `  layout         = ${cfg.layout}  (expanded | horizontal | compact | inline)`,
         `  showPlan       = ${cfg.showPlan}`,
         `  showFooter     = ${cfg.showFooter}`,
         `  showUsage      = ${cfg.showUsage}`,
         `  showWeekly     = ${cfg.showWeekly}`,
+        `  showModel      = ${cfg.showModel}`,
+        `  showContext    = ${cfg.showContext}`,
+        `  resetStyle     = ${cfg.resetStyle}  (relative | absolute | both)`,
         `  barWidth       = ${cfg.barWidth}`,
         `  fallbackToWeek = ${cfg.fallbackToWeek}`,
         `  language       = ${cfg.language}  (en | ko)`,

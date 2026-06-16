@@ -2,10 +2,33 @@ import { readFileSync } from "node:fs";
 import { resolveAdminKey, saveConfig, loadConfig } from "./config.js";
 import { testConnection, fetchCosts, fetchUsage } from "./openai-api.js";
 import { aggregateLocalUsage } from "./local-logs.js";
-import { renderStatusLines } from "./statusline.js";
+import { renderStatusLines, renderPreview } from "./statusline.js";
 import { installStatusline, uninstallStatusline } from "./install-statusline.js";
 import { showConfig, setConfigOption, resetConfig } from "./configure.js";
 import { formatTokenUsage, formatRateLimits, formatUsageTable, formatCostsTable, formatSummaryLine, formatStatusLabel, formatUsd, } from "./format.js";
+// Parse `key=value` / `--set key=value` tokens into a display-config override.
+function parseDisplayOverrides(args) {
+    const out = {};
+    for (let i = 0; i < args.length; i++) {
+        let tok = args[i] ?? "";
+        if (tok === "--set")
+            tok = args[++i] ?? "";
+        const eq = tok.indexOf("=");
+        if (eq <= 0)
+            continue;
+        const key = tok.slice(0, eq);
+        const raw = tok.slice(eq + 1);
+        let val = raw;
+        if (raw === "true")
+            val = true;
+        else if (raw === "false")
+            val = false;
+        else if (/^-?\d+$/.test(raw))
+            val = Number(raw);
+        out[key] = val;
+    }
+    return out;
+}
 function parseDateRange(args) {
     for (const a of args) {
         const v = a.replace(/^-+/, "");
@@ -156,13 +179,17 @@ async function handleUsage(args) {
         console.log(`### Local Sessions (${local.sessionCount} sessions)\n`);
         console.log(formatTokenUsage(local.totals));
         console.log("");
-        if (local.latestRateLimits) {
-            console.log(formatRateLimits(local.latestRateLimits));
-            console.log("");
-        }
     }
     else {
         console.log("No local Codex sessions found for this period.\n");
+    }
+    // Rate limits can come from rollout logs OR ~/.codex/logs_2.sqlite (the
+    // app-server path), so show them even with zero rollout sessions.
+    if (local.latestRateLimits) {
+        if (local.latestModel)
+            console.log(`Model: **${local.latestModel.model}**\n`);
+        console.log(formatRateLimits(local.latestRateLimits));
+        console.log("");
     }
     // API usage
     if (!localOnly) {
@@ -338,6 +365,15 @@ async function main() {
             }
             break;
         }
+        case "preview": {
+            // Plain-text render of sample data with ad-hoc overrides, for the
+            // configure flow's live previews. e.g. preview --set layout=compact
+            const lines = renderPreview(parseDisplayOverrides(rest));
+            for (const line of lines) {
+                console.log(line);
+            }
+            break;
+        }
         case "install-statusline": {
             const result = installStatusline();
             if (rest.includes("--json")) {
@@ -396,6 +432,7 @@ async function main() {
             console.log("  summary                        Quick one-line summary");
             console.log("  label                          JSON label for claude-hud");
             console.log("  statusline [--week|--month]    Render statusline lines");
+            console.log("  preview [--set k=v ...]        Plain preview of sample data (for configure)");
             console.log("  install-statusline             Install the statusline integration");
             console.log("  uninstall-statusline           Remove it (restores previous statusline)");
             console.log("  configure [--get|--set k=v|--reset]  Display options");

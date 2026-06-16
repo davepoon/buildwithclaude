@@ -1,9 +1,14 @@
 export interface DisplayConfig {
-    layout?: "compact" | "expanded" | "horizontal";
+    layout?: "compact" | "expanded" | "horizontal" | "inline";
     showPlan?: boolean;
     showFooter?: boolean;
     showUsage?: boolean;
     showWeekly?: boolean;
+    showModel?: boolean;
+    showContext?: boolean;
+    /** How reset times render: relative ("in 4h 37m"), absolute ("resets 19:38"),
+     *  or both ("resets 19:38 · 4h 37m"). */
+    resetStyle?: "relative" | "absolute" | "both";
     barWidth?: number;
     fallbackToWeek?: boolean;
     language?: "en" | "ko";
@@ -78,7 +83,19 @@ export interface RateLimits {
     plan_type: string | null;
     rate_limit_reached_type?: string | null;
 }
-export interface ParsedSession {
+/** Point-in-time session telemetry from the latest turn_context / token_count. */
+export interface SessionTelemetry {
+    model: string | null;
+    effort: string | null;
+    /** Epoch ms of the turn_context that carried model/effort. */
+    modelTimestamp: number | null;
+    /** Tokens occupying the context in the last turn (input + output). */
+    contextUsed: number | null;
+    contextWindow: number | null;
+    /** Epoch ms of the token_count that carried the context numbers. */
+    contextTimestamp: number | null;
+}
+export interface ParsedSession extends SessionTelemetry {
     totalUsage: TokenUsage | null;
     rateLimits: RateLimits | null;
     /** Epoch ms of the event that carried rateLimits (file mtime fallback). */
@@ -90,6 +107,16 @@ export interface AggregatedUsage {
     sessions: ParsedSession[];
     totals: TokenUsage;
     latestRateLimits: RateLimits | null;
+    /** Model + reasoning effort of the most recent turn across sessions. */
+    latestModel: {
+        model: string;
+        effort: string | null;
+    } | null;
+    /** Context occupancy of the most recent turn across sessions. */
+    latestContext: {
+        used: number;
+        window: number;
+    } | null;
     sessionCount: number;
 }
 export type ApiResult<T> = {

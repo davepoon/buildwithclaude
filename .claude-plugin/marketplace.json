@@ -1596,7 +1596,7 @@
     {
       "name": "codex-hud",
       "description": "Display OpenAI Codex usage and rate limits inside Claude Code. Real-time statusline integration with claude-hud (auto-installed via /codex-hud:setup).",
-      "version": "0.5.2",
+      "version": "0.9.0",
       "author": {
         "name": "Haenara Shin",
         "url": "https://github.com/haenara-shin"

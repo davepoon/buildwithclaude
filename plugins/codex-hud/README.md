@@ -41,11 +41,14 @@ my-project
 Context ██░░░░░░░░ 19%
 Usage   █░░░░░░░░░ 14% (resets in 4h 37m)
 Weekly  ██░░░░░░░░ 22% (resets in 5d 18h)
-── Codex team ──                      <- codex-hud
+── Codex gpt-5.5·medium ──            <- codex-hud
 Usage   █░░░░░░░░░ 1% (resets in 5h)
 Weekly  ░░░░░░░░░░ 0% (resets in 7d)
+Context ██░░░░░░░░ 18% (47k/258k)
 1 session | team
 ```
+
+The header shows the model and reasoning effort of your most recent Codex turn, and the Context bar tracks that session's context-window occupancy. When Codex reports a reached rate limit, a red `⚠ LIMIT` alert appears in the header (even when the percentage bars sit below 100%).
 
 ## Installation
 
@@ -201,7 +204,7 @@ Substitute `codex-hud` with your marketplace alias — `claude-community` for An
 
 ## Requirements
 
-- Node.js >= 18.0.0
+- Node.js >= 18.0.0 — but **Node >= 22.5 (or the `sqlite3` CLI on PATH)** is needed to read rate limits from `~/.codex/logs_2.sqlite` (the source used when you drive Codex via the app-server / Claude Code codex plugin). Older Node still works for rollout-based usage.
 - [Claude Code](https://claude.ai/code)
 - [Codex CLI](https://github.com/openai/codex) or [codex-plugin-cc](https://github.com/openai/codex-plugin-cc)
 - [claude-hud](https://github.com/jarrodwatts/claude-hud) (optional, for statusline integration)
@@ -212,6 +215,37 @@ Substitute `codex-hud` with your marketplace alias — `claude-community` for An
 codex-hud was inspired by [claude-hud](https://github.com/jarrodwatts/claude-hud) — which solved the same usage-visibility problem for Claude Code itself. codex-hud extends that idea to OpenAI Codex and integrates with claude-hud via the included wrapper script when both are installed.
 
 ## Changelog
+
+### v0.9.0
+
+- **Works with the app-server / Codex plugin path.** Codex 0.140+ run via the app-server (e.g. the Claude Code codex plugin) doesn't write rate limits to the rollout logs — it logs them to `~/.codex/logs_2.sqlite`. codex-hud now reads the newest snapshot from there (local, no network/auth), merged with rollout data by freshness. This fixes "No Codex sessions found" for users who only use Codex through the plugin.
+- **Reasoning effort** in the model badge (e.g. `gpt-5.5·xhigh`), read from `~/.codex/config.toml`.
+- **`5h Usage` label** for the primary window (derived from its duration), matching Codex's own `/status`.
+- **Quota shown as "% left"** with bars that fill as remaining — e.g. `5h Usage ██████████ 99% left (resets 19:38 · 3h 58m)` — matching Codex `/status`. (The Context bar still shows used%.)
+- Requires Node >= 22.5 or the `sqlite3` CLI for the new app-server source; degrades gracefully otherwise.
+
+### v0.8.0
+
+- **Absolute reset times** (like Codex's own `/status`). Reset hints now show the clock time a window resets — `resets 19:38`, or `resets 15:04 on 22 Jun` once it's past today — alongside the time remaining: `(resets 19:38 · 4h 37m)`. New `resetStyle` option (`both` (default) / `absolute` / `relative`), localized for ko (`리셋 19:38 · 4h 37m`). Configurable via `/codex-hud:configure` with live previews.
+
+### v0.7.0
+
+- **Live previews in `/codex-hud:configure`.** When choosing a layout, each option now shows a side-by-side preview of how your statusline will actually look — rendered by the real statusline code (sample data, with your current toggles applied), so the preview can never drift from the result. Adds a `preview` CLI subcommand (`node dist/index.js preview --set layout=compact`) that emits plain, color-free output for the question UI.
+
+### v0.6.2
+
+- **Horizontal layout restored** to its classic shape (header + side-by-side bars + footer). The v0.6.1 one-liner lives on as a separate **`inline`** layout — pick whichever you prefer via `/codex-hud:configure` (4 layouts now: expanded / horizontal / inline / compact).
+
+### v0.6.1
+
+- **Horizontal layout redesigned as a true one-liner** (claude-hud style): `Codex team gpt-5.5·medium │ Usage ████░░░░░░ 42% (2h) │ Weekly ████████░░ 81% (2d 7h) │ Context ██░░░░░░░░ 18% │ 2s`. Previously it still used separate header/footer lines; now everything — bars included — sits on one line, matching the look of claude-hud's metric row above it.
+
+### v0.6.0
+
+- **Model + effort badge**: the header now shows which model and reasoning effort your most recent Codex turn used (e.g. `── Codex gpt-5.5·medium ──`). Toggle with `showModel`.
+- **Context bar**: context-window occupancy of the most recent session (`Context ██░░░░░░░░ 18% (47k/258k)`), mirroring claude-hud's context display for the Codex side. Toggle with `showContext`.
+- **`⚠ LIMIT` alert**: when Codex reports `rate_limit_reached_type`, a red badge appears in the header — catching the case where requests are blocked while the percentage bars are still below 100%.
+- All three render in every layout (expanded / horizontal / compact) and come from the same tail-read window — no extra I/O.
 
 ### v0.5.2
 
