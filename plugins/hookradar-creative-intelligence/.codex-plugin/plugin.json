@@ -1,0 +1,46 @@
+{
+  "name": "hookradar-creative-intelligence",
+  "version": "0.1.1",
+  "description": "HookRadar creative intelligence workflows for Codex, Claude, and MCP-capable agents: competitor ads, organic videos, AI creative analysis, reports, and free first-pass competitor research.",
+  "author": {
+    "name": "HookRadar",
+    "email": "hello@hookradar.net",
+    "url": "https://hookradar.net"
+  },
+  "homepage": "https://hookradar.net",
+  "repository": "https://github.com/HookRadar/hookradar-agent-skill",
+  "license": "MIT",
+  "keywords": [
+    "hookradar",
+    "creative-intelligence",
+    "mcp",
+    "meta-ads",
+    "tiktok-ads",
+    "organic-social",
+    "competitor-research",
+    "marketing"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "HookRadar Creative Intelligence",
+    "shortDescription": "Research paid ads, organic videos, reports, and creative analysis with HookRadar MCP.",
+    "longDescription": "Adds HookRadar workflows for creative intelligence: find competitor ad winners, analyze TikTok/Instagram organic videos, generate shareable tables with HookRadar links, start AI analysis, and run free first-pass competitor discovery before connecting the paid MCP workspace.",
+    "developerName": "HookRadar",
+    "category": "Marketing",
+    "capabilities": [
+      "Interactive",
+      "MCP",
+      "Research"
+    ],
+    "websiteURL": "https://hookradar.net",
+    "privacyPolicyURL": "https://hookradar.net/privacy",
+    "termsOfServiceURL": "https://hookradar.net/terms",
+    "defaultPrompt": [
+      "Show top creative winners for my competitors.",
+      "Find competitors for this product URL.",
+      "Build a shareable creative table with links."
+    ],
+    "brandColor": "#2563EB"
+  }
+}

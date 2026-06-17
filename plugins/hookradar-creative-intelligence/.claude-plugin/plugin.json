@@ -1,0 +1,21 @@
+{
+  "name": "hookradar-creative-intelligence",
+  "description": "HookRadar creative intelligence workflows for Codex, Claude, and MCP-capable agents: competitor ads, organic videos, AI creative analysis, reports, and free first-pass competitor research.",
+  "version": "0.1.1",
+  "author": {
+    "name": "HookRadar",
+    "email": "hello@hookradar.net",
+    "url": "https://hookradar.net"
+  },
+  "repository": "https://github.com/HookRadar/hookradar-agent-skill",
+  "homepage": "https://hookradar.net",
+  "license": "MIT",
+  "keywords": [
+    "marketing",
+    "creative-intelligence",
+    "mcp",
+    "meta-ads",
+    "tiktok-ads",
+    "organic-social"
+  ]
+}
