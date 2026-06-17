@@ -1,0 +1,21 @@
+{
+  "name": "agents-meta-orchestration",
+  "version": "1.0.0",
+  "description": "Five-agent meta-orchestration kit from operator-kit: design, build, scout, research, and critic specialists",
+  "author": {
+    "name": "wrg32786",
+    "url": "https://github.com/wrg32786"
+  },
+  "repository": "https://github.com/wrg32786/operator-kit",
+  "license": "MIT",
+  "keywords": [
+    "agents",
+    "subagents",
+    "meta-orchestration",
+    "design",
+    "build",
+    "scout",
+    "research",
+    "critic"
+  ]
+}
