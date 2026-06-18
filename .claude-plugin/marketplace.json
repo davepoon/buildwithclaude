@@ -1816,6 +1816,32 @@
         "source": "github",
         "repo": "danielkremen818/ultracost"
       }
+    },
+    {
+      "name": "forge",
+      "description": "Full-lifecycle SDLC orchestrator: a 12-stage pipeline (SRS, architecture, spec, plan, build, eval, deploy, monitor, release) driven by specialized agents, persistent cross-session memory, auto-reflection, gate enforcement, and semantic skill mining that proposes new skills from recurring workflows.",
+      "version": "0.3.6",
+      "author": {
+        "name": "Saddam",
+        "url": "https://github.com/tonmoy007/forge-plugins"
+      },
+      "repository": "https://github.com/tonmoy007/forge-plugins",
+      "license": "MIT",
+      "keywords": [
+        "sdlc",
+        "orchestration",
+        "agents",
+        "pipeline",
+        "memory",
+        "skills",
+        "automation",
+        "workflow"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "tonmoy007/forge-plugins"
+      }
     }
   ]
 }
