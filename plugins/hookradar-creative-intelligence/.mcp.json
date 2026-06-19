@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "hookradar": {
+      "type": "http",
+      "url": "https://mcp.hookradar.net/mcp"
+    }
+  }
+}

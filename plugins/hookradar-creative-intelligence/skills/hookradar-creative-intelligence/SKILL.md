@@ -1,5 +1,6 @@
 ---
 name: hookradar-creative-intelligence
+category: sales-marketing
 description: Use when researching competitors, paid ads, Meta Ad Library creatives, TikTok ads, Instagram/TikTok organic videos, HookRadar MCP data, creative trends, AI creative analysis, reports, downloadable ad/video assets, or shareable creative tables for marketing teams.
 ---
 
