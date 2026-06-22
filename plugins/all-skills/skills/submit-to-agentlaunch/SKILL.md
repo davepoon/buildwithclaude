@@ -1,7 +1,7 @@
 ---
 name: submit-to-agentlaunch
-description: "Submit an AI agent to agentlaunch (a Product Hunt-style directory for AI agents) and upvote agents via a public, no-auth REST API. Use when listing, launching, publishing, or registering an agent, or programmatically voting on one."
-category: business
+description: "Submit an AI agent to agentlaunch (a Product Hunt-style directory for AI agents) and read the directory via a public, no-auth REST API. Use when listing, launching, publishing, or registering an agent, or browsing existing ones."
+category: business-productivity
 requires:
   bins: [curl]
 ---
@@ -86,18 +86,13 @@ curl https://agents-launch.lovable.app/api/public/v1/agents/researchbot
 
 Query params: `period` (`today`|`week`|`all`), `category` (enum), `limit` (1–100, default 50). Sorted by `vote_count` desc, then newest.
 
-## Upvote an agent
+## Voting (read this before using it)
 
-```bash
-curl -X POST https://agents-launch.lovable.app/api/public/v1/agents/researchbot/vote
-```
+The primary use of this skill is **submit once, then read**. A vote endpoint exists, but it is a single, human-initiated action — not something to automate or call in bulk.
 
-- One vote per client IP per agent.
-- `200` → `{ "voted": true, "vote_count": N }`
-- `404` → unknown slug
-- `409` → this IP already voted (idempotent; not an error to surface to humans)
-
-**Don't ballot-stuff.** Egress IP rotation is detectable and submissions get removed.
+- One vote per client IP per agent; the call is idempotent (re-voting returns `409`, not a new vote).
+- Cast a vote only on an explicit, one-off user request for a specific agent.
+- **Never** loop, batch, rotate IPs, or otherwise inflate vote counts. Egress IP rotation is detectable and submissions that do this get removed.
 
 ## CORS, auth, rate limits
 
