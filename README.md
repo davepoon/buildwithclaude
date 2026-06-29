@@ -1,5 +1,14 @@
 # Build with Claude
 
+
+## Skill Hub
+
+[Skill Hub](https://skill.442595.xyz/) — **4083+** AI Agent Skills across 22 functional categories.
+
+- 🛠️ **Dev Tools** · 🤖 **Agent Framework** · 🎨 **Design UI** · 📊 **Data AI** · 🔒 **Security** and more
+- 🔍 Platform: Claude Code, Codex, Cursor, OpenCode, Hermes
+- 🌐 Bilingual CN+EN  |  🐙 [GitHub](https://github.com/rdone4425/skill)
+
 ## **Claude Skills, Agents, Commands, Hooks, Plugins, Marketplaces collections for and extend Claude Code**
 
 [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
