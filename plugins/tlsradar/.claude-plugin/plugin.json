@@ -1,0 +1,21 @@
+{
+  "name": "tlsradar",
+  "displayName": "TLS Radar",
+  "version": "0.5.1",
+  "description": "SSL/TLS certificate monitoring and free Let's Encrypt issuance inside Claude Code and Cowork, through a single MCP server. Free anonymous scans and cert issuance (private key stays local), plus ongoing monitoring after a one-time OAuth via /mcp.",
+  "author": {
+    "name": "TLS Radar",
+    "url": "https://tlsradar.com"
+  },
+  "license": "MIT",
+  "homepage": "https://tlsradar.com/cli",
+  "repository": "https://github.com/TLS-Radar/tlsradar-claude-plugin",
+  "keywords": [
+    "ssl",
+    "tls",
+    "certificates",
+    "monitoring",
+    "letsencrypt",
+    "security"
+  ]
+}

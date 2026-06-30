@@ -25,6 +25,29 @@
   },
   "plugins": [
     {
+      "name": "tlsradar",
+      "description": "SSL/TLS certificate scanning, free Let's Encrypt issuance (private key stays local), and ongoing certificate-expiry monitoring — through a single remote MCP server. Free anonymous scans and cert issuance need no account; OAuth via /mcp unlocks ongoing monitoring.",
+      "version": "0.5.1",
+      "author": {
+        "name": "TLS Radar",
+        "url": "https://tlsradar.com"
+      },
+      "homepage": "https://tlsradar.com/cli",
+      "repository": "https://github.com/TLS-Radar/tlsradar-claude-plugin",
+      "license": "MIT",
+      "keywords": [
+        "ssl",
+        "tls",
+        "certificates",
+        "monitoring",
+        "letsencrypt",
+        "security",
+        "mcp"
+      ],
+      "category": "security",
+      "source": "./plugins/tlsradar"
+    },
+    {
       "name": "cashflow",
       "description": "Personal finance ledger for AI agents. Connect bank accounts via Plaid, query spending, track recurring bills, categorize transactions, and get financial recaps through MCP tools with OAuth authentication.",
       "version": "0.2.0",
