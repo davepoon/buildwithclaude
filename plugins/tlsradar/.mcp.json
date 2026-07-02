@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "tlsradar": {
+      "type": "http",
+      "url": "${TLSRADAR_BASE_URL:-https://tlsradar.com}/api/v1/mcp"
+    }
+  }
+}
