@@ -1,7 +1,7 @@
 ---
 name: meeting
 description: Convene a meeting of AI personas (3 to 10 participants) who debate a subject and reach a synthesis. Teams adapt to the theme (dev, design, product, business, life). The user can mix teams, add custom personas on the fly, and size the meeting up or down. Full debate written to a markdown file in the current directory, only the Boss's final synthesis is shown in the console.
-argument-hint: ["<topic>"] [--team dev|design|product|business|life] [--agents a,b,c,...]
+argument-hint: '["<topic>"] [--team dev|design|product|business|life] [--agents a,b,c,...]'
 disable-model-invocation: true
 allowed-tools: Agent, Write, Bash
 ---

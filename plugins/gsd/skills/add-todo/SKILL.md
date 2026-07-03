@@ -1,7 +1,7 @@
 ---
 name: gsd:add-todo
 description: Capture idea or task as todo from current conversation context
-argument-hint: [optional description]
+argument-hint: "[optional description]"
 allowed-tools:
   - Read
   - Write
