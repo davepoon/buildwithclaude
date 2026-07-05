@@ -27,7 +27,7 @@
     {
       "name": "tlsradar",
       "description": "SSL/TLS certificate scanning, free Let's Encrypt issuance (private key stays local), and ongoing certificate-expiry monitoring — through a single remote MCP server. Free anonymous scans and cert issuance need no account; OAuth via /mcp unlocks ongoing monitoring.",
-      "version": "0.5.1",
+      "version": "0.6.0",
       "author": {
         "name": "TLS Radar",
         "url": "https://tlsradar.com"

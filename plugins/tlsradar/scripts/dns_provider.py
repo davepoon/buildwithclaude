@@ -27,6 +27,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 import urllib.error
@@ -34,8 +35,51 @@ import urllib.request
 
 CF_API = "https://api.cloudflare.com/client/v4"
 
+# dns-01 challenge values are the base64url (unpadded) SHA-256 of the key
+# authorization - always this charset, no dots/spaces/quotes. Anything else in
+# a "TXT value" from the server is not a real challenge and we refuse to write it.
+_B64URL = re.compile(r"\A[A-Za-z0-9_-]{1,255}\Z")
+_LABEL = re.compile(r"\A[A-Za-z0-9_](?:[A-Za-z0-9_-]{0,61}[A-Za-z0-9_])?\Z")
+
 
 # --- pure helpers (tested) ---------------------------------------------------
+
+def validate_challenge(name: str, domain: str, value: str) -> None:
+    """Reject a record that isn't the expected _acme-challenge record for `domain`.
+
+    The record name/value come from the remote MCP response, which we treat as
+    untrusted: a buggy or compromised endpoint must not be able to steer a
+    provider write into an unrelated zone the user happens to control, or smuggle
+    junk into a TXT value. We enforce, purely from the domain the user asked for:
+
+      - name is `_acme-challenge.<domain>` or `_acme-challenge.<sub>.<domain>`
+        (the apex and any subdomain of the requested domain, e.g. www),
+      - every label is a syntactically valid DNS label,
+      - the value is a plausible dns-01 token (base64url, no separators).
+
+    Raises ValueError (with a user-facing reason) on any mismatch.
+    """
+    dom = domain.rstrip(".").lower()
+    nm = name.rstrip(".").lower()
+    if not dom or not _all_valid_labels(dom):
+        raise ValueError(f"invalid domain {domain!r}")
+    prefix = "_acme-challenge."
+    if not nm.startswith(prefix):
+        raise ValueError(f"record name {name!r} is not an _acme-challenge record")
+    host = nm[len(prefix):]  # the identifier being validated, e.g. example.com or www.example.com
+    if host != dom and not host.endswith("." + dom):
+        raise ValueError(
+            f"record name {name!r} is not under the requested domain {domain!r} "
+            f"- refusing to write it (a correct dns-01 record is _acme-challenge.{dom})"
+        )
+    if not _all_valid_labels(nm):
+        raise ValueError(f"record name {name!r} has an invalid DNS label")
+    if not _B64URL.match(value):
+        raise ValueError(f"TXT value {value!r} is not a valid dns-01 token (expected base64url)")
+
+
+def _all_valid_labels(fqdn: str) -> bool:
+    return all(_LABEL.match(lbl) for lbl in fqdn.split("."))
 
 def registrable_root(name: str) -> str:
     """Best-effort registrable domain for a challenge name.
@@ -156,10 +200,20 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("action", choices=["set", "delete"])
     ap.add_argument("--provider", required=True, choices=["cloudflare", "route53"])
+    ap.add_argument("--domain", required=True, help="the cert domain the user requested, e.g. example.com - the record is validated against it")
     ap.add_argument("--name", required=True, help="full record name, e.g. _acme-challenge.example.com")
     ap.add_argument("--value", required=True, help="the TXT value from cert_create")
     ap.add_argument("--zone", help="override the zone/hosted-zone id if root detection is wrong")
     args = ap.parse_args()
+
+    # Untrusted-input gate: the name/value came from the remote MCP response.
+    # Refuse anything that isn't the expected _acme-challenge record for --domain,
+    # for both set and delete (a spoofed name must not drive a delete either).
+    try:
+        validate_challenge(args.name, args.domain, args.value)
+    except ValueError as e:
+        print(f"refusing DNS write: {e}", file=sys.stderr)
+        return 2
 
     try:
         (cloudflare if args.provider == "cloudflare" else route53)(args.action, args.name, args.value, args.zone)

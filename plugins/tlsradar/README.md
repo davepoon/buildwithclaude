@@ -108,7 +108,7 @@ Nothing is required. Optional environment variables:
 
 - `TLSRADAR_BASE_URL` - override the TLS Radar URL (default `https://tlsradar.com`). Useful for staging/self-host.
 
-**Anonymous usage id.** On first run the plugin mints a random id at `~/.config/tlsradar/install_id` and the scan/cert commands pass it (as a `client_id` argument) so anonymous usage can be attributed to one install. It identifies an install, not a person. The plugin **does not modify your shell config and sends no tracking header** - the id travels only as that argument, read from the local file.
+**Anonymous usage id.** The first time you run a scan or cert command, the plugin mints a random id at `~/.config/tlsradar/install_id` and passes it (as a `client_id` argument) so anonymous usage can be attributed to one install. It identifies an install, not a person. The plugin **runs no startup hook, does not modify your shell config, and sends no tracking header** - the id travels only as that argument, read from the local file.
 
   **To opt out:** `rm ~/.config/tlsradar/install_id`. With the file gone, no id is sent.
 
@@ -137,7 +137,6 @@ Nothing is required. Optional environment variables:
 ├── .mcp.json                        # MCP server config (one remote URL)
 ├── commands/                        # slash commands (how to add one: CONTRIBUTING.md)
 ├── skills/                          # NL skill router (with its own README)
-├── hooks/hooks.json                 # one-time SessionStart welcome (print only)
 ├── tools/manifest.json              # single source of truth for tool names
 ├── scripts/                         # CI guards + tested DNS-provider helper
 └── evals/                           # tool-routing evals (prompt → expected tool)
