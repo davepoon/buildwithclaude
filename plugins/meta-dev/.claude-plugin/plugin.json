@@ -1,6 +1,6 @@
 {
   "name": "meta-dev",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Single authority for Claude-config artifacts: modular standards (core + per-artifact modules) with right-sized lifecycles for skills, agents, hooks, plugins, and project instruction files, self-running enforcement hooks, and shared judge agents. Full marketplace: install from github.com/farzanmrz/meta-dev.",
   "author": { "name": "Farzan", "url": "https://github.com/farzanmrz" },
   "repository": "https://github.com/farzanmrz/meta-dev",
