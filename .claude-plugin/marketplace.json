@@ -1869,6 +1869,26 @@
         "source": "github",
         "repo": "tomtastisch/codex-orchestrator"
       }
+    },
+    {
+      "name": "claude-md-kit",
+      "description": "Scaffold and audit CLAUDE.md files from inside Claude Code: /claude-md-new builds one from battle-tested templates using your repo's real commands; /claude-md-audit grades an existing one and returns worst-first fixes.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Fabler Labs",
+        "url": "https://github.com/fablerlabs"
+      },
+      "repository": "https://github.com/fablerlabs/claude-md-templates",
+      "license": "MIT",
+      "keywords": [
+        "claude-md",
+        "agents-md",
+        "templates",
+        "scaffolding",
+        "code-quality"
+      ],
+      "category": "development",
+      "source": "./plugins/claude-md-kit"
     }
   ]
 }
