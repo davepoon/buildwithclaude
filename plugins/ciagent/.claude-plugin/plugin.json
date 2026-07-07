@@ -1,0 +1,18 @@
+{
+  "name": "ciagent",
+  "version": "0.10.0",
+  "description": "Set up and operate CIAgent (pip install ciagent) regression testing for the AI agent in this repo: record golden baselines, run stability and judge-reliability checks after every change.",
+  "author": {
+    "name": "Sunil Pandey",
+    "url": "https://github.com/suniel12"
+  },
+  "repository": "https://github.com/suniel12/ciagent",
+  "license": "Apache-2.0",
+  "keywords": [
+    "testing",
+    "ai-agents",
+    "evals",
+    "regression",
+    "llm-judge"
+  ]
+}
