@@ -1,7 +1,7 @@
 {
   "name": "tlsradar",
   "displayName": "TLS Radar",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "SSL/TLS certificate monitoring and free Let's Encrypt issuance inside Claude Code and Cowork, through a single MCP server. Free anonymous scans and cert issuance (private key stays local), plus ongoing monitoring after a one-time OAuth via /mcp.",
   "author": {
     "name": "TLS Radar",

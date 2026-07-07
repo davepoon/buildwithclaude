@@ -4,22 +4,40 @@
 Why this exists: the provider automation (Cloudflare zone lookup, Route 53's
 change-batch with its TXT double-quoting gotcha, extracting the registrable
 root) is the most failure-prone part of issuance, and it used to live as shell
-snippets inside a prompt - untested. This moves it into one tested place. The
-prompt just calls:
+snippets inside a prompt - untested. This moves it into one tested place.
 
-    dns_provider.py set    --provider cloudflare --name _acme-challenge.example.com --value <txt>
-    dns_provider.py delete --provider route53    --name _acme-challenge.example.com --value <txt>
+The challenge record name/value come from the remote MCP response, which is
+UNTRUSTED. They must never be interpolated into a shell command by the caller
+(shell expansion of `$(...)`, backticks, `;`, etc. would happen before this
+script could reject them). Instead the caller writes them to a JSON file with a
+structured, non-shell tool (Claude Code's Write tool) and passes only the file
+path; this script reads the raw bytes, structurally + semantically validates
+every record, and only then performs the provider write:
+
+    dns_provider.py set    --provider cloudflare --domain example.com --records-file /path/records.json
+    dns_provider.py delete --provider route53    --domain example.com --records-file /path/records.json
+
+records.json is a {"name","value"} object or a JSON array of them, e.g.
+    [{"name": "_acme-challenge.example.com", "value": "<base64url-token>"}]
+
+(--name/--value are still accepted for manual/local use; they go straight into
+argv without a shell too. The plugin flow uses --records-file exclusively so no
+server-provided field is ever pasted into a shell command.)
 
 Credentials stay LOCAL and are read from the environment, never passed as args
 and never sent anywhere but the provider:
   - cloudflare: CLOUDFLARE_API_TOKEN
   - route53:    the standard AWS env/profile the `aws` CLI already uses
 
-The risky, gotcha-prone bits (root extraction, payload shapes, TXT quoting) are
-pure functions covered by scripts/dns_provider_test.py. The network/CLI calls
-are thin wrappers around them.
+The risky, gotcha-prone bits (root extraction, payload shapes, TXT quoting) and
+the untrusted-input gates (record parsing + validation) are pure functions
+covered by scripts/dns_provider_test.py. The network/CLI calls are thin wrappers
+around them, and none use `shell=True` - values go to subprocess as an argv list
+and to urllib as a JSON body, so nothing reaches a shell inside this script
+either.
 
-Exit 0 on success; non-zero with a message on failure.
+Exit 0 on success; 1 on a network error; 2 when a record is rejected before any
+provider write.
 """
 
 from __future__ import annotations
@@ -80,6 +98,38 @@ def validate_challenge(name: str, domain: str, value: str) -> None:
 
 def _all_valid_labels(fqdn: str) -> bool:
     return all(_LABEL.match(lbl) for lbl in fqdn.split("."))
+
+
+def parse_records_data(data: object) -> list[tuple[str, str]]:
+    """Structurally validate already-parsed JSON into a list of (name, value).
+
+    Accepts a single `{"name","value"}` object or a JSON array of them. Every
+    name/value must be a string (so a crafted `{"value": {...}}` or number can't
+    slip past into provider code). Raises ValueError on any structural problem.
+    This is pure - no I/O, no shell - so it's exhaustively testable.
+    """
+    items = [data] if isinstance(data, dict) else data
+    if not isinstance(items, list) or not items:
+        raise ValueError("records must be a non-empty JSON object or array of {name, value}")
+    out: list[tuple[str, str]] = []
+    for item in items:
+        if not isinstance(item, dict):
+            raise ValueError("each record must be a JSON object with string 'name' and 'value'")
+        name, value = item.get("name"), item.get("value")
+        if not isinstance(name, str) or not isinstance(value, str):
+            raise ValueError("record 'name' and 'value' must both be strings")
+        out.append((name, value))
+    return out
+
+
+def load_records_file(path: str) -> list[tuple[str, str]]:
+    """Read the JSON records file the caller wrote via a non-shell boundary.
+
+    `json.load` cannot execute anything, so parsing attacker-controlled JSON is
+    safe; `parse_records_data` then enforces the shape.
+    """
+    with open(path, "r", encoding="utf-8") as f:
+        return parse_records_data(json.load(f))
 
 def registrable_root(name: str) -> str:
     """Best-effort registrable domain for a challenge name.
@@ -200,27 +250,46 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("action", choices=["set", "delete"])
     ap.add_argument("--provider", required=True, choices=["cloudflare", "route53"])
-    ap.add_argument("--domain", required=True, help="the cert domain the user requested, e.g. example.com - the record is validated against it")
-    ap.add_argument("--name", required=True, help="full record name, e.g. _acme-challenge.example.com")
-    ap.add_argument("--value", required=True, help="the TXT value from cert_create")
+    ap.add_argument("--domain", required=True, help="the cert domain the user requested, e.g. example.com - every record is validated against it")
+    ap.add_argument("--records-file", help="path to a JSON file ({name,value} or an array) the caller wrote via a NON-shell tool; the safe path for untrusted server data")
+    ap.add_argument("--name", help="single record name (manual/local use; prefer --records-file for server-provided data)")
+    ap.add_argument("--value", help="single record value (manual/local use)")
     ap.add_argument("--zone", help="override the zone/hosted-zone id if root detection is wrong")
     args = ap.parse_args()
 
-    # Untrusted-input gate: the name/value came from the remote MCP response.
-    # Refuse anything that isn't the expected _acme-challenge record for --domain,
-    # for both set and delete (a spoofed name must not drive a delete either).
+    # Gather the record(s). Untrusted server data must arrive via --records-file
+    # (written with a structured, non-shell tool) so it's never interpolated into
+    # argv/a shell. Parsing is structure-only here; semantics are checked next.
     try:
-        validate_challenge(args.name, args.domain, args.value)
+        if args.records_file:
+            records = load_records_file(args.records_file)
+        elif args.name is not None and args.value is not None:
+            records = [(args.name, args.value)]
+        else:
+            raise ValueError("provide --records-file, or both --name and --value")
+    except (OSError, ValueError) as e:  # ValueError covers json.JSONDecodeError
+        print(f"refusing DNS write: {e}", file=sys.stderr)
+        return 2
+
+    # Untrusted-input gate: validate EVERY record before touching any provider,
+    # for both set and delete (a spoofed name must not drive a delete either). A
+    # single bad record aborts the whole batch - nothing is written.
+    try:
+        for name, value in records:
+            validate_challenge(name, args.domain, value)
     except ValueError as e:
         print(f"refusing DNS write: {e}", file=sys.stderr)
         return 2
 
+    provider_fn = cloudflare if args.provider == "cloudflare" else route53
     try:
-        (cloudflare if args.provider == "cloudflare" else route53)(args.action, args.name, args.value, args.zone)
+        for name, value in records:
+            provider_fn(args.action, name, value, args.zone)
     except urllib.error.URLError as e:
         print(f"network error talking to {args.provider}: {e}", file=sys.stderr)
         return 1
-    print(f"{args.action} ok ({args.provider}): {args.name}")
+    for name, _ in records:
+        print(f"{args.action} ok ({args.provider}): {name}")
     return 0
 
 
