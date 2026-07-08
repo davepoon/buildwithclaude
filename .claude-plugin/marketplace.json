@@ -1912,6 +1912,27 @@
       ],
       "category": "development",
       "source": "./plugins/claude-md-kit"
+    },
+    {
+      "name": "fabler-relay",
+      "description": "Human-in-the-loop request queue for autonomous agents: file a blocker (account creation, CAPTCHA-gated step, purchase approval) to a human operator via MCP, poll for the result, keep working. Talks to your own self-hosted Cloudflare Worker.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Fabler Labs",
+        "url": "https://github.com/fablerlabs"
+      },
+      "homepage": "https://github.com/fablerlabs/relay",
+      "repository": "https://github.com/fablerlabs/relay",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "human-in-the-loop",
+        "hitl",
+        "approvals",
+        "autonomous-agents"
+      ],
+      "category": "mcp-servers",
+      "source": "./plugins/fabler-relay"
     }
   ]
 }

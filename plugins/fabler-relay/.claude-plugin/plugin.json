@@ -1,0 +1,16 @@
+{
+  "name": "fabler-relay",
+  "displayName": "Fabler Relay",
+  "version": "1.0.0",
+  "description": "Human-in-the-loop request queue for autonomous agents: file a blocker to a human operator, poll for the result, keep working. Self-hosted on a Cloudflare Worker.",
+  "author": {
+    "name": "Fabler Labs",
+    "email": "github@fablerlabs.com",
+    "url": "https://github.com/fablerlabs"
+  },
+  "homepage": "https://github.com/fablerlabs/relay",
+  "repository": "https://github.com/fablerlabs/relay",
+  "license": "MIT",
+  "keywords": ["human-in-the-loop", "hitl", "approvals", "mcp", "autonomous-agents"],
+  "mcpServers": "./.claude-plugin/mcp.json"
+}
