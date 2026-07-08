@@ -1,7 +1,7 @@
 ---
 name: onboard
 description: Set up CIAgent regression testing for the AI agent in this repo — write a runner, record golden baselines, generate a test spec, and verify it. Use when the user asks to add tests, evals, or regression testing for their AI agent, or to set up CIAgent.
-allowed-tools: Bash(ciagent *)
+allowed-tools: Bash(ciagent *), Bash(pip install *), Bash(python -c *), Read, Grep, Glob, Write, Edit
 ---
 
 # Onboard CIAgent into this repo
