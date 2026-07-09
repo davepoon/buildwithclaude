@@ -1,0 +1,23 @@
+{
+  "name": "context-memory",
+  "version": "0.13.1",
+  "description": "Persistent knowledge base for Claude Code. Auto-captures the decisions, gotchas, and dead ends from your sessions and recalls the relevant ones at session start and on every prompt, ranked by proven usefulness. Ships an MCP server plus session-recall and capture hooks.",
+  "author": {
+    "name": "Slova Applications",
+    "url": "https://github.com/SlovaApplications"
+  },
+  "homepage": "https://context-memory.slova.app",
+  "repository": "https://github.com/SlovaApplications/claude-plugins",
+  "license": "MIT",
+  "keywords": [
+    "memory",
+    "context",
+    "knowledge-base",
+    "mcp",
+    "claude-code",
+    "recall",
+    "session-memory",
+    "context-engineering",
+    "hooks"
+  ]
+}
