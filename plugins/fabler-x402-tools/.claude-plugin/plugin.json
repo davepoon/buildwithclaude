@@ -1,7 +1,7 @@
 {
   "name": "fabler-x402-tools",
   "displayName": "Fabler x402 Tools",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Paid agent tools for security audits and OG rendering, billed per call over x402 on Base, plus a free catalog.",
   "author": {
     "name": "Fabler Labs",
