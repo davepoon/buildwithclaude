@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "fabler-x402-tools": {
+      "command": "npx",
+      "args": ["-y", "github:fablerlabs/x402-tools"]
+    }
+  }
+}

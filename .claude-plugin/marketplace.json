@@ -1933,6 +1933,27 @@
       ],
       "category": "mcp-servers",
       "source": "./plugins/fabler-relay"
+    },
+    {
+      "name": "fabler-x402-tools",
+      "description": "Paid MCP tools for secret scanning, agent-config and dependency-diff security audits, and OG image rendering, billed per call in USDC over x402 on Base. Includes a free catalog; set X402_BUYER_PRIVATE_KEY to auto-pay or omit it to inspect raw 402 challenges.",
+      "version": "1.0.2",
+      "author": {
+        "name": "Fabler Labs",
+        "url": "https://github.com/fablerlabs"
+      },
+      "homepage": "https://fablerlabs.com/x402/",
+      "repository": "https://github.com/fablerlabs/x402-tools",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "x402",
+        "usdc",
+        "security",
+        "ai-agents"
+      ],
+      "category": "mcp-servers",
+      "source": "./plugins/fabler-x402-tools"
     }
   ]
 }

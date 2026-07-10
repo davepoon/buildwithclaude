@@ -1,0 +1,16 @@
+{
+  "name": "fabler-x402-tools",
+  "displayName": "Fabler x402 Tools",
+  "version": "1.0.2",
+  "description": "Paid agent tools for security audits and OG rendering, billed per call over x402 on Base, plus a free catalog.",
+  "author": {
+    "name": "Fabler Labs",
+    "email": "github@fablerlabs.com",
+    "url": "https://github.com/fablerlabs"
+  },
+  "homepage": "https://fablerlabs.com/x402/",
+  "repository": "https://github.com/fablerlabs/x402-tools",
+  "license": "MIT",
+  "keywords": ["mcp", "x402", "usdc", "security", "ai-agents"],
+  "mcpServers": "./.claude-plugin/mcp.json"
+}
