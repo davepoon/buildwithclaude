@@ -1,0 +1,22 @@
+{
+  "name": "aigent-os",
+  "version": "1.1.0",
+  "description": "The session-lifecycle commands from aigent-OS, the open-source Claude Code operating system: /open (boot the session — load memory from the vault, surface what changed and what's blocked) and /close (bank the session back to memory so the next /open resumes with full context). Both skills declare scoped allowed-tools and run a vault-root preflight that verifies the configured aigent-OS vault before any write or script execution. Assumes the aigent-OS vault structure; see the repo and the plugin README for the full system and the security model.",
+  "author": {
+    "name": "wrg32786",
+    "url": "https://github.com/wrg32786"
+  },
+  "repository": "https://github.com/wrg32786/aigent-os",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "aigent-os",
+    "session-management",
+    "persistent-memory",
+    "context-loading",
+    "open",
+    "close",
+    "obsidian-vault",
+    "claude-code-os"
+  ]
+}
