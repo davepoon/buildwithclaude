@@ -2,7 +2,7 @@
   "mcpServers": {
     "fabler-x402-tools": {
       "command": "npx",
-      "args": ["-y", "github:fablerlabs/x402-tools"]
+      "args": ["-y", "https://github.com/fablerlabs/x402-tools/archive/refs/heads/main.tar.gz"]
     }
   }
 }

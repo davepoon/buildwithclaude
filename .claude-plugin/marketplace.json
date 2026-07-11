@@ -1936,8 +1936,8 @@
     },
     {
       "name": "fabler-x402-tools",
-      "description": "Paid MCP tools for secret scanning, agent-config and dependency-diff security audits, and OG image rendering, billed per call in USDC over x402 on Base. Includes a free catalog; set X402_BUYER_PRIVATE_KEY to auto-pay or omit it to inspect raw 402 challenges.",
-      "version": "1.0.3",
+      "description": "Nine MCP tools for security audits, web scraping, OG rendering, and funding spreads. Eight are paid per call in USDC over x402 on Base; one catalog tool is free. Set X402_BUYER_PRIVATE_KEY to auto-pay or omit it to inspect raw 402 challenges.",
+      "version": "1.0.7",
       "author": {
         "name": "Fabler Labs",
         "url": "https://github.com/fablerlabs"

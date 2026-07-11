@@ -1,8 +1,8 @@
 {
   "name": "fabler-x402-tools",
   "displayName": "Fabler x402 Tools",
-  "version": "1.0.4",
-  "description": "Paid agent tools for code, config, pre-deploy security audits and OG rendering over x402 on Base, plus a free catalog.",
+  "version": "1.0.7",
+  "description": "Wallet-enabled x402 tools for security audits, web scraping, OG rendering, and funding spreads on Base, plus a free catalog.",
   "author": {
     "name": "Fabler Labs",
     "email": "github@fablerlabs.com",
