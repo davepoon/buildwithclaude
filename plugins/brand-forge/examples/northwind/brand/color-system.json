@@ -1,0 +1,18 @@
+{
+  "name": "Northwind",
+  "primary": "#0B3D2E",
+  "secondary": "#E8B04B",
+  "accent": "#C64B2C",
+  "neutrals": ["#0A0A0A", "#6B6257", "#D9D2C5", "#F7F4EC"],
+  "roles": {
+    "background": "#F7F4EC",
+    "surface": "#FFFFFF",
+    "text": "#0A0A0A",
+    "accent": "#C64B2C"
+  },
+  "minContrast": 4.5,
+  "rules": {
+    "do": ["Lead with the deep green", "Use amber sparingly for highlights"],
+    "dont": ["Recolor the logo", "Set body text on the accent color"]
+  }
+}

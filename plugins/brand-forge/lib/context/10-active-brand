@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Emit a compact active-brand kit summary. Silent when no brand/ profile exists.
+# Reusable by the SessionStart hook and the /brand-status command. No network.
+set -euo pipefail
+
+[ -f "brand/color-system.json" ] || exit 0
+
+ROOT="${BRAND_FORGE_ROOT:-}"
+field() { node "${ROOT}/lib/field.mjs" "$1" "$2"; }
+
+name="$(field brand/color-system.json name)"
+primary="$(field brand/color-system.json primary)"
+secondary="$(field brand/color-system.json secondary)"
+heading="$(field brand/typography.json heading.family)"
+body="$(field brand/typography.json body.family)"
+
+tone=""
+if [ -f "brand/visual-identity.md" ]; then
+  tone="$(grep -i -m1 '^tone:' brand/visual-identity.md | sed 's/^[Tt]one:[[:space:]]*//')"
+fi
+
+line="brand-forge: active brand ${name:-brand} | ${primary}/${secondary} | ${heading}/${body}"
+[ -n "$tone" ] && line="$line | tone: $tone"
+echo "$line"

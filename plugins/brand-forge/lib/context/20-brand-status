@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Emit a one-line setup nudge based on how many brands exist. No network.
+set -euo pipefail
+
+if [ -f "brand/color-system.json" ]; then
+  # A single active brand — the kit summary (10-active-brand) already covers it.
+  exit 0
+fi
+
+if [ -d "brands" ] && ls -1 brands 2>/dev/null | grep -q .; then
+  slugs="$(ls -1 brands | paste -sd ', ' -)"
+  echo "brand-forge: brands available (${slugs}) — run /brand-use to pick one"
+  exit 0
+fi
+
+echo "brand-forge: no brand configured — run /brand-new to create one"

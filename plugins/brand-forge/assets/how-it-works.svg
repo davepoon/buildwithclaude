@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 300" role="img" aria-label="How brand-forge works">
+  <rect width="860" height="300" fill="#F7F4EC"/>
+  <text x="30" y="46" font-family="Georgia, serif" font-size="26" font-weight="700" fill="#0B3D2E">brand-forge — how it works</text>
+
+  <!-- Profile -->
+  <rect x="30" y="80" width="180" height="150" rx="14" fill="#FFFFFF" stroke="#0B3D2E" stroke-width="2"/>
+  <text x="120" y="120" text-anchor="middle" font-family="Georgia, serif" font-size="18" font-weight="700" fill="#0B3D2E">brand/ profile</text>
+  <text x="120" y="150" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#6B6257">colors · fonts</text>
+  <text x="120" y="170" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#6B6257">logo · tone · rules</text>
+  <text x="120" y="200" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#C64B2C">loaded at session start</text>
+
+  <!-- Arrow -->
+  <line x1="215" y1="155" x2="285" y2="155" stroke="#0B3D2E" stroke-width="2"/>
+  <polygon points="285,150 295,155 285,160" fill="#0B3D2E"/>
+
+  <!-- brand-make -->
+  <rect x="300" y="105" width="180" height="100" rx="14" fill="#0B3D2E"/>
+  <text x="390" y="150" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">/brand-make</text>
+  <text x="390" y="176" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#E8B04B">routes to an engine</text>
+
+  <!-- Arrows to engines -->
+  <line x1="485" y1="130" x2="560" y2="105" stroke="#0B3D2E" stroke-width="2"/>
+  <polygon points="556,100 566,104 558,111" fill="#0B3D2E"/>
+  <line x1="485" y1="180" x2="560" y2="205" stroke="#6B6257" stroke-width="2" stroke-dasharray="5 4"/>
+  <polygon points="558,199 566,206 556,210" fill="#6B6257"/>
+
+  <!-- Vector engine -->
+  <rect x="570" y="70" width="260" height="70" rx="12" fill="#FFFFFF" stroke="#0B3D2E" stroke-width="2"/>
+  <text x="700" y="100" text-anchor="middle" font-family="Georgia, serif" font-size="16" font-weight="700" fill="#0B3D2E">Vector engine (SVG)</text>
+  <text x="700" y="122" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#6B6257">logos · templates · docs — zero-permission</text>
+
+  <!-- Raster engine -->
+  <rect x="570" y="170" width="260" height="70" rx="12" fill="#FFFFFF" stroke="#6B6257" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="700" y="200" text-anchor="middle" font-family="Georgia, serif" font-size="16" font-weight="700" fill="#6B6257">Raster engine (AI)</text>
+  <text x="700" y="222" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#C64B2C">graphics — opt-in, needs a key</text>
+
+  <text x="30" y="270" font-family="system-ui, sans-serif" font-size="13" fill="#6B6257">Output lands in output/ — reviewed, never auto-posted. visual-guardian checks every asset is on-brand.</text>
+</svg>

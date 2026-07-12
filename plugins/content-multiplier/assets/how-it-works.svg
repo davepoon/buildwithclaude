@@ -1,0 +1,20 @@
+<svg viewBox="0 0 1040 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d" width="1040" height="150">
+<title id="t">How Content Multiplier works</title>
+<desc id="d">Pipeline: one source, plan the angles, draft per channel and language, then brand-guardian checks and produces on-brand posts.</desc>
+<rect width="1040" height="150" fill="#0d1117"/>
+<g font-family="system-ui,-apple-system,sans-serif" font-size="17" fill="#e6edf3" text-anchor="middle">
+  <rect x="20" y="40" width="220" height="70" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="130" y="72">One source</text><text x="130" y="95" font-size="13" fill="#8b949e">post · transcript · idea</text>
+  <rect x="280" y="40" width="220" height="70" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="390" y="72">Plan the angles</text><text x="390" y="95" font-size="13" fill="#8b949e">strategist</text>
+  <rect x="540" y="40" width="220" height="70" rx="12" fill="#161b22" stroke="#30363d"/>
+  <text x="650" y="72">Draft per channel</text><text x="650" y="95" font-size="13" fill="#8b949e">+ localize</text>
+  <rect x="800" y="40" width="220" height="70" rx="12" fill="#161b22" stroke="#f778ba"/>
+  <text x="910" y="72">On-brand posts</text><text x="910" y="95" font-size="13" fill="#8b949e">brand-guardian checks</text>
+</g>
+<g stroke="#6e7681" stroke-width="2" fill="#6e7681">
+  <line x1="244" y1="75" x2="272" y2="75"/><path d="M272 70 L280 75 L272 80 Z"/>
+  <line x1="504" y1="75" x2="532" y2="75"/><path d="M532 70 L540 75 L532 80 Z"/>
+  <line x1="764" y1="75" x2="792" y2="75"/><path d="M792 70 L800 75 L792 80 Z"/>
+</g>
+</svg>
