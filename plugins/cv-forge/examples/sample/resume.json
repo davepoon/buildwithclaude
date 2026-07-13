@@ -1,0 +1,101 @@
+{
+  "basics": {
+    "name": "Alex Rivera",
+    "label": "Software Engineer",
+    "email": "alex.rivera@example.com",
+    "phone": "+1 (555) 019-2837",
+    "url": "https://alexrivera.dev",
+    "summary": "Backend-leaning full-stack engineer with 8 years of experience building reliable, observable services for developer tooling and fintech platforms. Enjoys mentoring, incident response, and turning ambiguous requirements into shipped software.",
+    "location": {
+      "city": "Portland",
+      "region": "Oregon"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "alexrivera",
+        "url": "https://github.com/alexrivera"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "Northwind Systems",
+      "position": "Senior Software Engineer",
+      "url": "https://northwind.example.com",
+      "startDate": "2022-03",
+      "summary": "Lead engineer on the payments platform team, owning reliability and developer experience for a service processing millions of transactions per day.",
+      "highlights": [
+        "Redesigned the retry and idempotency layer, cutting duplicate-charge incidents by 92%",
+        "Introduced structured tracing across 12 services, reducing mean time to diagnose outages from hours to minutes",
+        "Mentored 4 junior engineers, two of whom were promoted within a year"
+      ]
+    },
+    {
+      "name": "Fernwood Labs",
+      "position": "Software Engineer",
+      "url": "https://fernwoodlabs.example.com",
+      "startDate": "2018-06",
+      "endDate": "2022-02",
+      "summary": "Built and maintained internal developer tooling used by 150+ engineers, including a CLI for local environment provisioning.",
+      "highlights": [
+        "Shipped a self-service CLI that cut new-engineer onboarding time from 2 days to 3 hours",
+        "Migrated the CI pipeline to containerized runners, reducing average build time by 40%"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Washington",
+      "url": "https://www.washington.edu",
+      "area": "Computer Science",
+      "studyType": "Bachelor of Science",
+      "startDate": "2010-09",
+      "endDate": "2014-06"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Backend Development",
+      "level": "Expert",
+      "keywords": ["Node.js", "Go", "PostgreSQL", "gRPC"]
+    },
+    {
+      "name": "Distributed Systems",
+      "level": "Advanced",
+      "keywords": ["Kafka", "Redis", "Idempotency", "Observability"]
+    },
+    {
+      "name": "Cloud Infrastructure",
+      "level": "Advanced",
+      "keywords": ["AWS", "Terraform", "Docker", "Kubernetes"]
+    },
+    {
+      "name": "Developer Tooling",
+      "level": "Intermediate",
+      "keywords": ["CLI design", "CI/CD", "Build systems"]
+    }
+  ],
+  "projects": [
+    {
+      "name": "retryable",
+      "description": "An open-source idempotency and retry library for Node.js HTTP clients.",
+      "startDate": "2021-01",
+      "endDate": "2021-11",
+      "highlights": [
+        "Adopted by 6 companies within the first year",
+        "Over 1,200 GitHub stars"
+      ],
+      "url": "https://github.com/alexrivera/retryable"
+    }
+  ],
+  "publications": [
+    {
+      "name": "Idempotency Keys at Scale: Lessons from Production Payments Systems",
+      "publisher": "InfoQ",
+      "releaseDate": "2023-09",
+      "url": "https://infoq.example.com/articles/idempotency-keys-at-scale",
+      "summary": "A case study on designing and operating an idempotency layer for a high-throughput payments API."
+    }
+  ]
+}

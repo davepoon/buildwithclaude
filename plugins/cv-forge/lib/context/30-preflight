@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Warn only when optional PDF export is enabled but no converter is available.
+# In Plan 1 there is no exporter yet, so this stays silent unless opted in.
+set -euo pipefail
+[ "${CV_FORGE_PDF:-0}" = "1" ] || exit 0
+if ! command -v chromium >/dev/null 2>&1 && ! command -v google-chrome >/dev/null 2>&1 \
+   && ! command -v wkhtmltopdf >/dev/null 2>&1; then
+  echo "cv-forge: PDF export enabled but no converter found — browser Save-as-PDF still works"
+fi
