@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Active-résumé line from cv/.active. Pure bash — never parses JSON, never calls Node.
+set -euo pipefail
+[ -f "cv/.active" ] || exit 0
+tpl="$(sed -n '1p' cv/.active)"
+name="$(sed -n '2p' cv/.active)"
+head="$(sed -n '3p' cv/.active)"
+line="cv-forge: active résumé ${name:-résumé}"
+[ -n "${head:-}" ] && line="$line — $head"
+[ -n "${tpl:-}" ] && line="$line | template: $tpl"
+echo "$line"

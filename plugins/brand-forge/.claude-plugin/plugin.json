@@ -1,0 +1,20 @@
+{
+  "name": "brand-forge",
+  "description": "Generate on-brand logos, social templates, and marketing graphics for any brand — vector assets need no accounts or keys; AI imagery is opt-in.",
+  "version": "0.5.1",
+  "author": {
+    "name": "brand-forge"
+  },
+  "homepage": "https://github.com/localplugins/plugins/tree/main/brand-forge",
+  "repository": "https://github.com/localplugins/plugins",
+  "license": "MIT",
+  "keywords": [
+    "branding",
+    "logo",
+    "brand-identity",
+    "design",
+    "svg",
+    "templates",
+    "image-generation"
+  ]
+}

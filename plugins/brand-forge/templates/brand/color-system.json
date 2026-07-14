@@ -1,0 +1,18 @@
+{
+  "name": "Your Brand",
+  "primary": "#1F2937",
+  "secondary": "#3B82F6",
+  "accent": "#F59E0B",
+  "neutrals": ["#0B0F19", "#6B7280", "#E5E7EB", "#FFFFFF"],
+  "roles": {
+    "background": "#FFFFFF",
+    "surface": "#F3F4F6",
+    "text": "#0B0F19",
+    "accent": "#F59E0B"
+  },
+  "minContrast": 4.5,
+  "rules": {
+    "do": ["Use primary for large surfaces", "Reserve accent for calls to action"],
+    "dont": ["Place text below the minContrast ratio", "Recolor the logo"]
+  }
+}

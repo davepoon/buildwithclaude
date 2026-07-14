@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# One-line setup nudge based on repo state. Pure bash, no Node.
+set -euo pipefail
+[ -f "cv/.active" ] && exit 0
+if [ -f "resume.json" ]; then
+  echo "cv-forge: résumé present, no template selected — run /cv-make to render"
+  exit 0
+fi
+if [ -d "resumes" ] && ls -1 resumes 2>/dev/null | grep -q .; then
+  slugs="$(ls -1 resumes | paste -sd ', ' -)"
+  echo "cv-forge: résumés available (${slugs}) — run /cv-use to pick one"
+  exit 0
+fi
+echo "cv-forge: no résumé configured — run /cv-new to create one"

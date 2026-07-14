@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "cv-forge résumé (JSON Resume subset)",
+  "type": "object",
+  "properties": {
+    "basics": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "label": { "type": "string" },
+        "email": { "type": "string", "pattern": ".+@.+\\..+" },
+        "phone": { "type": "string" },
+        "url": { "type": "string" },
+        "summary": { "type": "string" },
+        "location": { "type": "object" },
+        "profiles": { "type": "array" }
+      }
+    },
+    "work": { "type": "array", "items": { "type": "object", "required": ["name", "position"] } },
+    "education": { "type": "array", "items": { "type": "object", "required": ["institution"] } },
+    "skills": { "type": "array", "items": { "type": "object", "required": ["name"] } },
+    "projects": { "type": "array" },
+    "publications": { "type": "array" }
+  },
+  "required": ["basics"]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "content-multiplier",
+  "description": "Turn one idea, post, or transcript into a week of on-brand content across every channel and language — no accounts, no API keys, no setup.",
+  "version": "0.2.1",
+  "author": {
+    "name": "localplugins"
+  },
+  "license": "MIT",
+  "keywords": ["marketing", "content", "repurposing", "brand-voice", "localization", "social-media"]
+}

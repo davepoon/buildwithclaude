@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Warn only when the opt-in raster engine is enabled but its key is missing.
+# Never nags a zero-permission, vector-only user. No network.
+set -euo pipefail
+
+[ "${BRAND_FORGE_RASTER:-0}" = "1" ] || exit 0
+
+if [ -z "${GEMINI_API_KEY:-}" ]; then
+  echo "brand-forge: raster enabled but GEMINI_API_KEY is unset — vector assets still work; set the key to generate AI imagery"
+fi

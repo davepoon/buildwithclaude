@@ -1,0 +1,6 @@
+{
+  "heading": { "family": "Inter", "fallback": "Inter, system-ui, sans-serif" },
+  "body": { "family": "Inter", "fallback": "Inter, system-ui, sans-serif" },
+  "weights": [400, 600, 700],
+  "scale": 1.25
+}

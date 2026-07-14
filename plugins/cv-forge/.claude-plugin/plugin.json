@@ -1,0 +1,14 @@
+{
+  "name": "cv-forge",
+  "version": "0.1.0",
+  "description": "Turn one versioned résumé file (JSON Resume) into an ATS-friendly PDF in the template that fits you best — no Node, no keys, no network; just a browser.",
+  "author": {
+    "name": "localplugins",
+    "email": "localplugins@proton.me"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/localplugins/plugins/tree/main/cv-forge",
+  "repository": "https://github.com/localplugins/plugins",
+  "keywords": ["resume", "cv", "job-search", "json-resume", "pdf", "ats", "templates"],
+  "hooks": "./hooks/hooks.json"
+}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Résumé</title>
+<style>
+  :root { --ink:#111827; --muted:#4b5563; --rule:#d1d5db; --accent:#1f2937; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:#fff; color:var(--ink);
+    font-family: Georgia, 'Times New Roman', serif; font-size:11pt; line-height:1.4; }
+  .page { max-width:8.5in; margin:0 auto; padding:0.6in 0.7in; }
+  h1 { font-size:22pt; margin:0 0 2pt; }
+  .label { margin:0 0 6pt; color:var(--muted); font-size:12pt; }
+  .contact { margin:0 0 10pt; color:var(--muted); font-size:9.5pt; }
+  .contact a { color:inherit; text-decoration:none; } .sep { color:var(--rule); }
+  .summary { margin:0 0 4pt; }
+  .section { margin-top:14pt; }
+  .section h2 { font-size:11pt; text-transform:uppercase; letter-spacing:1px; color:var(--accent);
+    border-bottom:1.5px solid var(--rule); padding-bottom:2pt; margin:0 0 6pt; }
+  .entry { margin:0 0 8pt; }
+  .entry-head { display:flex; flex-wrap:wrap; gap:6px; align-items:baseline; }
+  .entry-title { font-weight:bold; } .entry-org { color:var(--muted); }
+  .entry-dates { margin-left:auto; color:var(--muted); font-size:9.5pt; white-space:nowrap; }
+  .entry-summary { margin:2pt 0; }
+  .highlights { margin:2pt 0 0; padding-left:16pt; } .highlights li { margin:1pt 0; }
+  ul.skills { list-style:none; margin:0; padding:0; } ul.skills li { margin:2pt 0; }
+  .skill-name { font-weight:bold; } .skill-name + .skill-kw::before { content:': '; } .skill-kw { color:var(--muted); }
+  @page { size: Letter; margin: 0.5in; }
+  @media print { .page { padding:0; max-width:none; } .entry, .section { page-break-inside: avoid; } }
+</style>
+</head>
+<body>
+<main class="page"><div id="resume-root"></div></main>
+<script>
+/*__RENDER_CORE__*/
+</script>
+<script id="resume-data" type="application/json">
+/*__RESUME_DATA__*/
+</script>
+<script>
+  (function () {
+    var el = document.getElementById('resume-data');
+    var data = {};
+    try { data = JSON.parse(el.textContent); } catch (e) { data = {}; }
+    document.getElementById('resume-root').innerHTML = renderResume(data);
+    if (data.basics && data.basics.name) document.title = data.basics.name + ' — Résumé';
+  })();
+</script>
+</body>
+</html>
