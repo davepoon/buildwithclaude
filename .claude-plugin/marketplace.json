@@ -1954,6 +1954,26 @@
       ],
       "category": "mcp-servers",
       "source": "./plugins/fabler-x402-tools"
+    },
+    {
+      "name": "travel-agent-skill",
+      "description": "私人旅行管家 · Travel Agent — 在 Claude Code 中一句话规划完整旅行。AI 自动联网查实时车次、景点、美食信息，输出闭环行程并生成 HTML 攻略。每个行程项带 12306/携程/大众点评/高德/小红书一键跳转。",
+      "version": "4.0.0",
+      "author": {
+        "name": "XiaoiYuyao",
+        "url": "https://github.com/XiaoiYuyao"
+      },
+      "repository": "https://github.com/XiaoiYuyao/travel-agent-skill",
+      "license": "MIT",
+      "keywords": [
+        "travel",
+        "trip-planning",
+        "itinerary",
+        "攻略",
+        "旅行"
+      ],
+      "category": "productivity",
+      "source": "./plugins/travel-agent-skill"
     }
   ]
 }
