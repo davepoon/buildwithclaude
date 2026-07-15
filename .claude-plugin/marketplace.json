@@ -173,6 +173,36 @@
       "source": "./plugins/slopmop"
     },
     {
+      "name": "animated-sketch-diagram",
+      "description": "Creates hand-drawn animated technical diagrams as self-contained HTML and seamless-loop GIFs, with motion that follows branches, merges, and feedback loops in the system topology.",
+      "author": {
+        "name": "OLDyade",
+        "url": "https://github.com/OLDyade"
+      },
+      "homepage": "https://github.com/OLDyade/animated-sketch-diagram",
+      "repository": "https://github.com/OLDyade/animated-sketch-diagram",
+      "license": "MIT",
+      "keywords": [
+        "animated-diagram",
+        "architecture",
+        "hand-drawn",
+        "svg",
+        "gif",
+        "visualization",
+        "claude-code",
+        "agent-skill"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "github",
+        "repo": "OLDyade/animated-sketch-diagram"
+      },
+      "strict": false,
+      "skills": [
+        "./"
+      ]
+    },
+    {
       "name": "archcore",
       "description": "Make your AI agent code with your project's architecture, rules, and decisions. Git-native context (folder conventions, ADRs, team standards) so new code lands in the right place and decisions persist across sessions and agents.",
       "version": "0.4.4",
