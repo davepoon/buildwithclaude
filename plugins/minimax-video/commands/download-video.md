@@ -1,28 +1,42 @@
 ---
-description: Retrieve the download URL for a finished MiniMax video by file id and save the file.
+description: Download an H3 result URL or resolve a v1 file id and save the video.
 category: integration-sync
-argument-hint: <file_id> [output_path] [--region global|cn]
+argument-hint: <file_id_or_url> [output_path] [--region global|cn]
 allowed-tools: Bash
 ---
 
-# Download Video (MiniMax-Hailuo)
+# Download Video
 
-Resolve a finished video's `file_id` (returned by `/minimax-video:query-video`) into
-a download URL and save the file locally.
+Download a finished video from either the time-limited `task.content.url`
+returned by the H3 query command or the `file_id` returned by the v1 query
+command.
 
 ## Instructions
 
-1. Read the `file_id` from `$ARGUMENTS` (required); an optional second token is the
-   output path (default `./minimax-video.mp4`).
-2. Choose the endpoint host by region:
+1. Read the required `file_id_or_url` from `$ARGUMENTS`; an optional
+   second token is the output path (default `./minimax-video.mp4`).
+2. If the value starts with `http://` or `https://`, download it
+   directly with `curl -fsSL -L`. Do not send the API key to the result URL.
+   H3 result URLs are time-limited, so download promptly and query again if one
+   has expired.
+3. Otherwise, treat the value as a v1 `file_id` and choose the endpoint host:
    - `global` (default): `https://api.minimax.io/v1/files/retrieve`
    - `cn`: `https://api.minimaxi.com/v1/files/retrieve`
-3. Authenticate with a Bearer token from the `MINIMAX_API_KEY` environment variable.
-4. GET the file metadata with the `file_id` query parameter, read the download URL
-   from `file.download_url`, then fetch that URL to the output path.
-5. Check `base_resp.status_code == 0` before downloading.
+4. For a v1 file id, authenticate with a Bearer token from
+   `MINIMAX_API_KEY`, GET the metadata using the `file_id` query
+   parameter, and check `base_resp.status_code == 0`.
+5. Read `file.download_url` from the v1 metadata response and download it
+   without forwarding the API key.
 
 ## Request
+
+For an H3 result URL:
+
+~~~bash
+curl -fsSL -L -o "./minimax-video.mp4" "$RESULT_URL"
+~~~
+
+For a v1 file id:
 
 ```bash
 # region=global -> https://api.minimax.io ; region=cn -> https://api.minimaxi.com

@@ -7,6 +7,9 @@ allowed-tools: Bash
 
 # Text to Video (MiniMax-Hailuo)
 
+This command uses the existing v1 API. Use /minimax-video:h3-create-video for
+MiniMax-H3 v2 generation and multimodal content roles.
+
 Submit a text prompt to the MiniMax video-generation endpoint and return the
 `task_id` that identifies the asynchronous job. Follow up with `/minimax-video:query-video`
 to poll status and `/minimax-video:download-video` to fetch the result.

@@ -1,7 +1,7 @@
 {
   "name": "minimax-video",
-  "version": "0.1.0",
-  "description": "Generate videos with MiniMax-Hailuo-2.3 from a text prompt or a first-frame image, poll generation status, and download the finished file across the global and China API endpoints.",
+  "version": "0.2.0",
+  "description": "Generate multimodal videos with MiniMax-H3 through the v2 API, manage tasks across global and China endpoints, and retain the existing v1 flows.",
   "author": {
     "name": "BuildWithClaude Community",
     "url": "https://github.com/davepoon/buildwithclaude"
@@ -10,10 +10,11 @@
   "license": "MIT",
   "keywords": [
     "minimax",
-    "hailuo",
+    "h3",
     "video-generation",
     "text-to-video",
     "image-to-video",
+    "reference-to-video",
     "slash-commands"
   ]
 }

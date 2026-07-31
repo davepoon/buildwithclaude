@@ -7,6 +7,9 @@ allowed-tools: Bash
 
 # Query Video Generation (MiniMax-Hailuo)
 
+This command uses the existing v1 API. Use /minimax-video:h3-query-video for
+MiniMax-H3 v2 task responses and time-limited result URLs.
+
 Check the status of a previously submitted video-generation task. When the task
 finishes, the response carries the `file_id` needed to download the video.
 

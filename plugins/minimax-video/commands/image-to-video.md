@@ -7,6 +7,9 @@ allowed-tools: Bash
 
 # Image to Video (MiniMax-Hailuo)
 
+This command uses the existing v1 API. Use /minimax-video:h3-create-video for
+MiniMax-H3 v2 generation and frame or reference roles.
+
 Animate a still image with the MiniMax video-generation endpoint. The image is
 supplied as the `first_frame_image` (a public URL or a `data:` base64 string) and
 becomes the opening frame of the clip. Returns the `task_id` for polling.
