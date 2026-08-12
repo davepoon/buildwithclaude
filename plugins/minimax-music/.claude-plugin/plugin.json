@@ -1,0 +1,17 @@
+{
+  "name": "minimax-music",
+  "version": "0.1.0",
+  "description": "Generate music with MiniMax models across the global and China API endpoints.",
+  "author": {
+    "name": "BuildWithClaude Community",
+    "url": "https://github.com/davepoon/buildwithclaude"
+  },
+  "repository": "https://github.com/davepoon/buildwithclaude",
+  "license": "MIT",
+  "keywords": [
+    "minimax",
+    "music-generation",
+    "text-to-music",
+    "slash-commands"
+  ]
+}
