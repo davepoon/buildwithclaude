@@ -1744,7 +1744,7 @@
     {
       "name": "kegg-mcp-server",
       "description": "Query the KEGG bioinformatics database — pathways, genes, compounds, drugs, enzymes, diseases, reactions, and more via 34 read-only MCP tools. No API key required.",
-      "version": "0.3.0",
+      "version": "0.4.0",
       "author": {
         "name": "Lucas Servi",
         "url": "https://github.com/Lucas-Servi"
