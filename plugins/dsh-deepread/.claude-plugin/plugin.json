@@ -1,0 +1,29 @@
+{
+  "name": "dsh-deepread",
+  "version": "0.3.9",
+  "description": "Deep-reading assistant: five modes (quick, deep, knowledge-map, Feynman, full book) to extract core claims, argument structure, and key evidence from books and articles; exports Markdown, FreeMind/XMind mindmaps, and HTML reports.",
+  "author": {
+    "name": "xiehuan123",
+    "url": "https://github.com/xiehuan123"
+  },
+  "homepage": "https://github.com/xiehuan123/dsh-deepread",
+  "repository": "https://github.com/xiehuan123/dsh-deepread",
+  "license": "MIT",
+  "keywords": [
+    "reading",
+    "deep-read",
+    "deep-reading",
+    "knowledge-map",
+    "mindmap",
+    "feynman",
+    "book",
+    "article",
+    "analysis",
+    "pdf",
+    "markdown",
+    "chinese"
+  ],
+  "skills": [
+    "./skills/dsh-deepread"
+  ]
+}
