@@ -71,6 +71,32 @@
       "source": "./plugins/cashflow"
     },
     {
+      "name": "dsh-deepread",
+      "description": "Deep-reading assistant: five modes (quick, deep, knowledge-map, Feynman, full book) that extract core claims, argument structure, and key evidence from books and articles into claim-evidence-data reports with four confidence levels; batch comparison, budget preflight, and background-job progress transparency; exports Markdown, FreeMind/XMind mindmaps, and HTML reports.",
+      "version": "0.5.4",
+      "author": {
+        "name": "xiehuan123",
+        "url": "https://github.com/xiehuan123"
+      },
+      "repository": "https://github.com/xiehuan123/dsh-deepread",
+      "license": "MIT",
+      "keywords": [
+        "reading",
+        "deep-read",
+        "knowledge-map",
+        "mindmap",
+        "feynman",
+        "book",
+        "article",
+        "analysis",
+        "pdf",
+        "markdown",
+        "chinese"
+      ],
+      "category": "research",
+      "source": "./plugins/dsh-deepread"
+    },
+    {
       "name": "claude-ops",
       "description": "Business operations command center for Claude Code — 30 skills, 14 agents, smart background daemon. Manage communications (WhatsApp/Email/Slack/Telegram), projects, infrastructure (AWS), revenue (Stripe+RevenueCat), e-commerce, marketing, monitoring (Datadog/New Relic/OTEL), and voice. Includes /gtm go-to-market planner, /ops:projects portfolio dashboard, and 4 parallel C-suite agents (YOLO mode).",
       "version": "1.7.0",

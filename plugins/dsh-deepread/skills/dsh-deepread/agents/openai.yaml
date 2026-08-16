@@ -1,0 +1,4 @@
+interface:
+  display_name: "DeepRead 精读助手"
+  short_description: "Deep-read books and articles: extract core claims, arguments and evidence."
+  default_prompt: "Use $dsh-deepread to deep-read this content."
