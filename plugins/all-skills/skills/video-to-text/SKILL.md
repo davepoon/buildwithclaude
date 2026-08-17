@@ -1,14 +1,8 @@
 ---
 name: video-to-text
+category: media-content
 description: "视频转文字。用户发抖音/快手等视频分享链接，或本地视频文件，需要标题、点赞数、作者等元数据或语音转写全文时使用。抖音链接用 SSR 解析无需 Cookie。Video to text: extract metadata (title, likes, author) and transcribe speech from Douyin/Kuaishou share links or local video files."
-version: 1.0.0
-author: 涛哥
 license: MIT
-metadata:
-  hermes:
-    tags: [video, transcription, douyin, whisper, speech-to-text]
-    category: utilities
-    homepage: https://gitee.com/tao6677/useful-tools
 ---
 
 # Video-to-Text 视频转文字
@@ -26,7 +20,7 @@ metadata:
 ### 1. 抖音分享链接 → 元数据 + 转写
 
 ```bash
-python3 ~/.hermes/skills/utilities/video-to-text/scripts/vtt.py "https://v.douyin.com/xxxx/" --transcribe
+python3 scripts/vtt.py "https://v.douyin.com/xxxx/" --transcribe
 ```
 
 - 不加 `--transcribe` 只输出元数据（标题/作者/点赞/标签）
@@ -36,7 +30,7 @@ python3 ~/.hermes/skills/utilities/video-to-text/scripts/vtt.py "https://v.douyi
 ### 2. 本地视频文件 → 语音转写
 
 ```bash
-python3 ~/.hermes/skills/utilities/video-to-text/scripts/vtt.py 本地视频.mp4
+python3 scripts/vtt.py 本地视频.mp4
 ```
 
 ## 依赖（首次使用时安装）
@@ -53,14 +47,3 @@ pip3 install faster-whisper        # 转写需要（首次会下载 tiny 模型 
 - **play_addr URL 过期**：SSR 解析出的视频 URL 可能 404，此时需 Cookie 降级或让用户提供文件。
 - **whisper 转写慢**：Intel Mac 上 3 分钟视频约 5 分钟；转写必须加 `language='zh'` 否则自动检测多花 1-2 分钟。
 - **图文内容**：duration=0 且下载文件 <1MB 时是图文（无音频），只输出元数据，不要编造内容。
-
-## 💛 免费使用 · 自愿支持
-
-**本技能完全免费使用。**
-
-觉得好用、帮到你了，可以**自愿扫码支持**（金额随意，一杯咖啡即可）：
-
-![支付宝收款码](assets/alipay_qr.jpg)
-
-> 支持过我的人，后续 Pro 版/批量服务有优惠。
-> 想提需求、反馈问题，欢迎到 Gitee 仓库提 Issue。
