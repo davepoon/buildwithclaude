@@ -1,0 +1,31 @@
+{
+  "brand_name": "LangKe",
+  "brand_cn": "朗科",
+  "logo_variants": {
+    "white": {
+      "path": "brand_logos/langke/white_cn_left.png",
+      "scene_tone": "dark",
+      "description": "白色中文左对齐Logo，适用于深色场景"
+    },
+    "blue": {
+      "path": "brand_logos/langke/blue_cn_left.png",
+      "scene_tone": "light",
+      "description": "蓝色中文左对齐Logo，适用于浅色场景"
+    }
+  },
+  "colors": {
+    "primary": "#0066CC",
+    "accent": "#D4AF6A",
+    "text_on_dark": "#FFFFFF",
+    "text_on_light": "#1A1A1A"
+  },
+  "guarantee_bar": {
+    "labels": ["官方正品", "全国联保", "售后无忧", "现货速发"],
+    "style": "rounded_pill"
+  },
+  "style_constraints": {
+    "forbidden_elements": ["过于花哨的装饰", "非品牌色系的渐变"],
+    "preferred_scenes": ["tech_gradient", "lifestyle_bathroom", "minimalist"],
+    "tone_range": ["dark", "light"]
+  }
+}
