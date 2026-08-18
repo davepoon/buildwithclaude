@@ -16,8 +16,15 @@ describe('makeObjectID', () => {
   it('sanitizes characters Meilisearch forbids in primary keys', () => {
     // Only [a-zA-Z0-9_-] is allowed — colons, @, / etc. must be replaced.
     assert.match(makeObjectID('marketplace', '@owner/repo'), /^[a-zA-Z0-9_-]+$/)
-    assert.equal(makeObjectID('marketplace', '@owner/repo'), 'marketplace___owner_repo')
+    assert.match(makeObjectID('marketplace', '@owner/repo'), /^marketplace___owner_repo__[a-f0-9]{16}$/)
     assert.match(makeObjectID('skill', 'weird:slug.with/chars'), /^[a-zA-Z0-9_-]+$/)
+  })
+
+  it('does not collide when different slugs sanitize to the same text', () => {
+    assert.notEqual(
+      makeObjectID('marketplace', '@owner/foo/bar'),
+      makeObjectID('marketplace', '@owner/foo.bar'),
+    )
   })
 
   it('keeps ids stable + unique across types for the same slug', () => {

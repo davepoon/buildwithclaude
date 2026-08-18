@@ -1,4 +1,5 @@
 import type { Settings } from 'meilisearch'
+import { createHash } from 'node:crypto'
 
 /**
  * The seven content types BuildWithClaude indexes into Meilisearch. Values are
@@ -34,12 +35,15 @@ export function isSearchContentType(value: string): value is SearchContentType {
 /**
  * Build a Meilisearch primary key. Meilisearch only permits `[a-zA-Z0-9_-]` in
  * document ids, so the raw `${type}:${slug}` form (colon, and slugs like a
- * marketplace's `@owner/repo` namespace) must be sanitized. The `__` separator
- * is unambiguous because no content type contains an underscore.
+ * marketplace's `@owner/repo` namespace) must be sanitized. Slugs that require
+ * sanitizing get a stable digest suffix so distinct values cannot collapse.
  */
 export function makeObjectID(type: SearchContentType, slug: string): string {
   const safeSlug = slug.replace(/[^a-zA-Z0-9_-]+/g, '_')
-  return `${type}__${safeSlug}`
+  if (safeSlug === slug) return `${type}__${safeSlug}`
+
+  const digest = createHash('sha256').update(slug).digest('hex').slice(0, 16)
+  return `${type}__${safeSlug}__${digest}`
 }
 
 /**
