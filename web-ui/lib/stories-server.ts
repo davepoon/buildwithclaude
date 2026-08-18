@@ -36,6 +36,14 @@ function optionalString(raw: unknown): string | undefined {
   return trimmed ? trimmed : undefined
 }
 
+export function normalizeStoryDate(raw: unknown): string {
+  if (typeof raw === 'string') return raw.trim()
+  if (raw instanceof Date && !Number.isNaN(raw.getTime())) {
+    return raw.toISOString().slice(0, 10)
+  }
+  return ''
+}
+
 /** A sanitized href, or undefined when missing / unsafe (so it renders as plain text). */
 function optionalHref(raw: unknown): string | undefined {
   if (typeof raw !== 'string' || !raw.trim()) return undefined
@@ -83,7 +91,7 @@ function parseStory(slug: string, raw: string, coverImage: string | undefined): 
     category,
     platforms: Array.isArray(data.platforms) ? data.platforms : [],
     cover,
-    date: data.date ?? '',
+    date: normalizeStoryDate(data.date),
     readTime: Number.isFinite(data.readTime) ? data.readTime : 5,
     featured: Boolean(data.featured),
     pinned: Boolean(data.pinned),
