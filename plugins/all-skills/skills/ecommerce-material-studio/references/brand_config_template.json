@@ -1,0 +1,30 @@
+{
+  "brand_name": "示例品牌",
+  "logo": {
+    "path": "/path/to/your/logo.png",
+    "max_width_ratio": 0.25,
+    "slogan": "品牌slogan（可选，显示在logo下方）"
+  },
+  "badge": {
+    "path": "/path/to/your/badge.png",
+    "max_width_ratio": 0.14
+  },
+  "guarantee_bar": {
+    "labels": ["官方正品", "全国联保", "售后无忧", "现货速发"],
+    "height_ratio": 0.055
+  },
+  "colors": {
+    "accent": "#D4AF6A",
+    "text_primary": "#FFFFFF",
+    "text_secondary": "#CCCCCC",
+    "bar_bg_dark": "#0A0A0F",
+    "bar_bg_light": "#FFFFFF",
+    "bar_text_dark": "#C8C8C8",
+    "bar_text_light": "#505050"
+  },
+  "logo_margin_ratio": 0.03,
+  "brand_zone_top_ratio": 0.14,
+  "content_zone_bottom_ratio": 0.88,
+  "guarantee_zone_bottom_ratio": 0.98,
+  "safe_margin_ratio": 0.02
+}

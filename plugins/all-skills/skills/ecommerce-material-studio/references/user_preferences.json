@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "description": "用户偏好记忆库 — 记录每次项目的风格偏好，跨项目复用",
+  "preferences": [],
+  "metadata": {
+    "created_at": "",
+    "last_updated": "",
+    "total_entries": 0
+  }
+}

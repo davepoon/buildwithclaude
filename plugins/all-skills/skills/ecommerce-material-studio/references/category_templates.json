@@ -1,0 +1,428 @@
+{
+  "version": "1.0",
+  "description": "品类场景模板库 — 不同品类的最佳场景风格、色调、光影经验",
+  "categories": {
+    "剃须刀": {
+      "scene_style": "tech_gradient",
+      "scene_prompt_keywords": [
+        "dark gray gradient",
+        "blue glow",
+        "sleek modern surface"
+      ],
+      "color_palette": {
+        "primary": "#1a1a2e",
+        "accent": "#c9a84c",
+        "text": "#ffffff"
+      },
+      "lighting": "侧光+顶部聚光，金属质感",
+      "background_style": "深色系科技感，突出产品金属质感",
+      "text_style": "金色/白色粗体无衬线",
+      "best_practices": [
+        "暗色背景比浅色更能突出剃须刀质感",
+        "金色文字搭配深色背景提升高端感",
+        "产品正面或45°侧面最佳，展示刀网纹理",
+        "Type-C口/按键特写适合细节图"
+      ],
+      "design_principles": {
+        "1_product_size": {
+          "rule": "产品占画面≥40%宽度",
+          "application": "主图产品居中，占画面高度60%以上；细节图产品占满画面"
+        },
+        "2_unique_selling_point": {
+          "rule": "每张图只打一个核心卖点",
+          "suggested_points": [
+            "90天续航",
+            "Type-C快充",
+            "IPX7全身水洗",
+            "70g轻巧便携",
+            "旅行锁"
+          ]
+        },
+        "3_quantified_proof": {
+          "rule": "优先用数字而非形容词",
+          "examples": {
+            "好": "90天续航",
+            "差": "超长续航"
+          },
+          "examples_2": {
+            "好": "70g轻巧",
+            "差": "非常轻便"
+          }
+        },
+        "4_scene_immersion": {
+          "rule": "用户买的是场景，不是产品",
+          "target_scenes": [
+            "商务出差-行李箱旁",
+            "晨间洗漱-洗手台",
+            "旅行途中-酒店浴室",
+            "送礼场景-精美包装"
+          ]
+        },
+        "5_strong_contrast": {
+          "rule": "问题vs解决方案并置",
+          "contrast_examples": [
+            {
+              "problem": "出差3天没电",
+              "solution": "90天续航"
+            },
+            {
+              "problem": "充电线杂乱",
+              "solution": "Type-C通用"
+            },
+            {
+              "problem": "清洗麻烦",
+              "solution": "IPX7全身水洗"
+            }
+          ]
+        },
+        "6_three_color_limit": {
+          "rule": "主图≤3种颜色",
+          "palette_guidance": "深色背景(#1a1a2e)+金色点缀(#c9a84c)+白色文字(#ffffff)",
+          "avoid": "避免超过3种颜色，颜色越少信息越清晰"
+        },
+        "7_human_element": {
+          "rule": "可用人物吸引眼球，但不能抢产品风头",
+          "suggested_usage": [
+            "手持特写（不露脸，聚焦产品）",
+            "手部握持展示尺寸感",
+            "避免：完整人物/模特面部"
+          ]
+        },
+        "8_problem_driven": {
+          "rule": "先讲问题，再讲产品如何解决",
+          "story_structure": [
+            "痛点场景→产品出场→卖点展示→结果呈现"
+          ],
+          "example_flow": "出差没电尴尬→示例机型-2218出场→90天续航特写→自信出行"
+        }
+      },
+      "three_directions": {
+        "direction_1": {
+          "name": "白底清爽版",
+          "description": "纯白/浅灰背景，产品居中，干净利落",
+          "use_case": "电商平台主图、详情页首屏",
+          "focus": "产品外观+核心参数"
+        },
+        "direction_2": {
+          "name": "场景代入版",
+          "description": "商务出差/晨间洗漱场景，产品融入生活",
+          "use_case": "种草图、社交媒体",
+          "focus": "使用场景+情感共鸣"
+        },
+        "direction_3": {
+          "name": "痛点对比版",
+          "description": "问题vs解决方案对比，突出卖点",
+          "use_case": "详情页中段、转化图",
+          "focus": "量化卖点+前后对比"
+        }
+      },
+      "source": "示例机型-2218实战经验+Cooper 8原则",
+      "verified": true,
+      "updated": "2026-07-29"
+    },
+    "空气炸锅": {
+      "scene_style": "warm_wood",
+      "scene_prompt_keywords": [
+        "warm wooden kitchen counter",
+        "soft warm lighting",
+        "cozy kitchen"
+      ],
+      "color_palette": {
+        "primary": "#3d2b1f",
+        "accent": "#e8a87c",
+        "text": "#ffffff"
+      },
+      "lighting": "暖色调厨房灯光，营造家的感觉",
+      "background_style": "暖色木纹+厨具点缀，强调生活场景",
+      "text_style": "白色或奶黄色，温暖亲切",
+      "best_practices": [
+        "暖色厨房场景最贴合使用场景",
+        "搭配食材道具增加生活感",
+        "俯视角度展示锅篮容量",
+        "强调'健康烹饪'卖点"
+      ],
+      "source": "行业通用经验",
+      "verified": false
+    },
+    "护肤品": {
+      "scene_style": "topdown_greenery",
+      "scene_prompt_keywords": [
+        "mint green surface",
+        "succulent plants",
+        "clean minimalist"
+      ],
+      "color_palette": {
+        "primary": "#2d5a27",
+        "accent": "#a8d8a8",
+        "text": "#1a1a1a"
+      },
+      "lighting": "自然柔和日光，清爽感",
+      "background_style": "清新绿色系+白色，强调天然成分",
+      "text_style": "深绿色或深灰色，自然清新",
+      "best_practices": [
+        "绿植点缀暗示天然成分",
+        "俯视平铺展示系列产品",
+        "瓶身倒影增加精致感",
+        "避免过于花哨的背景"
+      ],
+      "source": "行业通用经验",
+      "verified": false
+    },
+    "3C数码": {
+      "scene_style": "tech_gradient",
+      "scene_prompt_keywords": [
+        "dark gradient",
+        "subtle blue glow",
+        "sleek surface"
+      ],
+      "color_palette": {
+        "primary": "#0a0a0a",
+        "accent": "#4a9eff",
+        "text": "#ffffff"
+      },
+      "lighting": "冷色调+蓝色氛围光，科技感",
+      "background_style": "深色渐变，突出产品发光效果",
+      "text_style": "白色+科技蓝点缀",
+      "best_practices": [
+        "深色背景让屏幕/LED效果更突出",
+        "蓝色光晕增加科技氛围",
+        "侧面/45°展示产品厚度",
+        "接口特写展示功能性"
+      ],
+      "source": "行业通用经验",
+      "verified": false
+    },
+    "卫浴用品": {
+      "scene_style": "lifestyle_bathroom",
+      "scene_prompt_keywords": [
+        "white bathroom counter",
+        "green plant",
+        "folded towel",
+        "bright daylight"
+      ],
+      "color_palette": {
+        "primary": "#ffffff",
+        "accent": "#4a90d9",
+        "text": "#333333"
+      },
+      "lighting": "明亮自然光，干净清爽",
+      "background_style": "白色浴室台面+绿植+毛巾，生活场景",
+      "text_style": "深灰或深蓝色，干净利落",
+      "best_practices": [
+        "浴室场景最直观展示使用场景",
+        "搭配绿植和毛巾增加生活感",
+        "白色为主保持干净感",
+        "防水/水洗卖点可搭配水滴效果"
+      ],
+      "source": "行业通用经验",
+      "verified": false
+    },
+    "小家电通用": {
+      "scene_style": "modern_marble",
+      "scene_prompt_keywords": [
+        "white marble",
+        "subtle gray veining",
+        "clean bright"
+      ],
+      "color_palette": {
+        "primary": "#f5f5f5",
+        "accent": "#333333",
+        "text": "#1a1a1a"
+      },
+      "lighting": "均匀明亮，产品细节清晰",
+      "background_style": "白色大理石，高端简洁",
+      "text_style": "黑色或深灰色，清晰可读",
+      "best_practices": [
+        "白色背景百搭，适合不确定场景时",
+        "大理石纹理比纯白更有质感",
+        "产品阴影要自然，避免生硬",
+        "保持画面简洁，产品是主角"
+      ],
+      "source": "行业通用经验",
+      "verified": false
+    },
+    "美妆护肤": {
+      "scene_style": "modern_marble",
+      "scene_prompt_keywords": [
+        "white marble vanity",
+        "soft natural light",
+        "rose gold accents",
+        "fresh flowers"
+      ],
+      "color_palette": {
+        "primary": "#fdf2f8",
+        "accent": "#d4a5a5",
+        "text": "#2d2d2d"
+      },
+      "lighting": "柔和自然光+微微粉色氛围，营造精致感",
+      "background_style": "白色/浅粉大理石台面，搭配鲜花、绿叶、镜子等精致道具",
+      "text_style": "深灰/玫瑰金色，优雅衬线或细体无衬线",
+      "best_practices": [
+        "浅色干净背景突出产品质感",
+        "搭配鲜花/绿叶暗示天然成分",
+        "瓶身倒影增加精致感",
+        "平铺展示系列产品更有说服力",
+        "避免过于花哨的背景抢产品风头",
+        "玫瑰金/裸粉色调最适合美妆"
+      ],
+      "source": "行业通用经验",
+      "verified": false
+    },
+    "食品": {
+      "scene_style": "warm_wood",
+      "scene_prompt_keywords": [
+        "rustic wooden table",
+        "warm golden light",
+        "fresh ingredients scattered",
+        "appetizing food styling"
+      ],
+      "color_palette": {
+        "primary": "#5c3d2e",
+        "accent": "#e8a87c",
+        "text": "#ffffff"
+      },
+      "lighting": "暖色调45°侧光，营造食材质感和食欲",
+      "background_style": "原木/ rustic 木桌+新鲜食材点缀+暖色灯光",
+      "text_style": "白色或暖黄色粗体，有食欲感",
+      "best_practices": [
+        "暖色调是食品的灵魂，冷色会让人倒胃口",
+        "搭配新鲜食材（蔬菜/水果/香料）增加新鲜感",
+        "蒸汽/烟雾效果增加食欲感（AI可后期加）",
+        "俯视角度展示菜品全貌最佳",
+        "红色/橙色系促进食欲",
+        "包装食品要展示正面+背面成分表"
+      ],
+      "source": "行业通用经验",
+      "verified": false
+    },
+    "服装鞋包": {
+      "scene_style": "minimalist",
+      "scene_prompt_keywords": [
+        "clean minimal backdrop",
+        "soft gradient",
+        "fashion editorial style",
+        "elegant lighting"
+      ],
+      "color_palette": {
+        "primary": "#f5f0eb",
+        "accent": "#8b7355",
+        "text": "#2d2d2d"
+      },
+      "lighting": "柔和棚拍光+侧面补光，突出面料质感",
+      "background_style": "极简纯色/渐变背景，高级感留白",
+      "text_style": "深灰/黑色，简洁高级的无衬线字体",
+      "best_practices": [
+        "极简背景让产品成为唯一焦点",
+        "服装需要展示细节（面料纹理/走线/纽扣）",
+        "鞋子45°侧拍展示轮廓线条",
+        "包袋打开展示内部结构",
+        "莫兰迪色系百搭不挑品类",
+        "可以用衣架/模特半身（不露脸）展示版型"
+      ],
+      "source": "行业通用经验",
+      "verified": false
+    },
+    "母婴用品": {
+      "scene_style": "topdown_greenery",
+      "scene_prompt_keywords": [
+        "soft pastel surface",
+        "mint green and cream tones",
+        "cute toys as props",
+        "gentle diffused light"
+      ],
+      "color_palette": {
+        "primary": "#e8f5e9",
+        "accent": "#81c784",
+        "text": "#333333"
+      },
+      "lighting": "柔和漫射光，温暖安全感",
+      "background_style": "浅粉/浅绿/奶油色系，搭配可爱玩偶/积木等婴儿元素",
+      "text_style": "深灰/深绿色，圆润亲和的字体",
+      "best_practices": [
+        "马卡龙/莫兰迪色系传递安全温暖感",
+        "搭配可爱道具（小熊/积木/奶瓶）增加场景感",
+        "避免尖锐/冷色调元素",
+        "产品材质感（柔软/安全/无毒）要通过画面传达",
+        "妈妈的手+宝宝的手是最佳参照物",
+        "成分/安全认证标识要清晰展示"
+      ],
+      "source": "行业通用经验",
+      "verified": false
+    },
+    "家居家装": {
+      "scene_style": "warm_wood",
+      "scene_prompt_keywords": [
+        "cozy living room setting",
+        "warm natural light through window",
+        "neutral tones",
+        "scandinavian interior"
+      ],
+      "color_palette": {
+        "primary": "#f5f0e8",
+        "accent": "#c4956a",
+        "text": "#2d2d2d"
+      },
+      "lighting": "自然窗光+暖色台灯，营造家的氛围",
+      "background_style": "北欧/日式简约家居场景，木质+棉麻+绿植",
+      "text_style": "深棕/深灰色，自然温暖的字体",
+      "best_practices": [
+        "家居品要融入真实家居场景",
+        "北欧/日式简约风格最受电商用户欢迎",
+        "搭配棉麻/陶瓷/绿植等自然材质",
+        "尺寸感很重要（搭配沙发/桌子等参照物）",
+        "暖色调比冷色更有购买欲",
+        "展示产品在空间中的比例关系"
+      ],
+      "source": "行业通用经验",
+      "verified": false
+    },
+    "数码配件": {
+      "scene_style": "tech_gradient",
+      "scene_prompt_keywords": [
+        "dark matte surface",
+        "subtle neon accent glow",
+        "clean desk setup",
+        "modern tech aesthetic"
+      ],
+      "color_palette": {
+        "primary": "#1a1a2e",
+        "accent": "#4a9eff",
+        "text": "#ffffff"
+      },
+      "lighting": "冷色调LED氛围光+边缘高光，科技感",
+      "background_style": "深色桌面+科技配件点缀+蓝色/紫色氛围灯",
+      "text_style": "白色+科技蓝，简洁现代的无衬线字体",
+      "best_practices": [
+        "深色背景让产品发光效果更突出",
+        "搭配手机/笔记本/键盘等数码配件做参照",
+        "充电线/接口的特写很重要",
+        "蓝色/紫色氛围光增加科技高级感",
+        "展示产品在实际使用场景中的位置",
+        "参数可视化（充电速度/电池容量用图形展示）"
+      ],
+      "source": "行业通用经验",
+      "verified": false
+    }
+  },
+  "metadata": {
+    "last_updated": "2026-08-07",
+    "total_categories": 12,
+    "verified_entries": 1,
+    "framework_version": "Cooper 8原则 + 3方向工作流 v1.0",
+    "contribution_log": [
+      {
+        "date": "2026-07-29",
+        "category": "剃须刀",
+        "source_product": "示例品牌示例机型-2218",
+        "framework": "Cooper 8原则",
+        "experience": "融入8设计原则（产品大/卖点唯一/数字证明/场景代入/强烈对比/三色原则/人物系/问题驱动）+ 3方向出图（白底/场景/对比）"
+      },
+      {
+        "date": "2026-07-27",
+        "category": "剃须刀",
+        "source_product": "示例品牌示例机型-2218",
+        "experience": "暗色科技风+金色文字效果好；产品必须用实拍图保真，AI生成容易变形；rembg去底+PIL合成比img2img更可控"
+      }
+    ]
+  }
+}

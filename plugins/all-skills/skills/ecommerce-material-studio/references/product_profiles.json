@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "description": "产品档案库 — 记录每次制作的产品信息、使用参数和效果评价",
+  "products": {
+    "example_shaver": {
+      "brand": "ExampleBrand",
+      "model": "ES-100",
+      "category": "剃须刀",
+      "name_cn": "示例电动剃须刀",
+      "physical": {
+        "width_mm": 74,
+        "height_mm": 39,
+        "depth_mm": 39,
+        "weight_g": 70
+      },
+      "key_selling_points": [
+        "Type-C快充",
+        "长续航",
+        "全身水洗",
+        "轻巧便携"
+      ],
+      "price": 99,
+      "target_audience": "示例人群",
+      "production_history": [
+        {
+          "date": "2026-01-01",
+          "task": "示例：全套11张电商素材",
+          "scenes_used": [
+            "minimalist",
+            "tech_gradient",
+            "warm_wood"
+          ]
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "last_updated": "2026-07-27",
+    "total_products": 1,
+    "total_productions": 1
+  }
+}
