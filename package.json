@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run validate && npm run test:unit",
-    "test:unit": "node --test scripts/github-search-pagination.test.js && node --experimental-strip-types --test web-ui/lib/indexer/search-pagination.test.ts web-ui/lib/search/search-types.test.ts web-ui/lib/stories-server.test.ts",
+    "test:unit": "node --test scripts/github-search-pagination.test.js && node --experimental-strip-types --test web-ui/lib/indexer/search-pagination.test.ts web-ui/lib/search/search-types.test.ts web-ui/lib/search/search-hydration.test.ts web-ui/lib/stories-server.test.ts",
     "test:integration": "./tests/plugin-test-harness.sh",
     "validate": "node scripts/validate-all.js",
     "validate:subagents": "node scripts/validate-subagents.js",

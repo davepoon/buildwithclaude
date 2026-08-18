@@ -3,6 +3,7 @@ import { getDbPluginsBySlugs, getLocalBuildWithClaudePlugins } from '@/lib/plugi
 import { getMarketplacesByNamespaces } from '@/lib/marketplace-server'
 import type { UnifiedPlugin, PluginType } from '@/lib/plugin-types'
 import type { MarketplaceRegistry } from '@/lib/marketplace-types'
+import { hydrateHitsByTypeAndSlug } from './search-hydration'
 
 /**
  * Meilisearch-backed search for the plugins/skills pages: rank via Meilisearch,
@@ -29,20 +30,17 @@ export async function searchPluginsHydrated(opts: {
 
   const hits = res.items
   const dbList = await getDbPluginsBySlugs(hits.map((h) => h.slug))
-  const dbBySlug = new Map<string, UnifiedPlugin>()
-  for (const p of dbList) if (p.slug) dbBySlug.set(p.slug, p)
+  const dbByIdentity = new Set(dbList.map((p) => `${p.type}:${p.slug}`))
 
   // Hydrate local Build with Claude items only if some hits weren't in the DB.
-  const localByKey = new Map<string, UnifiedPlugin>()
-  if (hits.some((h) => !dbBySlug.has(h.slug))) {
-    for (const p of getLocalBuildWithClaudePlugins()) {
-      localByKey.set(`${p.type}:${p.slug ?? p.name}`, p)
-    }
-  }
+  const local = hits.some((h) => !dbByIdentity.has(`${h.type}:${h.slug}`))
+    ? getLocalBuildWithClaudePlugins().map((p) => ({ ...p, slug: p.slug ?? p.name }))
+    : []
 
-  const plugins = hits
-    .map((h) => dbBySlug.get(h.slug) ?? localByKey.get(`${h.type}:${h.slug}`))
-    .filter((p): p is UnifiedPlugin => Boolean(p))
+  const records = [...dbList, ...local].filter(
+    (p): p is UnifiedPlugin & { slug: string } => Boolean(p.slug),
+  )
+  const plugins = hydrateHitsByTypeAndSlug(hits, records)
 
   return { plugins, total: res.total, limit: res.limit, offset: res.offset, hasMore: res.hasMore }
 }

@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:unit": "node --experimental-strip-types --test lib/indexer/search-pagination.test.ts lib/search/search-types.test.ts lib/stories-server.test.ts",
+    "test:unit": "node --experimental-strip-types --test lib/indexer/search-pagination.test.ts lib/search/search-hydration.test.ts lib/search/search-types.test.ts lib/stories-server.test.ts",
     "generate-registry": "node ../scripts/generate-registry.js",
     "index:skills": "node scripts/run-skills-index.js",
     "index:cron": "node scripts/run-indexer.js"
