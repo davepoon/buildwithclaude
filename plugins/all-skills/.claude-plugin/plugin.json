@@ -1,7 +1,7 @@
 {
   "name": "all-skills",
   "version": "1.0.0",
-  "description": "Complete collection of 32 Claude Code skills for document processing, development, business productivity, media safety, and creative tasks",
+  "description": "Complete collection of 33 Claude Code skills for document processing, development, business productivity, research, media safety, and creative tasks",
   "author": {
     "name": "BuildWithClaude Community",
     "url": "https://github.com/davepoon/buildwithclaude"
@@ -22,6 +22,7 @@
     "document-skills",
     "domain-name-brainstormer",
     "file-organizer",
+    "x-research",
     "image-enhancer",
     "internal-comms",
     "invoice-organizer",
