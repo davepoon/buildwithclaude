@@ -1,12 +1,8 @@
 ---
 name: ecommerce-material-studio
 description: "电商素材工坊（中英双语）。用户需要生成电商主图、详情图、场景图、产品图合成、品牌叠加时使用。自动识别品类→匹配风格→场景感知合成→统一文字→自动质检→多平台适配→标准化交付。E-commerce product image studio: category detection, style matching, scene-aware compositing, text overlay, quality check, multi-platform adaptation, batch delivery."
-version: 1.0.0
-author: 涛哥
+category: ecommerce
 license: MIT
-metadata:
-  hermes:
-    tags: [ecommerce, image-generation, product-photo, 电商, 主图, 素材, 场景图]
 ---
 
 # 电商素材工坊 / E-commerce Material Studio
@@ -91,12 +87,3 @@ python3 scripts/batch_processor.py --input products.json --output-dir ./batch --
 - **品牌配置**：用 `brand_config_template.json` 新建自己的品牌（含 Logo 路径/色系/保障条）
 - **合成模式**：`scene_aware_compositor.py` 支持场景感知模式（自动算尺度）和兼容模式（固定 scale）
 - 参考数据中的"朗科/LangKe"为**示例品牌**，可直接替换为自己的品牌配置
-
-## 💛 免费使用 · 自愿支持 / Free with optional support
-
-**本技能完全免费使用。** 觉得好用、帮到你了，可以**自愿扫码支持**（金额随意，一杯咖啡即可）：
-
-![支付宝收款码](assets/alipay_qr.jpg)
-
-> 支持过我的人，后续 Pro 版/批量服务有优惠。
-> 想提需求、反馈问题，欢迎到 Gitee 仓库提 Issue：https://gitee.com/tao6677/useful-tools
