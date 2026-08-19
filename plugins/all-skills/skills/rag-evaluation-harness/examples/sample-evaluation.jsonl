@@ -1,0 +1,3 @@
+{"id":"product-search","relevant_document_ids":["catalog-1","policy-2"],"retrieved_document_ids":["catalog-1","faq-9","policy-2"],"cited_document_ids":["catalog-1","policy-2"]}
+{"id":"shipping-policy","relevant_document_ids":["policy-2"],"retrieved_document_ids":["faq-9","policy-2","policy-2"],"cited_document_ids":["policy-2"]}
+{"id":"unanswerable","relevant_document_ids":[],"retrieved_document_ids":[],"cited_document_ids":[]}
