@@ -147,6 +147,8 @@ export function MCPCard({ server }: MCPCardProps) {
         dockerMcpAvailable={server.docker_mcp_available || server.source_registry?.type === 'docker'}
         dockerMcpCommand={server.docker_mcp_command || `docker mcp server enable mcp/${server.name}`}
         environmentVariables={server.environment_variables}
+        packages={server.packages}
+        remotes={server.remotes}
       />
     </>
   )

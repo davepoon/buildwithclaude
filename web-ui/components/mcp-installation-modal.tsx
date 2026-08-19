@@ -10,8 +10,16 @@ import {
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Copy, Check, Terminal, AlertCircle } from 'lucide-react'
-import { MCPEnvironmentVariable } from '@/lib/mcp-types'
+import { Copy, Check, Terminal, AlertCircle, FileJson } from 'lucide-react'
+import {
+  MCPEnvironmentVariable,
+  MCPPackage,
+  MCPRemote,
+} from '@/lib/mcp-types'
+import {
+  buildMCPProjectConfig,
+  serializeMCPProjectConfig,
+} from '@/lib/mcp-project-config'
 
 interface MCPInstallationModalProps {
   isOpen: boolean
@@ -22,6 +30,8 @@ interface MCPInstallationModalProps {
   dockerMcpAvailable?: boolean
   dockerMcpCommand?: string
   environmentVariables?: MCPEnvironmentVariable[]
+  packages?: MCPPackage[]
+  remotes?: MCPRemote[]
 }
 
 export function MCPInstallationModal({
@@ -33,9 +43,12 @@ export function MCPInstallationModal({
   dockerMcpAvailable,
   dockerMcpCommand,
   environmentVariables,
+  packages,
+  remotes,
 }: MCPInstallationModalProps) {
   const [copiedClaude, setCopiedClaude] = useState(false)
   const [copiedDocker, setCopiedDocker] = useState(false)
+  const [copiedProjectConfig, setCopiedProjectConfig] = useState(false)
 
   // Use provided command or fall back to a generic message
   const claudeCommand = claudeMcpAddCommand || `claude mcp add ${serverName}`
@@ -43,6 +56,15 @@ export function MCPInstallationModal({
 
   const hasEnvVars = environmentVariables && environmentVariables.length > 0
   const hasClaudeCommand = !!claudeMcpAddCommand
+  const projectConfig = buildMCPProjectConfig({
+    serverName,
+    packages,
+    remotes,
+    environmentVariables,
+  })
+  const projectConfigText = projectConfig
+    ? serializeMCPProjectConfig(projectConfig)
+    : null
 
   const handleCopyClaude = async () => {
     await navigator.clipboard.writeText(claudeCommand)
@@ -56,10 +78,30 @@ export function MCPInstallationModal({
     setTimeout(() => setCopiedDocker(false), 2000)
   }
 
+  const handleCopyProjectConfig = async () => {
+    if (!projectConfigText) return
+    await navigator.clipboard.writeText(projectConfigText)
+    setCopiedProjectConfig(true)
+    setTimeout(() => setCopiedProjectConfig(false), 2000)
+  }
+
   // Determine which tabs to show
   const showClaudeTab = hasClaudeCommand
   const showDockerTab = dockerMcpAvailable
-  const defaultTab = showClaudeTab ? 'claude' : showDockerTab ? 'docker' : 'claude'
+  const showProjectConfigTab = !!projectConfigText
+  const visibleTabCount = [showClaudeTab, showDockerTab, showProjectConfigTab].filter(Boolean).length
+  const tabsGridClass = visibleTabCount === 3
+    ? 'grid-cols-3'
+    : visibleTabCount === 2
+      ? 'grid-cols-2'
+      : 'grid-cols-1'
+  const defaultTab = showClaudeTab
+    ? 'claude'
+    : showDockerTab
+      ? 'docker'
+      : showProjectConfigTab
+        ? 'project-config'
+        : 'claude'
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -72,7 +114,7 @@ export function MCPInstallationModal({
         </DialogHeader>
 
         <Tabs defaultValue={defaultTab} className="flex-1 flex flex-col">
-          <TabsList className={`grid w-full ${showClaudeTab && showDockerTab ? 'grid-cols-2' : 'grid-cols-1'}`}>
+          <TabsList className={`grid w-full ${tabsGridClass}`}>
             {showClaudeTab && (
               <TabsTrigger value="claude" className="flex items-center gap-2">
                 <Terminal className="h-4 w-4" />
@@ -83,6 +125,12 @@ export function MCPInstallationModal({
               <TabsTrigger value="docker" className="flex items-center gap-2">
                 <Terminal className="h-4 w-4" />
                 Docker MCP {!showClaudeTab && '(Recommended)'}
+              </TabsTrigger>
+            )}
+            {showProjectConfigTab && (
+              <TabsTrigger value="project-config" className="flex items-center gap-2">
+                <FileJson className="h-4 w-4" />
+                Project config
               </TabsTrigger>
             )}
           </TabsList>
@@ -193,6 +241,46 @@ export function MCPInstallationModal({
                   <ul className="list-disc list-inside space-y-1 ml-2 text-muted-foreground">
                     <li>Docker Desktop must be installed and running</li>
                     <li>Docker MCP Toolkit must be enabled</li>
+                  </ul>
+                </div>
+              </div>
+            </TabsContent>
+          )}
+
+          {showProjectConfigTab && projectConfigText && (
+            <TabsContent value="project-config" className="flex-1 overflow-auto space-y-4">
+              <div className="space-y-3">
+                <p className="text-sm text-muted-foreground">
+                  Copy this project-scoped <code className="bg-muted px-1 rounded">.mcp.json</code> entry.
+                  Required values remain placeholders for you to fill locally.
+                </p>
+
+                <div className="relative rounded-lg bg-muted p-3">
+                  <pre className="max-h-72 overflow-auto whitespace-pre-wrap break-words pr-12 font-mono text-sm">
+                    {projectConfigText}
+                  </pre>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="absolute right-2 top-2"
+                    onClick={handleCopyProjectConfig}
+                    title="Copy project MCP configuration"
+                    aria-label="Copy project MCP configuration"
+                  >
+                    {copiedProjectConfig ? (
+                      <Check className="h-4 w-4 text-green-600" />
+                    ) : (
+                      <Copy className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
+
+                <div className="space-y-2 text-xs text-muted-foreground">
+                  <p>This configuration will:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li>Keep the server scoped to the current project</li>
+                    <li>Use the catalog&apos;s structured transport and package metadata</li>
+                    <li>Leave required environment values for local configuration</li>
                   </ul>
                 </div>
               </div>
