@@ -223,6 +223,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 - **Plugin Marketplaces**: [Plugin Docs](https://code.claude.com/docs/en/plugin-marketplaces)
 - **Issues**: [GitHub Issues](https://github.com/davepoon/buildwithclaude/issues)
 - **Visual Index**: [Vexilo · A field guide to Claude Code](https://vexilo.app/?lang=en) — Interactive index of 31 agents · 99 commands · 123 skills · 13 rules, organized around the 5-step workflow. ([companion repo](https://github.com/lilhawk7077/claude-code-resources))
+- **Hooks Resource**: [awesome-claude-code-hooks](https://github.com/loqimean/awesome-claude-code-hooks) — A curated list of hooks, guides, and tools for Claude Code hooks (PreToolUse, PostToolUse, SessionStart, Notification, Stop, and more).
 
 ## License
 
