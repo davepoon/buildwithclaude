@@ -1,7 +1,9 @@
 ---
 name: de-ai-writer
-description: "AI 文案去味器。用户提供 AI 生成的文本（公众号/小红书/电商文案等），觉得"太 AI 味"要改得更自然、更像人写的时使用。输出自然有人味的中文。De-AI writer: rewrite AI-generated copy (WeChat articles, Xiaohongshu, e-commerce) into natural, human-sounding Chinese text."
+description: "AI 文案去味器。用户提供 AI 生成的文本（公众号/小红书/电商文案等），觉得“太 AI 味”要改得更自然、更像人写的时使用。输出自然有人味的中文。De-AI writer: rewrite AI-generated copy (WeChat articles, Xiaohongshu, e-commerce) into natural, human-sounding Chinese text."
 category: media-content
+version: 1.0.0
+author: 涛哥
 license: MIT
 ---
 
