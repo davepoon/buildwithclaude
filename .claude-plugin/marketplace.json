@@ -2030,6 +2030,35 @@
       ],
       "category": "productivity",
       "source": "./plugins/travel-agent-skill"
+    },
+    {
+      "name": "chamnan",
+      "description": "Makes a repository know itself and preserve the engineering context built while you work with it, so an agent stops rediscovering both. An architecture index and an impact map instead of scanning files; work state, session records and the decisions behind them instead of losing context between sessions; the procedures, tools and workflows you keep re-deriving. Everything is repository-local markdown, committed beside the code. For long-lived repos you revisit, not one-off scripts.",
+      "version": "1.3.1",
+      "author": {
+        "name": "ArcticFox2029",
+        "url": "https://github.com/ArcticFox2029"
+      },
+      "repository": "https://github.com/ArcticFox2029/chamnan",
+      "license": "MIT",
+      "keywords": [
+        "context",
+        "architecture",
+        "codebase-map",
+        "long-lived-projects",
+        "state",
+        "skills",
+        "continuity",
+        "repository-knowledge",
+        "memory",
+        "impact-map",
+        "developer-workflow"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "ArcticFox2029/chamnan"
+      }
     }
   ]
 }
