@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "cohesivity": {
+      "type": "http",
+      "url": "https://cohesivity.ai/mcp/manage"
+    },
+    "cohesivity-local": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/mcp/project-bootstrap.mjs"
+      ]
+    }
+  }
+}
