@@ -1,0 +1,22 @@
+{
+  "name": "cohesivity",
+  "version": "3.0.2",
+  "description": "Cohesivity backend infrastructure skill with local project bootstrap and OAuth-protected remote management tools.",
+  "author": {
+    "name": "Cohesivity",
+    "email": "smj@cohesivity.ai",
+    "url": "https://cohesivity.ai"
+  },
+  "homepage": "https://cohesivity.ai",
+  "repository": "https://github.com/cohesivity-org/cohesivity-plugin",
+  "license": "MIT",
+  "keywords": [
+    "backend",
+    "infrastructure",
+    "database",
+    "hosting",
+    "auth"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}

@@ -2059,6 +2059,28 @@
         "source": "github",
         "repo": "ArcticFox2029/chamnan"
       }
+    },
+    {
+      "name": "cohesivity",
+      "description": "cohesivity.ai offers free agent native backend services. Anonymous account (no-signup) to get started through MCP or API. Hosting, postgres, email, storage, containers, LLMs, voice and third-party APIs. Includes free tiers and 5 USD/mo in AI and Search credits. topups through x402.",
+      "version": "3.0.2",
+      "author": {
+        "name": "Cohesivity",
+        "url": "https://cohesivity.ai"
+      },
+      "homepage": "https://cohesivity.ai",
+      "repository": "https://github.com/cohesivity-org/cohesivity-plugin",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "backend",
+        "infrastructure",
+        "database",
+        "hosting",
+        "auth"
+      ],
+      "category": "mcp-servers",
+      "source": "./plugins/cohesivity"
     }
   ]
 }
