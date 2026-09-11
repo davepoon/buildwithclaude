@@ -1,0 +1,23 @@
+{
+  "name": "midpoint-card-prices",
+  "displayName": "Midpoint Card Prices",
+  "version": "1.0.0",
+  "description": "Trading card market prices and grading ROI for Claude Code through one remote MCP server. Ask what a Pokémon, Magic, Yu-Gi-Oh!, One Piece, Lorcana, baseball, basketball, football, hockey or soccer card is worth and get raw and graded prices for 1.5M+ cards, PSA 9 and PSA 10 premiums, net profit after grading fees, price history, 30-day movers and priced set checklists. Read-only, no account, no API key.",
+  "author": {
+    "name": "Midpoint",
+    "url": "https://www.cardcenteringtool.com"
+  },
+  "homepage": "https://www.cardcenteringtool.com/mcp",
+  "repository": "https://github.com/kolourr/midpoint-mcp",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "trading-cards",
+    "pokemon",
+    "sports-cards",
+    "card-prices",
+    "card-grading",
+    "psa",
+    "collectibles"
+  ]
+}
