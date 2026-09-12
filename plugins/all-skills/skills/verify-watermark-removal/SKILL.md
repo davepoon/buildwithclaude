@@ -12,10 +12,13 @@ by measuring rather than by trusting the tool's own report.
 
 The check works because the mark is planted first, with a key the user holds. A
 detector that knows the key is the strongest detector that can exist for that
-text, so its score is a ceiling rather than a guess, and no tool can recognise
-the sample or tune its output to it. The skill also reports what the rewrite cost
-the text, because a mark that disappeared together with half the meaning is not a
-result anyone wants.
+text, so its score is a ceiling rather than a guess. What the key buys is a scale
+of the user's own; what keeps a tool from recognising the sample is something
+else, namely that a freshly generated private sample is a text nobody has seen
+before. The samples shipped with the tool are published together with their key,
+so those can be recognised, and the repository says so in `samples/README.md`.
+The skill also reports what the rewrite cost the text, because a mark that
+disappeared together with half the meaning is not a result anyone wants.
 
 This skill measures. It never removes a mark, and it never claims anything about
 a specific vendor's watermark.
@@ -30,7 +33,7 @@ a specific vendor's watermark.
 
 ## What This Skill Does
 
-1. **Plants a known mark**: generates text carrying a statistical watermark of the SynthID-Text class under a key the user chooses, and refuses to hand over a sample where the mark did not actually plant.
+1. **Plants a known mark**: generates text carrying a statistical watermark of the SynthID-Text class under a key the user chooses, and scores every sample as it writes it, so a text where the mark did not plant is named before anything is handed to a tool.
 2. **Scores what came back**: runs the keyed detector on the returned text and places the score against thresholds that were fixed before any run, giving one of four outcomes.
 3. **Measures the cost**: meaning similarity, facts kept, longest verbatim run, share of words changed, length ratio.
 4. **Builds a comparison table**: turns several recorded runs into one matrix, so tools are ranked on the same measurements instead of on their own claims.
@@ -44,13 +47,23 @@ Install once. A CPU is enough, Python 3.10 or newer:
 
 ```bash
 git clone https://github.com/Yurakonoplya/unmark-checker && cd unmark-checker
+git checkout v0.1.5              # the revision this page describes
 pip install --index-url https://download.pytorch.org/whl/cpu torch
 pip install -e .                 # no PyPI package: install from the clone
-export UNMARK_CHECKER_KEY='a secret only the user has'
+read -rs UNMARK_CHECKER_KEY && export UNMARK_CHECKER_KEY
 ```
 
-Keep the key in the environment, never in a file and never in a command that
-gets logged. The key is the whole basis of the check.
+The checkout pins exactly the revision described here: `main` moves, and a
+command that behaves differently from this page is worse than no page.
+
+The key is typed at the `read` prompt, which echoes nothing and writes nothing to
+the shell history. Keep it in the environment, never in a file and never in a
+command that gets logged. The key is the whole basis of the check.
+
+If the tool under test runs on the same machine, start it with
+`env -u UNMARK_CHECKER_KEY <tool> ...`: a process that inherits the key could
+score the sample itself and shape its output to it, which is exactly what the
+measurement is meant to rule out.
 
 Then four steps.
 
@@ -65,9 +78,16 @@ unmark-checker generate --num 2 --words 100 --scheme shallow \
 ```
 
 Use `--model gpt2` instead when the sample has to read as English, for example
-when it is going into a web form that rejects nonsense. Every sample is scored as
-it is written: if the mark did not plant, the command says so and exits with code
-2, and nothing measured on those texts means anything.
+when it is going into a web form that rejects nonsense.
+
+Every sample is scored as it is written, and the manifest next to the texts
+records the outcome of that scoring. **Hand a tool only the samples the manifest
+records as `mark_present`.** The command does not do this filtering for you: if
+the mark planted in none of the samples it says so and exits with code 2, but if
+it planted in some of them it warns, lists the ones it did not plant in and exits
+with code 0, leaving every file on disk. `check` behaves the same way: given such
+a sample it prints a warning and measures it anyway, and that measurement means
+nothing, because a mark that was never there cannot be removed.
 
 **2. Run the tool under test** on the sample, and save exactly what came back,
 unedited, to a file.
@@ -85,10 +105,15 @@ unmark-checker check --sample my-samples/UM-1A2B3C.txt --returned cleaned.txt
 | `mark_present` | score at or above 4.0; the tool did not take this mark out |
 | `uncertain` | score between 2.0 and 4.0, the grey zone; do not round it to a yes or a no |
 | `mark_gone` | score below 2.0; on this sample, on this run, the mark did not survive |
-| `not_our_text` | the returned text is not recognisably the sample, so no score is reported |
+| `not_our_text` | fewer than half the content words of the returned text come from the sample, so it is not recognisably the sample and no score is reported |
 
 Always report the cost numbers next to the outcome: meaning kept, facts kept,
-longest verbatim run, share of words changed, length ratio.
+longest verbatim run, share of words changed, length ratio. They exist for the
+three scored outcomes only (`mark_present`, `uncertain`, `mark_gone`). A
+`not_our_text` run stops before they are computed and reports four things
+instead: the outcome, the share of content words that came from the sample, and
+the word counts of both texts. Do not ask for a meaning or facts number there,
+and do not report one as zero: it was never measured.
 
 ### Advanced Usage
 
@@ -139,7 +164,7 @@ did not do what it promised. This says nothing about any vendor's own watermark.
 
 ## What the Check Proves, and What It Does Not
 
-- A tool that **leaves this mark in place** is very unlikely to remove a vendor's mark either: both live in the same place, which words were chosen. That direction holds.
+- A tool that **leaves this mark in place** is unlikely to remove a vendor's mark either: this is an inference from where both marks live (word choice), not a measurement; the measurement covers one key, one scheme, one model and one sample.
 - A tool that **removes this mark** has not been shown to remove anyone else's. Different key, different scheme parameters, different model. Say so, and do not let a passing run turn into "the text is now undetectable".
 - `uncertain` is an answer, not a rounding error. Collapsing the grey zone into a yes or a no is a lie in one direction or the other.
 
