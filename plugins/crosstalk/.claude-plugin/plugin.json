@@ -1,0 +1,11 @@
+{
+  "name": "crosstalk",
+  "version": "0.1.0",
+  "description": "Let a Claude session in one repo delegate work to a Claude session in another repo, with a request format that avoids follow-up round trips.",
+  "author": {
+    "name": "d7omdev",
+    "url": "https://github.com/d7omdev"
+  },
+  "repository": "https://github.com/d7omdev/crosstalk",
+  "keywords": ["cross-repo", "delegation", "multi-session", "frontend-backend", "api-contract"]
+}
