@@ -2198,6 +2198,32 @@
         "source": "github",
         "repo": "Aloim/phaneslightplugin"
       }
+    },
+    {
+      "name": "curviate",
+      "description": "Agent skills for driving LinkedIn work through the Curviate CLI: profiles and companies, search, inbox and messaging, posts and comments, network, job postings, and the Sales Navigator and Recruiter surfaces.",
+      "author": {
+        "name": "Curviate",
+        "url": "https://curviate.com"
+      },
+      "homepage": "https://docs.curviate.com",
+      "repository": "https://github.com/curviate/curviate-plugin",
+      "license": "MIT",
+      "keywords": [
+        "curviate",
+        "linkedin",
+        "cli",
+        "agents",
+        "outreach",
+        "recruiting",
+        "sourcing"
+      ],
+      "category": "productivity",
+      "version": "0.1.0",
+      "source": {
+        "source": "github",
+        "repo": "curviate/curviate-plugin"
+      }
     }
   ]
 }
