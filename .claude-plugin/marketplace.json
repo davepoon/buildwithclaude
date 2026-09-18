@@ -2243,6 +2243,34 @@
         "source": "github",
         "repo": "curviate/curviate-plugin"
       }
+    },
+    {
+      "name": "yylo-skills",
+      "description": "Reusable agent skills maintained by YYLO. The canonical, independently versioned source for skills used by YYLO CLI and YYLO Ledger: ledger task management, wiki, workflow and artifact records, project understanding, planning, and the Ralph execution loop.",
+      "author": {
+        "name": "YYLO",
+        "url": "https://yylo.dev"
+      },
+      "homepage": "https://github.com/yylo-dev/yylo-skills",
+      "repository": "https://github.com/yylo-dev/yylo-skills",
+      "license": "MIT",
+      "keywords": [
+        "skills",
+        "agent-skills",
+        "yylo",
+        "ledger",
+        "kanban",
+        "task-management",
+        "claude-code",
+        "codex",
+        "pi"
+      ],
+      "category": "skills",
+      "version": "2.0.0",
+      "source": {
+        "source": "github",
+        "repo": "yylo-dev/yylo-skills"
+      }
     }
   ]
 }
