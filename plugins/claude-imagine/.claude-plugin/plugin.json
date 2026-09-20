@@ -1,0 +1,20 @@
+{
+  "name": "claude-imagine",
+  "displayName": "Claude Imagine",
+  "version": "1.0.0",
+  "description": "Generate and edit AI images and videos without leaving Claude Code. Nano Banana 2, GPT Image 2.5, Seedream 4.5, Flux 2 Pro and Z-Image for stills; Veo, Kling, Seedance, Grok Imagine and MiniMax for clips. Ask for the price before you spend with quote_generation.",
+  "author": {
+    "name": "Claude Imagine",
+    "url": "https://claudeimagine.com"
+  },
+  "homepage": "https://claudeimagine.com/mcp",
+  "repository": "https://github.com/lumian2015/claudeimagine-mcp",
+  "license": "MIT",
+  "keywords": [
+    "image-generation",
+    "video-generation",
+    "nano-banana",
+    "image-editing",
+    "mcp"
+  ]
+}

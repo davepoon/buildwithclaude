@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "claude-imagine": {
+      "type": "http",
+      "url": "https://claudeimagine.com/api/mcp"
+    }
+  }
+}

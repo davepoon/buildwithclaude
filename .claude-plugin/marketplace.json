@@ -25,6 +25,27 @@
   },
   "plugins": [
     {
+      "name": "claude-imagine",
+      "description": "Generate and edit AI images and videos from inside Claude Code through one remote MCP server. Nano Banana 2, GPT Image 2.5, Seedream 4.5, Flux 2 Pro and Z-Image for stills; Veo, Kling, Seedance, Grok Imagine and MiniMax for clips. quote_generation prices any call before you spend, and failed generations are refunded automatically. OAuth via /mcp; no API key to paste.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Imagine",
+        "url": "https://claudeimagine.com"
+      },
+      "homepage": "https://claudeimagine.com/mcp",
+      "repository": "https://github.com/lumian2015/claudeimagine-mcp",
+      "license": "MIT",
+      "keywords": [
+        "image-generation",
+        "video-generation",
+        "image-editing",
+        "nano-banana",
+        "mcp"
+      ],
+      "category": "creative",
+      "source": "./plugins/claude-imagine"
+    },
+    {
       "name": "crosstalk",
       "description": "Let a Claude session in one repo delegate work to a Claude session in another repo, with a request format that avoids follow-up round trips. Adds /ask-peer plus skills for sending and answering cross-repo requests.",
       "version": "0.1.0",
