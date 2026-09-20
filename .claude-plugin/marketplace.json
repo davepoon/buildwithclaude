@@ -2243,6 +2243,31 @@
         "source": "github",
         "repo": "curviate/curviate-plugin"
       }
+    },
+    {
+      "name": "isitdone",
+      "description": "Don't let Claude say \"done\" until the tests actually pass. A Stop hook runs the repository's real test, typecheck and lint commands and blocks the turn until they pass; a PostToolUse hook warns when an edit weakened a test; a skill teaches Claude to verify before claiming completion. No LLM calls, no network.",
+      "author": {
+        "name": "raimondasl",
+        "url": "https://github.com/raimondasl"
+      },
+      "homepage": "https://github.com/raimondasl/isitdone",
+      "repository": "https://github.com/raimondasl/isitdone",
+      "license": "MIT",
+      "keywords": [
+        "testing",
+        "verification",
+        "stop-hook",
+        "hooks",
+        "quality",
+        "ci"
+      ],
+      "category": "development",
+      "version": "0.5.0",
+      "source": {
+        "source": "github",
+        "repo": "raimondasl/isitdone"
+      }
     }
   ]
 }
