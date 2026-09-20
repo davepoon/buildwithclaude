@@ -2263,7 +2263,7 @@
         "ci"
       ],
       "category": "development",
-      "version": "0.5.0",
+      "version": "0.5.2",
       "source": {
         "source": "github",
         "repo": "raimondasl/isitdone"
