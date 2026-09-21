@@ -25,6 +25,33 @@
   },
   "plugins": [
     {
+      "name": "pine",
+      "description": "Connect Claude to Pine AI to handle real-world tasks and follow up on progress and results.",
+      "version": "0.1.1",
+      "author": {
+        "name": "Pine AI",
+        "url": "https://pine.im"
+      },
+      "homepage": "https://pine.im",
+      "repository": "https://github.com/19PINE-AI/pine-mcp-server",
+      "license": "MIT",
+      "keywords": [
+        "pine",
+        "pine-ai",
+        "personal-assistant",
+        "real-world-tasks",
+        "task-automation",
+        "mcp"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/19PINE-AI/pine-mcp-server.git",
+        "path": "plugins/pine",
+        "sha": "3569b75feaec08e31559504231281b386c2226e3"
+      }
+    },
+    {
       "name": "claude-imagine",
       "description": "Generate and edit AI images and videos from inside Claude Code through one remote MCP server. Nano Banana 2, GPT Image 2.5, Seedream 4.5, Flux 2 Pro and Z-Image for stills; Veo, Kling, Seedance, Grok Imagine and MiniMax for clips. quote_generation prices any call before you spend, and failed generations are refunded automatically. OAuth via /mcp; no API key to paste.",
       "version": "1.0.0",
