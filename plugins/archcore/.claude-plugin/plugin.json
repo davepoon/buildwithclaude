@@ -1,12 +1,12 @@
 {
   "name": "archcore",
-  "version": "0.9.3",
+  "version": "0.10.3",
   "description": "Spec-driven development and context engineering for AI coding agents, backed by project context in Git.",
   "author": {
     "name": "Archcore",
     "url": "https://github.com/archcore-ai"
   },
-  "repository": "https://github.com/archcore-ai/plugin",
+  "repository": "https://github.com/archcore-ai/archcore",
   "license": "Apache-2.0",
   "keywords": [
     "claude-code",

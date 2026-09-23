@@ -47,12 +47,12 @@ Then add the plugin, from this marketplace or from the upstream one:
 /plugin install archcore@buildwithclaude
 
 # or upstream
-/plugin marketplace add archcore-ai/plugin
+/plugin marketplace add archcore-ai/archcore
 /plugin install archcore@archcore-plugins
 ```
 
 ## Links
 
-- [GitHub](https://github.com/archcore-ai/plugin)
+- [GitHub](https://github.com/archcore-ai/archcore)
 - [Docs](https://docs.archcore.ai)
 - License: Apache-2.0
