@@ -2346,6 +2346,33 @@
         "source": "github",
         "repo": "yylo-dev/yylo-skills"
       }
+    },
+    {
+      "name": "papi",
+      "description": "Persistent project management inside your AI coding tool. PAPI turns a plan into a cycle of scoped tasks, hands each one to your agent with a build spec, records what actually happened, and keeps every decision alive across sessions — so a new session resumes where the last one stopped instead of starting from nothing. Connects to the hosted PAPI server over OAuth; nothing runs locally.",
+      "author": {
+        "name": "PAPI",
+        "url": "https://getpapi.ai"
+      },
+      "homepage": "https://getpapi.ai",
+      "repository": "https://github.com/getpapi/papi",
+      "license": "MIT",
+      "keywords": [
+        "papi",
+        "project-management",
+        "planning",
+        "task-management",
+        "context",
+        "mcp",
+        "productivity",
+        "developer-tools"
+      ],
+      "category": "productivity",
+      "version": "0.7.85",
+      "source": {
+        "source": "github",
+        "repo": "getpapi/papi"
+      }
     }
   ]
 }
