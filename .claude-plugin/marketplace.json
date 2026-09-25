@@ -2346,6 +2346,35 @@
         "source": "github",
         "repo": "yylo-dev/yylo-skills"
       }
+    },
+    {
+      "name": "traderspy-mcp",
+      "description": "TraderSpy — Read-only smart money tracking, AI trading signals, and elite trader leaderboard for crypto futures. Track whale positions across Binance, Hyperliquid, Bybit, and OKX. No order or withdrawal tools.",
+      "author": {
+        "name": "TraderSpy",
+        "url": "https://traderspy.app"
+      },
+      "homepage": "https://traderspy.app",
+      "repository": "https://github.com/target1m/traderspy-mcp",
+      "license": "MIT",
+      "keywords": [
+        "crypto",
+        "trading",
+        "smart-money",
+        "signals",
+        "binance",
+        "hyperliquid",
+        "bybit",
+        "okx",
+        "mcp",
+        "market-research"
+      ],
+      "category": "finance",
+      "version": "1.6.3",
+      "source": {
+        "source": "github",
+        "repo": "target1m/traderspy-mcp"
+      }
     }
   ]
 }
