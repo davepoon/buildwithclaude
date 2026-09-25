@@ -2346,6 +2346,35 @@
         "source": "github",
         "repo": "yylo-dev/yylo-skills"
       }
+    },
+    {
+      "name": "tonone",
+      "description": "Open-source team of 100 specialist agents and 457 skills across 10 teams: engineering, product, operations, legal, design, data science, security operations, developer experience, infrastructure, and AI operations. An engineering lead agent (Apex) scopes work and routes it to specialists such as infrastructure, backend, security, QA, UX, growth, and finance.",
+      "version": "1.16.1",
+      "author": {
+        "name": "tonone-ai",
+        "url": "https://tonone.ai"
+      },
+      "homepage": "https://github.com/tonone-ai/tonone",
+      "repository": "https://github.com/tonone-ai/tonone",
+      "license": "MIT",
+      "keywords": [
+        "agents",
+        "skills",
+        "orchestration",
+        "engineering-team",
+        "product",
+        "devops",
+        "security",
+        "design",
+        "legal",
+        "claude-code"
+      ],
+      "category": "orchestration",
+      "source": {
+        "source": "github",
+        "repo": "tonone-ai/tonone"
+      }
     }
   ]
 }
