@@ -2402,6 +2402,31 @@
         "source": "github",
         "repo": "getpapi/papi"
       }
+    },
+    {
+      "name": "threadfox-lite",
+      "description": "Free, read-only Reddit research tools and the reddit-rules-first skill. Find communities where you may post, read a subreddit's rules with self-promotion rules flagged, check an account's standing and whether a post stayed up. Reads through your own signed-in Chrome (Microsoft's Playwright Extension); never posts, votes or changes anything, and needs no Reddit API keys.",
+      "author": {
+        "name": "ThreadFox (AMF Indiana)",
+        "url": "https://threadfox.vip"
+      },
+      "homepage": "https://threadfox.vip",
+      "repository": "https://github.com/amflimited/threadfox-lite",
+      "license": "MIT",
+      "keywords": [
+        "reddit",
+        "subreddit-rules",
+        "marketing",
+        "mcp",
+        "skills",
+        "research"
+      ],
+      "category": "sales-marketing",
+      "version": "0.2.5",
+      "source": {
+        "source": "github",
+        "repo": "amflimited/threadfox-lite"
+      }
     }
   ]
 }
