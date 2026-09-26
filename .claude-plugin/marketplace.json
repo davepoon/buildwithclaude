@@ -2370,7 +2370,7 @@
         "market-research"
       ],
       "category": "finance",
-      "version": "1.6.3",
+      "version": "1.7.0",
       "source": {
         "source": "github",
         "repo": "target1m/traderspy-mcp"
