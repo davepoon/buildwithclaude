@@ -2402,6 +2402,31 @@
         "source": "github",
         "repo": "getpapi/papi"
       }
+    },
+    {
+      "name": "active-memory",
+      "description": "Switch to a fresh Claude chat without losing a single rule, correction or number. /amhandoff writes a complete handoff file, and a code word plus checkpoints warn you when it is time to switch.",
+      "author": {
+        "name": "Klopyy",
+        "url": "https://github.com/Klopyy"
+      },
+      "homepage": "https://github.com/Klopyy/active-memory",
+      "repository": "https://github.com/Klopyy/active-memory",
+      "license": "MIT",
+      "keywords": [
+        "handoff",
+        "context",
+        "long-chats",
+        "chat-memory",
+        "checkpoint",
+        "productivity"
+      ],
+      "category": "productivity",
+      "version": "0.2.1",
+      "source": {
+        "source": "github",
+        "repo": "Klopyy/active-memory"
+      }
     }
   ]
 }
