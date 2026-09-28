@@ -2479,6 +2479,30 @@
       ],
       "category": "development",
       "source": "./plugins/production-fast-api-template"
+    },
+    {
+      "name": "ashlr",
+      "description": "Token-efficient Read/Grep/Edit/Bash tools for Claude Code; −57% tokens on the repo's benchmark.",
+      "author": {
+        "name": "Mason Wyatt",
+        "url": "https://github.com/ashlrai"
+      },
+      "homepage": "https://plugin.ashlr.ai/",
+      "repository": "https://github.com/ashlrai/ashlr-plugin",
+      "license": "MIT",
+      "keywords": [
+        "claude-code",
+        "mcp",
+        "token-efficiency",
+        "context",
+        "benchmark"
+      ],
+      "category": "productivity",
+      "version": "1.36.2",
+      "source": {
+        "source": "github",
+        "repo": "ashlrai/ashlr-plugin"
+      }
     }
   ]
 }
