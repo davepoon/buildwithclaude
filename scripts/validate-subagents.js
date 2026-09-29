@@ -22,8 +22,12 @@ let hasErrors = false;
 const errors = [];
 const warnings = [];
 
+// Directory that holds the bundled subagent files; command files live alongside
+// them in the same glob, so path checks below key off this prefix.
+const SUBAGENT_DIR = 'plugins/all-agents/agents/';
+
 // Find all subagent and command markdown files
-const subagentFiles = globSync(['plugins/all-agents/agents/*.md', 'plugins/all-commands/commands/*.md'])
+const subagentFiles = globSync([`${SUBAGENT_DIR}*.md`, 'plugins/all-commands/commands/*.md'])
   .filter(file => !file.endsWith('README.md') && !file.endsWith('INDEX.md'));
 
 console.log(`\n\x1b[34mValidating ${subagentFiles.length} subagent files...\x1b[0m\n`);
@@ -86,7 +90,7 @@ subagentFiles.forEach(file => {
     // Additional custom validations
     
     // 1. Check file name matches name field (only for subagents)
-    if (file.startsWith('subagents/')) {
+    if (file.startsWith(SUBAGENT_DIR)) {
       const fileName = path.basename(file);
       const expectedFileName = `${parsed.data.name}.md`;
       if (fileName !== expectedFileName) {
@@ -110,7 +114,7 @@ subagentFiles.forEach(file => {
     const contentLower = parsed.content.toLowerCase();
     
     // Only check for "you are" in subagent files, not command files
-    if (file.startsWith('subagents/') && !contentLower.includes('you are')) {
+    if (file.startsWith(SUBAGENT_DIR) && !contentLower.includes('you are')) {
       warnings.push({
         file,
         message: 'Missing opening statement "You are a..."'
@@ -118,9 +122,9 @@ subagentFiles.forEach(file => {
     }
     
     // 4. Check for duplicate names across subagent files only
-    if (file.startsWith('subagents/') && parsed.data.name) {
+    if (file.startsWith(SUBAGENT_DIR) && parsed.data.name) {
       const allSubagentNames = subagentFiles
-        .filter(f => f.startsWith('subagents/'))
+        .filter(f => f.startsWith(SUBAGENT_DIR))
         .map(f => {
           try {
             const content = fs.readFileSync(path.join(process.cwd(), f), 'utf8');
