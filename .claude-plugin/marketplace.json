@@ -2479,6 +2479,35 @@
       ],
       "category": "development",
       "source": "./plugins/production-fast-api-template"
+    },
+    {
+      "name": "apmzoom-dongdaemun",
+      "description": "Search Dongdaemun (Seoul) wholesale fashion with apMZoomAI: items, new arrivals and stalls by building and floor, with links back to apMZoomAI. A read-only remote MCP server plus a sourcing skill; no prices or contact details.",
+      "version": "1.0.0",
+      "author": {
+        "name": "apM Hwashin Co., Ltd.",
+        "url": "https://www.apmzoom.com"
+      },
+      "homepage": "https://www.apmzoom.com",
+      "repository": "https://github.com/apmleokeo-gif/apmzoom-mcp",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "fashion",
+        "wholesale",
+        "dongdaemun",
+        "seoul",
+        "korea",
+        "sourcing",
+        "b2b"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/apmleokeo-gif/apmzoom-mcp.git",
+        "path": "plugins/apmzoom-dongdaemun",
+        "ref": "main"
+      }
     }
   ]
 }
