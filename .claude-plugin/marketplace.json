@@ -2508,6 +2508,31 @@
         "path": "plugins/apmzoom-dongdaemun",
         "ref": "main"
       }
+    },
+    {
+      "name": "feedbacks",
+      "description": "Read visual website feedback, marked screenshots, recordings and team discussion through a scoped MCP connection. Includes review-feedback and manage-feedbacks-context skills. Requires a Feedbacks server, Node 22.12+ or 24 and Git.",
+      "version": "0.2.1",
+      "author": {
+        "name": "Softinator TechLabs",
+        "url": "https://softinator.ai"
+      },
+      "homepage": "https://feedbacks.softinator.ai",
+      "repository": "https://github.com/Softinator-TechLabs/feedbacks-oss",
+      "license": "Apache-2.0",
+      "keywords": [
+        "feedback",
+        "screenshots",
+        "mcp",
+        "website-review"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Softinator-TechLabs/feedbacks-plugins.git",
+        "path": "claude/feedbacks",
+        "ref": "v0.2.1"
+      }
     }
   ]
 }
