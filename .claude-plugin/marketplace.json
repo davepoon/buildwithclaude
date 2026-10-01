@@ -2508,6 +2508,33 @@
         "path": "plugins/apmzoom-dongdaemun",
         "ref": "main"
       }
+    },
+    {
+      "name": "qarunbook",
+      "description": "A QA runbook your coding assistant can read and write, for user acceptance testing. Connects to the qarunbook MCP server so Claude can read the checks that are failing and the issues testers raised, fix them, and mark them resolved. Ships two skills: /test-checklist builds a test plan from the app's code (every module, feature and journey per platform), and /qa-runbook runs the testing, records results with evidence and verifies fixes.",
+      "author": {
+        "name": "Ifeanyi Ejindu",
+        "url": "https://qarunbook.com"
+      },
+      "homepage": "https://qarunbook.com",
+      "repository": "https://github.com/Ifeanyiejindu/qarunbook",
+      "license": "MIT",
+      "keywords": [
+        "qa",
+        "testing",
+        "test-plan",
+        "uat",
+        "runbook",
+        "mcp"
+      ],
+      "category": "development",
+      "version": "1.1.1",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Ifeanyiejindu/qarunbook.git",
+        "path": "plugins/qarunbook",
+        "ref": "main"
+      }
     }
   ]
 }
