@@ -2643,6 +2643,31 @@
         "source": "github",
         "repo": "saeedahmadicp/ti-edgeai-skills"
       }
+    },
+    {
+      "name": "watch-for-me",
+      "description": "Watch any video (YouTube, X, Instagram, TikTok, local files) on-device: local speech transcription plus keyframes read by your agent, several videos in parallel.",
+      "version": "0.1.1",
+      "author": {
+        "name": "Deepmark",
+        "url": "https://usedeepmark.com"
+      },
+      "homepage": "https://github.com/shafkathullah/watch-for-me",
+      "repository": "https://github.com/shafkathullah/watch-for-me",
+      "license": "MIT",
+      "keywords": [
+        "video",
+        "transcription",
+        "keyframes",
+        "yt-dlp",
+        "local-first",
+        "skills"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "shafkathullah/watch-for-me"
+      }
     }
   ]
 }
