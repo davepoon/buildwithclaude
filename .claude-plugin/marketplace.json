@@ -2533,6 +2533,32 @@
         "path": "claude/feedbacks",
         "ref": "v0.2.1"
       }
+    },
+    {
+      "name": "postel",
+      "description": "Draft X (Twitter) and LinkedIn posts in your own voice, then schedule or publish them through your Postel account. A remote MCP server (OAuth) plus a writing skill.",
+      "version": "1.0.1",
+      "author": {
+        "name": "Postel",
+        "url": "https://www.postel.app"
+      },
+      "homepage": "https://www.postel.app/postel-mcp-server",
+      "repository": "https://github.com/robinfaraj/postel-mcp",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "social-media",
+        "twitter",
+        "x",
+        "linkedin",
+        "scheduling",
+        "writing"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "robinfaraj/postel-mcp"
+      }
     }
   ]
 }
