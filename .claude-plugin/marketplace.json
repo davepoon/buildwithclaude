@@ -2510,7 +2510,6 @@
       }
     },
     {
-<<<<<<< HEAD
       "name": "feedbacks",
       "description": "Read visual website feedback, marked screenshots, recordings and team discussion through a scoped MCP connection. Includes review-feedback and manage-feedbacks-context skills. Requires a Feedbacks server, Node 22.12+ or 24 and Git.",
       "version": "0.2.1",
@@ -2614,7 +2613,9 @@
         "url": "https://github.com/publishfun/agent-kit.git",
         "path": "plugins/publish-fun",
         "ref": "main"
-=======
+      }
+    },
+    {
       "name": "ti-edgeai-skills",
       "description": "Train, compile, deploy and profile neural networks on Texas Instruments Edge AI processors (C7x/MMA with TIDL: TDA4VM, AM68A, AM69A, AM67A, AM62A). Five skills cover TIDL compilation and int8 calibration in Docker, host-vs-board output checks, edgeai-gst-apps configs and per-layer profiling. Asks before any board-state change.",
       "version": "0.1.0",
@@ -2641,7 +2642,6 @@
       "source": {
         "source": "github",
         "repo": "saeedahmadicp/ti-edgeai-skills"
->>>>>>> 8ab95b2b0f41fa2bda791871e25750b737e7a8a3
       }
     }
   ]
