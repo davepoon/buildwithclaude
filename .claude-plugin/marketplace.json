@@ -2508,6 +2508,35 @@
         "path": "plugins/apmzoom-dongdaemun",
         "ref": "main"
       }
+    },
+    {
+      "name": "ti-edgeai-skills",
+      "description": "Train, compile, deploy and profile neural networks on Texas Instruments Edge AI processors (C7x/MMA with TIDL: TDA4VM, AM68A, AM69A, AM67A, AM62A). Five skills cover TIDL compilation and int8 calibration in Docker, host-vs-board output checks, edgeai-gst-apps configs and per-layer profiling. Asks before any board-state change.",
+      "version": "0.1.0",
+      "author": {
+        "name": "saeedahmadicp",
+        "url": "https://github.com/saeedahmadicp"
+      },
+      "homepage": "https://github.com/saeedahmadicp/ti-edgeai-skills",
+      "repository": "https://github.com/saeedahmadicp/ti-edgeai-skills",
+      "license": "MIT",
+      "keywords": [
+        "texas-instruments",
+        "tda4vm",
+        "tidl",
+        "edge-ai",
+        "embedded",
+        "jacinto",
+        "onnx",
+        "quantization",
+        "gstreamer",
+        "skills"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "saeedahmadicp/ti-edgeai-skills"
+      }
     }
   ]
 }
