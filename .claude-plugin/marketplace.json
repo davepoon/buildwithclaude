@@ -2559,6 +2559,33 @@
         "source": "github",
         "repo": "robinfaraj/postel-mcp"
       }
+    },
+    {
+      "name": "symbioza",
+      "description": "Run a GPU job under a hard dollar cap and collect the files it writes.",
+      "author": {
+        "name": "Symbioza",
+        "url": "https://symbioza.dev"
+      },
+      "homepage": "https://symbioza.dev",
+      "repository": "https://github.com/symbioza/claude-plugin",
+      "license": "MIT",
+      "keywords": [
+        "gpu",
+        "cloud-gpu",
+        "mcp",
+        "fine-tuning",
+        "training",
+        "evaluation",
+        "batch-inference",
+        "spending-limit"
+      ],
+      "category": "mcp-servers",
+      "version": "0.3.1",
+      "source": {
+        "source": "github",
+        "repo": "symbioza/claude-plugin"
+      }
     }
   ]
 }
