@@ -2508,6 +2508,31 @@
         "path": "plugins/apmzoom-dongdaemun",
         "ref": "main"
       }
+    },
+    {
+      "name": "placecall",
+      "description": "Plugin with one skill for placing real outbound phone calls to US businesses through the PlaceCall API: bookings, inquiries and quotes. The agent follows the call, relays any mid-call question to the user, and reads back the structured outcome and transcript. Paid API; real calls ring real phones.",
+      "version": "6.0.2",
+      "author": {
+        "name": "VOYGR",
+        "url": "https://voygr.tech"
+      },
+      "homepage": "https://voygr.tech/placecall/",
+      "repository": "https://github.com/voygr-tech/placecall",
+      "license": "MIT",
+      "keywords": [
+        "phone",
+        "calls",
+        "voice",
+        "telephony",
+        "reservations",
+        "appointments"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "voygr-tech/placecall"
+      }
     }
   ]
 }
