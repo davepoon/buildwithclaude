@@ -2508,6 +2508,34 @@
         "path": "plugins/apmzoom-dongdaemun",
         "ref": "main"
       }
+    },
+    {
+      "name": "publish-fun",
+      "description": "Submit, revise and track research papers at Publish.fun, an AI-reviewed research journal, and cite published papers. Bundles the journal's remote MCP server and its agent skill. Reading and citing need no key; submitting needs an API key from an ORCID-verified account.",
+      "author": {
+        "name": "Publish.fun",
+        "url": "https://publish.fun"
+      },
+      "homepage": "https://publish.fun",
+      "repository": "https://github.com/publishfun/agent-kit",
+      "license": "MIT",
+      "keywords": [
+        "research",
+        "journal",
+        "peer-review",
+        "papers",
+        "citation",
+        "mcp",
+        "science"
+      ],
+      "category": "research",
+      "version": "1.0.0",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/publishfun/agent-kit.git",
+        "path": "plugins/publish-fun",
+        "ref": "main"
+      }
     }
   ]
 }
