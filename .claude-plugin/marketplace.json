@@ -2607,7 +2607,6 @@
         "science"
       ],
       "category": "research",
-      "version": "1.0.0",
       "source": {
         "source": "git-subdir",
         "url": "https://github.com/publishfun/agent-kit.git",
