@@ -1,0 +1,4 @@
+interface:
+  display_name: "浏览器插件一站式上线"
+  short_description: "说出想法，由 AI 制作、检查插件，准备商店资料并带你完成上线"
+  default_prompt: "使用 $browser-extension-launch 帮我把一个想法做成浏览器插件，带我从第一版试用走到商店上线。"
