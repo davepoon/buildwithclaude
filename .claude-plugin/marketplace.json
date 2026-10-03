@@ -2643,6 +2643,37 @@
         "source": "github",
         "repo": "saeedahmadicp/ti-edgeai-skills"
       }
+    },
+    {
+      "name": "kumi",
+      "description": "A coordinated engineering team of 20 named AI specialists that remembers your project between sessions. Call yui to route work, or any specialist directly by name: Go, Angular, iOS, Python, React, SQL, NoSQL, architecture, process management and DevOps/infra.",
+      "version": "1.3.0",
+      "author": {
+        "name": "Anna Veretennykova",
+        "url": "https://github.com/annavetech"
+      },
+      "homepage": "https://github.com/annavetech/kumi",
+      "repository": "https://github.com/annavetech/kumi",
+      "license": "MIT",
+      "keywords": [
+        "agents",
+        "subagents",
+        "orchestration",
+        "engineering-team",
+        "memory",
+        "code-review",
+        "go",
+        "python",
+        "react",
+        "angular",
+        "ios",
+        "devops"
+      ],
+      "category": "orchestration",
+      "source": {
+        "source": "github",
+        "repo": "annavetech/kumi"
+      }
     }
   ]
 }
