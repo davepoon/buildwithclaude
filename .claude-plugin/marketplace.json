@@ -2746,6 +2746,30 @@
         "path": "plugin",
         "sha": "4be97a02bf08be28c9d7097e08902cf1379293b4"
       }
+    },
+    {
+      "name": "midpoint-card-prices",
+      "description": "Trading card market prices and grading ROI through one remote MCP server. Raw and graded prices for 1.5M+ Pokémon, Magic, Yu-Gi-Oh!, One Piece, Lorcana and sports cards, PSA 9 and PSA 10 premiums, net profit after grading fees, price history, 30-day movers and priced set checklists. Read-only, no account, no API key.",
+      "version": "1.0.1",
+      "author": {
+        "name": "Midpoint",
+        "url": "https://www.cardcenteringtool.com"
+      },
+      "homepage": "https://www.cardcenteringtool.com/mcp",
+      "repository": "https://github.com/kolourr/midpoint-mcp",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "trading-cards",
+        "pokemon",
+        "sports-cards",
+        "card-prices",
+        "card-grading",
+        "psa",
+        "collectibles"
+      ],
+      "category": "mcp-servers",
+      "source": "./plugins/midpoint-card-prices"
     }
   ]
 }
