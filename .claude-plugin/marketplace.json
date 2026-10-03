@@ -2668,6 +2668,32 @@
         "source": "github",
         "repo": "shafkathullah/watch-for-me"
       }
+    },
+    {
+      "name": "voicemoat-skills",
+      "description": "Twenty-six free skills for writing on LinkedIn and Twitter: write in your voice, audit a draft before you publish, draft comments, fix opening lines and endings, read your numbers and plan the week. They need no account; connecting VoiceMoat (Pro or Enterprise) adds a voice profile trained on your own published posts and a Voice Match score.",
+      "version": "1.0.0",
+      "author": {
+        "name": "VoiceMoat",
+        "url": "https://voicemoat.com"
+      },
+      "homepage": "https://voicemoat.com/claude-skills",
+      "repository": "https://github.com/prateeks367/voicemoat-skills",
+      "license": "MIT",
+      "keywords": [
+        "linkedin",
+        "twitter",
+        "writing",
+        "personal-branding",
+        "social-media",
+        "content-strategy",
+        "skills"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "prateeks367/voicemoat-skills"
+      }
     }
   ]
 }
