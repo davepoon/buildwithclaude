@@ -2694,6 +2694,32 @@
         "source": "github",
         "repo": "prateeks367/voicemoat-skills"
       }
+    },
+    {
+      "name": "nibbl",
+      "description": "A tamagotchi-style pixel pet in a band above the prompt, built on function hooks. It reacts to tool calls, passing checks and commits, and adds a /nibbl command. Uses zero model tokens; syncs event types and times plus a hashed machine id to getnibbl.pages.dev.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Nurmukhammed Omirzak",
+        "url": "https://github.com/nuromirzak"
+      },
+      "homepage": "https://getnibbl.pages.dev",
+      "repository": "https://github.com/nuromirzak/nibbl",
+      "license": "MIT",
+      "keywords": [
+        "pet",
+        "tamagotchi",
+        "pixel-art",
+        "function-hooks",
+        "mod"
+      ],
+      "category": "monitoring",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/nuromirzak/nibbl.git",
+        "path": "plugin",
+        "ref": "main"
+      }
     }
   ]
 }
