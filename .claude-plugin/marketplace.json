@@ -2720,6 +2720,32 @@
         "path": "plugin",
         "ref": "main"
       }
+    },
+    {
+      "name": "bettercallgpt",
+      "description": "Put this Claude Code session on a full-duplex voice call (Azure GPT Realtime or GPT-Live, macOS): talk while it codes, interrupt anytime, hear results read back. Voice never approves permission prompts; they stay on the keyboard.",
+      "version": "0.1.1",
+      "author": {
+        "name": "StoryArcade",
+        "url": "https://github.com/storyarcade"
+      },
+      "homepage": "https://github.com/insta-fusion/bettercallgpt",
+      "repository": "https://github.com/insta-fusion/bettercallgpt",
+      "license": "MIT",
+      "keywords": [
+        "voice",
+        "realtime",
+        "speech",
+        "claude-code",
+        "macos"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/insta-fusion/bettercallgpt.git",
+        "path": "plugin",
+        "sha": "4be97a02bf08be28c9d7097e08902cf1379293b4"
+      }
     }
   ]
 }
