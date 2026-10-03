@@ -2643,6 +2643,33 @@
         "source": "github",
         "repo": "saeedahmadicp/ti-edgeai-skills"
       }
+    },
+    {
+      "name": "pumpgtm",
+      "description": "Find buyers, run LinkedIn, email and X outreach, and answer replies from your AI. A remote MCP server (OAuth, no API key) plus three skills: find-buyers, write-cold-message and handle-replies.",
+      "version": "1.1.0",
+      "author": {
+        "name": "PumpGTM",
+        "url": "https://pumpgtm.com"
+      },
+      "homepage": "https://pumpgtm.com",
+      "repository": "https://github.com/pumpgtm/pumpgtm-mcp",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "sales",
+        "outbound",
+        "linkedin",
+        "cold-email",
+        "lead-generation",
+        "ai-sdr",
+        "gtm"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "pumpgtm/pumpgtm-mcp"
+      }
     }
   ]
 }
