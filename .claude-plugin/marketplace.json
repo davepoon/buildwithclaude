@@ -2770,6 +2770,38 @@
       ],
       "category": "mcp-servers",
       "source": "./plugins/midpoint-card-prices"
+    },
+    {
+      "name": "kumi",
+      "description": "A coordinated engineering team of named AI specialists that remembers your project between sessions. Call yui to route work, or call any specialist directly: Go (jaan, siim, mart), Angular (liis, kadi, tiiu), iOS (ren, shu, ryo), Python (eero, anu, ivo), React (noa, rui, aki), SQL (saku), NoSQL (remo), architecture for any stack (kai), process management (enn), and DevOps/infra (sora). Each ships as both a skill and a subagent. Bundled hooks capture finished work when a session ends and say at the next session start that saved work exists, and record per-session and per-agent token and time usage. Every specialist follows the same discipline: read context first, make the smallest correct change, verify.",
+      "version": "1.4.0",
+      "author": {
+        "name": "Anna Veretennykova",
+        "url": "https://github.com/annavetech"
+      },
+      "homepage": "https://github.com/annavetech/kumi",
+      "repository": "https://github.com/annavetech/kumi",
+      "license": "MIT",
+      "keywords": [
+        "agents",
+        "orchestration",
+        "engineering-team",
+        "memory",
+        "subagents",
+        "go",
+        "angular",
+        "ios",
+        "python",
+        "react",
+        "sql",
+        "nosql",
+        "code-review"
+      ],
+      "category": "orchestration",
+      "source": {
+        "source": "github",
+        "repo": "annavetech/kumi"
+      }
     }
   ]
 }
