@@ -2647,13 +2647,13 @@
     {
       "name": "watch-for-me",
       "description": "Watch any video (YouTube, X, Instagram, TikTok, local files) on-device: local speech transcription plus keyframes read by your agent, several videos in parallel.",
-      "version": "0.1.1",
+      "version": "0.1.4",
       "author": {
         "name": "Deepmark",
         "url": "https://usedeepmark.com"
       },
-      "homepage": "https://github.com/shafkathullah/watch-for-me",
-      "repository": "https://github.com/shafkathullah/watch-for-me",
+      "homepage": "https://github.com/usedeepmark/watch-for-me",
+      "repository": "https://github.com/usedeepmark/watch-for-me",
       "license": "MIT",
       "keywords": [
         "video",
@@ -2666,7 +2666,7 @@
       "category": "productivity",
       "source": {
         "source": "github",
-        "repo": "shafkathullah/watch-for-me"
+        "repo": "usedeepmark/watch-for-me"
       }
     },
     {
