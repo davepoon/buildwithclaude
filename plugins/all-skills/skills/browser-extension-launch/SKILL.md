@@ -43,7 +43,7 @@ description: 面向没有编程经验的用户，把想法做成可试用的浏�
 | 首版、实施票、最终版本验收 | 受控浏览器工具；首选 Playwright MCP | 当前产物真实加载、原生入口、完整操作及重开证据；不支持时必须取得用户环境选择 |
 | 复杂插件 | `setup-matt-pocock-skills` → `to-spec` → `to-tickets` → `implement` | 项目约定、已发布主工单、带依赖的子工单、按模块分工逐票实现；见 [复杂插件编排](references/complex-workflow.md) |
 
-缺少必需 skill 时按已核实来源和当前 Agent 目标通过 Skill CLI 或宿主安装器补齐后执行，不以名字相近的未知 skill 代替。只有兼容说明明确允许的 portable fallback 才能替代，并必须记录真实执行方式。安装与技术拆分尽量自动完成；浏览器工具不支持时的替代选择、无法推断的产品承诺和真实账号费用仍由用户决定。来源清单见 [依赖准备](references/dependencies.md)。
+缺少必需 skill 时，先按 [依赖准备](references/dependencies.md) 向用户列出本次实际需要复制的仓库、固定 revision 和子目录，并等待用户对这次安装明确说“可以”；“帮我做插件”只授权制作，不等于授权从 GitHub 复制技能。获批后才通过 Skill CLI 或宿主安装器安装，不以名字相近的未知 skill 代替。只有兼容说明明确允许的 portable fallback 才能替代，并必须记录真实执行方式。技术拆分可在既有授权内自动完成；浏览器工具不支持时的替代选择、无法推断的产品承诺和真实账号费用仍由用户决定。
 
 ## 从当前项目继续
 

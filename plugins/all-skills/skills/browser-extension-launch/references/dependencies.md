@@ -1,6 +1,6 @@
 # 必需能力、子技能来源和浏览器工具
 
-先读 [Agent 兼容说明](host-compatibility.md)。这是跨宿主依赖编排：优先执行下面的命名技能；缺失时按核实来源用 Skill CLI 或宿主安装器补齐。只有兼容说明明确允许的 portable fallback 或经核对覆盖同一能力的宿主原生技能可以替代，必须记录真实来源与差异，不能冒充命名技能已执行。
+先读 [Agent 兼容说明](host-compatibility.md)。这是跨宿主依赖编排：优先执行下面的命名技能；缺失时先列出本次要复制的固定来源并取得用户明确安装同意，再用 Skill CLI 或宿主安装器补齐。“制作一个浏览器插件”、执行本 skill 或同意自动编排都不构成安装授权。只有兼容说明明确允许的 portable fallback 或经核对覆盖同一能力的宿主原生技能可以替代，必须记录真实来源与差异，不能冒充命名技能已执行。
 
 ## 哪些节点必须用什么
 
@@ -21,9 +21,9 @@ product-designer 在上表节点必需执行，具体见 [产品使用闭环](pr
 
 机器可读的 [required-skills.json](required-skills.json) 保存已核实仓库、精确子目录、固定修订、许可及入口哈希。先复用用户当前版本；本地文件与上游不相同并不意味着应该升级，先读真实内容，保留定制并记录兼容性。
 
-- chrome-extensions：GoogleChrome/modern-web-guidance，skills/chrome-extensions，Apache-2.0。
-- extension-create：quangpl/browser-extension-skills，skills/extension-create，MIT。
-- 六个工程主链技能：mattpocock/skills，skills/engineering/<name>，MIT。本地部分技能与所记录上游版本不同，分别保存本地核查哈希与上游哈希，不伪称本地安装于该提交。
+- chrome-extensions：`GoogleChrome/modern-web-guidance`，revision `bfd8c8dded770f3ba07a518e28991a32df40f902`，路径 `skills/chrome-extensions`，Apache-2.0。
+- extension-create：`quangpl/browser-extension-skills`，revision `249886cf8137086792b6c3a5a2f7adce117a9f8d`，路径 `skills/extension-create`，MIT。
+- 六个工程主链技能：`mattpocock/skills`，revision `3cca18b368ae95cdbdebbff572ccafa662551015`，路径 `skills/engineering/<name>`，MIT。本地部分技能与所记录上游版本不同，分别保存本地核查哈希与上游哈希，不伪称本地安装于该提交。
 - product-designer：已核实部分宿主安装的实际入口及哈希，来源未核实为公开仓库，不能臆造下载地址。优先复用宿主版本；缺失时按兼容说明执行 `product-loop.md` portable fallback，并明确记录没有运行命名技能。
 - Playwright MCP：microsoft/playwright-mcp / @playwright/mcp，固定参考版本及配置见 [Playwright MCP](playwright-mcp.md)。它是执行工具，不是安装一个同名 SKILL.md 就可用。
 
@@ -31,11 +31,12 @@ product-designer 在上表节点必需执行，具体见 [产品使用闭环](pr
 
 1. 获取宿主公开技能与工具清单，再检查其明确的技能目录及必需技能位置。用户提到与 diagnosing-bugs 同级时检查该目录，包括显式调用型技能、大小写入口和有权限读取的链接；不能因为未出现在自动列表就说没安装。不扫描凭据配置。
 2. 运行 `project.py doctor PROJECT --skills-dir DIR` 查看必需技能的 detected/missing；它不证明已激活或已执行。阶段进入前解析真实入口、读取 SKILL.md 及该阶段引用文件，按宿主的显式调用机制执行。宿主没有专门调用命令时，显式读取并逐步执行真实技能，而非声称调用了不存在的命令。
-3. 缺失时读取 skill-installer 并用其公开仓库安装器按清单固定来源补齐；宿主另有安装器时使用相应等效安装接口。参数形状为 `install-skill-from-github.py --repo <repo> --ref <ref> --path <path>`。安装的是完整技能目录及引用资源，不只下载入口。自动完成当前任务已授权的必要安装，不覆盖旧技能或把自己的私人目录当下载源。
-4. 核对入口、资源和来源；需要宿主重载时保存 pending_reload 及恢复动作，重载后再查可用性。无法安装或来源无法核实时明确具体缺项并保持对应步骤阻塞，不用包内文字替代必需依赖。
-5. 执行前准备输入，执行后保存真实输出及验证结果。`source_path` / `source_revision` / `read_evidence` / `execution_evidence` / `status` 写入 workflow.required_skill_stages。存在、已读取、已执行三个状态分开；子技能阶段有产物且核对完成才更新状态。
+3. 缺失时先从 `required-skills.json` 取出本阶段实际需要的每个 `repo`、`ref` 和 `path`，把完整清单展示给用户，并询问是否允许将这些固定版本复制到其技能目录。未收到明确同意时不得调用安装器、下载或复制；保持相关阶段 `blocked`，同时继续不依赖该技能的工作。用户只要求制作/修复插件、同意本 skill 工作流或未回复，都不算安装同意。用户同意的范围只覆盖所列仓库、revision、路径和目标技能目录；清单或目标变化时重新确认。
+4. 获得同意后读取 skill-installer，并用其公开仓库安装器按已批准清单安装；宿主另有安装器时使用相应等效接口。参数形状为 `install-skill-from-github.py --repo <repo> --ref <ref> --path <path>`。安装完整技能目录及引用资源，不只下载入口；不覆盖旧技能或把自己的私人目录当下载源。保存用户同意原文、批准清单、目标目录和安装结果。
+5. 核对入口、资源和来源；需要宿主重载时保存 pending_reload 及恢复动作，重载后再查可用性。无法安装、用户不同意或来源无法核实时明确具体缺项并保持对应步骤阻塞，不用包内文字替代必需依赖。
+6. 执行前准备输入，执行后保存真实输出及验证结果。`source_path` / `source_revision` / `read_evidence` / `execution_evidence` / `status` 写入 workflow.required_skill_stages。存在、已读取、已执行三个状态分开；子技能阶段有产物且核对完成才更新状态。
 
-用户已经明确授权这条自动主链。对关闭自动触发的 to-spec/to-tickets/implement 等进行显式编排，不修改其全局触发配置；新手不必手动输入每个技能。技术选型、拆分、依赖和本地发布等机械确认由主代理按授权提供给子技能，具体适配见 [复杂流程](complex-workflow.md)。
+用户对本 skill 的调用只授权已安装能力之间的自动编排，不授权安装缺失技能。取得上述单独安装同意并完成安装后，可对关闭自动触发的 to-spec/to-tickets/implement 等进行显式编排，不修改其全局触发配置；新手不必手动输入每个技能。技术选型、拆分、依赖和本地发布等机械决定由主代理按工作范围提供给子技能，具体适配见 [复杂流程](complex-workflow.md)。
 
 必需调用不等于照抄样例。extension-create 的框架问题由 AI 根据目标预先选定并传入；必须真正执行所选脚手架、配置入口和检查构建。已有项目不强行重建。示例的广泛网站权限不自动继承；遇技能样例与真实需求、当前官方 API 或用户明确约束冲突时，保留技能执行，记录有证据的局部适配，不能借此取消真实验收或跳过整项技能。付费推广或相关技能推荐不是强制购买/全量安装要求。
 
