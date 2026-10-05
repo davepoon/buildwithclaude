@@ -2770,6 +2770,35 @@
       ],
       "category": "mcp-servers",
       "source": "./plugins/midpoint-card-prices"
+    },
+    {
+      "name": "figma-maxxing",
+      "description": "Agent skills for real Figma files: Plugin API gotchas, checks before and after every write, comments to verified fixes, handoff gate.",
+      "version": "1.1.0",
+      "author": {
+        "name": "Thiago Xikota",
+        "url": "https://github.com/thiagoxikota"
+      },
+      "homepage": "https://github.com/thiagoxikota/figma-maxxing",
+      "repository": "https://github.com/thiagoxikota/figma-maxxing",
+      "license": "MIT",
+      "keywords": [
+        "figma",
+        "figma-plugin-api",
+        "design-systems",
+        "design-tokens",
+        "handoff",
+        "design-qa",
+        "agent-skills",
+        "skills"
+      ],
+      "category": "design",
+      "source": {
+        "source": "github",
+        "repo": "thiagoxikota/figma-maxxing",
+        "ref": "v1.1.0",
+        "sha": "49a2df96786d976f4c2cd2fea610574f141afbae"
+      }
     }
   ]
 }
