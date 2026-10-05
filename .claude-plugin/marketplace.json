@@ -2792,7 +2792,7 @@
         "agent-skills",
         "skills"
       ],
-      "category": "design",
+      "category": "development",
       "source": {
         "source": "github",
         "repo": "thiagoxikota/figma-maxxing",
