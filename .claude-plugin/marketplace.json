@@ -2770,6 +2770,32 @@
       ],
       "category": "mcp-servers",
       "source": "./plugins/midpoint-card-prices"
+    },
+    {
+      "name": "maqami-travel",
+      "description": "Hotel and flight booking through MAQAMI's remote MCP server (3M+ hotels). Search hotels and flights, read hotel details, then prebook and book. Booking creates a real reservation and needs guest and payment details. No account or API key needed to search.",
+      "version": "1.0.6",
+      "author": {
+        "name": "MAQAMI",
+        "url": "https://maqami.co"
+      },
+      "homepage": "https://mcp.maqami.co/",
+      "repository": "https://github.com/negm17111995/mcp-server",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "travel",
+        "hotels",
+        "flights",
+        "hotel-search",
+        "flight-search",
+        "booking"
+      ],
+      "category": "mcp-servers",
+      "source": {
+        "source": "github",
+        "repo": "negm17111995/mcp-server"
+      }
     }
   ]
 }
