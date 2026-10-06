@@ -2858,6 +2858,31 @@
       "ref": "v1.1.0",
       "sha": "49a2df96786d976f4c2cd2fea610574f141afbae"
     }
+  },
+  {
+    "name": "bestax",
+    "description": "Build with Bestax, React components for Bulma v1. Seven Agent Skills for forms, layouts, theming, icons, custom components, CSS size and migration from Bulma classes or older React Bulma libraries, plus the bestax-mcp server, which answers questions about components, props, examples and CSS variables from a bundled index. Local stdio server, exact npm pin, no telemetry.",
+    "version": "1.0.294",
+    "author": {
+      "name": "Alex Smith",
+      "url": "https://github.com/allxsmith"
+    },
+    "homepage": "https://bestax.io/docs/guides/llms",
+    "repository": "https://github.com/allxsmith/bestax-skills",
+    "license": "MIT",
+    "keywords": [
+      "bestax",
+      "bestax-bulma",
+      "bulma",
+      "react",
+      "agent-skills",
+      "mcp"
+    ],
+    "category": "development",
+    "source": {
+      "source": "github",
+      "repo": "allxsmith/bestax-skills"
+    }
   }
   ]
 }
