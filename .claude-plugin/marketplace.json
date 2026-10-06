@@ -2770,6 +2770,31 @@
       ],
       "category": "mcp-servers",
       "source": "./plugins/midpoint-card-prices"
+    },
+    {
+      "name": "workkit",
+      "description": "Runs GitHub Issues as the work pipeline for Claude Code. Issue labels track each task from spec to build, QA and done; a manager agent dispatches scout, worker and verifier subagents, and guard hooks enforce tests and commit rules before work lands.",
+      "version": "0.74.0",
+      "author": {
+        "name": "ITW Creative Works",
+        "url": "https://github.com/ITW-Creative-Works"
+      },
+      "homepage": "https://github.com/ITW-Creative-Works/workkit",
+      "repository": "https://github.com/ITW-Creative-Works/workkit",
+      "license": "FSL-1.1-MIT",
+      "keywords": [
+        "github-issues",
+        "workflow",
+        "orchestration",
+        "subagents",
+        "hooks",
+        "claude-code"
+      ],
+      "category": "orchestration",
+      "source": {
+        "source": "github",
+        "repo": "ITW-Creative-Works/workkit"
+      }
     }
   ]
 }
