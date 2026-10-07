@@ -2883,6 +2883,31 @@
       "source": "github",
       "repo": "allxsmith/bestax-skills"
     }
+  },
+  {
+    "name": "claude-usage",
+    "description": "Lets Claude check its own claude.ai plan quota: percent used of the session and weekly limits (including per-model weekly limits), when each resets, and where usage is on pace to be at reset. One skill and a short Python script that reads Claude Code's stored login token and calls the same usage endpoint as /usage. Claude Code only; no hooks, MCP servers, or telemetry.",
+    "version": "0.1.0",
+    "author": {
+      "name": "Christian Oudard",
+      "url": "https://github.com/christian-oudard"
+    },
+    "homepage": "https://github.com/christian-oudard/claude-usage",
+    "repository": "https://github.com/christian-oudard/claude-usage",
+    "license": "MIT",
+    "keywords": [
+      "usage",
+      "quota",
+      "rate-limits",
+      "pacing",
+      "claude-code",
+      "agent-skills"
+    ],
+    "category": "monitoring",
+    "source": {
+      "source": "github",
+      "repo": "christian-oudard/claude-usage"
+    }
   }
   ]
 }
