@@ -25,6 +25,31 @@
   },
   "plugins": [
     {
+      "name": "mobile-debug-tools",
+      "description": "Inspect and interact with Android and iOS apps through the mobile-debug-mcp server and a usage skill.",
+      "version": "0.0.1",
+      "author": {
+        "name": "mobile-debug-tools contributors",
+        "url": "https://github.com/clivejefferies"
+      },
+      "repository": "https://github.com/clivejefferies/mobile-debug-tools",
+      "license": "Apache-2.0",
+      "keywords": [
+        "android",
+        "ios",
+        "mobile-debugging",
+        "mcp",
+        "claude-code"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/clivejefferies/mobile-debug-tools.git",
+        "path": "agent-plugin",
+        "ref": "main"
+      }
+    },
+    {
       "name": "pine",
       "description": "Connect Claude to Pine AI to handle real-world tasks and follow up on progress and results.",
       "version": "0.1.1",
