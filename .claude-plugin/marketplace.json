@@ -2883,6 +2883,37 @@
       "source": "github",
       "repo": "allxsmith/bestax-skills"
     }
+  },
+  {
+    "name": "firecrawl",
+    "description": "Firecrawl web search, web scraping and crawling for Claude Code. Thirteen skills to search the web, scrape any page into clean LLM-ready markdown, crawl whole sites, map a site's URLs, drive a live browser (click, log in, paginate), convert PDF and DOCX files, monitor pages for changes, and search research papers and developer docs. Handles JavaScript-rendered pages. Runs through the Firecrawl CLI and needs a Firecrawl API key.",
+    "version": "1.1.0",
+    "author": {
+      "name": "Firecrawl",
+      "url": "https://github.com/firecrawl"
+    },
+    "homepage": "https://www.firecrawl.dev/?utm_source=buildwithclaude&utm_medium=integration",
+    "repository": "https://github.com/firecrawl/firecrawl-claude-plugin",
+    "license": "AGPL-3.0",
+    "keywords": [
+      "firecrawl",
+      "web-scraping",
+      "web-search",
+      "web-crawler",
+      "site-map",
+      "markdown",
+      "llm-ready-data",
+      "structured-data",
+      "browser-automation",
+      "pdf-to-markdown",
+      "research",
+      "agent-skills"
+    ],
+    "category": "research",
+    "source": {
+      "source": "github",
+      "repo": "firecrawl/firecrawl-claude-plugin"
+    }
   }
   ]
 }
