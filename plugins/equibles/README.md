@@ -16,8 +16,12 @@ Then run `/mcp`, select `equibles` and choose **Authenticate** to sign in over O
 claude mcp add --transport http equibles https://mcp.equibles.com/mcp
 ```
 
-An API key also works: create one at <https://equibles.com/dashboard/apikeys> and send it as
-an `Authorization: Bearer` header.
+Prefer an API key? Create one at <https://equibles.com/dashboard/apikeys> and register the
+server with the key in a header instead of installing the plugin:
+
+```
+claude mcp add-json equibles '{"type":"http","url":"https://mcp.equibles.com/mcp","headers":{"Authorization":"Bearer eq_your_api_key"}}' --scope user
+```
 
 ## What you can ask
 
