@@ -2933,6 +2933,29 @@
       "source": "github",
       "repo": "christian-oudard/claude-usage"
     }
+  },
+  {
+    "name": "herdr-toolkit",
+    "description": "One skill for running Claude Code on Herdr, the terminal agent multiplexer. spawn-session starts a named, detached Claude Code Remote Control session for any project directory in its own Herdr pane, so it appears in the Claude mobile app, and confirms on the pane screen that each prompt landed.",
+    "version": "2.0.0",
+    "author": {
+      "name": "shimo4228",
+      "url": "https://github.com/shimo4228"
+    },
+    "homepage": "https://github.com/shimo4228/herdr-toolkit",
+    "repository": "https://github.com/shimo4228/herdr-toolkit",
+    "license": "MIT",
+    "keywords": [
+      "herdr",
+      "agent-multiplexer",
+      "remote-control",
+      "claude-code"
+    ],
+    "category": "orchestration",
+    "source": {
+      "source": "github",
+      "repo": "shimo4228/herdr-toolkit"
+    }
   }
   ]
 }
