@@ -2983,6 +2983,35 @@
       "source": "github",
       "repo": "Instant-Expert/skills"
     }
+  },
+  {
+    "name": "guardrails",
+    "description": "PreToolUse Bash guard for Claude Code that still holds under --dangerously-skip-permissions. Blocks pipe-to-shell installs, disk wipes and fork bombs; asks before rm -rf, force-push, git reset --hard, DROP/TRUNCATE, kubectl delete, cloud deletes and secret-file reads. 15 rules, each off/ask/block, plus a PostToolUse audit log with secrets redacted and /guardrails:self-test to see every decision without running anything.",
+    "version": "1.2.3",
+    "author": {
+      "name": "choiyounggi",
+      "url": "https://github.com/choiyounggi"
+    },
+    "homepage": "https://github.com/choiyounggi/groundwork/tree/main/plugins/guardrails",
+    "repository": "https://github.com/choiyounggi/groundwork",
+    "license": "MIT",
+    "keywords": [
+      "security",
+      "safety",
+      "guardrails",
+      "hooks",
+      "pretooluse",
+      "destructive-commands",
+      "audit-log",
+      "yolo-mode"
+    ],
+    "category": "security",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/choiyounggi/groundwork.git",
+      "path": "plugins/guardrails",
+      "ref": "main"
+    }
   }
   ]
 }
