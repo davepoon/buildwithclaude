@@ -2983,6 +2983,26 @@
       "source": "github",
       "repo": "Instant-Expert/skills"
     }
-  }
+  },
+    {
+      "name": "baizhi-agent-toolkit",
+      "version": "0.1.0",
+      "description": "Connect Baizhi Agent Toolkit through an authenticated remote MCP server, with an optional skill for bounded research and source verification. Requires a Baizhi account and API key; service usage may incur charges.",
+      "author": {
+        "name": "ct-jaryn",
+        "url": "https://github.com/ct-jaryn"
+      },
+      "homepage": "https://agent-toolkit.app.baizhi.cloud",
+      "repository": "https://github.com/davepoon/buildwithclaude",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "baizhi",
+        "research",
+        "search"
+      ],
+      "category": "mcp-servers",
+      "source": "./plugins/baizhi-agent-toolkit"
+    }
   ]
 }
