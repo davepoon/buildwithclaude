@@ -2983,6 +2983,34 @@
       "source": "github",
       "repo": "Instant-Expert/skills"
     }
+  },
+  {
+    "name": "lnpl-mcp",
+    "description": "The LNPL compiler (linkly LLM-native platform) as MCP tools instead of a shell command. lnpl compile writes diagnostics to stderr and exits 0, so a caller that checks the exit code misses every warning, and an unknown-verb warning means a step that does nothing at runtime. lnpl_compile, lnpl_spec and lnpl_kb_route return diagnostics, spec results and knowledge-base routes as structured records, calling the compiler in-process with no PATH lookup.",
+    "version": "0.8.0",
+    "author": {
+      "name": "choiyounggi",
+      "url": "https://github.com/choiyounggi"
+    },
+    "homepage": "https://github.com/choiyounggi/linkly/tree/main/plugins/lnpl-mcp",
+    "repository": "https://github.com/choiyounggi/linkly",
+    "license": "MIT",
+    "keywords": [
+      "lnpl",
+      "linkly",
+      "mcp",
+      "compiler",
+      "diagnostics",
+      "llm-native",
+      "semantic-ir"
+    ],
+    "category": "mcp-servers",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/choiyounggi/linkly.git",
+      "path": "plugins/lnpl-mcp",
+      "ref": "main"
+    }
   }
   ]
 }
