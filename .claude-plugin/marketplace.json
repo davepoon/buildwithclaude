@@ -2956,6 +2956,33 @@
       "source": "github",
       "repo": "shimo4228/herdr-toolkit"
     }
+  },
+  {
+    "name": "ask-human-expert",
+    "description": "Ask real executives, operators and domain experts a question through Instant Expert and get a written or voice answer or a short call. It finds people by description or reaches a named person, and the user approves every live order. Starts in a free test mode with no account; you pay only if someone answers.",
+    "version": "1.0.0",
+    "author": {
+      "name": "Instant Expert",
+      "url": "https://github.com/Instant-Expert"
+    },
+    "homepage": "https://github.com/Instant-Expert/skills",
+    "repository": "https://github.com/Instant-Expert/skills",
+    "license": "MIT-0",
+    "keywords": [
+      "experts",
+      "expert-network",
+      "human-in-the-loop",
+      "customer-discovery",
+      "user-research",
+      "expert-calls",
+      "mcp",
+      "agent-skills"
+    ],
+    "category": "research",
+    "source": {
+      "source": "github",
+      "repo": "Instant-Expert/skills"
+    }
   }
   ]
 }
