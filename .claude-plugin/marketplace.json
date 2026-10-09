@@ -2884,6 +2884,31 @@
       "repo": "allxsmith/bestax-skills"
     }
   },
+    {
+      "name": "equibles",
+      "description": "US stock market research through the hosted Equibles MCP server: SEC filings with full-text search, XBRL financial statements, earnings call transcripts, insider and congressional trades, 13F institutional holdings, short interest, end-of-day prices, option chains and macroeconomic data. Sign in over OAuth from /mcp; free tier of 100 requests a day, no credit card.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Equibles",
+        "url": "https://equibles.com"
+      },
+      "homepage": "https://equibles.com/mcp",
+      "repository": "https://github.com/daniel3303/stock-market-mcp-server",
+      "license": "MIT",
+      "keywords": [
+        "finance",
+        "stocks",
+        "sec-filings",
+        "earnings-calls",
+        "13f",
+        "insider-trading",
+        "market-data",
+        "mcp",
+        "oauth"
+      ],
+      "category": "finance",
+      "source": "./plugins/equibles"
+    },
   {
     "name": "claude-usage",
     "description": "Lets Claude check its own claude.ai plan quota: percent used of the session and weekly limits (including per-model weekly limits), when each resets, and where usage is on pace to be at reset. One skill and a short Python script that reads Claude Code's stored login token and calls the same usage endpoint as /usage. Claude Code only; no hooks, MCP servers, or telemetry.",
