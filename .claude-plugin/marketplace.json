@@ -2983,6 +2983,32 @@
       "source": "github",
       "repo": "Instant-Expert/skills"
     }
+  },
+      {
+    "name": "uxkin",
+    "description": "Real UI references for coding agents: iOS app screens, user journeys and website design systems. The free no-ui-slop and uxkin-research skills, plus the UXKIN MCP server (sign in with UXKIN; searching needs a UXKIN plan).",
+    "version": "1.3.0",
+    "author": {
+      "name": "UXKIN",
+      "url": "https://uxkin.com"
+    },
+    "homepage": "https://uxkin.com",
+    "repository": "https://github.com/uxkin/agent",
+    "license": "MIT",
+    "keywords": [
+      "ui",
+      "design",
+      "frontend",
+      "ui-references",
+      "design-system",
+      "mcp",
+      "agent-skills"
+    ],
+    "category": "mcp-servers",
+    "source": {
+      "source": "github",
+      "repo": "uxkin/agent"
+    }
   }
   ]
 }
