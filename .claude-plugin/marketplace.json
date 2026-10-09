@@ -2983,6 +2983,33 @@
       "source": "github",
       "repo": "Instant-Expert/skills"
     }
+  },
+  {
+    "name": "reevesagents",
+    "description": "Lets Claude Code start other AI coding CLIs (Claude Code, Codex, Kimi, Qwen, OpenCode) in their own tmux windows, send them prompts, read their output and stop them, through the reevesagents MCP server. Ships one skill and the MCP config; needs the reevesagents npm package and tmux.",
+    "version": "1.0.0",
+    "author": {
+      "name": "Mert Kaya",
+      "url": "https://github.com/mertkayacs"
+    },
+    "homepage": "https://reevesagents.mertkayacs.com",
+    "repository": "https://github.com/mertkayacs/reevesagents-skill",
+    "license": "Apache-2.0",
+    "keywords": [
+      "agents",
+      "multi-agent",
+      "orchestration",
+      "mcp",
+      "tmux",
+      "codex",
+      "kimi",
+      "opencode"
+    ],
+    "category": "orchestration",
+    "source": {
+      "source": "github",
+      "repo": "mertkayacs/reevesagents-skill"
+    }
   }
   ]
 }
