@@ -2987,7 +2987,7 @@
   {
     "name": "korean-law",
     "description": "Search and read Korean law through the official Ministry of Government Legislation (법제처) Open API: statutes, precedents, administrative rules, local ordinances, treaties and legal interpretations. Also checks legal citations in Claude's answers against the source for existence and content. Runs the korean-law-mcp MCP server via npx and needs a free 법제처 API key (LAW_OC), entered at install.",
-    "version": "4.4.3",
+    "version": "4.15.6",
     "author": {
       "name": "Chris",
       "url": "https://github.com/chrisryugj"
