@@ -3012,7 +3012,7 @@
   {
     "name": "auten",
     "description": "Computer use for Claude Code: click, type and read the screen on your Mac, Windows or Linux computer and your Android phone over USB (beta), even in apps with no API. Reads the accessibility tree, types saved passwords locally, and asks before anything irreversible. Free plan 30 minutes of runtime a month.",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "author": {
       "name": "Auten",
       "url": "https://auten.ai"
@@ -3033,7 +3033,7 @@
       "source": "git-subdir",
       "url": "https://github.com/auten-ai/auten-mcp.git",
       "path": "plugin",
-      "sha": "cbce03802f7d47caa3923ae4a32b99a884430677"
+      "sha": "537d8e3d1df29f0edeba8fceff49865092036306"
     }
   },
   {
