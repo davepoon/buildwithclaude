@@ -3216,7 +3216,7 @@
   },
   {
     "name": "cc-aws-keepalive",
-    "description": "Keeps Claude Code sessions on AWS Bedrock alive through credential expiry. A UserPromptSubmit hook warns before each prompt when credentials are expired or close to expiry, and scripts for awsCredentialExport and awsAuthRefresh make Claude Code re-read ~/.aws/credentials instead of needing a restart. The plugin registers the hook; the two credential settings are added to settings.json by hand. Hook output never contains credential values. The status line countdown, automatic re-login and credential sync are optional and stay off until configured. Works with saml2aws, gimme-aws-creds, aws-google-auth and any tool that writes to ~/.aws/credentials.",
+    "description": "Keeps Claude Code sessions on AWS Bedrock alive through credential expiry. Scripts for awsCredentialExport and awsAuthRefresh, added to settings.json by hand, make Claude Code re-read ~/.aws/credentials instead of needing a restart. A UserPromptSubmit hook checks expiry before each prompt. Works with saml2aws, gimme-aws-creds, aws-google-auth and any tool that writes to ~/.aws/credentials.",
     "version": "0.5.0",
     "author": {
       "name": "GeiserX",
