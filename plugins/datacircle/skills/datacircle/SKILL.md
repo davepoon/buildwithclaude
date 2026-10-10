@@ -10,12 +10,12 @@ The `datacircle` MCP server's tools spend the user's own Datacircle balance, so 
 ## Looking up profiles
 
 - Call `get_linkedin_profile` once per LinkedIn URL the user gave you. Don't search for, guess or add profiles they didn't ask for.
-- Use the default provider, `up2data`: it's the cheapest, and a profile it doesn't find costs nothing. Use `harvestapi` when up2data
-  answers its daily limit (`429`), or when the user needs a section only HarvestAPI returns (recommendations, interests, certifications,
-  honors). Say which provider you used.
-- Every lookup is paid from the balance. Before any, even a single one, say which provider and what it costs ($2.375 per 1,000 profiles
-  through Up2Data, $3.70 per 1,000 through HarvestAPI; for a list, the total), and wait for the user's yes. Ask again before switching
-  provider or adding URLs.
+- Use the default provider, `up2data`: a profile it can't find is free. Use `harvestapi` or `fetchin` when up2data answers its daily
+  limit (`429`), `harvestapi` when the user needs the member's interests, which only it returns. Say which provider you used.
+- Every lookup is paid from the balance. Before any, even a single one, say which provider and what it costs (for a list, the total),
+  and wait for the user's yes. Ask again before switching provider or adding URLs. The prices:
+  $2.375 per 1,000 through Up2Data (a profile it can't find is free), $3.70 per 1,000 through HarvestAPI.
+  $1.485 per 1,000 through Fetchin, a profile it can't find billed the same.
 - Each answer carries `datacircle_meta`: `cost_usd` and `balance_usd`. For more than one lookup, tell the user the total cost and the
   balance left.
 - Summarise what the user needs from each profile (role, company, history, skills) rather than pasting the raw JSON.

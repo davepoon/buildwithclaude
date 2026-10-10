@@ -1,7 +1,7 @@
 {
   "name": "datacircle",
   "displayName": "Datacircle",
-  "description": "Datacircle is a data co-op. Query your favorite B2B data APIs through us. Same request, same price, no markup. Right now we have 2 live LinkedIn profile APIs that we trust: Up2Data and HarvestAPI.",
+  "description": "Datacircle is a data co-op. Query your favorite B2B data APIs through us. Same request, same price, no markup. Right now we have 3 live LinkedIn profile APIs that we trust: Up2Data, HarvestAPI and Fetchin.",
   "version": "1.0.0",
   "author": {
     "name": "Datacircle",
