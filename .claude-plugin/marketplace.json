@@ -25,6 +25,31 @@
   },
   "plugins": [
     {
+      "name": "mobile-debug-tools",
+      "description": "Inspect and interact with Android and iOS apps through the mobile-debug-mcp server and a usage skill.",
+      "version": "0.0.1",
+      "author": {
+        "name": "mobile-debug-tools contributors",
+        "url": "https://github.com/clivejefferies"
+      },
+      "repository": "https://github.com/clivejefferies/mobile-debug-tools",
+      "license": "Apache-2.0",
+      "keywords": [
+        "android",
+        "ios",
+        "mobile-debugging",
+        "mcp",
+        "claude-code"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/clivejefferies/mobile-debug-tools.git",
+        "path": "agent-plugin",
+        "ref": "main"
+      }
+    },
+    {
       "name": "pine",
       "description": "Connect Claude to Pine AI to handle real-world tasks and follow up on progress and results.",
       "version": "0.1.1",
@@ -2982,6 +3007,33 @@
     "source": {
       "source": "github",
       "repo": "Instant-Expert/skills"
+    }
+  },
+  {
+    "name": "auten",
+    "description": "Computer use for Claude Code: click, type and read the screen on your Mac, Windows or Linux computer and your Android phone over USB (beta), even in apps with no API. Reads the accessibility tree, types saved passwords locally, and asks before anything irreversible. Free plan 30 minutes of runtime a month.",
+    "version": "0.1.4",
+    "author": {
+      "name": "Auten",
+      "url": "https://auten.ai"
+    },
+    "homepage": "https://auten.ai/mcp",
+    "repository": "https://github.com/auten-ai/auten-mcp",
+    "license": "MIT",
+    "keywords": [
+      "computer-use",
+      "desktop-automation",
+      "android",
+      "accessibility",
+      "rpa",
+      "mcp"
+    ],
+    "category": "productivity",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/auten-ai/auten-mcp.git",
+      "path": "plugin",
+      "sha": "cbce03802f7d47caa3923ae4a32b99a884430677"
     }
   },
   {
