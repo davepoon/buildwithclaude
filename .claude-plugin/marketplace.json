@@ -3035,6 +3035,34 @@
       "path": "plugin",
       "sha": "cbce03802f7d47caa3923ae4a32b99a884430677"
     }
+  },
+  {
+    "name": "memory-loop",
+    "description": "A lifecycle for Claude Code native file-based memory: a save gate that gives each memory a tier and an expiry, a sweep that archives expired memories instead of deleting them, a consolidation pass that merges duplicates and resolves contradictions only after you confirm, and a correction-signal hook that feeds an always-loaded HABITS.md capped at 8000 bytes / 24 rules, enforced at write time. Local-only.",
+    "version": "2.3.1",
+    "author": {
+      "name": "choiyounggi",
+      "url": "https://github.com/choiyounggi"
+    },
+    "homepage": "https://github.com/choiyounggi/groundwork/tree/main/plugins/memory-loop",
+    "repository": "https://github.com/choiyounggi/groundwork",
+    "license": "MIT",
+    "keywords": [
+      "memory",
+      "lifecycle",
+      "habits",
+      "consolidation",
+      "expiry",
+      "corrections",
+      "claude-md"
+    ],
+    "category": "productivity",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/choiyounggi/groundwork.git",
+      "path": "plugins/memory-loop",
+      "ref": "main"
+    }
   }
   ]
 }
