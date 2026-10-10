@@ -3216,7 +3216,7 @@
   },
   {
     "name": "cc-aws-keepalive",
-    "description": "Keeps Claude Code sessions on AWS Bedrock alive through credential expiry. Scripts for awsCredentialExport and awsAuthRefresh, added to settings.json by hand, read fresh credentials from ~/.aws/credentials and can run your re-login command after expiry. A UserPromptSubmit hook warns before a prompt when expiry is near or past. Works with saml2aws, gimme-aws-creds, aws-google-auth and any tool that writes to ~/.aws/credentials.",
+    "description": "Keeps Claude Code sessions on AWS Bedrock alive through credential expiry. Scripts for awsCredentialExport and awsAuthRefresh, added to settings.json by hand, read fresh credentials from ~/.aws/credentials and can re-run your login. A UserPromptSubmit hook warns when expiry is near or past. Works with saml2aws, gimme-aws-creds, aws-google-auth and any tool that writes to ~/.aws/credentials.",
     "version": "0.5.1",
     "author": {
       "name": "GeiserX",
