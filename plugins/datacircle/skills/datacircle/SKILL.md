@@ -13,7 +13,7 @@ The `datacircle` MCP server's tools spend the user's own Datacircle balance, so 
 - Use the default provider, `up2data`: it's the cheapest, and a profile it doesn't find costs nothing. Use `harvestapi` when up2data
   answers its daily limit (`429`), or when the user needs a section only HarvestAPI returns (recommendations, interests, certifications,
   honors). Say which provider you used.
-- Every lookup is paid from the balance. Before any, even a single one, say which provider and what it costs ($1.25 per 1,000 profiles
+- Every lookup is paid from the balance. Before any, even a single one, say which provider and what it costs ($2.375 per 1,000 profiles
   through Up2Data, $3.70 per 1,000 through HarvestAPI; for a list, the total), and wait for the user's yes. Ask again before switching
   provider or adding URLs.
 - Each answer carries `datacircle_meta`: `cost_usd` and `balance_usd`. For more than one lookup, tell the user the total cost and the
