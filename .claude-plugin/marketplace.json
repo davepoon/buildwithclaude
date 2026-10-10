@@ -2983,6 +2983,31 @@
       "source": "github",
       "repo": "Instant-Expert/skills"
     }
+  },
+  {
+    "name": "skyvern",
+    "description": "Browser automation in Claude Code through Skyvern Cloud: open pages, fill forms, extract structured data, take screenshots, and run repeatable workflows. Sign in with OAuth from /mcp. Runs can use Skyvern credits.",
+    "version": "1.0.0",
+    "author": {
+      "name": "Skyvern",
+      "url": "https://www.skyvern.com"
+    },
+    "homepage": "https://www.skyvern.com",
+    "repository": "https://github.com/Skyvern-AI/skyvern",
+    "license": "Apache-2.0",
+    "keywords": [
+      "browser-automation",
+      "web-automation",
+      "web-scraping",
+      "data-extraction",
+      "form-filling",
+      "cloud-browser",
+      "workflows",
+      "mcp",
+      "oauth"
+    ],
+    "category": "automation",
+    "source": "./plugins/skyvern"
   }
   ]
 }
