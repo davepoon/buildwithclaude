@@ -2983,6 +2983,33 @@
       "source": "github",
       "repo": "Instant-Expert/skills"
     }
+  },
+  {
+    "name": "auten",
+    "description": "Computer use for Claude Code: click, type and read the screen on your Mac, Windows or Linux computer and your Android phone over USB (beta), even in apps with no API. Reads the accessibility tree, types saved passwords locally, and asks before anything irreversible. Free plan 30 minutes of runtime a month.",
+    "version": "0.1.3",
+    "author": {
+      "name": "Auten",
+      "url": "https://auten.ai"
+    },
+    "homepage": "https://auten.ai/mcp",
+    "repository": "https://github.com/auten-ai/auten-mcp",
+    "license": "MIT",
+    "keywords": [
+      "computer-use",
+      "desktop-automation",
+      "android",
+      "accessibility",
+      "rpa",
+      "mcp"
+    ],
+    "category": "productivity",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/auten-ai/auten-mcp.git",
+      "path": "plugin",
+      "sha": "f1d0f67dffa814a805e9d079b417039ae7b15336"
+    }
   }
   ]
 }
