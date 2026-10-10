@@ -3119,6 +3119,33 @@
       "path": "plugins/ngx-json-render",
       "ref": "main"
     }
+  },
+  {
+    "name": "render-policy",
+    "description": "Two skills for rendering agent output safely: replace innerHTML with render-policy's sanitize-into-a-fragment renderers for plain DOM, React and Angular, with image, link and host policies, streaming and ESLint rules; and lint the CSP and tool metadata an MCP App declares before you publish it.",
+    "version": "0.1.6",
+    "author": {
+      "name": "shteynu",
+      "url": "https://github.com/shteynu"
+    },
+    "homepage": "https://github.com/shteynu/render-policy/tree/main/plugins/render-policy",
+    "repository": "https://github.com/shteynu/render-policy",
+    "license": "MIT",
+    "keywords": [
+      "security",
+      "xss",
+      "markdown",
+      "llm-output",
+      "mcp-apps",
+      "csp"
+    ],
+    "category": "security",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/shteynu/render-policy.git",
+      "path": "plugins/render-policy",
+      "ref": "main"
+    }
   }
   ]
 }
