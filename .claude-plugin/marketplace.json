@@ -3012,7 +3012,7 @@
   {
     "name": "kordoc",
     "description": "Read, create, fill, patch and compare Korean documents in Claude. One skill that runs the kordoc CLI via npx to convert HWP 3.x/5.x, HWPX, HWPML, PDF, DOCX and XLS/XLSX files to Markdown, fill form templates while keeping their formatting, and generate HWPX documents from Markdown with Korean government document presets. No Hancom Office needed.",
-    "version": "4.21.12",
+    "version": "4.21.14",
     "author": {
       "name": "chrisryugj",
       "url": "https://github.com/chrisryugj"
