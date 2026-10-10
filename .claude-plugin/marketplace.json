@@ -2983,6 +2983,59 @@
       "source": "github",
       "repo": "Instant-Expert/skills"
     }
+  },
+  {
+    "name": "korean-law",
+    "description": "Search and read Korean law through the official Ministry of Government Legislation (법제처) Open API: statutes, precedents, administrative rules, local ordinances, treaties and legal interpretations. Also checks legal citations in Claude's answers against the source for existence and content. Runs the korean-law-mcp MCP server via npx and needs a free 법제처 API key (LAW_OC), entered at install.",
+    "version": "4.4.3",
+    "author": {
+      "name": "Chris",
+      "url": "https://github.com/chrisryugj"
+    },
+    "homepage": "https://github.com/chrisryugj/korean-law-mcp",
+    "repository": "https://github.com/chrisryugj/korean-law-mcp",
+    "license": "MIT",
+    "keywords": [
+      "korean-law",
+      "legal-ai",
+      "legal-research",
+      "citation-verification",
+      "korea",
+      "mcp"
+    ],
+    "category": "research",
+    "source": {
+      "source": "github",
+      "repo": "chrisryugj/korean-law-mcp"
+    }
+  },
+  {
+    "name": "kordoc",
+    "description": "Read, create, fill, patch and compare Korean documents in Claude. One skill that runs the kordoc CLI via npx to convert HWP 3.x/5.x, HWPX, HWPML, PDF, DOCX and XLS/XLSX files to Markdown, fill form templates while keeping their formatting, and generate HWPX documents from Markdown with Korean government document presets. No Hancom Office needed.",
+    "version": "4.21.12",
+    "author": {
+      "name": "chrisryugj",
+      "url": "https://github.com/chrisryugj"
+    },
+    "homepage": "https://github.com/chrisryugj/kordoc",
+    "repository": "https://github.com/chrisryugj/kordoc.git",
+    "license": "MIT",
+    "keywords": [
+      "hwp",
+      "hwpx",
+      "korean",
+      "document-parsing",
+      "markdown",
+      "form-filling",
+      "agent-skills"
+    ],
+    "category": "productivity",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/chrisryugj/kordoc.git",
+      "path": "plugins/kordoc",
+      "ref": "main"
+    }
   }
   ]
 }
