@@ -3063,6 +3063,35 @@
       "path": "plugins/memory-loop",
       "ref": "main"
     }
+  },
+  {
+    "name": "lnpl",
+    "description": "Authoring and verification for LNPL, the language of the linkly LLM-native platform (declare entities, services and workflows; the compiler lowers them to a semantic IR that runs on an interpreter or compiles through MLIR to a native binary). LNPL's verb vocabulary is closed and absent from model training data, so a plausible word compiles into a step that silently does nothing. The plugin routes Claude to the lexicon generated from the compiler's own tables, surfaces lnpl compile diagnostics on every save, offers an independent reviewer subagent, derives spec cases, and gates completion on evidence.",
+    "version": "0.8.0",
+    "author": {
+      "name": "choiyounggi",
+      "url": "https://github.com/choiyounggi"
+    },
+    "homepage": "https://github.com/choiyounggi/linkly",
+    "repository": "https://github.com/choiyounggi/linkly",
+    "license": "MIT",
+    "keywords": [
+      "lnpl",
+      "linkly",
+      "llm-native",
+      "programming-language",
+      "compiler",
+      "diagnostics",
+      "mlir",
+      "semantic-ir"
+    ],
+    "category": "development",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/choiyounggi/linkly.git",
+      "path": "plugins/lnpl",
+      "ref": "main"
+    }
   }
   ]
 }
