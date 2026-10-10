@@ -3213,6 +3213,31 @@
     ],
     "category": "mcp-servers",
     "source": "./plugins/baizhi-agent-toolkit"
+  },
+  {
+    "name": "cc-aws-keepalive",
+    "description": "Keeps Claude Code sessions on AWS Bedrock alive through credential expiry. A UserPromptSubmit hook warns before each prompt when credentials are expired or close to expiry, and scripts for awsCredentialExport and awsAuthRefresh make Claude Code re-read ~/.aws/credentials instead of needing a restart. The plugin registers the hook; the two credential settings are added to settings.json by hand. Hook output never contains credential values. The status line countdown, automatic re-login and credential sync are optional and stay off until configured. Works with saml2aws, gimme-aws-creds, aws-google-auth and any tool that writes to ~/.aws/credentials.",
+    "version": "0.5.0",
+    "author": {
+      "name": "GeiserX",
+      "url": "https://github.com/GeiserX"
+    },
+    "homepage": "https://github.com/GeiserX/cc-aws-keepalive",
+    "repository": "https://github.com/GeiserX/cc-aws-keepalive",
+    "license": "GPL-3.0-or-later",
+    "keywords": [
+      "aws",
+      "bedrock",
+      "credentials",
+      "sso",
+      "saml",
+      "keepalive"
+    ],
+    "category": "productivity",
+    "source": {
+      "source": "github",
+      "repo": "GeiserX/cc-aws-keepalive"
+    }
   }
   ]
 }
