@@ -3175,7 +3175,7 @@
   {
     "name": "datacircle",
     "description": "Datacircle is a data co-op. Query your favorite B2B data APIs through us. Same request, same price, no markup. Right now we have 3 live LinkedIn profile APIs that we trust: Up2Data, HarvestAPI and Fetchin.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": {
       "name": "Datacircle",
       "url": "https://datacircle.dev"
@@ -3186,8 +3186,8 @@
       "b2b-data",
       "data-enrichment",
       "linkedin",
-      "lead-generation",
-      "sales-intelligence",
+      "data-api",
+      "linkedin-profile-api",
       "mcp",
       "oauth"
     ],
