@@ -8,7 +8,7 @@ location, current company and title, positions, education, skills) from your Dat
 
 ## What it does
 
-- **Look up LinkedIn profiles** by URL, through Up2Data ($1.25 per 1,000 profiles found; a profile that isn't found is free) or HarvestAPI
+- **Look up LinkedIn profiles** by URL, through Up2Data ($2.375 per 1,000 profiles found; a profile that isn't found is free) or HarvestAPI
   ($3.70 per 1,000 found, every section of the profile). Each request goes to the provider and gets the profile as it is today.
 - **Check your balance**, and start a Stripe Checkout to add funds, which you open and pay yourself: nothing is charged until you do.
 - **List your files and get download links**: the free 10M+ U.S. B2B leads dataset, and the 50M+ dataset and daily co-op files once
