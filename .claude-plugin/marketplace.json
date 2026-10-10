@@ -2983,6 +2983,28 @@
       "source": "github",
       "repo": "Instant-Expert/skills"
     }
+  },
+  {
+    "name": "ainotate",
+    "description": "AInotate lets AI agents answer \"where is it?\" with an annotated screenshot: numbered steps, arrows, boxes and labels, with emails and tokens redacted.",
+    "version": "0.1.8",
+    "author": {
+      "name": "DontPayFull",
+      "url": "https://www.dontpayfull.com"
+    },
+    "homepage": "https://github.com/dontpayfull/AInotate",
+    "repository": "https://github.com/dontpayfull/AInotate",
+    "license": "AGPL-3.0-or-later",
+    "keywords": [
+      "screenshot",
+      "annotation",
+      "mcp"
+    ],
+    "category": "development",
+    "source": {
+      "source": "github",
+      "repo": "dontpayfull/AInotate"
+    }
   }
   ]
 }
