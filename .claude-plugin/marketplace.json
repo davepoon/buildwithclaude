@@ -2803,87 +2803,87 @@
         "repo": "annavetech/kumi"
       }
     },
-  {
-    "name": "clawd-actor",
-    "description": "While Claude works, Clawd (Claude Code's mascot) acts out the spinner's -ing word and the running tool on a little stage above the prompt: 26 animated scenes, wandering the band, changing scene every 30 seconds on long turns.",
-    "version": "0.3.0",
-    "author": {
-      "name": "Brian Huang",
-      "url": "https://github.com/BrianHuang813"
+    {
+      "name": "clawd-actor",
+      "description": "While Claude works, Clawd (Claude Code's mascot) acts out the spinner's -ing word and the running tool on a little stage above the prompt: 26 animated scenes, wandering the band, changing scene every 30 seconds on long turns.",
+      "version": "0.3.0",
+      "author": {
+        "name": "Brian Huang",
+        "url": "https://github.com/BrianHuang813"
+      },
+      "homepage": "https://github.com/BrianHuang813/clawd-actor",
+      "repository": "https://github.com/BrianHuang813/clawd-actor",
+      "license": "MIT",
+      "keywords": [
+        "animation",
+        "ui",
+        "spinner",
+        "clawd",
+        "mascot",
+        "fun",
+        "function-hooks",
+        "mod"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "github",
+        "repo": "BrianHuang813/clawd-actor"
+      }
     },
-    "homepage": "https://github.com/BrianHuang813/clawd-actor",
-    "repository": "https://github.com/BrianHuang813/clawd-actor",
-    "license": "MIT",
-    "keywords": [
-      "animation",
-      "ui",
-      "spinner",
-      "clawd",
-      "mascot",
-      "fun",
-      "function-hooks",
-      "mod"
-    ],
-    "category": "creative",
-    "source": {
-      "source": "github",
-      "repo": "BrianHuang813/clawd-actor"
-    }
-  },
-  {
-    "name": "figma-maxxing",
-    "description": "Agent skills for real Figma files: Plugin API gotchas, checks before and after every write, comments to verified fixes, handoff gate.",
-    "version": "1.1.0",
-    "author": {
-      "name": "Thiago Xikota",
-      "url": "https://github.com/thiagoxikota"
+    {
+      "name": "figma-maxxing",
+      "description": "Agent skills for real Figma files: Plugin API gotchas, checks before and after every write, comments to verified fixes, handoff gate.",
+      "version": "1.1.0",
+      "author": {
+        "name": "Thiago Xikota",
+        "url": "https://github.com/thiagoxikota"
+      },
+      "homepage": "https://github.com/thiagoxikota/figma-maxxing",
+      "repository": "https://github.com/thiagoxikota/figma-maxxing",
+      "license": "MIT",
+      "keywords": [
+        "figma",
+        "figma-plugin-api",
+        "design-systems",
+        "design-tokens",
+        "handoff",
+        "design-qa",
+        "agent-skills",
+        "skills"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "thiagoxikota/figma-maxxing",
+        "ref": "v1.1.0",
+        "sha": "49a2df96786d976f4c2cd2fea610574f141afbae"
+      }
     },
-    "homepage": "https://github.com/thiagoxikota/figma-maxxing",
-    "repository": "https://github.com/thiagoxikota/figma-maxxing",
-    "license": "MIT",
-    "keywords": [
-      "figma",
-      "figma-plugin-api",
-      "design-systems",
-      "design-tokens",
-      "handoff",
-      "design-qa",
-      "agent-skills",
-      "skills"
-    ],
-    "category": "development",
-    "source": {
-      "source": "github",
-      "repo": "thiagoxikota/figma-maxxing",
-      "ref": "v1.1.0",
-      "sha": "49a2df96786d976f4c2cd2fea610574f141afbae"
-    }
-  },
-  {
-    "name": "bestax",
-    "description": "Build with Bestax, React components for Bulma v1. Seven Agent Skills for forms, layouts, theming, icons, custom components, CSS size and migration from Bulma classes or older React Bulma libraries, plus the bestax-mcp server, which answers questions about components, props, examples and CSS variables from a bundled index. Local stdio server, exact npm pin, no telemetry.",
-    "version": "1.0.294",
-    "author": {
-      "name": "Alex Smith",
-      "url": "https://github.com/allxsmith"
+    {
+      "name": "bestax",
+      "description": "Build with Bestax, React components for Bulma v1. Seven Agent Skills for forms, layouts, theming, icons, custom components, CSS size and migration from Bulma classes or older React Bulma libraries, plus the bestax-mcp server, which answers questions about components, props, examples and CSS variables from a bundled index. Local stdio server, exact npm pin, no telemetry.",
+      "version": "1.0.294",
+      "author": {
+        "name": "Alex Smith",
+        "url": "https://github.com/allxsmith"
+      },
+      "homepage": "https://bestax.io/docs/guides/llms",
+      "repository": "https://github.com/allxsmith/bestax-skills",
+      "license": "MIT",
+      "keywords": [
+        "bestax",
+        "bestax-bulma",
+        "bulma",
+        "react",
+        "agent-skills",
+        "mcp"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "allxsmith/bestax-skills"
+      }
     },
-    "homepage": "https://bestax.io/docs/guides/llms",
-    "repository": "https://github.com/allxsmith/bestax-skills",
-    "license": "MIT",
-    "keywords": [
-      "bestax",
-      "bestax-bulma",
-      "bulma",
-      "react",
-      "agent-skills",
-      "mcp"
-    ],
-    "category": "development",
-    "source": {
-      "source": "github",
-      "repo": "allxsmith/bestax-skills"
-    }
-  },
     {
       "name": "equibles",
       "description": "US stock market research through the hosted Equibles MCP server: SEC filings with full-text search, XBRL financial statements, earnings call transcripts, insider and congressional trades, 13F institutional holdings, short interest, end-of-day prices, option chains and macroeconomic data. Sign in over OAuth from /mcp; free tier of 100 requests a day, no credit card.",
@@ -2909,107 +2909,108 @@
       "category": "finance",
       "source": "./plugins/equibles"
     },
-  {
-    "name": "claude-usage",
-    "description": "Lets Claude check its own claude.ai plan quota: percent used of the session and weekly limits (including per-model weekly limits), when each resets, and where usage is on pace to be at reset. One skill and a short Python script that reads Claude Code's stored login token and calls the same usage endpoint as /usage. Claude Code only; no hooks, MCP servers, or telemetry.",
-    "version": "0.1.0",
-    "author": {
-      "name": "Christian Oudard",
-      "url": "https://github.com/christian-oudard"
+    {
+      "name": "claude-usage",
+      "description": "Lets Claude check its own claude.ai plan quota: percent used of the session and weekly limits (including per-model weekly limits), when each resets, and where usage is on pace to be at reset. One skill and a short Python script that reads Claude Code's stored login token and calls the same usage endpoint as /usage. Claude Code only; no hooks, MCP servers, or telemetry.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Christian Oudard",
+        "url": "https://github.com/christian-oudard"
+      },
+      "homepage": "https://github.com/christian-oudard/claude-usage",
+      "repository": "https://github.com/christian-oudard/claude-usage",
+      "license": "MIT",
+      "keywords": [
+        "usage",
+        "quota",
+        "rate-limits",
+        "pacing",
+        "claude-code",
+        "agent-skills"
+      ],
+      "category": "monitoring",
+      "source": {
+        "source": "github",
+        "repo": "christian-oudard/claude-usage"
+      }
     },
-    "homepage": "https://github.com/christian-oudard/claude-usage",
-    "repository": "https://github.com/christian-oudard/claude-usage",
-    "license": "MIT",
-    "keywords": [
-      "usage",
-      "quota",
-      "rate-limits",
-      "pacing",
-      "claude-code",
-      "agent-skills"
-    ],
-    "category": "monitoring",
-    "source": {
-      "source": "github",
-      "repo": "christian-oudard/claude-usage"
-    }
-  },
-  {
-    "name": "herdr-toolkit",
-    "description": "One skill for running Claude Code on Herdr, the terminal agent multiplexer. spawn-session starts a named, detached Claude Code Remote Control session for any project directory in its own Herdr pane, so it appears in the Claude mobile app, and confirms on the pane screen that each prompt landed.",
-    "version": "2.0.0",
-    "author": {
-      "name": "shimo4228",
-      "url": "https://github.com/shimo4228"
+    {
+      "name": "herdr-toolkit",
+      "description": "One skill for running Claude Code on Herdr, the terminal agent multiplexer. spawn-session starts a named, detached Claude Code Remote Control session for any project directory in its own Herdr pane, so it appears in the Claude mobile app, and confirms on the pane screen that each prompt landed.",
+      "version": "2.0.0",
+      "author": {
+        "name": "shimo4228",
+        "url": "https://github.com/shimo4228"
+      },
+      "homepage": "https://github.com/shimo4228/herdr-toolkit",
+      "repository": "https://github.com/shimo4228/herdr-toolkit",
+      "license": "MIT",
+      "keywords": [
+        "herdr",
+        "agent-multiplexer",
+        "remote-control",
+        "claude-code"
+      ],
+      "category": "orchestration",
+      "source": {
+        "source": "github",
+        "repo": "shimo4228/herdr-toolkit"
+      }
     },
-    "homepage": "https://github.com/shimo4228/herdr-toolkit",
-    "repository": "https://github.com/shimo4228/herdr-toolkit",
-    "license": "MIT",
-    "keywords": [
-      "herdr",
-      "agent-multiplexer",
-      "remote-control",
-      "claude-code"
-    ],
-    "category": "orchestration",
-    "source": {
-      "source": "github",
-      "repo": "shimo4228/herdr-toolkit"
-    }
-  },
-  {
-    "name": "ask-human-expert",
-    "description": "Ask real executives, operators and domain experts a question through Instant Expert and get a written or voice answer or a short call. It finds people by description or reaches a named person, and the user approves every live order. Starts in a free test mode with no account; you pay only if someone answers.",
-    "version": "1.0.0",
-    "author": {
-      "name": "Instant Expert",
-      "url": "https://github.com/Instant-Expert"
+    {
+      "name": "ask-human-expert",
+      "description": "Ask real executives, operators and domain experts a question through Instant Expert and get a written or voice answer or a short call. It finds people by description or reaches a named person, and the user approves every live order. Starts in a free test mode with no account; you pay only if someone answers.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Instant Expert",
+        "url": "https://github.com/Instant-Expert"
+      },
+      "homepage": "https://github.com/Instant-Expert/skills",
+      "repository": "https://github.com/Instant-Expert/skills",
+      "license": "MIT-0",
+      "keywords": [
+        "experts",
+        "expert-network",
+        "human-in-the-loop",
+        "customer-discovery",
+        "user-research",
+        "expert-calls",
+        "mcp",
+        "agent-skills"
+      ],
+      "category": "research",
+      "source": {
+        "source": "github",
+        "repo": "Instant-Expert/skills"
+      }
     },
-    "homepage": "https://github.com/Instant-Expert/skills",
-    "repository": "https://github.com/Instant-Expert/skills",
-    "license": "MIT-0",
-    "keywords": [
-      "experts",
-      "expert-network",
-      "human-in-the-loop",
-      "customer-discovery",
-      "user-research",
-      "expert-calls",
-      "mcp",
-      "agent-skills"
-    ],
-    "category": "research",
-    "source": {
-      "source": "github",
-      "repo": "Instant-Expert/skills"
+    {
+      "name": "reevesagents",
+      "description": "Lets Claude Code start other AI coding CLIs (Claude Code, Codex, Kimi, Qwen, OpenCode) in their own tmux windows, send them prompts, read their output and stop them, through the reevesagents MCP server. Ships one skill and the MCP config; needs the reevesagents npm package and tmux.",
+      "version": "1.0.1",
+      "author": {
+        "name": "Mert Kaya",
+        "url": "https://github.com/mertkayacs"
+      },
+      "homepage": "https://reevesagents.mertkayacs.com",
+      "repository": "https://github.com/mertkayacs/reevesagents-skill",
+      "license": "Apache-2.0",
+      "keywords": [
+        "agents",
+        "multi-agent",
+        "orchestration",
+        "mcp",
+        "tmux",
+        "codex",
+        "kimi",
+        "opencode"
+      ],
+      "category": "orchestration",
+      "source": {
+        "source": "github",
+        "repo": "mertkayacs/reevesagents-skill",
+        "ref": "v1.0.1"
+      }
     }
-  },
-  {
-    "name": "reevesagents",
-    "description": "Lets Claude Code start other AI coding CLIs (Claude Code, Codex, Kimi, Qwen, OpenCode) in their own tmux windows, send them prompts, read their output and stop them, through the reevesagents MCP server. Ships one skill and the MCP config; needs the reevesagents npm package and tmux.",
-    "version": "1.0.0",
-    "author": {
-      "name": "Mert Kaya",
-      "url": "https://github.com/mertkayacs"
-    },
-    "homepage": "https://reevesagents.mertkayacs.com",
-    "repository": "https://github.com/mertkayacs/reevesagents-skill",
-    "license": "Apache-2.0",
-    "keywords": [
-      "agents",
-      "multi-agent",
-      "orchestration",
-      "mcp",
-      "tmux",
-      "codex",
-      "kimi",
-      "opencode"
-    ],
-    "category": "orchestration",
-    "source": {
-      "source": "github",
-      "repo": "mertkayacs/reevesagents-skill"
-    }
-  }
   ]
 }
