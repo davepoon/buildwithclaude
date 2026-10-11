@@ -323,7 +323,7 @@
     {
       "name": "archcore",
       "description": "Spec-driven development and context engineering for AI coding agents, backed by project context in Git.",
-      "version": "0.10.3",
+      "version": "0.12.0",
       "author": {
         "name": "Archcore",
         "url": "https://github.com/archcore-ai"
@@ -3012,7 +3012,7 @@
   {
     "name": "auten",
     "description": "Computer use for Claude Code: click, type and read the screen on your Mac, Windows or Linux computer and your Android phone over USB (beta), even in apps with no API. Reads the accessibility tree, types saved passwords locally, and asks before anything irreversible. Free plan 30 minutes of runtime a month.",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "author": {
       "name": "Auten",
       "url": "https://auten.ai"
@@ -3033,7 +3033,7 @@
       "source": "git-subdir",
       "url": "https://github.com/auten-ai/auten-mcp.git",
       "path": "plugin",
-      "sha": "cbce03802f7d47caa3923ae4a32b99a884430677"
+      "sha": "537d8e3d1df29f0edeba8fceff49865092036306"
     }
   },
   {
@@ -3213,6 +3213,87 @@
     ],
     "category": "mcp-servers",
     "source": "./plugins/baizhi-agent-toolkit"
+  },
+  {
+    "name": "cc-aws-keepalive",
+    "description": "Keeps Claude Code sessions on AWS Bedrock alive through credential expiry. Scripts for awsCredentialExport and awsAuthRefresh, added to settings.json by hand, read fresh credentials from ~/.aws/credentials and can re-run your login. A UserPromptSubmit hook warns when expiry is near or past. Works with saml2aws, gimme-aws-creds, aws-google-auth and any tool that writes to ~/.aws/credentials.",
+    "version": "0.5.1",
+    "author": {
+      "name": "GeiserX",
+      "url": "https://github.com/GeiserX"
+    },
+    "homepage": "https://github.com/GeiserX/cc-aws-keepalive",
+    "repository": "https://github.com/GeiserX/cc-aws-keepalive",
+    "license": "GPL-3.0-or-later",
+    "keywords": [
+      "aws",
+      "bedrock",
+      "credentials",
+      "sso",
+      "saml",
+      "keepalive"
+    ],
+    "category": "productivity",
+    "source": {
+      "source": "github",
+      "repo": "GeiserX/cc-aws-keepalive"
+    }
+  },
+  {
+    "name": "ultramod",
+    "description": "All-in-one mod pack for Claude Code: a usage limits and context HUD, a guard with undo for rm -rf and git reset --hard, .env and secret protection, and a receipt for every turn. Ten mods in one plugin; needs Claude Code 2.1.287 or later.",
+    "version": "1.0.11",
+    "author": {
+      "name": "Mert Kaya",
+      "url": "https://github.com/mertkayacs"
+    },
+    "homepage": "https://ultramod.mertkayacs.com",
+    "repository": "https://github.com/mertkayacs/ultramod",
+    "license": "MIT",
+    "keywords": [
+      "claude-code",
+      "mods",
+      "hooks",
+      "context",
+      "usage-limits",
+      "guardrails",
+      "secrets"
+    ],
+    "category": "monitoring",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/mertkayacs/ultramod.git",
+      "path": "plugin",
+      "ref": "v1.0.11"
+    }
+  },
+  {
+    "name": "reevesagents",
+    "description": "Lets Claude Code start other AI coding CLIs (Claude Code, Codex, Kimi, Qwen, OpenCode) in their own tmux windows, send them prompts, read their output and stop them, through the reevesagents MCP server. Ships one skill and the MCP config; needs the reevesagents npm package and tmux.",
+    "version": "1.0.1",
+    "author": {
+      "name": "Mert Kaya",
+      "url": "https://github.com/mertkayacs"
+    },
+    "homepage": "https://reevesagents.mertkayacs.com",
+    "repository": "https://github.com/mertkayacs/reevesagents-skill",
+    "license": "Apache-2.0",
+    "keywords": [
+      "agents",
+      "multi-agent",
+      "orchestration",
+      "mcp",
+      "tmux",
+      "codex",
+      "kimi",
+      "opencode"
+    ],
+    "category": "orchestration",
+    "source": {
+      "source": "github",
+      "repo": "mertkayacs/reevesagents-skill",
+      "ref": "v1.0.1"
+    }
   },
   {
     "name": "convika",
