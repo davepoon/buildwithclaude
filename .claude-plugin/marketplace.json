@@ -3217,7 +3217,7 @@
   {
     "name": "convika",
     "description": "Publish a page Claude wrote, or an HTML file in your repo, at a convika.com address or on your own domain. Convika keeps signups from the page's form and counts visits, traffic sources, and button clicks. Sign-in is OAuth in the browser, so Claude never holds an API key. The publish-page skill shows a private preview and asks before it publishes.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": {
       "name": "Convika",
       "url": "https://convika.com"
@@ -3238,7 +3238,7 @@
       "source": "git-subdir",
       "url": "https://github.com/tomoyaf/convika-mcp.git",
       "path": "plugins/convika",
-      "ref": "convika--v1.0.0"
+      "ref": "convika--v1.0.1"
     }
   }
   ]
