@@ -3213,6 +3213,32 @@
     ],
     "category": "mcp-servers",
     "source": "./plugins/baizhi-agent-toolkit"
-  }
+  },
+    {
+      "name": "show-your-work",
+      "description": "Claude shows its finished work inline in the terminal: screenshots, Playwright recordings of it clicking through your app, and synced side-by-side before/after QA. A mod for Ghostty and kitty on macOS.",
+      "version": "0.4.0",
+      "author": {
+        "name": "Umer Ansari",
+        "url": "https://github.com/iamumeransari"
+      },
+      "homepage": "https://github.com/iamumeransari/claude-show-your-work",
+      "repository": "https://github.com/iamumeransari/claude-show-your-work",
+      "license": "MIT",
+      "keywords": [
+        "screenshots",
+        "video",
+        "playwright",
+        "qa",
+        "kitty",
+        "ghostty",
+        "claude-code"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "iamumeransari/claude-show-your-work"
+      }
+    }
   ]
 }
