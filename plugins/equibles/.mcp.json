@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "equibles": {
+      "type": "http",
+      "url": "https://mcp.equibles.com/mcp"
+    }
+  }
+}

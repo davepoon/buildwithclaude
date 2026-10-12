@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "skyvern": {
+      "type": "http",
+      "url": "https://api.skyvern.com/mcp/"
+    }
+  }
+}
