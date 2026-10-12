@@ -3486,6 +3486,33 @@
       "path": "plugins/lnpl-mcp",
       "ref": "main"
     }
-  }
+  },
+    {
+      "name": "show-your-work",
+      "description": "Claude shows its finished work inline in the terminal: screenshots, Playwright recordings of it clicking through your app, and synced side-by-side before/after QA. A mod for Ghostty and kitty on macOS. It sends anonymous usage counts and checks GitHub for updates once a day; turn either off with /show-your-work-settings.",
+      "version": "0.5.16",
+      "author": {
+        "name": "Umer Ansari",
+        "url": "https://github.com/iamumeransari"
+      },
+      "homepage": "https://github.com/iamumeransari/claude-show-your-work",
+      "repository": "https://github.com/iamumeransari/claude-show-your-work",
+      "license": "MIT",
+      "keywords": [
+        "screenshots",
+        "video",
+        "playwright",
+        "qa",
+        "kitty",
+        "ghostty",
+        "claude-code"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "iamumeransari/claude-show-your-work",
+        "ref": "show-your-work--v0.5.16"
+      }
+    }
   ]
 }
