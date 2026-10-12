@@ -3545,6 +3545,33 @@
       "path": "plugins/claude-code/looot",
       "sha": "12408693408ad97d0f417e8a4d3aa413598bd376"
     }
+  },
+  {
+    "name": "notfair",
+    "description": "Open-source SEO, GEO, and marketing skills (48) with one hosted NotFair MCP connection (OAuth). Audit sites and content for search and AI-answer visibility, analyze GA4 and Search Console, review Google, Meta, X, LinkedIn, Reddit, and TikTok Ads, operate connected WordPress and GoHighLevel accounts, and execute only changes the user approves.",
+    "version": "0.27.16",
+    "author": {
+      "name": "NotFair",
+      "url": "https://notfair.co"
+    },
+    "homepage": "https://notfair.co",
+    "repository": "https://github.com/nowork-studio/notfair-plugin",
+    "license": "MIT",
+    "keywords": [
+      "seo",
+      "geo",
+      "google-ads",
+      "meta-ads",
+      "google-analytics",
+      "search-console",
+      "wordpress",
+      "mcp"
+    ],
+    "category": "sales-marketing",
+    "source": {
+      "source": "github",
+      "repo": "nowork-studio/notfair-plugin"
+    }
   }
   ]
 }
