@@ -3374,6 +3374,32 @@
       "path": "plugins/kordoc",
       "ref": "main"
     }
+  },
+  {
+    "name": "harness-scope",
+    "description": "A Claude Code mod that turns global skills, agents, instruction files (CLAUDE.md and rules) and tools on or off per repo through named profiles. A repo picks a profile with a one-line .claude/harness-scope.json; repos without the file are unchanged. It only reads: no file writes, network requests, child processes or model calls.",
+    "version": "0.1.5",
+    "author": {
+      "name": "shimo4228",
+      "url": "https://github.com/shimo4228"
+    },
+    "homepage": "https://github.com/shimo4228/harness-scope",
+    "repository": "https://github.com/shimo4228/harness-scope",
+    "license": "MIT",
+    "keywords": [
+      "mod",
+      "profiles",
+      "skills",
+      "agents",
+      "claude-code"
+    ],
+    "category": "productivity",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/shimo4228/harness-scope.git",
+      "path": "plugin",
+      "sha": "efae82bc43c273e096130a7e0e549abf7aa1ed1a"
+    }
   }
   ]
 }
