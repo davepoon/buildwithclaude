@@ -3675,6 +3675,36 @@
       "repo": "Kadajett/cockney",
       "sha": "9d65e6eb0f20f6e52417c7b44bc92edee38c65bb"
     }
+  },
+  {
+    "name": "asitis",
+    "description": "Read-only plugin and MCP server that lints CLAUDE.md, AGENTS.md and SKILL.md against the vendors' published rules, estimates the tokens they load each session, and flags hidden instructions: HTML and [//]: # comments addressed to the AI, zero-width and bidi characters, and styled-away text. An optional guard hook warns before Claude rewrites a whole markdown file or strips its line endings or BOM. Stdio only, no network calls, runs under Node's permission model (Node 22.13+).",
+    "version": "0.2.1",
+    "author": {
+      "name": "AsItIs",
+      "url": "https://asitis.app"
+    },
+    "homepage": "https://asitis.app/claude-code",
+    "repository": "https://github.com/Katta041/asitis-agent-tools",
+    "license": "MIT",
+    "keywords": [
+      "markdown",
+      "claude-md",
+      "agents-md",
+      "skill-md",
+      "lint",
+      "hidden-instructions",
+      "context-budget",
+      "mcp"
+    ],
+    "category": "productivity",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/Katta041/asitis-agent-tools.git",
+      "path": "plugins/asitis",
+      "ref": "v0.2.1",
+      "sha": "73e81c8b2a06529a43ef53794ba6ae1cf1d7619b"
+    }
   }
   ]
 }
