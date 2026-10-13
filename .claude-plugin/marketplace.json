@@ -3545,6 +3545,32 @@
       "path": "plugins/claude-code/looot",
       "sha": "12408693408ad97d0f417e8a4d3aa413598bd376"
     }
+  },
+  {
+    "name": "succession",
+    "description": "Gives each Claude Code session a name, and a way to hand work to the next one. After install, the first session in a git project gets a name by itself (Sextant, Astrolabe, ...). Turn handoffs on and the session is seated as a numbered officeholder (Sextant-001), checkpoints its work, and closes with a handoff; before the successor takes the seat, a shell script checks that the commits, files and log entries the handoff cites exist, and prints the count. Plain files in a .succession/ folder, POSIX sh, no network calls.",
+    "version": "0.9.2",
+    "author": {
+      "name": "Adam Zachariah Balkwill",
+      "url": "https://github.com/thecontinuitylayer"
+    },
+    "homepage": "https://thecontinuitylayer.com/succession",
+    "repository": "https://github.com/thecontinuitylayer/succession",
+    "license": "MIT",
+    "keywords": [
+      "handoff",
+      "continuity",
+      "session-names",
+      "checkpoints",
+      "verification",
+      "lineage",
+      "git"
+    ],
+    "category": "productivity",
+    "source": {
+      "source": "github",
+      "repo": "thecontinuitylayer/succession"
+    }
   }
   ]
 }
