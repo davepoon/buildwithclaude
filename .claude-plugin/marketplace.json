@@ -3702,6 +3702,28 @@
         "source": "github",
         "repo": "nowork-studio/notfair-plugin"
       }
+    },
+    {
+      "name": "solidping",
+      "description": "Uptime monitoring through one remote MCP server (OAuth 2.1). List and create checks across 40+ check types, read results and incidents, diagnose a failing check, and manage status pages and maintenance windows. Every create, update or delete waits for the user's yes; check names, results and fetched pages are treated as untrusted data. Works with the hosted service at solidping.io; self-hosted instances serve the same endpoint.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Florent Clairambault",
+        "url": "https://github.com/fclairamb"
+      },
+      "homepage": "https://www.solidping.io",
+      "repository": "https://github.com/fclairamb/solidping",
+      "license": "AGPL-3.0",
+      "keywords": [
+        "mcp",
+        "monitoring",
+        "uptime",
+        "status-page",
+        "incidents",
+        "observability"
+      ],
+      "category": "mcp-servers",
+      "source": "./plugins/solidping"
     }
   ]
 }
