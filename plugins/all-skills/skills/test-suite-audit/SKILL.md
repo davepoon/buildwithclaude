@@ -45,7 +45,7 @@ Python 3.12+ in the project's environment, with `pytest-cov` (and `pytest-random
 2. State the budget: `quick` is 5 minutes (baseline, timings, coverage; no mutants); `deep` defaults to 30 minutes. Projects over about 3,500 executable lines need 30 minutes or more.
 3. Run:
    ```bash
-   uvx --from "git+https://github.com/timini/agentic-verification#subdirectory=runner" tsa deep . --budget-minutes 30
+   uvx --from "git+https://github.com/timini/agentic-verification@v0.2.0#subdirectory=runner" tsa deep . --budget-minutes 30
    ```
    Use a Bash timeout above the budget. The last stdout line is JSON with the report paths.
 4. Read `report.json` and `report.md` (see `references/report.md` for statuses and labels).
