@@ -3702,6 +3702,32 @@
         "source": "github",
         "repo": "nowork-studio/notfair-plugin"
       }
+    },
+    {
+      "name": "guardrails-lite",
+      "description": "Pattern-based PreToolUse-style checks that deny .env reads (Read/Grep/Glob and Bash readers), git force pushes, and recursive rm on /, ~ or $HOME before Claude Code runs them. About 75 lines of dependency-free JavaScript.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Stack & Ship",
+        "url": "https://github.com/edtrackai"
+      },
+      "homepage": "https://github.com/edtrackai/claude-code-guardrails-lite",
+      "repository": "https://github.com/edtrackai/claude-code-guardrails-lite",
+      "license": "MIT",
+      "keywords": [
+        "security",
+        "guardrails",
+        "env",
+        "secrets",
+        "force-push",
+        "hooks"
+      ],
+      "category": "security",
+      "source": {
+        "source": "github",
+        "repo": "edtrackai/claude-code-guardrails-lite",
+        "sha": "b11ca0932ce08a49bb2b05e38ee6e18c862af130"
+      }
     }
   ]
 }
