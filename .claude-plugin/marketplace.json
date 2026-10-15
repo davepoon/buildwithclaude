@@ -3702,6 +3702,33 @@
         "source": "github",
         "repo": "nowork-studio/notfair-plugin"
       }
+    },
+    {
+      "name": "moltnode",
+      "description": "MoltNode by Chord: two hosted MCP servers and three skills, no API key. MoltNode reads 31 blockchains over JSON-RPC; Chord returns best-route DEX swap quotes and unsigned swap transactions (with the approval and a simulation) on Base, Monad, BNB Chain, Avalanche, Arbitrum, Robinhood Chain and Arc, plus token boards, candles, wallet PnL and smart money. Non-custodial: the agent's own wallet signs every transaction. Skills: moltnode (reads and swaps end to end), chord (trading and market data), chord-charts (candlestick SVG charts for tokens on 7 EVM chains and Solana).",
+      "version": "1.1.3",
+      "author": {
+        "name": "Chord",
+        "url": "https://getchord.xyz"
+      },
+      "homepage": "https://moltnode.ag/agents",
+      "repository": "https://github.com/tuantqse90/moltnode-mcp",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "blockchain",
+        "json-rpc",
+        "swap",
+        "dex",
+        "defi",
+        "crypto",
+        "chart"
+      ],
+      "category": "finance",
+      "source": {
+        "source": "github",
+        "repo": "tuantqse90/moltnode-mcp"
+      }
     }
   ]
 }
