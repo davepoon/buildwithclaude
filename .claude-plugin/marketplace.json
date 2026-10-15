@@ -3702,6 +3702,31 @@
         "source": "github",
         "repo": "nowork-studio/notfair-plugin"
       }
+    },
+  {
+    "name": "zeptap",
+    "description": "Operate a real iPhone from Claude Code through a local MCP server in the Zeptap Mac app. Claude sees the screen over USB and taps and types over Bluetooth, with nothing installed on the phone. Tools include screenshot, find_text, tap, tap_text, type_text, open_app and unlock. The Mac app is closed source and paid (macOS 14+), with the first hour free.",
+    "version": "1.0.0",
+    "author": {
+      "name": "Zeptap",
+      "url": "https://zeptap.com"
+    },
+    "homepage": "https://zeptap.com/docs/agents/tools",
+    "repository": "https://github.com/Zeptap/mcp",
+    "license": "MIT",
+    "keywords": [
+      "iphone",
+      "ios",
+      "mobile",
+      "macos",
+      "mcp"
+    ],
+    "category": "mcp-servers",
+    "source": {
+      "source": "github",
+      "repo": "Zeptap/mcp",
+      "sha": "2fef9a3dcde507d5bbae7c261beafa7230bf2f96"
     }
+  }
   ]
 }
