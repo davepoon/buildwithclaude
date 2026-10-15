@@ -3702,6 +3702,33 @@
         "source": "github",
         "repo": "nowork-studio/notfair-plugin"
       }
+    },
+    {
+      "name": "altorank",
+      "description": "Open-source SEO content software (AGPL-3.0) with one hosted AltoRank MCP connection (OAuth) and a usage skill. Check a site's readiness for search engines and AI crawlers, research keywords, read Google Search Console, and write sourced SEO drafts into a person's review queue. The MCP server has no approve or publish tool.",
+      "version": "1.0.0",
+      "author": {
+        "name": "AltoRank",
+        "url": "https://altorank.co"
+      },
+      "homepage": "https://altorank.co/docs/mcp/",
+      "repository": "https://github.com/AltoRank/altorank",
+      "license": "AGPL-3.0",
+      "keywords": [
+        "seo",
+        "geo",
+        "search-console",
+        "keyword-research",
+        "content",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/AltoRank/altorank.git",
+        "path": "plugins/altorank",
+        "ref": "main"
+      }
     }
   ]
 }
