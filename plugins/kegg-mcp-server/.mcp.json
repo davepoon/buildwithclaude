@@ -2,7 +2,7 @@
   "mcpServers": {
     "kegg": {
       "command": "uvx",
-      "args": ["kegg-mcp-server"]
+      "args": ["kegg-mcp-server==0.5.0"]
     }
   }
 }
