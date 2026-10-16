@@ -3754,6 +3754,36 @@
         "repo": "JayPokale/Chisle",
         "sha": "b0fde39bbc2901683d27114071b5954c2799430a"
       }
+    },
+    {
+      "name": "ai-agent-skills",
+      "description": "Thinking Methods: curated Agent Skills (SKILL.md) for structured thinking on real decisions—five whys, pre-mortem, trade-offs, prioritization, six thinking hats, and twelve more methods plus a selector that picks the right method. Install via /plugin marketplace add ysskrishna/ai-agent-skills then /plugin install ai-agent-skills@ai-agent-skills.",
+      "version": "1.4.1",
+      "author": {
+        "name": "ysskrishna",
+        "url": "https://ysskrishna.space"
+      },
+      "homepage": "https://github.com/ysskrishna/ai-agent-skills",
+      "repository": "https://github.com/ysskrishna/ai-agent-skills",
+      "license": "MIT",
+      "keywords": [
+        "skills",
+        "agent-skills",
+        "thinking",
+        "decision-support",
+        "five-whys",
+        "pre-mortem",
+        "six-thinking-hats",
+        "critical-thinking",
+        "brainstorming",
+        "claude-code"
+      ],
+      "category": "skills",
+      "source": {
+        "source": "github",
+        "repo": "ysskrishna/ai-agent-skills",
+        "sha": "8a6a5745556e60706ac5fa889dcc66ccd3a875b0"
+      }
     }
   ]
 }
