@@ -3764,7 +3764,7 @@
         "url": "https://www.measure.co"
       },
       "homepage": "https://www.measure.co/app/mcp",
-      "repository": "https://github.com/tarunkapoor1/measure-claude-plugin",
+      "repository": "https://github.com/measure-co/measure-claude-plugin",
       "license": "MIT",
       "keywords": [
         "seo",
@@ -3779,8 +3779,8 @@
       "category": "marketing",
       "source": {
         "source": "github",
-        "repo": "tarunkapoor1/measure-claude-plugin",
-        "sha": "6500166afa45bff90937795e9cfaa9411cb8bf3b"
+        "repo": "measure-co/measure-claude-plugin",
+        "sha": "1275105ece46ce14c2bbd0c35df6e7b9408ac58d"
       }
     }
   ]
