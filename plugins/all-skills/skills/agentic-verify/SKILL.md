@@ -91,4 +91,4 @@ with the verdict and report paths.
    - the fast check command from the report, and the path to `report.md`.
    Do not say the change is correct. Say what the tests now catch.
 
-For the meaning of statuses and labels, see [reading the report](../agentic-audit/references/report.md).
+For the meaning of statuses and labels, see [reading the report](https://github.com/timini/agentic-verification/blob/v0.3.0/plugin/skills/audit/reference/report.md).
