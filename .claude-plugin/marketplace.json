@@ -3702,6 +3702,30 @@
         "source": "github",
         "repo": "nowork-studio/notfair-plugin"
       }
+    },
+    {
+      "name": "akc-cycle",
+      "description": "Audit and upkeep skills that keep the rules and skills in a Claude Code setup from piling up and going stale. Ask \"audit my skills\" and skill-stocktake proposes keep, merge or retire for each skill with a reason; the audit skills change a file only after you confirm it. Skills only: no hooks, no MCP servers, no settings. Some skills run bundled Python scripts with uv, and skill-comply and skill-stocktake start separate claude -p sessions.",
+      "version": "1.5.0",
+      "author": {
+        "name": "shimo4228",
+        "url": "https://github.com/shimo4228"
+      },
+      "homepage": "https://github.com/shimo4228/akc-cycle",
+      "repository": "https://github.com/shimo4228/akc-cycle",
+      "license": "MIT",
+      "keywords": [
+        "agent-knowledge-cycle",
+        "skills",
+        "curation",
+        "knowledge-management"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "shimo4228/akc-cycle",
+        "sha": "f66a18fc52dd6f79c53bce8863f4e275d567f955"
+      }
     }
   ]
 }
