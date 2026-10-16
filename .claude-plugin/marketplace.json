@@ -3754,6 +3754,34 @@
         "repo": "JayPokale/Chisle",
         "sha": "b0fde39bbc2901683d27114071b5954c2799430a"
       }
+    },
+    {
+      "name": "moltnode",
+      "description": "MoltNode by Chord: two hosted MCP servers and three skills, no API key. MoltNode reads 31 blockchains over JSON-RPC; Chord returns best-route DEX swap quotes and unsigned swap transactions (with the approval and a simulation) on Ethereum, Base, Arbitrum, BNB Chain, Avalanche, Monad, Robinhood Chain and Arc, plus token boards, candles, wallet PnL and smart money. Non-custodial: the user's own wallet signs every transaction, after the user confirms the quote in a later message. Skills: moltnode (reads and swaps end to end), chord (trading and market data), chord-charts (candlestick SVG charts for tokens on 8 EVM chains and Solana).",
+      "version": "1.1.4",
+      "author": {
+        "name": "Chord",
+        "url": "https://getchord.xyz"
+      },
+      "homepage": "https://moltnode.ag/agents",
+      "repository": "https://github.com/tuantqse90/moltnode-mcp",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "blockchain",
+        "json-rpc",
+        "swap",
+        "dex",
+        "defi",
+        "crypto",
+        "chart"
+      ],
+      "category": "finance",
+      "source": {
+        "source": "github",
+        "repo": "tuantqse90/moltnode-mcp",
+        "sha": "ff8de7c5182ce308f823a4a4db2a3804c2532c8a"
+      }
     }
   ]
 }
