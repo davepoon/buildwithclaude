@@ -3712,7 +3712,7 @@
         "url": "https://hypotize.ai"
       },
       "homepage": "https://hypotize.ai/mcp",
-      "repository": "https://github.com/viluca94/hypotize-plugin",
+      "repository": "https://github.com/hypotizeai/hypotize-plugin",
       "license": "MIT",
       "keywords": [
         "growth",
@@ -3726,7 +3726,7 @@
       "category": "sales-marketing",
       "source": {
         "source": "github",
-        "repo": "viluca94/hypotize-plugin"
+        "repo": "hypotizeai/hypotize-plugin"
       }
     }
   ]
