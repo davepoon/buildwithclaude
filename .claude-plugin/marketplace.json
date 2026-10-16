@@ -3754,6 +3754,34 @@
         "repo": "JayPokale/Chisle",
         "sha": "b0fde39bbc2901683d27114071b5954c2799430a"
       }
+    },
+    {
+      "name": "measure",
+      "description": "Official Measure connector: track how your brand shows up in ChatGPT, Perplexity, Gemini, Claude and Google AI Overviews — visibility, citations, competitors, source gaps and GEO page audits via a remote OAuth MCP server.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Measure",
+        "url": "https://www.measure.co"
+      },
+      "homepage": "https://www.measure.co/app/mcp",
+      "repository": "https://github.com/tarunkapoor1/measure-claude-plugin",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "geo",
+        "aeo",
+        "ai-search",
+        "ai-visibility",
+        "citations",
+        "mcp",
+        "marketing"
+      ],
+      "category": "marketing",
+      "source": {
+        "source": "github",
+        "repo": "tarunkapoor1/measure-claude-plugin",
+        "sha": "6500166afa45bff90937795e9cfaa9411cb8bf3b"
+      }
     }
   ]
 }
