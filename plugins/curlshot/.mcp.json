@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "curlshot": {
+      "type": "http",
+      "url": "https://curlshot.com/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${CURLSHOT_API_KEY}"
+      }
+    }
+  }
+}

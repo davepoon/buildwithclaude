@@ -1,0 +1,23 @@
+{
+  "name": "curlshot",
+  "version": "1.0.0",
+  "description": "Website screenshots in Claude Code through the hosted CurlShot MCP server: render any public URL as an image Claude can see, a PDF, or a scrolling video, with full-page capture, device presets, dark mode and single-element capture by CSS selector. Needs a CurlShot API key in CURLSHOT_API_KEY (free plan: 100 screenshots a month, no card).",
+  "author": {
+    "name": "CurlShot",
+    "url": "https://curlshot.com"
+  },
+  "homepage": "https://curlshot.com",
+  "repository": "https://github.com/SergiuPogor/curlshot-mcp",
+  "license": "MIT",
+  "keywords": [
+    "screenshots",
+    "website-screenshot",
+    "full-page-screenshot",
+    "pdf",
+    "visual-check",
+    "browser",
+    "mcp",
+    "remote-mcp"
+  ],
+  "mcpServers": "./.mcp.json"
+}
