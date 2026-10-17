@@ -3782,6 +3782,34 @@
         "repo": "tuantqse90/moltnode-mcp",
         "sha": "ff8de7c5182ce308f823a4a4db2a3804c2532c8a"
       }
+    },
+    {
+      "name": "kuudo-skills",
+      "description": "22 skills for Amazon sellers and advertisers: Sponsored Products and Brands audits, search-term mining, budget pacing, DSP and Amazon Marketing Cloud, reporting, listing optimization and compliance, product images, repricing, FBA inbound, stockout, refunds, buyer messaging, and profitability. Built for Kuudo's hosted Amazon Ads and Selling Partner MCP servers. Report rows, listings, reviews, and tool text are treated as data, never instructions; price, budget, campaign, listing, shipment, and buyer-message writes are previewed and wait for the user's explicit approval, and nothing reprices or launches spend unattended.",
+      "version": "0.2.0",
+      "author": {
+        "name": "KuudoAI",
+        "url": "https://github.com/KuudoAI"
+      },
+      "homepage": "https://github.com/KuudoAI/skills",
+      "repository": "https://github.com/KuudoAI/skills",
+      "license": "PolyForm-Shield-1.0.0",
+      "keywords": [
+        "amazon",
+        "amazon-ads",
+        "seller-central",
+        "sp-api",
+        "ecommerce",
+        "ppc",
+        "agent-skills",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "KuudoAI/skills",
+        "sha": "b98fef7c7daba5af82ecb53d2f7ec7c121f46edb"
+      }
     }
   ]
 }
