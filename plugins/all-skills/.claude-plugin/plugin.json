@@ -1,7 +1,7 @@
 {
   "name": "all-skills",
   "version": "1.0.0",
-  "description": "Complete collection of 188 Claude Code skills for document processing, development, business productivity, research, media safety, and creative tasks",
+  "description": "Complete collection of 189 Claude Code skills for document processing, development, business productivity, research, media safety, and creative tasks",
   "author": {
     "name": "BuildWithClaude Community",
     "url": "https://github.com/davepoon/buildwithclaude"
@@ -13,6 +13,7 @@
     "all",
     "bundle",
     "ad-angle-research",
+    "agentwhy-session-audit",
     "artifacts-builder",
     "brand-guidelines",
     "canvas-design",

@@ -1864,7 +1864,7 @@
     {
       "name": "kegg-mcp-server",
       "description": "Query the KEGG bioinformatics database — pathways, genes, compounds, drugs, enzymes, diseases, reactions, and more via 34 read-only MCP tools. No API key required.",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "author": {
         "name": "Lucas Servi",
         "url": "https://github.com/Lucas-Servi"
@@ -3012,7 +3012,7 @@
   {
     "name": "auten",
     "description": "Computer use for Claude Code: click, type and read the screen on your Mac, Windows or Linux computer and your Android phone over USB (beta), even in apps with no API. Reads the accessibility tree, types saved passwords locally, and asks before anything irreversible. Free plan 30 minutes of runtime a month.",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "author": {
       "name": "Auten",
       "url": "https://auten.ai"
@@ -3033,7 +3033,7 @@
       "source": "git-subdir",
       "url": "https://github.com/auten-ai/auten-mcp.git",
       "path": "plugin",
-      "sha": "537d8e3d1df29f0edeba8fceff49865092036306"
+      "sha": "6502c592c3a9c1a091af9b3312caf93bc6446740"
     }
   },
   {
@@ -3629,7 +3629,7 @@
   {
     "name": "subagent-tuner",
     "description": "Claude Code mod that lets you choose the model and reasoning effort of every subagent: ask before it starts, take a recommendation by task kind, or let a saved default replace what the agent requested.",
-    "version": "0.1.4",
+    "version": "0.1.7",
     "author": {
       "name": "Aleh Kruhlikau",
       "url": "https://github.com/Kruhlikau"
@@ -3704,9 +3704,89 @@
       }
     },
     {
+      "name": "guardrails-lite",
+      "description": "Pattern-based PreToolUse-style checks that deny .env reads (Read/Grep/Glob and Bash readers), git force pushes, and recursive rm on /, ~ or $HOME before Claude Code runs them. About 75 lines of dependency-free JavaScript.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Stack & Ship",
+        "url": "https://github.com/edtrackai"
+      },
+      "homepage": "https://github.com/edtrackai/claude-code-guardrails-lite",
+      "repository": "https://github.com/edtrackai/claude-code-guardrails-lite",
+      "license": "MIT",
+      "keywords": [
+        "security",
+        "guardrails",
+        "env",
+        "secrets",
+        "force-push",
+        "hooks"
+      ],
+      "category": "security",
+      "source": {
+        "source": "github",
+        "repo": "edtrackai/claude-code-guardrails-lite",
+        "sha": "b11ca0932ce08a49bb2b05e38ee6e18c862af130"
+      }
+    },
+    {
+      "name": "chisle",
+      "description": "Cuts Claude Code's token use on three axes: terse answers that keep every decisive fact, smallest-code-that-works rules, and a PostToolUse hook that trims oversized tool output before it re-enters the context. Benchmarks with raw transcripts, including the runs it loses, are published in the repository.",
+      "version": "3.7.0",
+      "author": {
+        "name": "Jay Pokale",
+        "url": "https://github.com/JayPokale"
+      },
+      "homepage": "https://chisle.jaypokale.me",
+      "repository": "https://github.com/JayPokale/Chisle",
+      "license": "MIT",
+      "keywords": [
+        "token-optimization",
+        "cost",
+        "context",
+        "hooks",
+        "productivity",
+        "yagni"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "JayPokale/Chisle",
+        "sha": "b0fde39bbc2901683d27114071b5954c2799430a"
+      }
+    },
+    {
+      "name": "moltnode",
+      "description": "MoltNode by Chord: two hosted MCP servers and three skills, no API key. MoltNode reads 31 blockchains over JSON-RPC; Chord returns best-route DEX swap quotes and unsigned swap transactions (with the approval and a simulation) on Ethereum, Base, Arbitrum, BNB Chain, Avalanche, Monad, Robinhood Chain and Arc, plus token boards, candles, wallet PnL and smart money. Non-custodial: the user's own wallet signs every transaction, after the user confirms the quote in a later message. Skills: moltnode (reads and swaps end to end), chord (trading and market data), chord-charts (candlestick SVG charts for tokens on 8 EVM chains and Solana).",
+      "version": "1.1.4",
+      "author": {
+        "name": "Chord",
+        "url": "https://getchord.xyz"
+      },
+      "homepage": "https://moltnode.ag/agents",
+      "repository": "https://github.com/tuantqse90/moltnode-mcp",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "blockchain",
+        "json-rpc",
+        "swap",
+        "dex",
+        "defi",
+        "crypto",
+        "chart"
+      ],
+      "category": "finance",
+      "source": {
+        "source": "github",
+        "repo": "tuantqse90/moltnode-mcp",
+        "sha": "ff8de7c5182ce308f823a4a4db2a3804c2532c8a"
+      }
+    },
+    {
       "name": "hypotize",
-      "description": "Growth experiment skills (3) with one hosted Hypotize MCP connection (OAuth). Check what the team already tested, write hypothesis-first ideas, score them with ICE, PIE or RICE, run a weekly pipeline review, import a backlog from a spreadsheet or Notion and close each test with a measured result and a learning. The server enforces the experiment stages and keeps delete access off unless the user grants it at sign-in.",
-      "version": "1.0.0",
+      "description": "Growth experiment skills (3) with one hosted Hypotize MCP connection (OAuth). Check what the team already tested, write hypothesis-first ideas, score them with ICE, PIE or RICE, run a weekly pipeline review, import a backlog from a spreadsheet or Notion and close each test with a measured result and a learning. The skills ask before any import or delete, and the server enforces the experiment stages and keeps delete access off unless the user grants it at sign-in.",
+      "version": "1.1.0",
       "author": {
         "name": "Hypotize",
         "url": "https://hypotize.ai"
@@ -3726,7 +3806,8 @@
       "category": "sales-marketing",
       "source": {
         "source": "github",
-        "repo": "hypotizeai/hypotize-plugin"
+        "repo": "hypotizeai/hypotize-plugin",
+        "sha": "55e3d69b903761997d48c1673748669938522d98"
       }
     }
   ]
