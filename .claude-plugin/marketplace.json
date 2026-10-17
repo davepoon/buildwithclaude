@@ -3782,6 +3782,33 @@
         "repo": "tuantqse90/moltnode-mcp",
         "sha": "ff8de7c5182ce308f823a4a4db2a3804c2532c8a"
       }
+    },
+    {
+      "name": "hypotize",
+      "description": "Growth experiment skills (3) with one hosted Hypotize MCP connection (OAuth). Check what the team already tested, write hypothesis-first ideas, score them with ICE, PIE or RICE, run a weekly pipeline review, import a backlog from a spreadsheet or Notion and close each test with a measured result and a learning. The skills ask before any import or delete, and the server enforces the experiment stages and keeps delete access off unless the user grants it at sign-in.",
+      "version": "1.1.0",
+      "author": {
+        "name": "Hypotize",
+        "url": "https://hypotize.ai"
+      },
+      "homepage": "https://hypotize.ai/mcp",
+      "repository": "https://github.com/hypotizeai/hypotize-plugin",
+      "license": "MIT",
+      "keywords": [
+        "growth",
+        "experimentation",
+        "experiments",
+        "ice",
+        "rice",
+        "learnings",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "hypotizeai/hypotize-plugin",
+        "sha": "55e3d69b903761997d48c1673748669938522d98"
+      }
     }
   ]
 }
