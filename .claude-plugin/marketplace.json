@@ -3784,6 +3784,32 @@
       }
     },
     {
+      "name": "lead-finder",
+      "description": "Finds B2B companies that fit your ideal customer and show a buying signal now, with a source link and an exact quote for every claim. Anything it can't check stays \"unknown\" instead of being guessed. A deterministic, standard-library Python script does the scoring, and hiring is checked on 7 public job-board APIs (Greenhouse, Lever, Ashby, SmartRecruiters, Recruitee, Breezy HR, Personio). No API keys.",
+      "version": "1.0.1",
+      "author": {
+        "name": "MachGTM",
+        "url": "https://machgtm.com"
+      },
+      "homepage": "https://github.com/MachGTM/lead-finder",
+      "repository": "https://github.com/MachGTM/lead-finder",
+      "license": "MIT",
+      "keywords": [
+        "sales",
+        "leads",
+        "prospecting",
+        "b2b",
+        "lead-scoring",
+        "gtm"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "MachGTM/lead-finder",
+        "sha": "a790b62e1333369150e98185b611232b8139c878"
+      }
+    },
+    {
       "name": "akc-cycle",
       "description": "Audit and upkeep skills that keep the rules and skills in a Claude Code setup from piling up and going stale. Ask \"audit my skills\" and skill-stocktake proposes keep, merge or retire for each skill with a reason; the audit skills change a file only after you confirm it. Skills only: no hooks, no MCP servers, no settings. Some skills run bundled Python scripts with uv, and skill-comply and skill-stocktake start separate claude -p sessions with the shell and subagent tools denied.",
       "version": "1.5.0",
