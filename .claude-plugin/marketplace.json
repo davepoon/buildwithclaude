@@ -3782,6 +3782,30 @@
         "repo": "tuantqse90/moltnode-mcp",
         "sha": "ff8de7c5182ce308f823a4a4db2a3804c2532c8a"
       }
+    },
+    {
+      "name": "akc-cycle",
+      "description": "Audit and upkeep skills that keep the rules and skills in a Claude Code setup from piling up and going stale. Ask \"audit my skills\" and skill-stocktake proposes keep, merge or retire for each skill with a reason; the audit skills change a file only after you confirm it. Skills only: no hooks, no MCP servers, no settings. Some skills run bundled Python scripts with uv, and skill-comply and skill-stocktake start separate claude -p sessions with the shell and subagent tools denied.",
+      "version": "1.5.0",
+      "author": {
+        "name": "shimo4228",
+        "url": "https://github.com/shimo4228"
+      },
+      "homepage": "https://github.com/shimo4228/akc-cycle",
+      "repository": "https://github.com/shimo4228/akc-cycle",
+      "license": "MIT",
+      "keywords": [
+        "agent-knowledge-cycle",
+        "skills",
+        "curation",
+        "knowledge-management"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "shimo4228/akc-cycle",
+        "sha": "f713b5658e419fedba535893db212f0a0b905a1a"
+      }
     }
   ]
 }
