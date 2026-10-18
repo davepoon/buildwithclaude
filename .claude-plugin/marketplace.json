@@ -3786,7 +3786,7 @@
     {
       "name": "lead-finder",
       "description": "Finds B2B companies that fit your ideal customer and show a buying signal now, with a source link and an exact quote for every claim. Anything it can't check stays \"unknown\" instead of being guessed. A deterministic, standard-library Python script does the scoring, and hiring is checked on 7 public job-board APIs (Greenhouse, Lever, Ashby, SmartRecruiters, Recruitee, Breezy HR, Personio). No API keys.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "MachGTM",
         "url": "https://machgtm.com"
@@ -3806,7 +3806,7 @@
       "source": {
         "source": "github",
         "repo": "MachGTM/lead-finder",
-        "sha": "b21eba2e2ec67ff250d1c188cd2973a03c0bae94"
+        "sha": "a790b62e1333369150e98185b611232b8139c878"
       }
     }
   ]
