@@ -3832,6 +3832,34 @@
         "repo": "shimo4228/akc-cycle",
         "sha": "f713b5658e419fedba535893db212f0a0b905a1a"
       }
+    },
+    {
+      "name": "twelfth",
+      "description": "Connect Claude Code to a Twelfth retail workspace: products, sales, inventory, suppliers, pricing, projects and actions, through a hosted MCP server with browser sign-in (needs a Twelfth account). Reads by default; with Allow changes at consent it can also manage your own actions and routines. Includes 8 skills for category reviews, range reviews, sales-decline diagnosis, supplier offers and competitor price checks.",
+      "version": "1.1.0",
+      "author": {
+        "name": "Twelfth AI Pty Ltd",
+        "url": "https://twelfth.ai"
+      },
+      "homepage": "https://twelfth.ai/developers/mcp",
+      "repository": "https://github.com/twelfth-ai/twelfth-mcp",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "retail",
+        "ecommerce",
+        "pricing",
+        "inventory",
+        "category-management",
+        "skills"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/twelfth-ai/twelfth-mcp.git",
+        "path": "plugins/twelfth",
+        "sha": "9041346bf83728fea5b1e35c427952380a9ea743"
+      }
     }
   ]
 }
