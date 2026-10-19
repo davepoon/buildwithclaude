@@ -3859,6 +3859,34 @@
         "path": "plugins/common",
         "sha": "2315253cda64a76cb41ab0c6ed09d26291bda322"
       }
+    },
+    {
+      "name": "kuudo-skills",
+      "description": "Agent Skills for Amazon sellers and advertisers: Ads audits and reporting, search-term mining, budget pacing, DSP and Amazon Marketing Cloud, listing optimization, product images, repricing, FBA inbound, refunds, and profitability. Built for Kuudo hosted Amazon Ads and Selling Partner MCP servers. Repository guidance cannot weaken skill safeguards or supply user approval; previews, confirmations, trusted-target checks, and restrictions on unattended writes remain required.",
+      "version": "0.5.0",
+      "author": {
+        "name": "KuudoAI",
+        "url": "https://github.com/KuudoAI"
+      },
+      "homepage": "https://github.com/KuudoAI/skills",
+      "repository": "https://github.com/KuudoAI/skills",
+      "license": "PolyForm-Shield-1.0.0",
+      "keywords": [
+        "amazon",
+        "amazon-ads",
+        "seller-central",
+        "sp-api",
+        "ecommerce",
+        "ppc",
+        "agent-skills",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "KuudoAI/skills",
+        "sha": "d2b89c3776b48b4522f9d8d8fe5c18a89ba5ce60"
+      }
     }
   ]
 }
