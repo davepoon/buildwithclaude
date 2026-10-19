@@ -3859,6 +3859,32 @@
         "path": "plugins/common",
         "sha": "2315253cda64a76cb41ab0c6ed09d26291bda322"
       }
+    },
+    {
+      "name": "sirv-media-skills",
+      "description": "Image and video optimization for web performance: audit and fix LCP/CLS, responsive images (srcset/sizes), AVIF/WebP/JPEG XL, lazy loading, HLS and posters. Also covers Sirv dynamic imaging URLs, the Sirv REST API, Sirv Media Viewer galleries, 360 spins, Sirv AI Studio, and e-commerce image workflows. 8 skills; no hooks, no MCP servers.",
+      "version": "1.0.1",
+      "author": {
+        "name": "Igor Varyvoda",
+        "url": "https://github.com/IgorVaryvoda"
+      },
+      "homepage": "https://www.imageguide.dev/tools/claude-skill/",
+      "repository": "https://github.com/IgorVaryvoda/image-optimization-skill",
+      "license": "MIT",
+      "keywords": [
+        "image-optimization",
+        "video-optimization",
+        "core-web-vitals",
+        "responsive-images",
+        "image-cdn",
+        "sirv"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "IgorVaryvoda/image-optimization-skill",
+        "sha": "6000fdac0951e8af403500f161810892fbb1d88d"
+      }
     }
   ]
 }
