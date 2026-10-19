@@ -3859,6 +3859,30 @@
         "path": "plugins/common",
         "sha": "2315253cda64a76cb41ab0c6ed09d26291bda322"
       }
+    },
+    {
+      "name": "anode",
+      "description": "A hidden background Windows desktop for agents: GUI automation, UI Automation, screenshots and app testing without taking over your mouse.",
+      "version": "0.11.3",
+      "author": {
+        "name": "skulitom",
+        "url": "https://github.com/skulitom"
+      },
+      "homepage": "https://github.com/skulitom/Anode#readme",
+      "repository": "https://github.com/skulitom/Anode",
+      "license": "MIT",
+      "keywords": [
+        "windows",
+        "desktop-automation",
+        "gui-testing",
+        "mcp"
+      ],
+      "category": "automation",
+      "source": {
+        "source": "github",
+        "repo": "skulitom/Anode",
+        "sha": "961816c2f659bffce0712742e3fd8b5351ba1524"
+      }
     }
   ]
 }
