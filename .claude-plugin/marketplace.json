@@ -3859,6 +3859,33 @@
         "path": "plugins/common",
         "sha": "2315253cda64a76cb41ab0c6ed09d26291bda322"
       }
+    },
+    {
+      "name": "yap",
+      "description": "Private, on-device speech to text. An MCP server that transcribes local audio and video files of any length with NVIDIA Parakeet (25 European languages, optional timestamps) and searches the dictation history of the Yap app on your computer, read-only. No upload and no API key: the speech model (about 670 MB) downloads once from Hugging Face on first use. Includes the transcribe-recordings skill.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Yap (O-mega Enterprise Inc.)",
+        "url": "https://yapapp.cc"
+      },
+      "homepage": "https://yapapp.cc/mcp",
+      "repository": "https://github.com/founden-bot/yap-mcp",
+      "license": "MIT",
+      "keywords": [
+        "speech-to-text",
+        "transcription",
+        "audio",
+        "dictation",
+        "offline",
+        "privacy",
+        "mcp"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "founden-bot/yap-mcp",
+        "sha": "83406a087801377cb7c77164fa31158820e9d413"
+      }
     }
   ]
 }
