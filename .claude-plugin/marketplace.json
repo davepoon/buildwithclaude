@@ -3938,5 +3938,30 @@
         "sha": "f54adf0da9c4fe31ff24631a3d7d0e3e8890dda2"
       }
     }
+    },
+    {
+      "name": "deed-page",
+      "description": "Publish an HTML file or static folder to a permanent public https://<slug>.deed.page/ URL with one curl request. No account; the first publish returns a token for updates and deletes. One skill, no hooks, no MCP servers, no commands.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Avatar 8 LLC",
+        "url": "https://deed.page"
+      },
+      "homepage": "https://deed.page",
+      "repository": "https://github.com/f-o-x11/deed-page-skill",
+      "license": "MIT",
+      "keywords": [
+        "hosting",
+        "static-site",
+        "publish",
+        "deploy",
+        "html"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "f-o-x11/deed-page-skill",
+        "sha": "9a45beefa8cdc9fa0c3062206baab690bd1b4731"
+      }
   ]
 }
