@@ -3937,6 +3937,29 @@
         "repo": "whereisdw/lidnight-claude-plugin",
         "sha": "f54adf0da9c4fe31ff24631a3d7d0e3e8890dda2"
       }
+    },
+    {
+      "name": "ainotate",
+      "description": "AInotate lets AI agents answer \"where is it?\" with an annotated screenshot: numbered steps, arrows, boxes and labels, with emails and tokens redacted.",
+      "version": "0.1.8",
+      "author": {
+        "name": "DontPayFull",
+        "url": "https://www.dontpayfull.com"
+      },
+      "homepage": "https://www.dontpayfull.com/labs/ainotate/",
+      "repository": "https://github.com/dontpayfull/AInotate",
+      "license": "AGPL-3.0-or-later",
+      "keywords": [
+        "screenshot",
+        "annotation",
+        "mcp"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "dontpayfull/AInotate",
+        "sha": "991620b9d0aabaa778e168aeed35d55300dd44e6"
+      }
     }
   ]
 }
