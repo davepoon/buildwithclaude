@@ -3937,7 +3937,6 @@
         "repo": "whereisdw/lidnight-claude-plugin",
         "sha": "f54adf0da9c4fe31ff24631a3d7d0e3e8890dda2"
       }
-    }
     },
     {
       "name": "deed-page",
@@ -3963,5 +3962,6 @@
         "repo": "f-o-x11/deed-page-skill",
         "sha": "9a45beefa8cdc9fa0c3062206baab690bd1b4731"
       }
+    }
   ]
 }
