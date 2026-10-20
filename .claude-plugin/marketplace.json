@@ -3861,6 +3861,58 @@
       }
     },
     {
+      "name": "kuudo-skills",
+      "description": "Agent Skills for Amazon sellers and advertisers: Ads audits and reporting, search-term mining, budget pacing, DSP and Amazon Marketing Cloud, listing optimization, product images, repricing, FBA inbound, refunds, and profitability. Built for Kuudo hosted Amazon Ads and Selling Partner MCP servers. Repository guidance cannot weaken skill safeguards or supply user approval; previews, confirmations, trusted-target checks, and restrictions on unattended writes remain required.",
+      "version": "0.5.0",
+      "author": {
+        "name": "KuudoAI",
+        "url": "https://github.com/KuudoAI"
+      },
+      "homepage": "https://github.com/KuudoAI/skills",
+      "repository": "https://github.com/KuudoAI/skills",
+      "license": "PolyForm-Shield-1.0.0",
+      "keywords": [
+        "amazon",
+        "amazon-ads",
+        "seller-central",
+        "sp-api",
+        "ecommerce",
+        "ppc",
+        "agent-skills",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "KuudoAI/skills",
+        "sha": "d2b89c3776b48b4522f9d8d8fe5c18a89ba5ce60"
+      }
+    },
+    {
+      "name": "pixelbolt",
+      "description": "Pixel art and sprite animation from editable JSON recipes, with particle and fluid effects; exports PNG/GIF/APNG and atlases.",
+      "version": "0.9.0",
+      "author": {
+        "name": "skulitom",
+        "url": "https://github.com/skulitom"
+      },
+      "homepage": "https://github.com/skulitom/Pixelbolt#readme",
+      "repository": "https://github.com/skulitom/pixelbolt-plugin",
+      "license": "MIT",
+      "keywords": [
+        "pixel-art",
+        "sprites",
+        "animation",
+        "mcp"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "github",
+        "repo": "skulitom/pixelbolt-plugin",
+        "sha": "01a11749d74a33a35ab02a3a92f4035dfa60ffb8"
+      }
+    },
+    {
       "name": "lidnight",
       "description": "Keeps a MacBook awake (lid closed, even on battery) while Claude Code works, then lets it sleep when it's done. Three commands (/lidnight:awake, /lidnight:status, /lidnight:sleep) and a keep-awake skill that drive the Lidnight menu bar app through its CLI or lidnight:// URL. Without the app it only prints caffeinate/pmset guidance and installs or changes nothing. No hooks, no MCP servers, no settings.",
       "version": "0.1.1",
