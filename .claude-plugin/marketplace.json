@@ -3859,6 +3859,31 @@
         "path": "plugins/common",
         "sha": "2315253cda64a76cb41ab0c6ed09d26291bda322"
       }
+    },
+    {
+      "name": "autopilot-wargame",
+      "description": "Five workflow skills for long and unattended Claude Code sessions. autopilot picks the one tracked task that needs no human decision, builds it test-first, has a separate verifier subagent try to break it, and opens a PR that auto-merges only when CI is green; anything ambiguous makes it stop and report instead. wargame writes a plan to an 8-point standard so a cheaper model can execute it. Plus delegate, afk and prepare-for-next-session. Skills only: no hooks or MCP servers. autopilot uses git and the GitHub CLI to push a branch, open a PR and merge it once CI passes, and never pushes to the default branch.",
+      "version": "1.1.0",
+      "author": {
+        "name": "DecodedXR",
+        "url": "https://github.com/DecodedXR"
+      },
+      "homepage": "https://decodedxr.github.io/claude-workflow-skills/",
+      "repository": "https://github.com/DecodedXR/claude-workflow-skills",
+      "license": "MIT",
+      "keywords": [
+        "autopilot",
+        "planning",
+        "subagents",
+        "autonomous",
+        "workflow"
+      ],
+      "category": "orchestration",
+      "source": {
+        "source": "github",
+        "repo": "DecodedXR/claude-workflow-skills",
+        "sha": "2ebec45581bb411cede3857662b50539283ed2ff"
+      }
     }
   ]
 }
