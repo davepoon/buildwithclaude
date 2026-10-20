@@ -3937,6 +3937,30 @@
         "repo": "whereisdw/lidnight-claude-plugin",
         "sha": "f54adf0da9c4fe31ff24631a3d7d0e3e8890dda2"
       }
+    },
+    {
+      "name": "anode",
+      "description": "A hidden background Windows desktop for agents: GUI automation, UI Automation, screenshots and app testing without taking over your mouse.",
+      "version": "0.11.3",
+      "author": {
+        "name": "skulitom",
+        "url": "https://github.com/skulitom"
+      },
+      "homepage": "https://github.com/skulitom/Anode#readme",
+      "repository": "https://github.com/skulitom/Anode",
+      "license": "MIT",
+      "keywords": [
+        "windows",
+        "desktop-automation",
+        "gui-testing",
+        "mcp"
+      ],
+      "category": "automation",
+      "source": {
+        "source": "github",
+        "repo": "skulitom/Anode",
+        "sha": "dc368ecd2c1fdaaa9c6cd7a9dfe74ccf1a36e6ce"
+      }
     }
   ]
 }
