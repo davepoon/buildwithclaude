@@ -3937,6 +3937,33 @@
         "repo": "whereisdw/lidnight-claude-plugin",
         "sha": "f54adf0da9c4fe31ff24631a3d7d0e3e8890dda2"
       }
+    },
+    {
+      "name": "prompt-cache-tracker",
+      "description": "Shows how long your prompt cache has left and refreshes it before it expires, so your next message after a break doesn't pay to rebuild it.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Hayk Mkrtchyan",
+        "url": "https://github.com/Hayk985"
+      },
+      "homepage": "https://github.com/Hayk985/prompt-cache-tracker",
+      "repository": "https://github.com/Hayk985/prompt-cache-tracker",
+      "license": "MIT",
+      "keywords": [
+        "prompt-cache",
+        "prompt-caching",
+        "cache",
+        "cache-ttl",
+        "cost-saving",
+        "claude-code",
+        "mod",
+        "tokens"
+      ],
+      "category": "monitoring",
+      "source": {
+        "source": "github",
+        "repo": "Hayk985/prompt-cache-tracker"
+      }
     }
   ]
 }
