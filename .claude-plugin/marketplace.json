@@ -3937,6 +3937,32 @@
         "repo": "whereisdw/lidnight-claude-plugin",
         "sha": "f54adf0da9c4fe31ff24631a3d7d0e3e8890dda2"
       }
+    },
+    {
+      "name": "mole",
+      "description": "Official skill for the free, open-source Mole CLI (mo) on macOS and Windows: answers what is using the disk from Mole's JSON output, previews every cleanup with --dry-run and waits for the user's consent before anything is removed, and leaves app uninstalls and administrator steps for the user to run.",
+      "author": {
+        "name": "Tw93",
+        "url": "https://github.com/tw93"
+      },
+      "homepage": "https://mole.fit",
+      "repository": "https://github.com/tw93/Mole",
+      "license": "GPL-3.0",
+      "keywords": [
+        "macos",
+        "windows",
+        "disk-cleanup",
+        "uninstall",
+        "system-health",
+        "cli"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/tw93/Mole.git",
+        "path": "plugins/mole",
+        "sha": "f520679dc9293e9250849bfb980d7a35070cc0a4"
+      }
     }
   ]
 }
