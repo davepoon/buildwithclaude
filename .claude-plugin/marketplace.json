@@ -25,6 +25,30 @@
   },
   "plugins": [
     {
+      "name": "mubboo-flights",
+      "description": "Prepare flight comparisons with airport lookup, validated trip inputs and ready-to-open search links. Free hosted MCP; no API key, live fares or bookings. MIT connection plugin; private hosted backend.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Mubboo LLC",
+        "url": "https://mubboo.flights"
+      },
+      "homepage": "https://mubboo.flights/mcp",
+      "repository": "https://github.com/Mubboo-Ai/mubboo-flights-mcp",
+      "license": "MIT",
+      "keywords": [
+        "travel",
+        "flights",
+        "comparison",
+        "mcp"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "Mubboo-Ai/mubboo-flights-mcp",
+        "sha": "b1d75f2ecbd8e235e6f7d417506c14efe77efe97"
+      }
+    },
+    {
       "name": "mobile-debug-tools",
       "description": "Inspect and interact with Android and iOS apps through the mobile-debug-mcp server and a usage skill.",
       "version": "0.0.1",
