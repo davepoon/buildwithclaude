@@ -3937,6 +3937,32 @@
         "repo": "whereisdw/lidnight-claude-plugin",
         "sha": "f54adf0da9c4fe31ff24631a3d7d0e3e8890dda2"
       }
+    },
+    {
+      "name": "done-gate",
+      "description": "Stop/PostToolUse hook: after a code edit, Claude Code cannot end its turn until a recognised test command has run and passed after the last change. Piped, masked or failing runs do not count; after two reminders it lets the turn end with a warning. Standard-library Python, no network.",
+      "version": "1.0.0",
+      "author": {
+        "name": "César Pereiro",
+        "url": "https://github.com/Ces107"
+      },
+      "homepage": "https://github.com/Ces107/agent-forge/tree/main/plugins/done-gate",
+      "repository": "https://github.com/Ces107/agent-forge",
+      "license": "MIT",
+      "keywords": [
+        "hooks",
+        "testing",
+        "verification",
+        "quality-gate",
+        "stop-hook"
+      ],
+      "category": "hooks",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Ces107/agent-forge.git",
+        "path": "plugins/done-gate",
+        "sha": "295d61c11ad3b9a670db60834467f670f8f22f5a"
+      }
     }
   ]
 }
