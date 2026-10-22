@@ -3937,6 +3937,32 @@
         "repo": "whereisdw/lidnight-claude-plugin",
         "sha": "f54adf0da9c4fe31ff24631a3d7d0e3e8890dda2"
       }
+    },
+    {
+      "name": "usethisskill",
+      "description": "Find agent skills for a task, read side-by-side proofs of what they change, and safety-check any skill (even straight from a GitHub link) before installing. Adds the find-proven-skill skill and the hosted Use This Skill MCP server; no sign-in, no API key.",
+      "version": "1.1.0",
+      "author": {
+        "name": "Tineessa Nelson",
+        "url": "https://github.com/nodegenie"
+      },
+      "homepage": "https://usethisskill.com/connect",
+      "repository": "https://github.com/nodegenie/awesome-agent-skills",
+      "license": "CC0-1.0",
+      "keywords": [
+        "skills",
+        "agent-skills",
+        "skill-directory",
+        "security",
+        "mcp"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/nodegenie/awesome-agent-skills.git",
+        "path": "plugins/usethisskill",
+        "sha": "17b0e8312e72d9aa0a12b448da5e2b300ffcb4ea"
+      }
     }
   ]
 }
