@@ -3937,6 +3937,36 @@
         "repo": "whereisdw/lidnight-claude-plugin",
         "sha": "f54adf0da9c4fe31ff24631a3d7d0e3e8890dda2"
       }
+    },
+    {
+      "name": "footval",
+      "description": "FootVal — independent football (soccer) player valuations, live scores, league tables, stat leaders and transfer news through FootVal's hosted, read-only MCP server. Ask what any player is really worth and why FootVal agrees or disagrees with the market, compare and scout players, and follow scores, match centres and tables. Four skills route questions to the right tools. No write, post or purchase tools.",
+      "version": "1.0.0",
+      "author": {
+        "name": "FootVal",
+        "url": "https://footval.com"
+      },
+      "homepage": "https://footval.com/en/mcp",
+      "repository": "https://github.com/target1m/footval-mcp",
+      "license": "MIT",
+      "keywords": [
+        "football",
+        "soccer",
+        "transfer-value",
+        "player-valuation",
+        "scouting",
+        "live-scores",
+        "league-tables",
+        "statistics",
+        "transfer-news",
+        "mcp"
+      ],
+      "category": "mcp-servers",
+      "source": {
+        "source": "github",
+        "repo": "target1m/footval-mcp",
+        "sha": "e852de8dd9b714a8b159e8d349d8f397f8f35870"
+      }
     }
   ]
 }
