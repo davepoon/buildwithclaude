@@ -3173,28 +3173,6 @@
     "source": "./plugins/skyvern"
   },
   {
-    "name": "datacircle",
-    "description": "Datacircle is a data co-op. Query your favorite B2B data APIs through us. Same request, same price, no markup. Right now we have 3 live LinkedIn profile APIs that we trust: Up2Data, HarvestAPI and Fetchin.",
-    "version": "1.0.3",
-    "author": {
-      "name": "Datacircle",
-      "url": "https://datacircle.dev"
-    },
-    "homepage": "https://docs.datacircle.dev/mcp-server",
-    "license": "MIT",
-    "keywords": [
-      "b2b-data",
-      "data-enrichment",
-      "linkedin",
-      "data-api",
-      "linkedin-profile-api",
-      "mcp",
-      "oauth"
-    ],
-    "category": "sales-marketing",
-    "source": "./plugins/datacircle"
-  },
-  {
     "name": "baizhi-agent-toolkit",
     "version": "0.1.0",
     "description": "Connect Baizhi Agent Toolkit through an authenticated remote MCP server, with an optional skill for bounded research and source verification. Requires a Baizhi account and API key; service usage may incur charges.",
@@ -3298,7 +3276,7 @@
   {
     "name": "convika",
     "description": "Publish a page Claude wrote, or an HTML file in your repo, at a convika.com address or on your own domain. Convika keeps signups from the page's form and counts visits, traffic sources, and button clicks. Sign-in is OAuth in the browser, so Claude never holds an API key. The publish-page skill shows a private preview and asks before it publishes.",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "author": {
       "name": "Convika",
       "url": "https://convika.com"
@@ -3319,7 +3297,7 @@
       "source": "git-subdir",
       "url": "https://github.com/tomoyaf/convika-mcp.git",
       "path": "plugins/convika",
-      "ref": "convika--v1.0.1"
+      "ref": "convika--v1.0.2"
     }
   },
   {
@@ -3936,6 +3914,59 @@
         "source": "github",
         "repo": "whereisdw/lidnight-claude-plugin",
         "sha": "f54adf0da9c4fe31ff24631a3d7d0e3e8890dda2"
+      }
+    },
+    {
+      "name": "anode",
+      "description": "A hidden background Windows desktop for agents: GUI automation, UI Automation, screenshots and app testing without taking over your mouse.",
+      "version": "0.11.3",
+      "author": {
+        "name": "skulitom",
+        "url": "https://github.com/skulitom"
+      },
+      "homepage": "https://github.com/skulitom/Anode#readme",
+      "repository": "https://github.com/skulitom/Anode",
+      "license": "MIT",
+      "keywords": [
+        "windows",
+        "desktop-automation",
+        "gui-testing",
+        "mcp"
+      ],
+      "category": "automation",
+      "source": {
+        "source": "github",
+        "repo": "skulitom/Anode",
+        "sha": "dc368ecd2c1fdaaa9c6cd7a9dfe74ccf1a36e6ce"
+      }
+    },
+    {
+      "name": "lagos-diseno-es",
+      "description": "Three Claude Code skills for designers who build in Spanish: UI copy review in neutral Spanish with tú (voseo, vosotros, leftover English, title case, missing ¿¡), WCAG 2.2 contrast measured on the project's color tokens in light and dark mode with the nearest passing color, and a basic SEO pass over a built or live site. Three bundled Node 18+ scripts that read files and write only a report when passed --json; seo-basico fetches only the URL the user gives. No hooks, no MCP servers, no settings.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Carlos Lagos",
+        "url": "https://github.com/Clagoss"
+      },
+      "homepage": "https://carloslagos.cl/guias/",
+      "repository": "https://github.com/Clagoss/claude-code-para-disenadores",
+      "license": "MIT",
+      "keywords": [
+        "design",
+        "spanish",
+        "ux-writing",
+        "accessibility",
+        "wcag",
+        "contrast",
+        "design-tokens",
+        "seo"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Clagoss/claude-code-para-disenadores.git",
+        "path": "plugins/lagos-diseno-es",
+        "sha": "162617f2652c0d3c84326b079d4deeac1a4625e0"
       }
     },
     {
