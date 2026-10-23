@@ -4016,6 +4016,27 @@
         "repo": "Zeptap/mcp",
         "sha": "eb1bf1022b561d7c977cdfff47985c4a72c94c0d"
       }
+    },
+    {
+      "name": "lintelly-hr-deutschland",
+      "description": "German employment law only, for small companies in Germany: notice periods, employer costs, sick pay, maternity protection, dismissals, contract clauses and HR workflows, each with calculation and official source. Hosted MCP server, no sign-in.",
+      "version": "0.2.0",
+      "author": {
+        "name": "Lintelly",
+        "url": "https://lintelly.com"
+      },
+      "homepage": "https://lintelly.com/hr",
+      "repository": "https://github.com/NicksAdvisory/lintelly-hr-deutschland",
+      "license": "MIT",
+      "keywords": [
+        "hr",
+        "germany",
+        "employment-law",
+        "small-business",
+        "mcp"
+      ],
+      "category": "mcp-servers",
+      "source": "./plugins/lintelly-hr-deutschland"
     }
   ]
 }
