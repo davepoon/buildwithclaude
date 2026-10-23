@@ -25,6 +25,29 @@
   },
   "plugins": [
     {
+      "name": "ux3-product-design-harness",
+      "description": "UX3 Product Design Harness reviews User, Evidence, and Business flows before execution, with bounded decisions, complete schemas, local validators, and context-pack handoff.",
+      "version": "1.0.0",
+      "author": {
+        "name": "CIS2042"
+      },
+      "homepage": "https://cis2042.github.io/ux3-product-design-harness/",
+      "repository": "https://github.com/cis2042/ux3-product-design-harness",
+      "license": "MIT",
+      "keywords": [
+        "product-design",
+        "ux3",
+        "evidence",
+        "decision-making"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "cis2042/ux3-product-design-harness",
+        "sha": "abf458da5d3915a40690f71d535f90fd6f05425c"
+      }
+    },
+    {
       "name": "mobile-debug-tools",
       "description": "Inspect and interact with Android and iOS apps through the mobile-debug-mcp server and a usage skill.",
       "version": "0.0.1",
