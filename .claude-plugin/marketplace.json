@@ -4016,6 +4016,32 @@
         "repo": "Zeptap/mcp",
         "sha": "eb1bf1022b561d7c977cdfff47985c4a72c94c0d"
       }
+    },
+    {
+      "name": "dex",
+      "description": "Analytics engineering skills for warehouse exploration, dbt and semantic modeling, and schema-drift maintenance. Three skills (explore, transform, maintain) drive a local engine: warehouse reads are read-only and cost-gated, and project edits come back as reviewable diffs. Requires a local shell and uv; first use downloads the pinned engine from PyPI. No hooks, no MCP servers.",
+      "version": "1.15.3",
+      "author": {
+        "name": "Exmergo, Inc.",
+        "url": "https://github.com/exmergo"
+      },
+      "homepage": "https://docs.exmergo.com/dex",
+      "repository": "https://github.com/exmergo/dex",
+      "license": "Apache-2.0",
+      "keywords": [
+        "analytics-engineering",
+        "dbt",
+        "data-engineering",
+        "semantic-layer",
+        "duckdb",
+        "schema-drift"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "exmergo/dex",
+        "sha": "0fcf8d874c70f8d7c57214d44c225cc0fd2f6b3a"
+      }
     }
   ]
 }
