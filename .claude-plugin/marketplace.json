@@ -3941,7 +3941,7 @@
     {
       "name": "any-subagent",
       "description": "Runs other coding-agent CLIs (Codex, opencode, Pi, Antigravity, another Claude Code) as background subagents through one agent-send command. Each delegated conversation has a name, so a follow-up resumes the same backend session with its context. Roles map to backends in user config, and each agent logs its spec and notes to a per-session file. One bash script and a skill; no hooks, no MCP servers.",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "author": {
         "name": "yw0nam",
         "url": "https://github.com/yw0nam"
@@ -3962,7 +3962,7 @@
       "source": {
         "source": "github",
         "repo": "yw0nam/any-subagent",
-        "sha": "3bcb96124e5255a50233f8cceba18088f30a105f"
+        "sha": "181ba387586651492a3cdca16c5da8a469b9b12d"
       }
     }
   ]
