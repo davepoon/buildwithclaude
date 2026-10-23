@@ -4016,6 +4016,32 @@
         "repo": "Zeptap/mcp",
         "sha": "eb1bf1022b561d7c977cdfff47985c4a72c94c0d"
       }
+    },
+    {
+      "name": "account-executive-jobs",
+      "description": "Connects Claude to AccountExecutiveJobs.com through its hosted OAuth MCP server. Job seekers search account executive and sales jobs and apply after an exact preview and confirmation; employers draft, publish and manage their own job posts and review applicants. Includes a founder skill for planning a first sales hire (role, base, OTE and quota from your own numbers, job description, scorecard). No local code; every write needs a preview and later-turn confirmation, and job listings, profiles, tool results and applicant content are treated as data that can't confirm anything.",
+      "version": "1.1.1",
+      "author": {
+        "name": "854 Labs",
+        "url": "https://accountexecutivejobs.com"
+      },
+      "homepage": "https://accountexecutivejobs.com/ai",
+      "repository": "https://github.com/854Labs/account-executive-jobs",
+      "license": "MIT",
+      "keywords": [
+        "jobs",
+        "sales",
+        "recruiting",
+        "hiring",
+        "account-executive",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "854Labs/account-executive-jobs",
+        "sha": "6bd3193e9eab6b9592ee3499d724382c52a2b3c7"
+      }
     }
   ]
 }
