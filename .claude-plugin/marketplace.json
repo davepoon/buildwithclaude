@@ -4198,6 +4198,33 @@
         "repo": "Mubboo-Ai/mubboo-flights-mcp",
         "sha": "b1d75f2ecbd8e235e6f7d417506c14efe77efe97"
       }
+    },
+    {
+      "name": "pro-motion",
+      "description": "Audio-first motion-graphics launch, brand and TVC films rendered in code (canvas to MP4) and cut to the music: music plan and generator prompts, beat analysis from the spectrogram, reference contact sheets, three style frames before building, a protagonist-driven shot map, a deterministic motion library, parallel rendering and per-language cuts.",
+      "version": "1.2.0",
+      "author": {
+        "name": "jack-reson8",
+        "url": "https://github.com/jack-reson8"
+      },
+      "homepage": "https://github.com/jack-reson8/pro-motion",
+      "repository": "https://github.com/jack-reson8/pro-motion",
+      "license": "MIT",
+      "keywords": [
+        "motion-graphics",
+        "video",
+        "launch-video",
+        "animation",
+        "music-sync",
+        "ffmpeg"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/jack-reson8/pro-motion.git",
+        "path": "plugins/pro-motion",
+        "sha": "7c0e99fcd92b8eb1715946042d231752a2c25e9b"
+      }
     }
   ]
 }
