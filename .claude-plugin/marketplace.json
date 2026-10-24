@@ -25,30 +25,6 @@
   },
   "plugins": [
     {
-      "name": "mubboo-flights",
-      "description": "Prepare flight comparisons with airport lookup, validated trip inputs and ready-to-open search links. Free hosted MCP; no API key, live fares or bookings. MIT connection plugin; private hosted backend.",
-      "version": "0.1.0",
-      "author": {
-        "name": "Mubboo LLC",
-        "url": "https://mubboo.flights"
-      },
-      "homepage": "https://mubboo.flights/mcp",
-      "repository": "https://github.com/Mubboo-Ai/mubboo-flights-mcp",
-      "license": "MIT",
-      "keywords": [
-        "travel",
-        "flights",
-        "comparison",
-        "mcp"
-      ],
-      "category": "productivity",
-      "source": {
-        "source": "github",
-        "repo": "Mubboo-Ai/mubboo-flights-mcp",
-        "sha": "b1d75f2ecbd8e235e6f7d417506c14efe77efe97"
-      }
-    },
-    {
       "name": "mobile-debug-tools",
       "description": "Inspect and interact with Android and iOS apps through the mobile-debug-mcp server and a usage skill.",
       "version": "0.0.1",
@@ -3197,28 +3173,6 @@
     "source": "./plugins/skyvern"
   },
   {
-    "name": "datacircle",
-    "description": "Datacircle is a data co-op. Query your favorite B2B data APIs through us. Same request, same price, no markup. Right now we have 3 live LinkedIn profile APIs that we trust: Up2Data, HarvestAPI and Fetchin.",
-    "version": "1.0.3",
-    "author": {
-      "name": "Datacircle",
-      "url": "https://datacircle.dev"
-    },
-    "homepage": "https://docs.datacircle.dev/mcp-server",
-    "license": "MIT",
-    "keywords": [
-      "b2b-data",
-      "data-enrichment",
-      "linkedin",
-      "data-api",
-      "linkedin-profile-api",
-      "mcp",
-      "oauth"
-    ],
-    "category": "sales-marketing",
-    "source": "./plugins/datacircle"
-  },
-  {
     "name": "baizhi-agent-toolkit",
     "version": "0.1.0",
     "description": "Connect Baizhi Agent Toolkit through an authenticated remote MCP server, with an optional skill for bounded research and source verification. Requires a Baizhi account and API key; service usage may incur charges.",
@@ -3322,7 +3276,7 @@
   {
     "name": "convika",
     "description": "Publish a page Claude wrote, or an HTML file in your repo, at a convika.com address or on your own domain. Convika keeps signups from the page's form and counts visits, traffic sources, and button clicks. Sign-in is OAuth in the browser, so Claude never holds an API key. The publish-page skill shows a private preview and asks before it publishes.",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "author": {
       "name": "Convika",
       "url": "https://convika.com"
@@ -3343,7 +3297,7 @@
       "source": "git-subdir",
       "url": "https://github.com/tomoyaf/convika-mcp.git",
       "path": "plugins/convika",
-      "ref": "convika--v1.0.1"
+      "ref": "convika--v1.0.2"
     }
   },
   {
@@ -3960,6 +3914,289 @@
         "source": "github",
         "repo": "whereisdw/lidnight-claude-plugin",
         "sha": "f54adf0da9c4fe31ff24631a3d7d0e3e8890dda2"
+      }
+    },
+    {
+      "name": "anode",
+      "description": "A hidden background Windows desktop for agents: GUI automation, UI Automation, screenshots and app testing without taking over your mouse.",
+      "version": "0.11.3",
+      "author": {
+        "name": "skulitom",
+        "url": "https://github.com/skulitom"
+      },
+      "homepage": "https://github.com/skulitom/Anode#readme",
+      "repository": "https://github.com/skulitom/Anode",
+      "license": "MIT",
+      "keywords": [
+        "windows",
+        "desktop-automation",
+        "gui-testing",
+        "mcp"
+      ],
+      "category": "automation",
+      "source": {
+        "source": "github",
+        "repo": "skulitom/Anode",
+        "sha": "dc368ecd2c1fdaaa9c6cd7a9dfe74ccf1a36e6ce"
+      }
+    },
+    {
+      "name": "lagos-diseno-es",
+      "description": "Three Claude Code skills for designers who build in Spanish: UI copy review in neutral Spanish with tú (voseo, vosotros, leftover English, title case, missing ¿¡), WCAG 2.2 contrast measured on the project's color tokens in light and dark mode with the nearest passing color, and a basic SEO pass over a built or live site. Three bundled Node 18+ scripts that read files and write only a report when passed --json; seo-basico fetches only the URL the user gives. No hooks, no MCP servers, no settings.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Carlos Lagos",
+        "url": "https://github.com/Clagoss"
+      },
+      "homepage": "https://carloslagos.cl/guias/",
+      "repository": "https://github.com/Clagoss/claude-code-para-disenadores",
+      "license": "MIT",
+      "keywords": [
+        "design",
+        "spanish",
+        "ux-writing",
+        "accessibility",
+        "wcag",
+        "contrast",
+        "design-tokens",
+        "seo"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Clagoss/claude-code-para-disenadores.git",
+        "path": "plugins/lagos-diseno-es",
+        "sha": "162617f2652c0d3c84326b079d4deeac1a4625e0"
+      }
+    },
+    {
+      "name": "ainotate",
+      "description": "AInotate lets AI agents answer \"where is it?\" with an annotated screenshot: numbered steps, arrows, boxes and labels, with emails and tokens redacted.",
+      "version": "0.1.8",
+      "author": {
+        "name": "DontPayFull",
+        "url": "https://www.dontpayfull.com"
+      },
+      "homepage": "https://www.dontpayfull.com/labs/ainotate/",
+      "repository": "https://github.com/dontpayfull/AInotate",
+      "license": "AGPL-3.0-or-later",
+      "keywords": [
+        "screenshot",
+        "annotation",
+        "mcp"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "dontpayfull/AInotate",
+        "sha": "991620b9d0aabaa778e168aeed35d55300dd44e6"
+      }
+    },
+    {
+      "name": "zeptap",
+      "description": "Operate a real iPhone from Claude Code through a local MCP server in the Zeptap Mac app. Claude sees the screen over USB and taps and types over Bluetooth, with nothing installed on the phone. Tools include screenshot, find_text, tap, tap_text, type_text, open_app and unlock. The Mac app is closed source and paid (macOS 14+), with the first hour free.",
+      "version": "1.0.2",
+      "author": {
+        "name": "Zeptap",
+        "url": "https://zeptap.com"
+      },
+      "homepage": "https://zeptap.com/docs/agents/tools",
+      "repository": "https://github.com/Zeptap/mcp",
+      "license": "MIT",
+      "keywords": [
+        "iphone",
+        "ios",
+        "mobile",
+        "macos",
+        "mcp"
+      ],
+      "category": "mcp-servers",
+      "source": {
+        "source": "github",
+        "repo": "Zeptap/mcp",
+        "sha": "eb1bf1022b561d7c977cdfff47985c4a72c94c0d"
+      }
+    },
+    {
+      "name": "dex",
+      "description": "Analytics engineering skills for warehouse exploration, dbt and semantic modeling, and schema-drift maintenance. Three skills (explore, transform, maintain) drive a local engine: warehouse reads are read-only and cost-gated, and project edits come back as reviewable diffs. Requires a local shell and uv; first use downloads the pinned engine from PyPI. No hooks, no MCP servers.",
+      "version": "1.15.3",
+      "author": {
+        "name": "Exmergo, Inc.",
+        "url": "https://github.com/exmergo"
+      },
+      "homepage": "https://docs.exmergo.com/dex",
+      "repository": "https://github.com/exmergo/dex",
+      "license": "Apache-2.0",
+      "keywords": [
+        "analytics-engineering",
+        "dbt",
+        "data-engineering",
+        "semantic-layer",
+        "duckdb",
+        "schema-drift"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "exmergo/dex",
+        "sha": "0fcf8d874c70f8d7c57214d44c225cc0fd2f6b3a"
+      }
+    },
+    {
+      "name": "account-executive-jobs",
+      "description": "Connects Claude to AccountExecutiveJobs.com through its hosted OAuth MCP server. Job seekers search account executive and sales jobs and apply after an exact preview and confirmation; employers draft, publish and manage their own job posts and review applicants. Includes a founder skill for planning a first sales hire (role, base, OTE and quota from your own numbers, job description, scorecard). No local code; every write needs a preview and later-turn confirmation, and job listings, profiles, tool results and applicant content are treated as data that can't confirm anything.",
+      "version": "1.1.1",
+      "author": {
+        "name": "854 Labs",
+        "url": "https://accountexecutivejobs.com"
+      },
+      "homepage": "https://accountexecutivejobs.com/ai",
+      "repository": "https://github.com/854Labs/account-executive-jobs",
+      "license": "MIT",
+      "keywords": [
+        "jobs",
+        "sales",
+        "recruiting",
+        "hiring",
+        "account-executive",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "854Labs/account-executive-jobs",
+        "sha": "6bd3193e9eab6b9592ee3499d724382c52a2b3c7"
+      }
+    },
+    {
+      "name": "mission-control",
+      "description": "Open Claude Mission Control, a local read-only dashboard for every Claude Code session: who is waiting on you, cost per session and commit, and a usage-limit forecast. Adds a statusline.",
+      "version": "1.18.0",
+      "author": {
+        "name": "Jon Imms",
+        "url": "https://github.com/JonImmsWordpressDev"
+      },
+      "repository": "https://github.com/JonImmsWordpressDev/claude-dashboard",
+      "license": "MIT",
+      "keywords": [
+        "dashboard",
+        "monitoring",
+        "usage",
+        "cost",
+        "statusline",
+        "claude-code"
+      ],
+      "category": "monitoring",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/JonImmsWordpressDev/claude-dashboard.git",
+        "path": "plugin",
+        "sha": "6e2d56158275578033d1dfa17fa55b78acd17efd"
+      }
+    },
+    {
+      "name": "done-gate",
+      "description": "Stop/PostToolUse hook: after a code edit, Claude Code cannot end its turn until a recognised test command has run and passed after the last change. Piped, masked or failing runs do not count; after two reminders it lets the turn end with a warning. A repo's .proof-of-done.json can only add checks; waivers live in the user's ~/.claude/proof-of-done.json. Standard-library Python, no network.",
+      "version": "1.1.0",
+      "author": {
+        "name": "César Pereiro",
+        "url": "https://github.com/Ces107"
+      },
+      "homepage": "https://github.com/Ces107/agent-forge/tree/main/plugins/done-gate",
+      "repository": "https://github.com/Ces107/agent-forge",
+      "license": "MIT",
+      "keywords": [
+        "hooks",
+        "testing",
+        "verification",
+        "quality-gate",
+        "stop-hook"
+      ],
+      "category": "hooks",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Ces107/agent-forge.git",
+        "path": "plugins/done-gate",
+        "sha": "c85b70411dd163c5fbe04dbda234ae49cc3ea06a"
+      }
+    },
+    {
+      "name": "any-subagent",
+      "description": "Runs other coding-agent CLIs (Codex, opencode, Pi, Antigravity, another Claude Code) as background subagents through one agent-send command. Each delegated conversation has a name, so a follow-up resumes the same backend session with its context. Roles map to backends in user config, and each agent logs its spec and notes to a per-session file. One bash script and a skill; no hooks, no MCP servers.",
+      "version": "2.0.1",
+      "author": {
+        "name": "yw0nam",
+        "url": "https://github.com/yw0nam"
+      },
+      "homepage": "https://github.com/yw0nam/any-subagent",
+      "repository": "https://github.com/yw0nam/any-subagent",
+      "license": "MIT",
+      "keywords": [
+        "codex",
+        "opencode",
+        "pi",
+        "antigravity",
+        "delegation",
+        "subagents",
+        "multi-agent"
+      ],
+      "category": "orchestration",
+      "source": {
+        "source": "github",
+        "repo": "yw0nam/any-subagent",
+        "sha": "181ba387586651492a3cdca16c5da8a469b9b12d"
+      }
+    },
+    {
+      "name": "renhua",
+      "description": "Chinese writing in a real person's voice for Xiaohongshu, X, diaries and product copy: removes AI tells (emoji lists, slogans, 不是而是 contrasts, stock closing questions), writes results first with one earned punchline, with a viral Xiaohongshu title library and optional humor patterns.",
+      "version": "1.0.0",
+      "author": {
+        "name": "jack-reson8",
+        "url": "https://github.com/jack-reson8"
+      },
+      "homepage": "https://github.com/jack-reson8/renhua",
+      "repository": "https://github.com/jack-reson8/renhua",
+      "license": "MIT",
+      "keywords": [
+        "chinese",
+        "writing",
+        "copywriting",
+        "xiaohongshu",
+        "rednote",
+        "social-media"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/jack-reson8/renhua.git",
+        "path": "plugins/renhua",
+        "sha": "516146ab56c67036e7aa9972e5b8e7af2cf4160c"
+      }
+    },
+    {
+      "name": "mubboo-flights",
+      "description": "Prepare flight comparisons with airport lookup, validated trip inputs and ready-to-open search links. Free hosted MCP; no API key, live fares or bookings. MIT connection plugin; private hosted backend.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Mubboo LLC",
+        "url": "https://mubboo.flights"
+      },
+      "homepage": "https://mubboo.flights/mcp",
+      "repository": "https://github.com/Mubboo-Ai/mubboo-flights-mcp",
+      "license": "MIT",
+      "keywords": [
+        "travel",
+        "flights",
+        "comparison",
+        "mcp"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "Mubboo-Ai/mubboo-flights-mcp",
+        "sha": "b1d75f2ecbd8e235e6f7d417506c14efe77efe97"
       }
     }
   ]
