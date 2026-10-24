@@ -4198,6 +4198,36 @@
         "repo": "Mubboo-Ai/mubboo-flights-mcp",
         "sha": "b1d75f2ecbd8e235e6f7d417506c14efe77efe97"
       }
+    },
+    {
+      "name": "ai-company-loop",
+      "description": "Closed-loop AI company workflow: turn a request into a proposal, a mission with measurable steps, executed steps and verified outcomes, with an append-only event trail.",
+      "version": "1.0.0",
+      "author": {
+        "name": "hypetopher",
+        "url": "https://github.com/hypetopher"
+      },
+      "homepage": "https://github.com/hypetopher/aicompany",
+      "repository": "https://github.com/hypetopher/aicompany",
+      "license": "MIT",
+      "keywords": [
+        "claude-code",
+        "agent-skill",
+        "orchestration",
+        "automation",
+        "workflow",
+        "agents"
+      ],
+      "category": "orchestration",
+      "source": {
+        "source": "github",
+        "repo": "hypetopher/aicompany",
+        "sha": "e1a26e003328eb7b788c4fe6b49abdbdba5623b8"
+      },
+      "strict": false,
+      "skills": [
+        "./"
+      ]
     }
   ]
 }
