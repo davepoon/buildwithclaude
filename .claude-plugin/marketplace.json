@@ -4202,7 +4202,7 @@
     {
       "name": "skill-skill",
       "description": "Write, upgrade or audit Claude skills so they change what gets generated: distil rules from real corrections, turn them into required artifacts, gates and scripts, and lint any skill folder with a 0-100 health score (name, trigger clause, orphan and dangling files, oversized body).",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "author": {
         "name": "jack-reson8",
         "url": "https://github.com/jack-reson8"
@@ -4223,7 +4223,7 @@
         "source": "git-subdir",
         "url": "https://github.com/jack-reson8/skill-skill.git",
         "path": "plugins/skill-skill",
-        "sha": "15fd32e1d77531fee20ee13a4a2240b80ffae295"
+        "sha": "d1e1d984a2d05187a1800e81e374d571ec83b4d8"
       }
     }
   ]
