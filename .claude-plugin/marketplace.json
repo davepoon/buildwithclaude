@@ -4202,7 +4202,7 @@
     {
       "name": "pro-motion",
       "description": "Audio-first motion-graphics launch, brand and TVC films rendered in code (canvas to MP4) and cut to the music: music plan and generator prompts, beat analysis from the spectrogram, reference contact sheets, three style frames before building, a protagonist-driven shot map, a deterministic motion library, parallel rendering and per-language cuts.",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "author": {
         "name": "jack-reson8",
         "url": "https://github.com/jack-reson8"
@@ -4223,7 +4223,7 @@
         "source": "git-subdir",
         "url": "https://github.com/jack-reson8/pro-motion.git",
         "path": "plugins/pro-motion",
-        "sha": "7c0e99fcd92b8eb1715946042d231752a2c25e9b"
+        "sha": "9d74577192a852a26fb37d5dff64000a8c7a8f7a"
       }
     }
   ]
