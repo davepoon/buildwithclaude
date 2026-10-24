@@ -4147,6 +4147,33 @@
         "repo": "yw0nam/any-subagent",
         "sha": "181ba387586651492a3cdca16c5da8a469b9b12d"
       }
+    },
+    {
+      "name": "renhua",
+      "description": "Chinese writing in a real person's voice for Xiaohongshu, X, diaries and product copy: removes AI tells (emoji lists, slogans, 不是而是 contrasts, stock closing questions), writes results first with one earned punchline, with a viral Xiaohongshu title library and optional humor patterns.",
+      "version": "1.0.0",
+      "author": {
+        "name": "jack-reson8",
+        "url": "https://github.com/jack-reson8"
+      },
+      "homepage": "https://github.com/jack-reson8/renhua",
+      "repository": "https://github.com/jack-reson8/renhua",
+      "license": "MIT",
+      "keywords": [
+        "chinese",
+        "writing",
+        "copywriting",
+        "xiaohongshu",
+        "rednote",
+        "social-media"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/jack-reson8/renhua.git",
+        "path": "plugins/renhua",
+        "sha": "516146ab56c67036e7aa9972e5b8e7af2cf4160c"
+      }
     }
   ]
 }
