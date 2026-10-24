@@ -4018,6 +4018,32 @@
       }
     },
     {
+      "name": "dex",
+      "description": "Analytics engineering skills for warehouse exploration, dbt and semantic modeling, and schema-drift maintenance. Three skills (explore, transform, maintain) drive a local engine: warehouse reads are read-only and cost-gated, and project edits come back as reviewable diffs. Requires a local shell and uv; first use downloads the pinned engine from PyPI. No hooks, no MCP servers.",
+      "version": "1.15.3",
+      "author": {
+        "name": "Exmergo, Inc.",
+        "url": "https://github.com/exmergo"
+      },
+      "homepage": "https://docs.exmergo.com/dex",
+      "repository": "https://github.com/exmergo/dex",
+      "license": "Apache-2.0",
+      "keywords": [
+        "analytics-engineering",
+        "dbt",
+        "data-engineering",
+        "semantic-layer",
+        "duckdb",
+        "schema-drift"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "exmergo/dex",
+        "sha": "0fcf8d874c70f8d7c57214d44c225cc0fd2f6b3a"
+      }
+    },
+    {
       "name": "account-executive-jobs",
       "description": "Connects Claude to AccountExecutiveJobs.com through its hosted OAuth MCP server. Job seekers search account executive and sales jobs and apply after an exact preview and confirmation; employers draft, publish and manage their own job posts and review applicants. Includes a founder skill for planning a first sales hire (role, base, OTE and quota from your own numbers, job description, scorecard). No local code; every write needs a preview and later-turn confirmation, and job listings, profiles, tool results and applicant content are treated as data that can't confirm anything.",
       "version": "1.1.1",
