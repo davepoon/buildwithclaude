@@ -4198,6 +4198,33 @@
         "repo": "Mubboo-Ai/mubboo-flights-mcp",
         "sha": "b1d75f2ecbd8e235e6f7d417506c14efe77efe97"
       }
+    },
+    {
+      "name": "post",
+      "description": "Share-image sets for Xiaohongshu and X that look native: App Store poster layout, real screenshots, faithful app-UI mocks, charts instead of tables, covers and a series layer for building in public, rendered from HTML templates to PNG.",
+      "version": "1.1.0",
+      "author": {
+        "name": "jack-reson8",
+        "url": "https://github.com/jack-reson8"
+      },
+      "homepage": "https://github.com/jack-reson8/post-skill",
+      "repository": "https://github.com/jack-reson8/post-skill",
+      "license": "MIT",
+      "keywords": [
+        "xiaohongshu",
+        "twitter",
+        "carousel",
+        "social-media",
+        "marketing",
+        "build-in-public"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/jack-reson8/post-skill.git",
+        "path": "plugins/post",
+        "sha": "3992c3b36115c5f336fcc8999f077a6343d43a91"
+      }
     }
   ]
 }
