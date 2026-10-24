@@ -4198,6 +4198,33 @@
         "repo": "Mubboo-Ai/mubboo-flights-mcp",
         "sha": "b1d75f2ecbd8e235e6f7d417506c14efe77efe97"
       }
+    },
+    {
+      "name": "skill-skill",
+      "description": "Write, upgrade or audit Claude skills so they change what gets generated: distil rules from real corrections, turn them into required artifacts, gates and scripts, and lint any skill folder with a 0-100 health score (name, trigger clause, orphan and dangling files, oversized body).",
+      "version": "1.1.0",
+      "author": {
+        "name": "jack-reson8",
+        "url": "https://github.com/jack-reson8"
+      },
+      "homepage": "https://github.com/jack-reson8/skill-skill",
+      "repository": "https://github.com/jack-reson8/skill-skill",
+      "license": "MIT",
+      "keywords": [
+        "claude-skills",
+        "agent-skills",
+        "skill-creator",
+        "linter",
+        "audit",
+        "prompt-engineering"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/jack-reson8/skill-skill.git",
+        "path": "plugins/skill-skill",
+        "sha": "15fd32e1d77531fee20ee13a4a2240b80ffae295"
+      }
     }
   ]
 }
