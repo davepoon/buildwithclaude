@@ -4200,6 +4200,33 @@
       }
     },
     {
+      "name": "post",
+      "description": "Share-image sets for Xiaohongshu and X that look native: App Store poster layout, real screenshots, faithful app-UI mocks, charts instead of tables, covers and a series layer for building in public, rendered from HTML templates to PNG.",
+      "version": "1.1.0",
+      "author": {
+        "name": "jack-reson8",
+        "url": "https://github.com/jack-reson8"
+      },
+      "homepage": "https://github.com/jack-reson8/post-skill",
+      "repository": "https://github.com/jack-reson8/post-skill",
+      "license": "MIT",
+      "keywords": [
+        "xiaohongshu",
+        "twitter",
+        "carousel",
+        "social-media",
+        "marketing",
+        "build-in-public"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/jack-reson8/post-skill.git",
+        "path": "plugins/post",
+        "sha": "3992c3b36115c5f336fcc8999f077a6343d43a91"
+      }
+    },
+    {
       "name": "pro-motion",
       "description": "Audio-first motion-graphics launch, brand and TVC films rendered in code (canvas to MP4) and cut to the music: music plan and generator prompts, beat analysis from the spectrogram, reference contact sheets, three style frames before building, a protagonist-driven shot map, a deterministic motion library, parallel rendering and per-language cuts.",
       "version": "1.2.1",
