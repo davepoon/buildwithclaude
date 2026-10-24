@@ -4306,6 +4306,34 @@
         "repo": "MrMirhan/claude-buddy-chat",
         "sha": "b9eb968dd8c274040ea80c4a3c4ac2bc8fa6790d"
       }
+    },
+    {
+      "name": "pro-launch",
+      "description": "Take an app or product from idea to launch, taste-first: positioning, naming with domain and trademark checks, reference hunting, style frames beside named references, feature map, UI build loop, launch video, GTM and shipping, with phase gates that force a real artifact before the next step.",
+      "version": "1.0.0",
+      "author": {
+        "name": "jack-reson8",
+        "url": "https://github.com/jack-reson8"
+      },
+      "homepage": "https://github.com/jack-reson8/pro-launch",
+      "repository": "https://github.com/jack-reson8/pro-launch",
+      "license": "MIT",
+      "keywords": [
+        "product",
+        "app-development",
+        "naming",
+        "branding",
+        "ui-design",
+        "launch",
+        "gtm"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/jack-reson8/pro-launch.git",
+        "path": "plugins/pro-launch",
+        "sha": "76b9a6500bc422a07242fe74149c3a7e09e089fd"
+      }
     }
   ]
 }
