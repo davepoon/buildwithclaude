@@ -317,7 +317,8 @@
       },
       "strict": false,
       "skills": [
-        "./"
+        "./",
+        "./skills/growth-intel"
       ]
     },
     {
@@ -4222,11 +4223,12 @@
       "source": {
         "source": "github",
         "repo": "hypetopher/aicompany",
-        "sha": "e1a26e003328eb7b788c4fe6b49abdbdba5623b8"
+        "sha": "5035fe445ddd9fd291e541b8a586d1da9fba732f"
       },
       "strict": false,
       "skills": [
-        "./"
+        "./",
+        "./skills/growth-intel"
       ]
     }
   ]
