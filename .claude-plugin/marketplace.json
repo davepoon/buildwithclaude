@@ -4147,6 +4147,33 @@
         "repo": "yw0nam/any-subagent",
         "sha": "181ba387586651492a3cdca16c5da8a469b9b12d"
       }
+    },
+    {
+      "name": "pro-motion",
+      "description": "Audio-first motion-graphics launch, brand and TVC films rendered in code (canvas to MP4) and cut to the music: music plan and generator prompts, beat analysis from the spectrogram, reference contact sheets, three style frames before building, a protagonist-driven shot map, a deterministic motion library, parallel rendering and per-language cuts.",
+      "version": "1.1.1",
+      "author": {
+        "name": "jack-reson8",
+        "url": "https://github.com/jack-reson8"
+      },
+      "homepage": "https://github.com/jack-reson8/pro-motion",
+      "repository": "https://github.com/jack-reson8/pro-motion",
+      "license": "MIT",
+      "keywords": [
+        "motion-graphics",
+        "video",
+        "launch-video",
+        "animation",
+        "music-sync",
+        "ffmpeg"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/jack-reson8/pro-motion.git",
+        "path": "plugins/pro-motion",
+        "sha": "250031852385c7c5edf0a40ea888f840f4797f01"
+      }
     }
   ]
 }
