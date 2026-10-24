@@ -4198,6 +4198,33 @@
         "repo": "Mubboo-Ai/mubboo-flights-mcp",
         "sha": "b1d75f2ecbd8e235e6f7d417506c14efe77efe97"
       }
+    },
+    {
+      "name": "agentkit-dev-skills",
+      "description": "13 MIT-licensed SKILL.md skills for everyday developer work: review-my-diff, repro-first-debugging, pr-description, safe-refactor, dependency-upgrade (shows the target version and files and waits for a yes before changing anything), explain-codebase, security-quick-review, prove-it-ran (make the agent show real test output before saying done), session-handoff, brag-doc-from-git, write-agents-md, agents-md-audit (with a small read-only Python audit script) and write-subagent. Skills only: no hooks, no MCP servers, no settings, no network calls.",
+      "version": "1.2.2",
+      "author": {
+        "name": "AgentKit Co",
+        "url": "https://github.com/agentkitco"
+      },
+      "homepage": "https://agentkitco.com/skills/",
+      "repository": "https://github.com/agentkitco/agentkit-dev-skills",
+      "license": "MIT",
+      "keywords": [
+        "skills",
+        "code-review",
+        "debugging",
+        "agents-md",
+        "subagents",
+        "pull-requests",
+        "refactoring"
+      ],
+      "category": "skills",
+      "source": {
+        "source": "github",
+        "repo": "agentkitco/agentkit-dev-skills",
+        "sha": "61ae2058fba5587b9300c6ca4a4240490f60c0e1"
+      }
     }
   ]
 }
