@@ -4198,6 +4198,34 @@
         "repo": "Mubboo-Ai/mubboo-flights-mcp",
         "sha": "b1d75f2ecbd8e235e6f7d417506c14efe77efe97"
       }
+    },
+    {
+      "name": "prompt-cache-tracker",
+      "description": "Shows how long your prompt cache has left and refreshes it before it expires, so your next message after a break doesn't pay to rebuild it.",
+      "version": "0.1.1",
+      "author": {
+        "name": "Hayk Mkrtchyan",
+        "url": "https://github.com/Hayk985"
+      },
+      "homepage": "https://github.com/Hayk985/prompt-cache-tracker",
+      "repository": "https://github.com/Hayk985/prompt-cache-tracker",
+      "license": "MIT",
+      "keywords": [
+        "prompt-cache",
+        "prompt-caching",
+        "cache",
+        "cache-ttl",
+        "cost-saving",
+        "claude-code",
+        "mod",
+        "tokens"
+      ],
+      "category": "monitoring",
+      "source": {
+        "source": "github",
+        "repo": "Hayk985/prompt-cache-tracker",
+        "sha": "f10c74298c249719514029841b0bcedaf1f1410d"
+      }
     }
   ]
 }
