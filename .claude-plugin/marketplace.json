@@ -4361,6 +4361,36 @@
         "path": "plugins/skill-skill",
         "sha": "d1e1d984a2d05187a1800e81e374d571ec83b4d8"
       }
+    },
+    {
+      "name": "ai-company-loop",
+      "description": "Closed-loop AI company workflow: turn a request into a proposal, a mission with measurable steps, executed steps and verified outcomes, with an append-only event trail.",
+      "version": "1.0.0",
+      "author": {
+        "name": "hypetopher",
+        "url": "https://github.com/hypetopher"
+      },
+      "homepage": "https://github.com/hypetopher/aicompany",
+      "repository": "https://github.com/hypetopher/aicompany",
+      "license": "MIT",
+      "keywords": [
+        "claude-code",
+        "agent-skill",
+        "orchestration",
+        "automation",
+        "workflow",
+        "agents"
+      ],
+      "category": "orchestration",
+      "source": {
+        "source": "github",
+        "repo": "hypetopher/aicompany",
+        "sha": "ef432373c7e9e743ac3204494c3df778e28a39e5"
+      },
+      "strict": false,
+      "skills": [
+        "./skills/ai-company-loop"
+      ]
     }
   ]
 }
