@@ -4198,6 +4198,169 @@
         "repo": "Mubboo-Ai/mubboo-flights-mcp",
         "sha": "b1d75f2ecbd8e235e6f7d417506c14efe77efe97"
       }
+    },
+    {
+      "name": "post",
+      "description": "Share-image sets for Xiaohongshu and X that look native: App Store poster layout, real screenshots, faithful app-UI mocks, charts instead of tables, covers and a series layer for building in public, rendered from HTML templates to PNG.",
+      "version": "1.1.0",
+      "author": {
+        "name": "jack-reson8",
+        "url": "https://github.com/jack-reson8"
+      },
+      "homepage": "https://github.com/jack-reson8/post-skill",
+      "repository": "https://github.com/jack-reson8/post-skill",
+      "license": "MIT",
+      "keywords": [
+        "xiaohongshu",
+        "twitter",
+        "carousel",
+        "social-media",
+        "marketing",
+        "build-in-public"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/jack-reson8/post-skill.git",
+        "path": "plugins/post",
+        "sha": "3992c3b36115c5f336fcc8999f077a6343d43a91"
+      }
+    },
+    {
+      "name": "pro-motion",
+      "description": "Audio-first motion-graphics launch, brand and TVC films rendered in code (canvas to MP4) and cut to the music: music plan and generator prompts, beat analysis from the spectrogram, reference contact sheets, three style frames before building, a protagonist-driven shot map, a deterministic motion library, parallel rendering and per-language cuts.",
+      "version": "1.2.1",
+      "author": {
+        "name": "jack-reson8",
+        "url": "https://github.com/jack-reson8"
+      },
+      "homepage": "https://github.com/jack-reson8/pro-motion",
+      "repository": "https://github.com/jack-reson8/pro-motion",
+      "license": "MIT",
+      "keywords": [
+        "motion-graphics",
+        "video",
+        "launch-video",
+        "animation",
+        "music-sync",
+        "ffmpeg"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/jack-reson8/pro-motion.git",
+        "path": "plugins/pro-motion",
+        "sha": "9d74577192a852a26fb37d5dff64000a8c7a8f7a"
+      }
+    },
+    {
+      "name": "agentkit-dev-skills",
+      "description": "13 MIT-licensed SKILL.md skills for everyday developer work: review-my-diff, repro-first-debugging, pr-description, safe-refactor, dependency-upgrade (shows the target version and files and waits for a yes before changing anything), explain-codebase, security-quick-review, prove-it-ran (make the agent show real test output before saying done), session-handoff, brag-doc-from-git, write-agents-md, agents-md-audit (with a small read-only Python audit script) and write-subagent. Skills only: no hooks, no MCP servers, no settings, no network calls.",
+      "version": "1.2.2",
+      "author": {
+        "name": "AgentKit Co",
+        "url": "https://github.com/agentkitco"
+      },
+      "homepage": "https://agentkitco.com/skills/",
+      "repository": "https://github.com/agentkitco/agentkit-dev-skills",
+      "license": "MIT",
+      "keywords": [
+        "skills",
+        "code-review",
+        "debugging",
+        "agents-md",
+        "subagents",
+        "pull-requests",
+        "refactoring"
+      ],
+      "category": "skills",
+      "source": {
+        "source": "github",
+        "repo": "agentkitco/agentkit-dev-skills",
+        "sha": "61ae2058fba5587b9300c6ca4a4240490f60c0e1"
+      }
+    },
+    {
+      "name": "buddy-chat",
+      "description": "End-to-end encrypted, quantum-resistant chat between Claude Code users: direct chats, groups and read receipts in a pane, with no server to run.",
+      "version": "0.13.0",
+      "author": {
+        "name": "MrMirhan",
+        "url": "https://github.com/MrMirhan"
+      },
+      "homepage": "https://github.com/MrMirhan/claude-buddy-chat",
+      "repository": "https://github.com/MrMirhan/claude-buddy-chat",
+      "license": "MIT",
+      "keywords": [
+        "chat",
+        "messaging",
+        "encryption",
+        "e2ee",
+        "post-quantum",
+        "claude-code",
+        "mod"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "MrMirhan/claude-buddy-chat",
+        "sha": "b9eb968dd8c274040ea80c4a3c4ac2bc8fa6790d"
+      }
+    },
+    {
+      "name": "pro-launch",
+      "description": "Take an app or product from idea to launch, taste-first: positioning, naming with domain and trademark checks, reference hunting, style frames beside named references, feature map, UI build loop, launch video, GTM and shipping, with phase gates that force a real artifact before the next step.",
+      "version": "1.0.0",
+      "author": {
+        "name": "jack-reson8",
+        "url": "https://github.com/jack-reson8"
+      },
+      "homepage": "https://github.com/jack-reson8/pro-launch",
+      "repository": "https://github.com/jack-reson8/pro-launch",
+      "license": "MIT",
+      "keywords": [
+        "product",
+        "app-development",
+        "naming",
+        "branding",
+        "ui-design",
+        "launch",
+        "gtm"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/jack-reson8/pro-launch.git",
+        "path": "plugins/pro-launch",
+        "sha": "76b9a6500bc422a07242fe74149c3a7e09e089fd"
+      }
+    },
+    {
+      "name": "skill-skill",
+      "description": "Write, upgrade or audit Claude skills so they change what gets generated: distil rules from real corrections, turn them into required artifacts, gates and scripts, and lint any skill folder with a 0-100 health score (name, trigger clause, orphan and dangling files, oversized body).",
+      "version": "1.2.0",
+      "author": {
+        "name": "jack-reson8",
+        "url": "https://github.com/jack-reson8"
+      },
+      "homepage": "https://github.com/jack-reson8/skill-skill",
+      "repository": "https://github.com/jack-reson8/skill-skill",
+      "license": "MIT",
+      "keywords": [
+        "claude-skills",
+        "agent-skills",
+        "skill-creator",
+        "linter",
+        "audit",
+        "prompt-engineering"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/jack-reson8/skill-skill.git",
+        "path": "plugins/skill-skill",
+        "sha": "d1e1d984a2d05187a1800e81e374d571ec83b4d8"
+      }
     }
   ]
 }
