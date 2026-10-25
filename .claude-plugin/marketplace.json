@@ -4361,6 +4361,32 @@
         "path": "plugins/skill-skill",
         "sha": "d1e1d984a2d05187a1800e81e374d571ec83b4d8"
       }
+    },
+    {
+      "name": "usethisskill",
+      "description": "Find agent skills for a task, read side-by-side proofs of what they change, and safety-check any skill (even straight from a GitHub link) before installing. Adds the find-proven-skill skill and the hosted Use This Skill MCP server; no sign-in, no API key.",
+      "version": "1.2.0",
+      "author": {
+        "name": "Tineessa Nelson",
+        "url": "https://github.com/nodegenie"
+      },
+      "homepage": "https://usethisskill.com/connect",
+      "repository": "https://github.com/nodegenie/awesome-agent-skills",
+      "license": "CC0-1.0",
+      "keywords": [
+        "skills",
+        "agent-skills",
+        "skill-directory",
+        "security",
+        "mcp"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/nodegenie/awesome-agent-skills.git",
+        "path": "plugins/usethisskill",
+        "sha": "f976e495c719a2d0bee0431253f8de54c63345be"
+      }
     }
   ]
 }
