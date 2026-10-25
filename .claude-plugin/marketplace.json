@@ -4361,6 +4361,30 @@
         "path": "plugins/skill-skill",
         "sha": "d1e1d984a2d05187a1800e81e374d571ec83b4d8"
       }
+    },
+    {
+      "name": "new-term-radar",
+      "description": "Three skills that find the names of new AI models, products and repos on X, Hugging Face, GitHub and sitemaps, then size the search terms behind them with Google Ads volume and DataForSEO Trends (prioritize / watch / skip). They run the pinned new-term-radar release from PyPI (uvx new-term-radar==0.5.1), state the cost in USD and wait for a yes before every paid run, and treat fetched posts and pages as data. Needs an AIsa API key.",
+      "version": "0.5.1",
+      "author": {
+        "name": "Jason Zhu",
+        "url": "https://github.com/zhuyansen"
+      },
+      "homepage": "https://github.com/zhuyansen/new-term-radar",
+      "repository": "https://github.com/zhuyansen/new-term-radar",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "keyword-research",
+        "google-trends",
+        "ai-trends"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "zhuyansen/new-term-radar",
+        "sha": "4fd9a0d5003fc3fb599af037a4531a753918c464"
+      }
     }
   ]
 }
