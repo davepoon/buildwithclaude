@@ -4439,6 +4439,32 @@
         "path": "plugins/usethisskill",
         "sha": "f976e495c719a2d0bee0431253f8de54c63345be"
       }
+    },
+    {
+      "name": "commentkeyword",
+      "description": "Plan the \"Comment KEYWORD\" CTA of an Instagram Reel (keyword, on-screen text, caption, DM copy) and set up the automatic DM in CommentKeyword, which sends it through Instagram's official API. Adds the comment-to-dm-cta skill and a dependency-free local MCP server; nothing that messages people is created until the user confirms the keyword, DM text and target posts. Needs a CommentKeyword API token (API access is included on the Free plan).",
+      "version": "0.2.0",
+      "author": {
+        "name": "CommentKeyword",
+        "url": "https://commentkeyword.com"
+      },
+      "homepage": "https://commentkeyword.com/instagram-mcp-server",
+      "repository": "https://github.com/commentkeyword/agent-toolkit",
+      "license": "MIT",
+      "keywords": [
+        "instagram",
+        "reels",
+        "comment-to-dm",
+        "cta",
+        "short-form-video",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "commentkeyword/agent-toolkit",
+        "sha": "c8117ca569b4b8d0de9bbec14aa9a90b59e6bb35"
+      }
     }
   ]
 }
