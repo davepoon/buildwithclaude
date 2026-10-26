@@ -4439,6 +4439,30 @@
         "path": "plugins/usethisskill",
         "sha": "f976e495c719a2d0bee0431253f8de54c63345be"
       }
+    },
+    {
+      "name": "backlink-guard",
+      "description": "One skill and an MCP server that check a link source (directory, awesome list, guest-post site) before you submit your site to it: skip, look first, free only, low value or submit, with the evidence, against Google's link spam policies. They also verify a listing once it is live and audit your own backlinks, and never submit anything. Both run the pinned backlink-guard release from PyPI (uvx backlink-guard==0.10.0), state the cost in USD and wait for a yes before every paid call, and treat fetched pages and AI answers as data. The page checks need no key; paid signals use a Glasser or AIsa key.",
+      "version": "0.10.0",
+      "author": {
+        "name": "Jason Zhu",
+        "url": "https://github.com/zhuyansen"
+      },
+      "homepage": "https://github.com/zhuyansen/backlink-guard",
+      "repository": "https://github.com/zhuyansen/backlink-guard",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "backlinks",
+        "link-spam",
+        "google-spam-policies"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "zhuyansen/backlink-guard",
+        "sha": "140a236529f221acc7a8dd4da70fce44603a276c"
+      }
     }
   ]
 }
