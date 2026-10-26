@@ -4283,7 +4283,7 @@
     {
       "name": "buddy-chat",
       "description": "End-to-end encrypted, quantum-resistant chat between Claude Code users: direct chats, groups and read receipts in a pane, with no server to run.",
-      "version": "0.13.0",
+      "version": "0.20.1",
       "author": {
         "name": "MrMirhan",
         "url": "https://github.com/MrMirhan"
@@ -4304,7 +4304,7 @@
       "source": {
         "source": "github",
         "repo": "MrMirhan/claude-buddy-chat",
-        "sha": "b9eb968dd8c274040ea80c4a3c4ac2bc8fa6790d"
+        "sha": "1117a49c106d24750d761c73400d0f04d201fd11"
       }
     },
     {
@@ -4360,6 +4360,34 @@
         "url": "https://github.com/jack-reson8/skill-skill.git",
         "path": "plugins/skill-skill",
         "sha": "d1e1d984a2d05187a1800e81e374d571ec83b4d8"
+      }
+    },
+    {
+      "name": "tracekit",
+      "description": "Hooks that send each Claude Code tool call to a local Tracekit signer before it runs: allowed, denied with the rule that matched, or held until you approve it from another terminal. The signer signs every call, decision and result into a hash-chained record that `tracekit verify` checks offline. Needs the tracekit-ai Python package (`pip install tracekit-ai==1.4.2 && tracekit init --dev --v2 --no-hooks`). In that dev mode the signer runs as your own user; on Linux, system mode runs it as a separate user.",
+      "version": "1.4.2",
+      "author": {
+        "name": "Cygnux Labs",
+        "url": "https://github.com/Cygnux-Labs"
+      },
+      "homepage": "https://github.com/Cygnux-Labs/Tracekit/tree/9d1d74b7aee051d839b708a84741b1ea6b379852/plugin",
+      "repository": "https://github.com/Cygnux-Labs/Tracekit",
+      "license": "MIT",
+      "keywords": [
+        "security",
+        "hooks",
+        "pretooluse",
+        "approvals",
+        "audit-log",
+        "tamper-evident"
+      ],
+      "category": "security",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Cygnux-Labs/Tracekit.git",
+        "path": "plugin",
+        "ref": "main",
+        "sha": "9d1d74b7aee051d839b708a84741b1ea6b379852"
       }
     },
     {
