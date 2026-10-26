@@ -4439,6 +4439,32 @@
         "path": "plugins/usethisskill",
         "sha": "f976e495c719a2d0bee0431253f8de54c63345be"
       }
+    },
+    {
+      "name": "nopekit",
+      "description": "Design physical things with an agent (CAD, 3D printing, thermal, structures): requirements become claims, each claim is gated by a check that must prove it can fail (every gate ships a negative control), and a readiness report separates what is verified from what is assumed. Packs for beam analysis, CAD solid and mesh checks, FDM printing, fluids and buoyancy, thermal and flat-plate solar, OpenModelica models, and BOM sourcing. Core is stdlib-only Python 3.10+. Its Stop hook acts only inside a nopekit project: it re-runs the checks and makes one local git commit when the project lists your git identity; it never pushes.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Eric Neuman",
+        "url": "https://github.com/neuman"
+      },
+      "homepage": "https://github.com/neuman/nopekit",
+      "repository": "https://github.com/neuman/nopekit",
+      "license": "Apache-2.0",
+      "keywords": [
+        "hardware",
+        "cad",
+        "3d-printing",
+        "simulation",
+        "validation",
+        "fabrication"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "neuman/nopekit",
+        "sha": "61f2e186a7db355cce6d1c7dd75c55389ea95a32"
+      }
     }
   ]
 }
