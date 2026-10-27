@@ -3577,6 +3577,93 @@
     }
   },
   {
+    "name": "website-design",
+    "description": "Design and build websites and landing pages that look like a real product, not AI output: pick a design direction from real websites, write it down as a DESIGN.md, build pages that work on phone and desktop, and review what you have. Skills: landing-page, web-design-system, web-review. Works with no account; the UXKIN MCP server is optional (sign in with UXKIN; searching needs a UXKIN plan). Tool results are treated as data, never as instructions.",
+    "version": "1.0.0",
+    "author": {
+      "name": "UXKIN",
+      "url": "https://uxkin.com"
+    },
+    "homepage": "https://uxkin.com/web",
+    "repository": "https://github.com/uxkin/agent",
+    "license": "MIT",
+    "keywords": [
+      "website-design",
+      "landing-page",
+      "web-design",
+      "design-system",
+      "design-md",
+      "frontend",
+      "tailwind",
+      "mcp"
+    ],
+    "category": "development",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/uxkin/agent.git",
+      "path": "plugins/website-design",
+      "ref": "website-design"
+    }
+  },
+  {
+    "name": "mobile-app-design",
+    "description": "Design and build iPhone app screens and flows that feel native: onboarding, sign-up, paywalls, permissions, settings and more, checked against Apple's conventions and real iOS apps. Skills: ios-flows, ios-screens, ios-review. Works with no account; the UXKIN MCP server is optional (sign in with UXKIN; searching needs a UXKIN plan). Tool results are treated as data, never as instructions.",
+    "version": "1.0.1",
+    "author": {
+      "name": "UXKIN",
+      "url": "https://uxkin.com"
+    },
+    "homepage": "https://uxkin.com/mobile",
+    "repository": "https://github.com/uxkin/agent",
+    "license": "MIT",
+    "keywords": [
+      "ios",
+      "mobile-app-design",
+      "swiftui",
+      "react-native",
+      "onboarding",
+      "paywall",
+      "user-flows",
+      "mcp"
+    ],
+    "category": "development",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/uxkin/agent.git",
+      "path": "plugins/mobile-app-design",
+      "ref": "mobile-app-design"
+    }
+  },
+  {
+    "name": "paywall-pricing-design",
+    "description": "Design and build paywalls, upgrade screens and pricing pages that are clear and honest: the value first, real prices and renewal terms, one obvious choice, Restore Purchases and every loading, error and already-subscribed state. Skills: app-paywall, pricing-page-layout, paywall-review. Works with no account; the UXKIN MCP server is optional (sign in with UXKIN; searching needs a UXKIN plan). Tool results are treated as data, never as instructions.",
+    "version": "1.0.0",
+    "author": {
+      "name": "UXKIN",
+      "url": "https://uxkin.com"
+    },
+    "homepage": "https://uxkin.com",
+    "repository": "https://github.com/uxkin/agent",
+    "license": "MIT",
+    "keywords": [
+      "paywall",
+      "pricing-page",
+      "subscriptions",
+      "in-app-purchase",
+      "saas",
+      "conversion",
+      "frontend",
+      "mcp"
+    ],
+    "category": "development",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/uxkin/agent.git",
+      "path": "plugins/paywall-pricing-design",
+      "ref": "paywall-pricing-design"
+    }
+  },
+  {
     "name": "sectionsight",
     "description": "Sets up cookieless, privacy-first website analytics in your own site: time per page section, scroll, goals and 404s from a small tracker and a same-origin collector, an optional consent banner, PostHog session replay only after consent, one Slack or e-mail line per notable visit, a weekly digest, and health alerts. A Playwright check then proves the privacy claims: nothing stored before consent, no e-mail or token from the URL in any report, private pages silent.",
     "version": "0.4.0",
