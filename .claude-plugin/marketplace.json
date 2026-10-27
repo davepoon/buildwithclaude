@@ -4439,6 +4439,32 @@
         "path": "plugins/usethisskill",
         "sha": "f976e495c719a2d0bee0431253f8de54c63345be"
       }
+    },
+    {
+      "name": "bankbridge",
+      "description": "Ask Claude Code about your own US bank, credit card and investment accounts: 19 slash commands (subscriptions, monthly report, cashflow trend, price creep, duplicate charges, tax prep and more), a skill that picks the right tool for a money question, and the hosted BankBridge MCP server (12 read-only tools, OAuth sign-in, no key to paste). Data is fetched live on each call; it can't move money. Paid service, $5/mo per connected bank.",
+      "version": "0.5.0",
+      "author": {
+        "name": "Great Work LLC",
+        "url": "https://bankbridge.money"
+      },
+      "homepage": "https://bankbridge.money",
+      "repository": "https://github.com/bankbridge-money/bankbridge-plugin",
+      "license": "MIT",
+      "keywords": [
+        "finance",
+        "banking",
+        "spending",
+        "subscriptions",
+        "investments",
+        "mcp"
+      ],
+      "category": "finance",
+      "source": {
+        "source": "github",
+        "repo": "bankbridge-money/bankbridge-plugin",
+        "sha": "8e8595165334041c80be2b47f468a9a171e5d7d1"
+      }
     }
   ]
 }
