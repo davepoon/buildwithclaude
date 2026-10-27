@@ -4439,6 +4439,32 @@
         "path": "plugins/usethisskill",
         "sha": "f976e495c719a2d0bee0431253f8de54c63345be"
       }
+    },
+    {
+      "name": "site-traffic-teardown",
+      "description": "Competitor traffic and SEO teardown for any website: finds the competitors (Semrush organic competitors), screens them by Similarweb visits, pulls one side-by-side table (3-month trend, channel mix, Semrush keywords and backlinks, Ahrefs DR) and reads it into growth-engine types and three opportunities. Each stage quotes first for free and runs its billed calls only after the user says yes to that quote, and AIsa rows and pages read along the way stay data. Needs a paid AIsa API key and the AIsa CLI (npm i -g @aisa-one/cli@0.6.9), under $1 per domain.",
+      "version": "0.1.2",
+      "author": {
+        "name": "Jason Zhu",
+        "url": "https://github.com/zhuyansen"
+      },
+      "homepage": "https://github.com/zhuyansen/site-traffic-teardown",
+      "repository": "https://github.com/zhuyansen/site-traffic-teardown",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "competitor-analysis",
+        "similarweb",
+        "semrush",
+        "ahrefs",
+        "traffic-analysis"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "zhuyansen/site-traffic-teardown",
+        "sha": "bd1067a0bfa275d2fe205ca27f69db9fac0172c3"
+      }
     }
   ]
 }
