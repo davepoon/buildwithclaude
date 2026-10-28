@@ -75,7 +75,7 @@ function renderInline(text: string, kp: string): ReactNode[] {
 type Block =
   | { type: 'paragraph'; text: string }
   | { type: 'heading'; level: 2 | 3; text: string }
-  | { type: 'list'; ordered: boolean; items: string[] }
+  | { type: 'list'; ordered: boolean; start: number; items: string[] }
   | { type: 'quote'; text: string }
   | { type: 'code'; lang: string; text: string }
   | { type: 'image'; alt: string; src: string }
@@ -109,11 +109,12 @@ function tokenize(content: string): Block[] {
     }
     if (/^(-|\d+\.)\s/.test(line)) {
       const ordered = /^\d+\.\s/.test(line)
+      const start = ordered ? parseInt(line, 10) : 1
       const items: string[] = []
       while (i < lines.length && /^(-|\d+\.)\s/.test(lines[i].trim())) {
         items.push(lines[i].trim().replace(/^(-|\d+\.)\s/, '')); i++
       }
-      blocks.push({ type: 'list', ordered, items })
+      blocks.push({ type: 'list', ordered, start, items })
       continue
     }
     if (line.startsWith('> ')) {
@@ -182,7 +183,7 @@ export function StoryContent({ content, slug, pullQuote }: StoryContentProps) {
       case 'list': {
         const Tag = block.ordered ? 'ol' : 'ul'
         out.push(
-          <Tag key={k} style={{ margin: '0 0 24px', paddingLeft: 26, color: 'hsl(0 0% 85%)', fontSize: 19, lineHeight: 1.7 }}>
+          <Tag key={k} start={block.ordered && block.start !== 1 ? block.start : undefined} style={{ margin: '0 0 24px', paddingLeft: 26, listStyleType: block.ordered ? 'decimal' : 'disc', color: 'hsl(0 0% 85%)', fontSize: 19, lineHeight: 1.7 }}>
             {block.items.map((it, j) => (
               <li key={j} style={{ margin: '0 0 8px' }}>{renderInline(it, `${k}-${j}`)}</li>
             ))}
