@@ -3602,7 +3602,7 @@
       "source": "git-subdir",
       "url": "https://github.com/uxkin/agent.git",
       "path": "plugins/website-design",
-      "ref": "website-design"
+      "sha": "07e8f5f61421c7268fddc1511878fb09945da854"
     }
   },
   {
@@ -3631,7 +3631,7 @@
       "source": "git-subdir",
       "url": "https://github.com/uxkin/agent.git",
       "path": "plugins/mobile-app-design",
-      "ref": "mobile-app-design"
+      "sha": "0c44dd6e44f565643fcf45339fce19d0696f9b8c"
     }
   },
   {
@@ -3660,7 +3660,7 @@
       "source": "git-subdir",
       "url": "https://github.com/uxkin/agent.git",
       "path": "plugins/paywall-pricing-design",
-      "ref": "paywall-pricing-design"
+      "sha": "ddf2946b6fdf27b956b8485ab95c3feb7a7e86fc"
     }
   },
   {
