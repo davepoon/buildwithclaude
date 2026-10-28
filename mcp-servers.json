@@ -1149,11 +1149,11 @@
       ],
       "_metadata": {
         "displayName": "Firecrawl",
-        "category": "ai-task-management",
+        "category": "web-search",
         "description": "🔥 Official Firecrawl MCP Server - Adds powerful web scraping and search to Cursor, Claude and ...",
         "vendor": "MCP",
         "dockerHub": "https://hub.docker.com/r/mcp/firecrawl",
-        "repository": "https://github.com/firecrawl"
+        "repository": "https://github.com/firecrawl/firecrawl-mcp-server"
       }
     },
     "firewalla-mcp-server": {
