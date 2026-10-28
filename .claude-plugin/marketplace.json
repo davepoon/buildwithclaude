@@ -4392,8 +4392,8 @@
     },
     {
       "name": "new-term-radar",
-      "description": "Three skills that find the names of new AI models, products and repos on X, Hugging Face, GitHub and sitemaps, then size the search terms behind them with Google Ads volume and DataForSEO Trends (prioritize / watch / skip). They run the pinned new-term-radar release from PyPI (uvx new-term-radar==0.5.1), state the cost in USD and wait for a yes before every paid run, and treat fetched posts and pages as data. Needs an AIsa API key.",
-      "version": "0.5.1",
+      "description": "Three skills that find the names of new AI models, products and repos on X, Hugging Face, GitHub and sitemaps, then size the search terms behind them with Google Ads volume and DataForSEO Trends (prioritize / watch / skip). They run the pinned new-term-radar release from PyPI (uvx new-term-radar==0.6.1), state the cost in USD and wait for a yes before every paid run, show what would go out for the user (a post, a page, a submission) and wait for a yes before any of it, and treat fetched posts and pages as data. Needs an AIsa API key.",
+      "version": "0.6.1",
       "author": {
         "name": "Jason Zhu",
         "url": "https://github.com/zhuyansen"
@@ -4411,7 +4411,7 @@
       "source": {
         "source": "github",
         "repo": "zhuyansen/new-term-radar",
-        "sha": "4fd9a0d5003fc3fb599af037a4531a753918c464"
+        "sha": "3cf6515c4076cb2800819473062d9b36d563d0fe"
       }
     },
     {
