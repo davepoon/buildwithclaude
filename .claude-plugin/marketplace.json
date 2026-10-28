@@ -4519,6 +4519,32 @@
         "repo": "commentkeyword/agent-toolkit",
         "sha": "c8117ca569b4b8d0de9bbec14aa9a90b59e6bb35"
       }
+    },
+    {
+      "name": "design-engineer",
+      "description": "Six agent skills for designers who ship UI changes in a real production codebase, from a fresh clone to a pull request an engineer can review: repo-orientation, component-impact, visual-qa-branch, reviewable-ui-pr, review-as-designer and ai-ready-design-system. The screenshot skills compare before and after captures with Playwright. No hooks, MCP servers or telemetry.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Modeinspect",
+        "url": "https://modeinspect.com"
+      },
+      "homepage": "https://modeinspect.com/design-engineer/skills",
+      "repository": "https://github.com/modeinspect/design-engineer-skills",
+      "license": "MIT",
+      "keywords": [
+        "design-engineering",
+        "design-systems",
+        "visual-qa",
+        "pull-requests",
+        "playwright",
+        "react"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "modeinspect/design-engineer-skills",
+        "sha": "f445d5a20b368131520599c7f0fd11474390dace"
+      }
     }
   ]
 }
