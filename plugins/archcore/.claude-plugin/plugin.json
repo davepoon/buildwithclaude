@@ -1,6 +1,6 @@
 {
   "name": "archcore",
-  "version": "0.12.0",
+  "version": "0.14.4",
   "description": "Spec-driven development and context engineering for AI coding agents, backed by project context in Git.",
   "author": {
     "name": "Archcore",
