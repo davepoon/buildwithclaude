@@ -4519,6 +4519,31 @@
         "repo": "commentkeyword/agent-toolkit",
         "sha": "c8117ca569b4b8d0de9bbec14aa9a90b59e6bb35"
       }
+    },
+    {
+      "name": "aplica",
+      "description": "Config-driven job search for Claude Code: scans public job APIs, scores roles against your own profile, flags likely ghost jobs and duplicates, and applies in your own logged-in Chrome with your real data, under per-script daily caps. Never invents facts, never pays, never uploads ID documents, never accepts offers. Needs a paid Claude plan, Claude in Chrome and Python 3.11+. Job boards restrict automation, so accounts can be limited.",
+      "version": "0.3.1",
+      "author": {
+        "name": "Rafael de Carvalho",
+        "url": "https://github.com/eurafaeldecarvalho"
+      },
+      "homepage": "https://eurafaeldecarvalho.github.io/aplica/",
+      "repository": "https://github.com/eurafaeldecarvalho/aplica",
+      "license": "MIT",
+      "keywords": [
+        "jobs",
+        "job-search",
+        "auto-apply",
+        "automation",
+        "claude-code"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "eurafaeldecarvalho/aplica",
+        "sha": "95171be733145ac4e2d066a093e637a9336e2ec4"
+      }
     }
   ]
 }
