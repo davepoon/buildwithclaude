@@ -4439,6 +4439,31 @@
         "path": "plugins/usethisskill",
         "sha": "f976e495c719a2d0bee0431253f8de54c63345be"
       }
+    },
+    {
+      "name": "cloudish",
+      "description": "A skill that deploys a Dockerfile, source folder or existing image to Cloudish as a long-lived container at a live URL. Cloudish builds the image server-side (no local Docker), with optional persistent volumes, encrypted secrets, custom domains and OIDC sign-in for the app's users. The agent creates its own API key with one call and no signup; spend is drawn from the key's prepaid credits and can't exceed them, and the skill asks before the first deploy and before extra spend.",
+      "version": "0.1.6",
+      "author": {
+        "name": "Hal9 Inc",
+        "url": "https://cloudish.ai"
+      },
+      "homepage": "https://cloudish.ai",
+      "repository": "https://github.com/cloudishai/skills",
+      "license": "MIT",
+      "keywords": [
+        "deployment",
+        "docker",
+        "containers",
+        "hosting",
+        "skills"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "cloudishai/skills",
+        "sha": "e560d7af4f2566a4aa10f0539492d9b600a482d4"
+      }
     }
   ]
 }
