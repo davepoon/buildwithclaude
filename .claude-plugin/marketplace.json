@@ -4495,6 +4495,32 @@
       }
     },
     {
+      "name": "book-a-sponsor",
+      "description": "Newsletter sponsor data: give it a newsletter's web address and it finds similar newsletters and the brands that sponsored them, with the newsletter and date where each ad ran; lists brands sponsoring newsletters by topic; and gives the median price newsletters list for a sponsor slot by list size. Adds the book-a-sponsor skill and the hosted Book a Sponsor MCP server (https://bookasponsor.com/mcp); no sign-in, no API key. Brand-level data only: no people, emails or phone numbers.",
+      "version": "1.0.1",
+      "author": {
+        "name": "Sales.co",
+        "url": "https://bookasponsor.com"
+      },
+      "homepage": "https://bookasponsor.com/mcp",
+      "repository": "https://github.com/rdoyle99/book-a-sponsor-plugin",
+      "license": "MIT",
+      "keywords": [
+        "newsletter",
+        "sponsors",
+        "sponsorship",
+        "advertising",
+        "creators",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "rdoyle99/book-a-sponsor-plugin",
+        "sha": "8f6c32648e00fc12b3dd32753dfddaf9b7728893"
+      }
+    },
+    {
       "name": "commentkeyword",
       "description": "Plan the \"Comment KEYWORD\" CTA of an Instagram Reel (keyword, on-screen text, caption, DM copy) and set up the automatic DM in CommentKeyword, which sends it through Instagram's official API. Adds the comment-to-dm-cta skill and a dependency-free local MCP server; nothing that messages people is created until the user confirms the keyword, DM text and target posts. Needs a CommentKeyword API token (API access is included on the Free plan).",
       "version": "0.2.0",
