@@ -4609,6 +4609,32 @@
       }
     },
     {
+      "name": "bestprice-shopping",
+      "description": "Read-only shopping decisions for Greece from BestPrice.gr: product search, current offers from Greek stores with delivered prices, price history, and a buy-now-or-wait decision for a product. Adds the bestprice-shopping skill and the hosted BestPrice MCP server (https://mcp.bestprice.gr/mcp); no sign-in, no API key. It never buys anything or touches a cart.",
+      "version": "2.8.1",
+      "author": {
+        "name": "BestPrice",
+        "url": "https://www.bestprice.gr/"
+      },
+      "homepage": "https://www.bestprice.gr/mcp",
+      "repository": "https://github.com/TheBestCo/bestprice-mcp",
+      "license": "Apache-2.0",
+      "keywords": [
+        "shopping",
+        "price-comparison",
+        "price-history",
+        "e-commerce",
+        "greece",
+        "mcp"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "TheBestCo/bestprice-mcp",
+        "sha": "19c00589b329aa814812333f0a7e2020acb7b16a"
+      }
+    },
+    {
       "name": "commentkeyword",
       "description": "Plan the \"Comment KEYWORD\" CTA of an Instagram Reel (keyword, on-screen text, caption, DM copy) and set up the automatic DM in CommentKeyword, which sends it through Instagram's official API. Adds the comment-to-dm-cta skill and a dependency-free local MCP server; nothing that messages people is created until the user confirms the keyword, DM text and target posts. Needs a CommentKeyword API token (API access is included on the Free plan).",
       "version": "0.2.0",
