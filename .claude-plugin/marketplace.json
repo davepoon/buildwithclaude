@@ -4609,6 +4609,32 @@
       }
     },
     {
+      "name": "communitymentions",
+      "description": "Which subreddits AI answers cite: describe a product or niche and it returns the subreddits where it fits, with how often AI answers (OpenAI models, Perplexity, Gemini) cited each one and its member count; ask about one subreddit and it returns its citations by engine, the kinds of questions those answers were about, and its most-cited threads. Adds the communitymentions skill and the hosted CommunityMentions MCP server (https://communitymentions.com/api/mcp); read-only, no sign-in, no API key.",
+      "version": "1.0.1",
+      "author": {
+        "name": "CommunityMentions",
+        "url": "https://communitymentions.com"
+      },
+      "homepage": "https://communitymentions.com",
+      "repository": "https://github.com/rdoyle99/communitymentions-plugin",
+      "license": "MIT",
+      "keywords": [
+        "reddit",
+        "subreddits",
+        "ai search",
+        "reddit marketing",
+        "generative engine optimization",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "rdoyle99/communitymentions-plugin",
+        "sha": "077dc86e674cbf9a64e7c8701ee2b740252315bc"
+      }
+    },
+    {
       "name": "commentkeyword",
       "description": "Plan the \"Comment KEYWORD\" CTA of an Instagram Reel (keyword, on-screen text, caption, DM copy) and set up the automatic DM in CommentKeyword, which sends it through Instagram's official API. Adds the comment-to-dm-cta skill and a dependency-free local MCP server; nothing that messages people is created until the user confirms the keyword, DM text and target posts. Needs a CommentKeyword API token (API access is included on the Free plan).",
       "version": "0.2.0",
