@@ -3605,6 +3605,34 @@
     }
   },
   {
+    "name": "userproof",
+    "description": "UX analytics for your coding agent: sets up session recording on your site from the terminal, then returns the one highest-impact conversion fix from real visitor sessions (dead clicks, rage clicks, errors on click, drop-offs) with the file and line to change, and checks after you ship whether the fix worked. Adds the setup, review and go skills, a SessionStart brief, and a dependency-free local MCP server (Node 18+). Setup creates a UserProof account and API key from the terminal; visitor behavior is sent by the site snippet to UserProof, and the plugin does not upload your source code.",
+    "version": "3.9.0",
+    "author": {
+      "name": "UserProof",
+      "url": "https://getuserproof.com"
+    },
+    "homepage": "https://getuserproof.com",
+    "repository": "https://github.com/GetUserProof/userproof",
+    "license": "MIT",
+    "keywords": [
+      "ux",
+      "analytics",
+      "session-replay",
+      "conversion",
+      "dead-clicks",
+      "rage-clicks",
+      "mcp"
+    ],
+    "category": "monitoring",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/GetUserProof/userproof.git",
+      "path": "plugin",
+      "sha": "548d0cd2f66223de5a3f95a63e41d8da634be71a"
+    }
+  },
+  {
     "name": "subagent-tuner",
     "description": "Claude Code mod that lets you choose the model and reasoning effort of every subagent: ask before it starts, take a recommendation by task kind, or let a saved default replace what the agent requested.",
     "version": "0.1.7",
