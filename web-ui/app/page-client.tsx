@@ -60,11 +60,11 @@ function FeaturedSection({ title, href, icon: Icon, color, items, itemLinkPrefix
             <Icon className={`h-7 w-7 ${colorClasses[color]}`} />
             {title}
           </h2>
-          <Link href={href} className="text-sm text-muted-foreground hover:text-accent transition-colors">
+          <Link href={href} className="py-1 -my-1 text-sm text-muted-foreground hover:text-accent transition-colors">
             View all →
           </Link>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.map((item) => (
             <Link key={item.slug} href={`${itemLinkPrefix}/${item.slug}`}>
               <div className="p-6 rounded-lg border border-border hover:border-primary/40 transition-colors h-full">
@@ -112,7 +112,7 @@ export default function HomePageClient({
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Text content */}
-            <div className="max-w-xl">
+            <div className="max-w-xl min-w-0">
               <h1 className="text-display-1 mb-6">
                 Discover <span className="text-[#e89a7a]">everything</span> for Claude
               </h1>
@@ -126,7 +126,7 @@ export default function HomePageClient({
               <div className="mt-5 flex items-center gap-5 text-sm">
                 <Link
                   href="/plugins"
-                  className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
+                  className="inline-flex items-center gap-1 py-1 -my-1 text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Browse all <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
@@ -134,14 +134,14 @@ export default function HomePageClient({
                   href="https://github.com/davepoon/buildwithclaude"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="py-1 -my-1 text-muted-foreground hover:text-foreground transition-colors"
                 >
                   View on GitHub
                 </a>
               </div>
 
               {/* Platform badges */}
-              <div className="flex gap-3 mt-10">
+              <div className="flex flex-wrap gap-3 mt-10">
                 <div className="px-4 py-2 rounded-md border border-border text-center">
                   <div className="text-sm font-medium">Claude.ai</div>
                   <div className="text-xs text-muted-foreground">Chat</div>
@@ -340,23 +340,23 @@ export default function HomePageClient({
               Add the plugin marketplace to Claude Code
             </p>
             {/* Command bar like Claude Code website */}
-            <div className="inline-flex items-center gap-1 bg-[#1a1a1a] rounded-full p-1.5 pr-4">
+            <div className="inline-flex items-center gap-1 bg-[#1a1a1a] rounded-full p-1.5 pr-4 max-sm:max-w-full max-sm:flex-wrap max-sm:rounded-3xl">
               {/* Dropdown button */}
-              <button className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors">
+              <button className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors max-sm:shrink-0 max-sm:whitespace-nowrap">
                 Get Plugins
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
               {/* Command */}
-              <code className="font-mono text-sm ml-3">
+              <code className="font-mono text-sm ml-3 max-sm:ml-0 max-sm:min-w-0 max-sm:order-last max-sm:basis-full max-sm:px-3 max-sm:pt-2 max-sm:pb-2.5 max-sm:text-left">
                 <span className="text-primary">/plugin</span>{' '}
-                <span className="text-foreground/80">marketplace add davepoon/buildwithclaude</span>
+                <span className="text-foreground/80">marketplace add <span className="inline-block max-w-full">davepoon/<wbr />buildwithclaude</span></span>
               </code>
               {/* Copy button */}
               <button
                 onClick={() => navigator.clipboard.writeText('/plugin marketplace add davepoon/buildwithclaude')}
-                className="ml-3 p-1.5 text-muted-foreground hover:text-foreground transition-colors"
+                className="ml-3 p-1.5 text-muted-foreground hover:text-foreground transition-colors max-sm:ml-auto"
                 title="Copy command"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -366,7 +366,7 @@ export default function HomePageClient({
             </div>
             <p className="text-sm text-muted-foreground mt-8">
               Or{' '}
-              <Link href="/plugins" className="text-accent hover:underline">
+              <Link href="/plugins" className="py-1 text-accent hover:underline">
                 browse plugins
               </Link>
             </p>

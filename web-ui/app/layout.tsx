@@ -44,14 +44,14 @@ export default function RootLayout({
           <div className="container mx-auto px-4 py-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
               <p>
-                Made by <a href="https://github.com/davepoon" className="hover:text-foreground transition-colors">Dave Poon</a>
+                Made by <a href="https://github.com/davepoon" className="inline-block py-1 -my-1 hover:text-foreground transition-colors">Dave Poon</a>
               </p>
               <div className="flex items-center gap-6">
                 <a
                   href="https://github.com/davepoon/buildwithclaude/blob/main/LICENSE"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-foreground transition-colors"
+                  className="py-1 -my-1 hover:text-foreground transition-colors"
                 >
                   MIT License
                 </a>
@@ -59,7 +59,7 @@ export default function RootLayout({
                   href="https://github.com/davepoon/buildwithclaude"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-foreground transition-colors"
+                  className="py-1 -my-1 hover:text-foreground transition-colors"
                 >
                   GitHub
                 </a>

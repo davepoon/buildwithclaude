@@ -77,7 +77,7 @@ export function HookCard({ hook }: HookCardProps) {
       <div className="p-5 rounded-lg border border-border hover:border-primary/40 transition-colors h-full flex flex-col bg-card">
         <div className="mb-3">
           <h3 className="font-medium mb-1">{hook.name}</h3>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="px-2 py-0.5 rounded-full bg-muted text-xs text-muted-foreground">{categoryName}</span>
             <span className="px-2 py-0.5 rounded-full bg-muted text-xs text-muted-foreground font-mono">{hook.event}</span>
           </div>

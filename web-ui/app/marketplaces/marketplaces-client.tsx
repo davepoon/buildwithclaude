@@ -181,6 +181,7 @@ export default function MarketplacesPageClient({
           <Input
             type="text"
             placeholder="Search marketplaces..."
+            aria-label="Search marketplaces"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="max-w-md bg-card border-border"
@@ -203,7 +204,7 @@ export default function MarketplacesPageClient({
 
         {/* Marketplace list */}
         {marketplaces.length > 0 ? (
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {marketplaces.map((marketplace) => (
               <MarketplaceRegistryItem key={marketplace.id || marketplace.name} marketplace={marketplace} />
             ))}
