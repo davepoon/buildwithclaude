@@ -323,7 +323,7 @@
     {
       "name": "archcore",
       "description": "Spec-driven development and context engineering for AI coding agents, backed by project context in Git.",
-      "version": "0.12.0",
+      "version": "0.14.4",
       "author": {
         "name": "Archcore",
         "url": "https://github.com/archcore-ai"
@@ -2799,7 +2799,7 @@
     {
       "name": "kumi",
       "description": "A coordinated engineering team of named AI specialists that remembers your project between sessions. Call yui to route work, or call any specialist directly: Go (jaan, siim, mart), Angular (liis, kadi, tiiu), iOS (ren, shu, ryo), Python (eero, anu, ivo), React (noa, rui, aki), SQL (saku), NoSQL (remo), architecture for any stack (kai), process management (enn), and DevOps/infra (sora). Each ships as both a skill and a subagent. Bundled hooks capture finished work when a session ends and say at the next session start that saved work exists, and record per-session and per-agent token and time usage. Every specialist follows the same discipline: read context first, make the smallest correct change, verify.",
-      "version": "1.4.0",
+      "version": "1.5.1",
       "author": {
         "name": "Anna Veretennykova",
         "url": "https://github.com/annavetech"
@@ -2825,7 +2825,8 @@
       "category": "orchestration",
       "source": {
         "source": "github",
-        "repo": "annavetech/kumi"
+        "repo": "annavetech/kumi",
+        "sha": "c811ba8daa87493df3b60e16bbe10a6b273149d1"
       }
     },
   {
@@ -3574,6 +3575,93 @@
     "source": {
       "source": "github",
       "repo": "uxkin/agent"
+    }
+  },
+  {
+    "name": "website-design",
+    "description": "Design and build websites and landing pages that look like a real product, not AI output: pick a design direction from real websites, write it down as a DESIGN.md, build pages that work on phone and desktop, and review what you have. Skills: landing-page, web-design-system, web-review. Works with no account; the UXKIN MCP server is optional (sign in with UXKIN; searching needs a UXKIN plan). Tool results are treated as data, never as instructions.",
+    "version": "1.0.0",
+    "author": {
+      "name": "UXKIN",
+      "url": "https://uxkin.com"
+    },
+    "homepage": "https://uxkin.com/web",
+    "repository": "https://github.com/uxkin/agent",
+    "license": "MIT",
+    "keywords": [
+      "website-design",
+      "landing-page",
+      "web-design",
+      "design-system",
+      "design-md",
+      "frontend",
+      "tailwind",
+      "mcp"
+    ],
+    "category": "development",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/uxkin/agent.git",
+      "path": "plugins/website-design",
+      "sha": "07e8f5f61421c7268fddc1511878fb09945da854"
+    }
+  },
+  {
+    "name": "mobile-app-design",
+    "description": "Design and build iPhone app screens and flows that feel native: onboarding, sign-up, paywalls, permissions, settings and more, checked against Apple's conventions and real iOS apps. Skills: ios-flows, ios-screens, ios-review. Works with no account; the UXKIN MCP server is optional (sign in with UXKIN; searching needs a UXKIN plan). Tool results are treated as data, never as instructions.",
+    "version": "1.0.1",
+    "author": {
+      "name": "UXKIN",
+      "url": "https://uxkin.com"
+    },
+    "homepage": "https://uxkin.com/mobile",
+    "repository": "https://github.com/uxkin/agent",
+    "license": "MIT",
+    "keywords": [
+      "ios",
+      "mobile-app-design",
+      "swiftui",
+      "react-native",
+      "onboarding",
+      "paywall",
+      "user-flows",
+      "mcp"
+    ],
+    "category": "development",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/uxkin/agent.git",
+      "path": "plugins/mobile-app-design",
+      "sha": "0c44dd6e44f565643fcf45339fce19d0696f9b8c"
+    }
+  },
+  {
+    "name": "paywall-pricing-design",
+    "description": "Design and build paywalls, upgrade screens and pricing pages that are clear and honest: the value first, real prices and renewal terms, one obvious choice, Restore Purchases and every loading, error and already-subscribed state. Skills: app-paywall, pricing-page-layout, paywall-review. Works with no account; the UXKIN MCP server is optional (sign in with UXKIN; searching needs a UXKIN plan). Tool results are treated as data, never as instructions.",
+    "version": "1.0.0",
+    "author": {
+      "name": "UXKIN",
+      "url": "https://uxkin.com"
+    },
+    "homepage": "https://uxkin.com",
+    "repository": "https://github.com/uxkin/agent",
+    "license": "MIT",
+    "keywords": [
+      "paywall",
+      "pricing-page",
+      "subscriptions",
+      "in-app-purchase",
+      "saas",
+      "conversion",
+      "frontend",
+      "mcp"
+    ],
+    "category": "development",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/uxkin/agent.git",
+      "path": "plugins/paywall-pricing-design",
+      "sha": "ddf2946b6fdf27b956b8485ab95c3feb7a7e86fc"
     }
   },
   {
@@ -4392,8 +4480,8 @@
     },
     {
       "name": "new-term-radar",
-      "description": "Three skills that find the names of new AI models, products and repos on X, Hugging Face, GitHub and sitemaps, then size the search terms behind them with Google Ads volume and DataForSEO Trends (prioritize / watch / skip). They run the pinned new-term-radar release from PyPI (uvx new-term-radar==0.5.1), state the cost in USD and wait for a yes before every paid run, and treat fetched posts and pages as data. Needs an AIsa API key.",
-      "version": "0.5.1",
+      "description": "Three skills that find the names of new AI models, products and repos on X, Hugging Face, GitHub and sitemaps, then size the search terms behind them with Google Ads volume and DataForSEO Trends (prioritize / watch / skip). They run the pinned new-term-radar release from PyPI (uvx new-term-radar==0.6.1), state the cost in USD and wait for a yes before every paid run, show what would go out for the user (a post, a page, a submission) and wait for a yes before any of it, and treat fetched posts and pages as data. Needs an AIsa API key.",
+      "version": "0.6.1",
       "author": {
         "name": "Jason Zhu",
         "url": "https://github.com/zhuyansen"
@@ -4411,7 +4499,7 @@
       "source": {
         "source": "github",
         "repo": "zhuyansen/new-term-radar",
-        "sha": "4fd9a0d5003fc3fb599af037a4531a753918c464"
+        "sha": "3cf6515c4076cb2800819473062d9b36d563d0fe"
       }
     },
     {
@@ -4495,6 +4583,32 @@
       }
     },
     {
+      "name": "book-a-sponsor",
+      "description": "Newsletter sponsor data: give it a newsletter's web address and it finds similar newsletters and the brands that sponsored them, with the newsletter and date where each ad ran; lists brands sponsoring newsletters by topic; and gives the median price newsletters list for a sponsor slot by list size. Adds the book-a-sponsor skill and the hosted Book a Sponsor MCP server (https://bookasponsor.com/mcp); no sign-in, no API key. Brand-level data only: no people, emails or phone numbers.",
+      "version": "1.0.1",
+      "author": {
+        "name": "Sales.co",
+        "url": "https://bookasponsor.com"
+      },
+      "homepage": "https://bookasponsor.com/mcp",
+      "repository": "https://github.com/rdoyle99/book-a-sponsor-plugin",
+      "license": "MIT",
+      "keywords": [
+        "newsletter",
+        "sponsors",
+        "sponsorship",
+        "advertising",
+        "creators",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "rdoyle99/book-a-sponsor-plugin",
+        "sha": "8f6c32648e00fc12b3dd32753dfddaf9b7728893"
+      }
+    },
+    {
       "name": "commentkeyword",
       "description": "Plan the \"Comment KEYWORD\" CTA of an Instagram Reel (keyword, on-screen text, caption, DM copy) and set up the automatic DM in CommentKeyword, which sends it through Instagram's official API. Adds the comment-to-dm-cta skill and a dependency-free local MCP server; nothing that messages people is created until the user confirms the keyword, DM text and target posts. Needs a CommentKeyword API token (API access is included on the Free plan).",
       "version": "0.2.0",
@@ -4518,6 +4632,56 @@
         "source": "github",
         "repo": "commentkeyword/agent-toolkit",
         "sha": "c8117ca569b4b8d0de9bbec14aa9a90b59e6bb35"
+      }
+    },
+    {
+      "name": "backlink-guard",
+      "description": "One skill and an MCP server that check a link source (directory, awesome list, guest-post site) before you submit your site to it: skip, look first, free only, low value or submit, with the evidence, against Google's link spam policies. They also verify a listing once it is live and audit your own backlinks. They never submit anything, and before an agent submits a site or opens a pull request for you, the skill has it show where it goes and the exact text and wait for your yes; a vet result is not that yes. Both run the pinned backlink-guard release from PyPI (uvx backlink-guard==0.11.1), state the cost in USD and wait for a yes before every paid call, and treat fetched pages and AI answers as data. The page checks need no key; paid signals use a Glasser or AIsa key.",
+      "version": "0.11.1",
+      "author": {
+        "name": "Jason Zhu",
+        "url": "https://github.com/zhuyansen"
+      },
+      "homepage": "https://github.com/zhuyansen/backlink-guard",
+      "repository": "https://github.com/zhuyansen/backlink-guard",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "backlinks",
+        "link-spam",
+        "google-spam-policies"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "zhuyansen/backlink-guard",
+        "sha": "588ff58d3cfd5c59590ff11e7ce967427d069afa"
+      }
+    },
+    {
+      "name": "conferencedb",
+      "description": "Read-only conference and trade show data: which companies sponsor and exhibit at an event, the conferences a company sponsors or exhibits at, event dates and places, and the sponsorship packages organizers publish. Adds the conferencedb skill and the hosted ConferenceDB MCP server (https://conferencedatabase.com/api/mcp); no sign-in, no API key. Company-level data only: no people, emails or phone numbers.",
+      "version": "1.0.2",
+      "author": {
+        "name": "Sales.co",
+        "url": "https://conferencedatabase.com"
+      },
+      "homepage": "https://conferencedatabase.com/mcp",
+      "repository": "https://github.com/rdoyle99/conferencedb-plugin",
+      "license": "MIT",
+      "keywords": [
+        "conferences",
+        "trade-shows",
+        "sponsors",
+        "exhibitors",
+        "sponsorship",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "rdoyle99/conferencedb-plugin",
+        "sha": "afa673b6d1b3f38a448219788d2ada4d833fce66"
       }
     }
   ]

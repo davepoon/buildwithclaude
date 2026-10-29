@@ -95,7 +95,7 @@ export function PluginPageClient({ plugin }: PluginPageClientProps) {
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-12 max-w-3xl">
         {/* Back */}
-        <Link href="/plugins" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8">
+        <Link href="/plugins" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground -mt-1 py-1 mb-7">
           <ArrowLeft className="h-4 w-4" />
           Back to Plugins
         </Link>
@@ -103,8 +103,8 @@ export function PluginPageClient({ plugin }: PluginPageClientProps) {
         {/* Header */}
         <div className="mb-10">
           <div className="flex items-baseline gap-3 mb-2">
-            <h1 className="text-display-2 font-mono">{plugin.name}</h1>
-            <span className="text-sm text-muted-foreground">v{plugin.version}</span>
+            <h1 className="text-display-2 font-mono min-w-0 wrap-break-word">{plugin.name}</h1>
+            <span className="text-sm text-muted-foreground shrink-0">v{plugin.version}</span>
           </div>
           <p className="text-sm text-muted-foreground mb-3">{categoryName}</p>
           <p className="text-lg text-muted-foreground">{plugin.description}</p>
@@ -206,7 +206,7 @@ export function PluginPageClient({ plugin }: PluginPageClientProps) {
               <User className="h-4 w-4 text-muted-foreground" />
               <span className="text-muted-foreground">Author:</span>
               {plugin.author.url ? (
-                <a href={plugin.author.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                <a href={plugin.author.url} target="_blank" rel="noopener noreferrer" className="py-1 -my-1 text-primary hover:underline">
                   {plugin.author.name}
                 </a>
               ) : (

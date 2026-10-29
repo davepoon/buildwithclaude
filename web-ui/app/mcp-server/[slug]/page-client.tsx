@@ -43,7 +43,7 @@ export default function MCPServerPageClient({ server }: MCPServerPageClientProps
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Back button */}
-        <Link href="/mcp-servers" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-6">
+        <Link href="/mcp-servers" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary -mt-1 py-1 mb-5">
           <ArrowLeft className="h-4 w-4" />
           Back to MCP Servers
         </Link>
@@ -112,9 +112,9 @@ export default function MCPServerPageClient({ server }: MCPServerPageClientProps
                   </div>
                 )}
                 {server.stats.last_updated && (
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-2">
                     <span className="text-muted-foreground">Last Updated</span>
-                    <span className="font-mono">{server.stats.last_updated}</span>
+                    <span className="font-mono break-all">{server.stats.last_updated}</span>
                   </div>
                 )}
               </CardContent>
@@ -175,7 +175,8 @@ export default function MCPServerPageClient({ server }: MCPServerPageClientProps
                           Last fetched: {new Date(server.source_registry.last_fetched).toLocaleDateString('en-US', {
                             year: 'numeric',
                             month: '2-digit',
-                            day: '2-digit'
+                            day: '2-digit',
+                            timeZone: 'UTC'
                           })}
                         </div>
                       )}
@@ -243,7 +244,8 @@ export default function MCPServerPageClient({ server }: MCPServerPageClientProps
                           Last fetched: {new Date(server.source_registry.last_fetched).toLocaleDateString('en-US', {
                             year: 'numeric',
                             month: '2-digit',
-                            day: '2-digit'
+                            day: '2-digit',
+                            timeZone: 'UTC'
                           })}
                         </div>
                       )}

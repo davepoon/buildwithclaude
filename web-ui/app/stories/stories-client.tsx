@@ -248,10 +248,9 @@ export function StoriesIndexClient({ pinned, stories, guide }: StoriesIndexClien
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
                 gap: 18,
               }}
-              className="stories-index-grid"
+              className="stories-index-grid grid-cols-1 sm:grid-cols-2"
             >
               {filtered.map(s => (
                 <StoryCard key={s.slug} story={s} density="roomy" />

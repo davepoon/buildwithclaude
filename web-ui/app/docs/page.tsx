@@ -88,7 +88,7 @@ export default function DocsPage() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Content */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 min-w-0">
             <h2 className="text-2xl font-bold mb-6">Browse Documentation</h2>
             <div className="grid md:grid-cols-2 gap-4 mb-12">
               {docsSections.map((section) => {
@@ -135,9 +135,9 @@ export default function DocsPage() {
                   <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-semibold">
                     1
                   </span>
-                  <div>
+                  <div className="min-w-0">
                     <p className="font-medium">Clone the repository</p>
-                    <code className="text-sm text-muted-foreground bg-background/50 px-2 py-0.5 rounded">
+                    <code className="text-sm text-muted-foreground bg-background/50 px-2 py-0.5 rounded max-lg:block max-lg:w-fit max-lg:max-w-full max-lg:overflow-x-auto max-lg:whitespace-nowrap">
                       git clone https://github.com/davepoon/buildwithclaude.git
                     </code>
                   </div>
@@ -146,9 +146,9 @@ export default function DocsPage() {
                   <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-semibold">
                     2
                   </span>
-                  <div>
+                  <div className="min-w-0">
                     <p className="font-medium">Copy subagents to your Claude directory</p>
-                    <code className="text-sm text-muted-foreground bg-background/50 px-2 py-0.5 rounded">
+                    <code className="text-sm text-muted-foreground bg-background/50 px-2 py-0.5 rounded max-lg:block max-lg:w-fit max-lg:max-w-full max-lg:overflow-x-auto max-lg:whitespace-nowrap">
                       cp *.md ~/.claude/agents/
                     </code>
                   </div>
@@ -163,7 +163,7 @@ export default function DocsPage() {
                 </li>
               </ol>
               <Link href="/docs/installation">
-                <Button className="btn-gradient gap-2">
+                <Button className="btn-gradient gap-2 max-sm:h-auto max-sm:whitespace-normal">
                   View Full Installation Guide
                   <ArrowRight className="h-4 w-4" />
                 </Button>

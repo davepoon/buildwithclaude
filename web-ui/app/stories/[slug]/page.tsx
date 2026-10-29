@@ -319,10 +319,9 @@ export default async function StoryPage({ params }: StoryPageProps) {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
                 gap: 18,
               }}
-              className="stories-related-grid"
+              className="stories-related-grid grid-cols-1 lg:grid-cols-3"
             >
               {related.map(s => (
                 <StoryCard key={s.slug} story={s} density="compact" />

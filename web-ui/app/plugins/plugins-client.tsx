@@ -292,6 +292,7 @@ export default function PluginsPageClient({
           <Input
             type="text"
             placeholder="Search plugins..."
+            aria-label="Search plugins"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="max-w-md bg-card border-border"
@@ -479,7 +480,7 @@ export default function PluginsPageClient({
 
         {/* Plugin grid */}
         {plugins.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {plugins.map((plugin) => (
               <UnifiedPluginCard
                 key={`${plugin.namespace || plugin.marketplaceName || 'unknown'}-${plugin.type}-${plugin.name}`}

@@ -96,7 +96,7 @@ export function SkillPageClient({ skill }: SkillPageClientProps) {
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-12 max-w-3xl">
         {/* Back */}
-        <Link href="/skills" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8">
+        <Link href="/skills" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground -mt-1 py-1 mb-7">
           <ArrowLeft className="h-4 w-4" />
           Back to Skills
         </Link>
@@ -104,8 +104,8 @@ export function SkillPageClient({ skill }: SkillPageClientProps) {
         {/* Header */}
         <div className="mb-10">
           <div className="flex items-start justify-between gap-4 mb-4">
-            <h1 className="text-display-2">{skill.name}</h1>
-            <div className="flex gap-2">
+            <h1 className="text-display-2 min-w-0 wrap-break-word">{skill.name}</h1>
+            <div className="flex gap-2 shrink-0">
               <Button size="sm" variant="ghost" onClick={handleCopy}>
                 {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
               </Button>
@@ -138,7 +138,7 @@ export function SkillPageClient({ skill }: SkillPageClientProps) {
                 href={skill.repository}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 hover:text-foreground underline-offset-4 hover:underline"
+                className="inline-flex items-center gap-1.5 py-1 -my-1 hover:text-foreground underline-offset-4 hover:underline"
               >
                 <GitBranch className="h-4 w-4" />
                 {repoShortName(skill.repository)}
@@ -312,7 +312,7 @@ export function SkillPageClient({ skill }: SkillPageClientProps) {
         {skill.content.trim() && (
           <div className="mb-10">
             <h2 className="text-lg font-medium mb-4">Skill Instructions</h2>
-            <div className="bg-card rounded-lg p-6 border border-border prose prose-sm max-w-none">
+            <div className="bg-card rounded-lg p-6 border border-border prose prose-sm max-w-none wrap-break-word">
               {formattedContent}
             </div>
           </div>

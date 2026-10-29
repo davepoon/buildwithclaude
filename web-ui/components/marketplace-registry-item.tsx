@@ -60,7 +60,7 @@ export function MarketplaceRegistryItem({ marketplace }: MarketplaceRegistryItem
         href={marketplace.repository}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-2"
+        className="inline-flex items-center gap-1 -mt-1 py-1 mb-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         <ExternalLink className="h-3 w-3" />
@@ -114,7 +114,7 @@ export function MarketplaceRegistryItem({ marketplace }: MarketplaceRegistryItem
           href={marketplace.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-primary hover:underline inline-flex items-center gap-1"
+          className="text-sm text-primary hover:underline inline-flex items-center gap-1 py-1 -my-1"
           onClick={(e) => e.stopPropagation()}
         >
           Visit website
