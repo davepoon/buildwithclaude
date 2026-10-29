@@ -83,8 +83,8 @@ for %f in (\\path\\to\\buildwithclaude\\commands\\*.md) do copy "%f" .claude\\co
                 Back
               </Button>
             </Link>
-            <div>
-              <h1 className="text-3xl font-bold">Installation Guide</h1>
+            <div className="min-w-0">
+              <h1 className="text-3xl font-bold wrap-break-word">Installation Guide</h1>
               <p className="text-muted-foreground mt-1">
                 Learn how to install Claude Code Subagents and Commands
               </p>
@@ -97,8 +97,8 @@ for %f in (\\path\\to\\buildwithclaude\\commands\\*.md) do copy "%f" .claude\\co
         {/* Plugin Marketplace - Recommended */}
         <div className="mb-8 p-6 bg-green-500/10 rounded-xl border border-green-500/20">
           <div className="flex items-start gap-3">
-            <Download className="h-5 w-5 text-green-500 mt-0.5" />
-            <div>
+            <Download className="h-5 w-5 text-green-500 mt-0.5 shrink-0" />
+            <div className="min-w-0">
               <p className="font-semibold text-green-500 mb-1">Recommended: Plugin Marketplace</p>
               <p className="text-sm mb-3">
                 The easiest way to install is via Claude Code&apos;s built-in plugin system:
@@ -107,7 +107,7 @@ for %f in (\\path\\to\\buildwithclaude\\commands\\*.md) do copy "%f" .claude\\co
                 <code className="text-sm font-mono">/plugin marketplace add davepoon/buildwithclaude</code>
               </pre>
               <p className="text-sm text-muted-foreground">
-                Then install plugins: <code className="bg-background px-1 rounded">/plugin install all-agents@buildwithclaude</code>
+                Then install plugins: <code className="bg-background px-1 rounded max-lg:block max-lg:w-fit max-lg:max-w-full max-lg:overflow-x-auto max-lg:whitespace-nowrap">/plugin install all-agents@buildwithclaude</code>
               </p>
             </div>
           </div>
@@ -116,13 +116,13 @@ for %f in (\\path\\to\\buildwithclaude\\commands\\*.md) do copy "%f" .claude\\co
         {/* Manual Installation Tip */}
         <div className="mb-8 p-6 bg-primary/10 rounded-xl border border-primary/20">
           <div className="flex items-start gap-3">
-            <Download className="h-5 w-5 text-primary mt-0.5" />
-            <div>
+            <Download className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+            <div className="min-w-0">
               <p className="font-semibold text-primary mb-1">Alternative: Manual Installation</p>
               <p className="text-sm">
                 If you prefer manual installation, browse individual items and copy the markdown files directly.
               </p>
-              <div className="flex gap-2 mt-3">
+              <div className="flex flex-wrap gap-2 mt-3">
                 <Link href="/browse">
                   <Button variant="outline" size="sm" className="gap-2 border-primary/20 hover:bg-primary/10">
                     Browse Subagents <ArrowLeft className="h-3 w-3 rotate-180" />
@@ -140,10 +140,10 @@ for %f in (\\path\\to\\buildwithclaude\\commands\\*.md) do copy "%f" .claude\\co
         
         {/* Main Installation Content */}
         <Tabs defaultValue="everything" className="space-y-8">
-          <TabsList className="grid w-full grid-cols-3 max-w-2xl">
-            <TabsTrigger value="everything">Install Everything</TabsTrigger>
-            <TabsTrigger value="subagents">Subagents Only</TabsTrigger>
-            <TabsTrigger value="commands">Commands Only</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-3 max-w-2xl max-sm:h-auto">
+            <TabsTrigger value="everything" className="max-sm:h-full max-sm:whitespace-normal">Install Everything</TabsTrigger>
+            <TabsTrigger value="subagents" className="max-sm:h-full max-sm:whitespace-normal">Subagents Only</TabsTrigger>
+            <TabsTrigger value="commands" className="max-sm:h-full max-sm:whitespace-normal">Commands Only</TabsTrigger>
           </TabsList>
           
           {/* Install Everything Tab */}

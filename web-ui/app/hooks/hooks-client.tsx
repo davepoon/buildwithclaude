@@ -148,6 +148,7 @@ export default function HooksPageClient({ allHooks, categories, eventTypes }: Ho
           <Input
             type="text"
             placeholder="Search hooks..."
+            aria-label="Search hooks"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="bg-card border-border"
@@ -224,7 +225,7 @@ export default function HooksPageClient({ allHooks, categories, eventTypes }: Ho
 
         {/* Grid */}
         {filteredHooks.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayedHooks.map((hook) => (
               <HookCard key={hook.slug} hook={hook} />
             ))}

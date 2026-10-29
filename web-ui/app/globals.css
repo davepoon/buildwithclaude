@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* The root .gitignore "docs" entry hides app/docs from class scanning */
+@source "./docs";
+
 @theme {
   /* Colors */
   --color-border: hsl(var(--border));

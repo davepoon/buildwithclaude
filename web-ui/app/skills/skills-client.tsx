@@ -277,6 +277,7 @@ export default function SkillsPageClient({
           <Input
             type="text"
             placeholder="Search skills..."
+            aria-label="Search skills"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="max-w-md bg-card border-border"
@@ -465,7 +466,7 @@ export default function SkillsPageClient({
 
         {/* Skill grid */}
         {skills.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {skills.map((skill) => (
               <UnifiedPluginCard
                 key={`${skill.namespace || skill.marketplaceName || 'unknown'}-${skill.type}-${skill.name}`}

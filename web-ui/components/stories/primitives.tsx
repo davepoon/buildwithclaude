@@ -223,13 +223,17 @@ interface StoryMetaProps {
 
 export function StoryMeta({ story, showAvatar = true, size = 26 }: StoryMetaProps) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12, color: 'hsl(0 0% 60%)' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', columnGap: 10, rowGap: 4, fontSize: 12, color: 'hsl(0 0% 60%)' }}>
       {showAvatar && <Avatar author={story.author} size={size} />}
-      <span style={{ color: 'hsl(0 0% 80%)', fontWeight: 500 }}>{story.author.name}</span>
-      <span style={{ color: 'hsl(0 0% 30%)' }}>·</span>
-      <span>{story.date}</span>
-      <span style={{ color: 'hsl(0 0% 30%)' }}>·</span>
-      <span>{story.readTime} min read</span>
+      <span style={{ display: 'inline-flex', columnGap: 10 }}>
+        <span style={{ color: 'hsl(0 0% 80%)', fontWeight: 500 }}>{story.author.name}</span>
+        <span style={{ color: 'hsl(0 0% 30%)' }}>·</span>
+      </span>
+      <span style={{ display: 'inline-flex', columnGap: 10, whiteSpace: 'nowrap' }}>
+        <span>{story.date}</span>
+        <span style={{ color: 'hsl(0 0% 30%)' }}>·</span>
+      </span>
+      <span style={{ whiteSpace: 'nowrap' }}>{story.readTime} min read</span>
     </div>
   )
 }

@@ -141,6 +141,7 @@ export default function SubagentsPageClient({ allSubagents, categories }: Subage
           <Input
             type="text"
             placeholder="Search subagents..."
+            aria-label="Search subagents"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="bg-card border-border"
@@ -188,7 +189,7 @@ export default function SubagentsPageClient({ allSubagents, categories }: Subage
 
         {/* Grid */}
         {filteredSubagents.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayedSubagents.map((subagent) => (
               <SubagentCard key={subagent.slug} subagent={subagent} />
             ))}

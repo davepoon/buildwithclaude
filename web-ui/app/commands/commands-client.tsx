@@ -134,6 +134,7 @@ export default function CommandsPageClient({ allCommands, categories }: Commands
           <Input
             type="text"
             placeholder="Search commands..."
+            aria-label="Search commands"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="bg-card border-border"
@@ -181,7 +182,7 @@ export default function CommandsPageClient({ allCommands, categories }: Commands
 
         {/* Grid */}
         {filteredCommands.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayedCommands.map((command) => (
               <CommandCard key={command.slug} command={command} />
             ))}

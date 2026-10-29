@@ -216,6 +216,7 @@ export default function MCPPageClient({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search MCP servers..."
+            aria-label="Search MCP servers"
             className="bg-card border-border"
           />
           {searching && (
@@ -252,11 +253,11 @@ export default function MCPPageClient({
 
         {/* Source and Sort controls */}
         <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <span className="text-sm text-muted-foreground py-1.5">Source:</span>
             <button
               onClick={() => handleSourceChange('all')}
-              className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+              className={`px-3 py-1.5 text-sm rounded-md whitespace-nowrap transition-colors ${
                 selectedSource === 'all'
                   ? 'bg-muted text-foreground'
                   : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
@@ -266,7 +267,7 @@ export default function MCPPageClient({
             </button>
             <button
               onClick={() => handleSourceChange('official-mcp')}
-              className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+              className={`px-3 py-1.5 text-sm rounded-md whitespace-nowrap transition-colors ${
                 selectedSource === 'official-mcp'
                   ? 'bg-muted text-foreground'
                   : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
@@ -276,7 +277,7 @@ export default function MCPPageClient({
             </button>
             <button
               onClick={() => handleSourceChange('docker')}
-              className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+              className={`px-3 py-1.5 text-sm rounded-md whitespace-nowrap transition-colors ${
                 selectedSource === 'docker'
                   ? 'bg-muted text-foreground'
                   : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
@@ -313,7 +314,7 @@ export default function MCPPageClient({
             {popularServers.length > 0 && (
               <div className="mb-10">
                 <h2 className="text-xl font-medium mb-4">Popular</h2>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {popularServers.map((server) => (
                     <MCPCard key={server.path} server={server} />
                   ))}
@@ -324,7 +325,7 @@ export default function MCPPageClient({
             {featuredServers.length > 0 && (
               <div className="mb-10">
                 <h2 className="text-xl font-medium mb-4">Featured</h2>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {featuredServers.map((server) => (
                     <MCPCard key={server.path} server={server} />
                   ))}
@@ -351,7 +352,7 @@ export default function MCPPageClient({
 
         {/* Grid */}
         {filteredServers.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {displayedServers.map((server) => (
               <MCPCard key={server.path} server={server} />
             ))}

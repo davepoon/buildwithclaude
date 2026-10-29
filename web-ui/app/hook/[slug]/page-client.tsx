@@ -114,7 +114,7 @@ export function HookPageClient({ hook }: HookPageClientProps) {
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-12 max-w-3xl">
         {/* Back */}
-        <Link href="/hooks" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8">
+        <Link href="/hooks" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground -mt-1 py-1 mb-7">
           <ArrowLeft className="h-4 w-4" />
           Back to Hooks
         </Link>
@@ -122,8 +122,8 @@ export function HookPageClient({ hook }: HookPageClientProps) {
         {/* Header */}
         <div className="mb-10">
           <div className="flex items-start justify-between gap-4 mb-4">
-            <h1 className="text-display-2">{hook.name}</h1>
-            <div className="flex gap-2">
+            <h1 className="text-display-2 min-w-0 wrap-break-word">{hook.name}</h1>
+            <div className="flex gap-2 shrink-0">
               <Button size="sm" variant="ghost" onClick={handleCopy} title="Copy JSON config">
                 {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
               </Button>
@@ -183,7 +183,7 @@ export function HookPageClient({ hook }: HookPageClientProps) {
         {/* Content */}
         <div className="mb-10">
           <h2 className="text-lg font-medium mb-4">Hook Details</h2>
-          <div className="bg-card rounded-lg p-6 border border-border prose prose-sm max-w-none">
+          <div className="bg-card rounded-lg p-6 border border-border prose prose-sm max-w-none wrap-break-word">
             {formattedContent}
           </div>
         </div>

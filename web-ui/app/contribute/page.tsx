@@ -388,7 +388,7 @@ that invite a reply outperform ones that don't.`
         {/* Contribution Guides */}
         <section>
           <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full" id="contribute-tabs">
-            <TabsList className="grid w-full grid-cols-3 md:grid-cols-6 mb-8">
+            <TabsList className="grid w-full grid-cols-3 md:grid-cols-6 mb-8 max-md:h-auto max-md:gap-y-1">
               <TabsTrigger value="agents">Agents</TabsTrigger>
               <TabsTrigger value="commands">Commands</TabsTrigger>
               <TabsTrigger value="hooks">Hooks</TabsTrigger>
@@ -402,7 +402,7 @@ that invite a reply outperform ones that don't.`
               <div className="space-y-8">
                 <Card className="p-6 border-border/50">
                   <h3 className="text-xl font-semibold mb-2">Agent Location</h3>
-                  <code className="text-sm text-muted-foreground bg-background/50 px-2 py-1 rounded">
+                  <code className="text-sm text-muted-foreground bg-background/50 px-2 py-1 rounded wrap-break-word">
                     plugins/agents-&lt;category&gt;/agents/&lt;agent-name&gt;.md
                   </code>
                 </Card>
@@ -482,7 +482,7 @@ that invite a reply outperform ones that don't.`
               <div className="space-y-8">
                 <Card className="p-6 border-border/50">
                   <h3 className="text-xl font-semibold mb-2">Command Location</h3>
-                  <code className="text-sm text-muted-foreground bg-background/50 px-2 py-1 rounded">
+                  <code className="text-sm text-muted-foreground bg-background/50 px-2 py-1 rounded wrap-break-word">
                     plugins/commands-&lt;category&gt;/commands/&lt;command-name&gt;.md
                   </code>
                 </Card>
@@ -522,7 +522,7 @@ that invite a reply outperform ones that don't.`
               <div className="space-y-8">
                 <Card className="p-6 border-border/50">
                   <h3 className="text-xl font-semibold mb-2">Hook Location</h3>
-                  <code className="text-sm text-muted-foreground bg-background/50 px-2 py-1 rounded">
+                  <code className="text-sm text-muted-foreground bg-background/50 px-2 py-1 rounded wrap-break-word">
                     plugins/hooks-&lt;category&gt;/hooks/&lt;hook-name&gt;.md
                   </code>
                 </Card>
@@ -576,7 +576,7 @@ that invite a reply outperform ones that don't.`
               <div className="space-y-8">
                 <Card className="p-6 border-border/50">
                   <h3 className="text-xl font-semibold mb-2">Skill Location</h3>
-                  <code className="text-sm text-muted-foreground bg-background/50 px-2 py-1 rounded">
+                  <code className="text-sm text-muted-foreground bg-background/50 px-2 py-1 rounded wrap-break-word">
                     plugins/all-skills/skills/&lt;skill-name&gt;/SKILL.md
                   </code>
                 </Card>

@@ -65,7 +65,7 @@ export function SubagentPageClient({ subagent }: SubagentPageClientProps) {
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-12 max-w-3xl">
         {/* Back */}
-        <Link href="/subagents" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8">
+        <Link href="/subagents" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground -mt-1 py-1 mb-7">
           <ArrowLeft className="h-4 w-4" />
           Back to Subagents
         </Link>
@@ -73,8 +73,8 @@ export function SubagentPageClient({ subagent }: SubagentPageClientProps) {
         {/* Header */}
         <div className="mb-10">
           <div className="flex items-start justify-between gap-4 mb-4">
-            <h1 className="text-display-2">{subagent.name}</h1>
-            <div className="flex gap-2">
+            <h1 className="text-display-2 min-w-0 wrap-break-word">{subagent.name}</h1>
+            <div className="flex gap-2 shrink-0">
               <Button size="sm" variant="ghost" onClick={handleCopy}>
                 {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
               </Button>
@@ -164,7 +164,7 @@ export function SubagentPageClient({ subagent }: SubagentPageClientProps) {
         {/* System Prompt */}
         <div className="mb-10">
           <h2 className="text-lg font-medium mb-4">System Prompt</h2>
-          <div className="bg-card rounded-lg p-6 border border-border prose prose-sm max-w-none">
+          <div className="bg-card rounded-lg p-6 border border-border prose prose-sm max-w-none wrap-break-word">
             {formattedContent}
           </div>
         </div>
