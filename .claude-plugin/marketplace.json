@@ -140,6 +140,34 @@
       "source": "./plugins/tlsradar"
     },
     {
+      "name": "fair-value-calculator",
+      "description": "Stock valuation for Claude: fair value per share, valuation verdict, quality score, uptrend and the three buy rules for 40,000+ listed stocks, plus side-by-side comparison, a screener and the signed-in watchlist. Adds the hosted Fair Value Calculator MCP server (https://www.fairvalue-calculator.com/mcp); OAuth sign-in, a free account is enough. Model estimates, not investment advice.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Fair Value Calculator",
+        "url": "https://www.fairvalue-calculator.com"
+      },
+      "homepage": "https://www.fairvalue-calculator.com/mcp",
+      "repository": "https://github.com/petz00711/fair-value-calculator-mcp",
+      "license": "CC-BY-4.0",
+      "keywords": [
+        "finance",
+        "stocks",
+        "valuation",
+        "fair-value",
+        "screener",
+        "watchlist",
+        "mcp"
+      ],
+      "category": "finance",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/petz00711/fair-value-calculator-mcp.git",
+        "path": "plugins/fair-value-calculator",
+        "sha": "c83d56ba8356b372cd3503e35bae1ec98eec5a0b"
+      }
+    },
+    {
       "name": "cashflow",
       "description": "Personal finance ledger for AI agents. Connect bank accounts via Plaid, query spending, track recurring bills, categorize transactions, and get financial recaps through MCP tools with OAuth authentication.",
       "version": "0.2.0",
