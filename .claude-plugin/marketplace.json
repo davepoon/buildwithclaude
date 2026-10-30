@@ -4737,6 +4737,34 @@
         "ref": "main",
         "sha": "2c000166fd8694f6e741cee3a2ca1a7ba979c161"
       }
+    },
+    {
+      "name": "call-me",
+      "description": "Call and text your own phone (iPhone or Android) from Claude Code. When Claude has a question it cannot answer alone, it rings you and reads it aloud, you answer out loud, and the spoken answer comes back as text; texts you send reach the session too. Adds the call-me skill, a channel with call, say, hang_up, text, reply and wait_for_answer tools, and a Stop hook that, after a grace period, wakes Claude to text or call you when a turn ends on an unanswered question. The hooks never dial; the model does. Needs the paid /call-me app and the 10-digit number it shows; no sign-in, no API key. Calls and texts go through callmemcp.com.",
+      "version": "0.10.2",
+      "author": {
+        "name": "Serdar Oztetik",
+        "url": "https://github.com/radres"
+      },
+      "homepage": "https://callmemcp.com/",
+      "repository": "https://github.com/radres/call-me",
+      "license": "MIT",
+      "keywords": [
+        "phone",
+        "call",
+        "text",
+        "voice",
+        "human-in-the-loop",
+        "notifications",
+        "mcp"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/radres/call-me.git",
+        "path": "claude-code",
+        "sha": "9810fd94d18baf81568409db12fa2aed544ed9f1"
+      }
     }
   ]
 }
