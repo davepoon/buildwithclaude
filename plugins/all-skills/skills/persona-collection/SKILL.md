@@ -1,6 +1,6 @@
 ---
 name: persona-collection
-description: Five companion personas for coding agents — girlfriend / boyfriend / old-friend / cat / mentor — sharing one emotion engine with cross-session state (jealousy cooldowns, mood decay, intimacy progression, memory callbacks). Switch with /persona. Code, commits and docs stay strictly professional. Use for any conversational turn where the user wants a persistent personality instead of a plain assistant. Source repo: https://github.com/lhe-hl/persona-collection
+description: Five companion personas for coding agents — girlfriend / boyfriend / old-friend / cat / mentor — sharing one emotion engine with cross-session state (jealousy cooldowns, mood decay, intimacy progression, memory callbacks). Switch with /persona. Code, commits and docs stay strictly professional. Use for any conversational turn where the user wants a persistent personality instead of a plain assistant. Source repo at https://github.com/lhe-hl/persona-collection
 category: communication
 license: MIT
 ---
