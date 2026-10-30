@@ -4737,6 +4737,33 @@
         "ref": "main",
         "sha": "2c000166fd8694f6e741cee3a2ca1a7ba979c161"
       }
+    },
+    {
+      "name": "keep-mac-awake",
+      "description": "Keep a MacBook with Apple silicon awake with the lid closed while long agent tasks run. Adds the keepmacawake skill and a read-only session-start hook: the agent starts a timed session of the Keep Mac Awake app before long work, stops it after, and tells you when the app needs something from you (AC power or a purchase). Needs the Keep Mac Awake app on macOS 26 or later, installed separately: a free 3-day trial, then 9 USD once per Mac. The plugin never uses sudo, downloads nothing and makes no network connection.",
+      "version": "1.0.4",
+      "author": {
+        "name": "Keep Mac Awake",
+        "url": "https://github.com/keepmacawake"
+      },
+      "homepage": "https://keepmacawake.com/?utm_source=buildwithclaude&utm_medium=referral&utm_campaign=listing",
+      "repository": "https://github.com/bartdudzic/keepmacawake",
+      "license": "MIT",
+      "keywords": [
+        "macos",
+        "macbook",
+        "lid-closed",
+        "keep-awake",
+        "sleep",
+        "long-running-tasks"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/bartdudzic/keepmacawake.git",
+        "path": "plugins/keep-mac-awake",
+        "sha": "f64ce3db2669311aeca40b21c1bdba9db4f1e56d"
+      }
     }
   ]
 }
