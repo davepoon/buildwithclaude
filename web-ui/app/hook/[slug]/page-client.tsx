@@ -74,7 +74,8 @@ export function HookPageClient({ hook }: HookPageClientProps) {
     }
   }
 
-  const lines = hook.content.split('\n')
+  // Skip leading blank lines so the card text starts at its padding
+  const lines = hook.content.replace(/^\s*\n/, '').split('\n')
   const formattedContent = lines.map((line, i) => {
     if (line.startsWith('## ')) {
       return <h2 key={i} className="text-xl font-medium mt-6 mb-3">{line.replace('## ', '')}</h2>
@@ -105,7 +106,7 @@ export function HookPageClient({ hook }: HookPageClientProps) {
       )
     }
     if (line.trim()) {
-      return <p key={i} className="mb-3">{line}</p>
+      return <p key={i} className="mb-3 wrap-break-word">{line}</p>
     }
     return <br key={i} />
   })

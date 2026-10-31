@@ -128,8 +128,12 @@
   }
 
   html {
-    @apply scroll-smooth;
     color-scheme: dark;
+  }
+
+  /* Smooth only while something on the page has focus, so reload restores the scroll position instantly */
+  html:focus-within {
+    @apply scroll-smooth;
   }
 
   body {
@@ -213,5 +217,110 @@
   .backdrop-blur-sm {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+/* Thin theme scrollbar on every scroll area: 10px page (Chrome styles it from body), 6px inner areas; Firefox uses the standard properties */
+@supports (-moz-appearance: none) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted-foreground) / 0.35) transparent;
+  }
+  html {
+    scrollbar-color: hsl(var(--muted-foreground) / 0.35) hsl(var(--background));
+  }
+}
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.35);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.55);
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  border: 2px solid hsl(var(--background));
+}
+
+/* Page h1 docks into the sticky filter area on a view timeline of the band's marker (last 100px before
+   it pins at 56px header + 44px dock zone); pure CSS, so first paint is correct. JS fallback lives in FilterBar. */
+html {
+  timeline-scope: --dock-band;
+}
+[data-dock-band-mark] {
+  view-timeline-name: --dock-band;
+  view-timeline-axis: block;
+}
+/* Docked title end state, shared by the keyframes below and the JS fallback in FilterBar */
+[data-dock-heading] {
+  --dock-scale: 0.5625;
+  --dock-title-shift: 22px;
+  --dock-title-lift: 0.6;
+  --dock-area-shift: 32px;
+  --dock-area-lift: 1.2;
+}
+@media (min-width: 1024px) {
+  [data-dock-heading] {
+    --dock-scale: 0.45;
+  }
+}
+@keyframes dock-title {
+  to {
+    transform: translateY(calc(var(--dock-title-shift) - var(--dock-title-lift) * var(--dock-scale) * 1em)) scale(var(--dock-scale));
+  }
+}
+@keyframes dock-area {
+  to {
+    transform: translateY(calc(var(--dock-area-shift) - var(--dock-area-lift) * 1em));
+  }
+}
+@keyframes dock-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@supports (animation-timeline: view()) {
+  [data-dock-inner],
+  [data-dock-bg],
+  [data-dock-band-bg] {
+    animation-duration: auto;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: --dock-band;
+  }
+  [data-dock-inner] {
+    animation-name: dock-title;
+    animation-range: cover calc(100% - 200px) cover calc(100% - 100px);
+  }
+  [data-dock-bg] {
+    animation-name: dock-area;
+    animation-range: cover calc(100% - 200px) cover calc(100% - 100px);
+  }
+  [data-dock-band-bg] {
+    animation-name: dock-fade;
+    animation-range: cover calc(100% - var(--dock-offset) - 8px) cover calc(100% - var(--dock-offset));
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-dock-inner],
+    [data-dock-bg],
+    [data-dock-band-bg] {
+      animation-timing-function: step-end;
+    }
   }
 }

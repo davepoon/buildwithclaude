@@ -93,7 +93,7 @@ for %f in (\\path\\to\\buildwithclaude\\commands\\*.md) do copy "%f" .claude\\co
         </div>
       </div>
       
-      <div className="container mx-auto px-4 py-8 max-w-5xl">
+      <div className="container mx-auto px-4 pt-8 pb-12 max-w-5xl">
         {/* Plugin Marketplace - Recommended */}
         <div className="mb-8 p-6 bg-green-500/10 rounded-xl border border-green-500/20">
           <div className="flex items-start gap-3">

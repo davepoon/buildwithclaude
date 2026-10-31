@@ -3,15 +3,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { MarketplaceRegistryItem } from '@/components/marketplace-registry-item'
 import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { Package, Sparkles, Loader2, ArrowUpDown } from 'lucide-react'
+import { Package, Sparkles, Loader2 } from 'lucide-react'
 import { CreateMarketplaceBanner } from '@/components/create-marketplace-banner'
+import { FilterBar, FilterHeading, FilterSearch, SortSelect } from '@/components/filter-controls'
 import type { MarketplaceRegistry } from '@/lib/marketplace-types'
 import type { SortOption } from '@/lib/marketplace-server'
 
@@ -35,6 +29,15 @@ function formatNumber(num: number): string {
 }
 
 const ITEMS_PER_PAGE = 20
+
+const SORT_OPTIONS = [
+  { value: 'relevance', label: 'Relevance' },
+  { value: 'stars', label: 'Most Stars' },
+  { value: 'newest', label: 'Newest' },
+  { value: 'oldest', label: 'Oldest' },
+  { value: 'name', label: 'A to Z' },
+  { value: 'name-desc', label: 'Z to A' },
+]
 
 export default function MarketplacesPageClient({
   initialMarketplaces,
@@ -152,55 +155,46 @@ export default function MarketplacesPageClient({
   return (
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-12">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-display-2 mb-2">Plugin Marketplaces</h1>
-          <p className="text-muted-foreground mb-4">
-            Community-maintained registries for Claude Code plugins and skills
-          </p>
-          <div className="flex items-center gap-4 text-sm">
-            <span className="flex items-center gap-1.5 text-primary">
-              <Package className="h-4 w-4" />
-              {formatNumber(totals.totalPlugins)} plugins
-            </span>
-            <span className="flex items-center gap-1.5 text-amber-500">
-              <Sparkles className="h-4 w-4" />
-              {formatNumber(totals.totalSkills)} skills
-            </span>
-            <span className="text-muted-foreground">
-              across {totals.totalMarketplaces} marketplaces
-            </span>
-          </div>
+        {/* Header: the h1 docks into the sticky filter area while scrolling */}
+        <FilterHeading>Plugin Marketplaces</FilterHeading>
+        <p className="text-muted-foreground mb-4">
+          Community-maintained registries for Claude Code plugins and skills
+        </p>
+        <div className="flex items-center gap-4 text-sm mb-8">
+          <span className="flex items-center gap-1.5 text-primary">
+            <Package className="h-4 w-4" />
+            {formatNumber(totals.totalPlugins)} plugins
+          </span>
+          <span className="flex items-center gap-1.5 text-amber-500">
+            <Sparkles className="h-4 w-4" />
+            {formatNumber(totals.totalSkills)} skills
+          </span>
+          <span className="text-muted-foreground">
+            across {totals.totalMarketplaces} marketplaces
+          </span>
         </div>
 
         {/* Create Marketplace CTA */}
         <CreateMarketplaceBanner />
 
         {/* Search and Sort */}
-        <div className="mb-8 flex flex-col sm:flex-row gap-4">
-          <Input
-            type="text"
-            placeholder="Search marketplaces..."
-            aria-label="Search marketplaces"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="max-w-md bg-card border-border"
+        <FilterBar>
+          <FilterSearch>
+            <Input
+              type="text"
+              placeholder="Search marketplaces..."
+              aria-label="Search marketplaces"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="bg-card border-border"
+            />
+          </FilterSearch>
+          <SortSelect
+            value={sort}
+            options={SORT_OPTIONS}
+            onChange={(value) => setSort(value as SortOption)}
           />
-          <Select value={sort} onValueChange={(value) => setSort(value as SortOption)}>
-            <SelectTrigger className="w-[150px] bg-card border-border">
-              <ArrowUpDown className="h-4 w-4 mr-2 text-muted-foreground" />
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="relevance">Relevance</SelectItem>
-              <SelectItem value="stars">Most Stars</SelectItem>
-              <SelectItem value="newest">Newest</SelectItem>
-              <SelectItem value="oldest">Oldest</SelectItem>
-              <SelectItem value="name">A to Z</SelectItem>
-              <SelectItem value="name-desc">Z to A</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+        </FilterBar>
 
         {/* Marketplace list */}
         {marketplaces.length > 0 ? (
@@ -216,7 +210,7 @@ export default function MarketplacesPageClient({
         ) : null}
 
         {/* Load more trigger / Loading indicator */}
-        <div ref={loadMoreRef} className="py-8 flex justify-center">
+        <div ref={loadMoreRef} className="pt-8 flex justify-center">
           {isLoading && (
             <div className="flex items-center gap-2 text-muted-foreground">
               <Loader2 className="h-5 w-5 animate-spin" />

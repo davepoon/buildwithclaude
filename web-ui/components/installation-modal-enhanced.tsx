@@ -91,7 +91,7 @@ export function InstallationModalEnhanced({
               <div className="space-y-2">
                 <h4 className="text-sm font-semibold">Step 1: Add the marketplace (one-time)</h4>
                 <div className="flex items-center justify-between p-3 bg-muted rounded-lg font-mono text-sm">
-                  <span className="break-all">{marketplaceAdd}</span>
+                  <span className="min-w-0 wrap-anywhere">{marketplaceAdd}</span>
                   <Button
                     size="sm"
                     variant="ghost"
@@ -111,7 +111,7 @@ export function InstallationModalEnhanced({
               <div className="space-y-2">
                 <h4 className="text-sm font-semibold">Step 2: Install the {category} {resourceLabel}s</h4>
                 <div className="flex items-center justify-between p-3 bg-muted rounded-lg font-mono text-sm">
-                  <span className="break-all">{pluginCommands.install}</span>
+                  <span className="min-w-0 wrap-anywhere">{pluginCommands.install}</span>
                   <Button
                     size="sm"
                     variant="ghost"
@@ -134,7 +134,7 @@ export function InstallationModalEnhanced({
               <div className="pt-4 border-t space-y-2">
                 <h4 className="text-sm font-semibold text-muted-foreground">Or install all {resourceLabel}s:</h4>
                 <div className="flex items-center justify-between p-2 bg-muted/50 rounded font-mono text-xs">
-                  <span className="break-all">{pluginCommands.installBundle}</span>
+                  <span className="min-w-0 wrap-anywhere">{pluginCommands.installBundle}</span>
                   <Button
                     size="sm"
                     variant="ghost"

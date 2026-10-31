@@ -173,8 +173,10 @@ export function StoryContent({ content, slug, pullQuote }: StoryContentProps) {
       }
       case 'heading': {
         const size = block.level === 2 ? 28 : 22
+        // No top margin when the body opens with a heading.
+        const top = out.length === 0 ? 0 : 40
         out.push(
-          <h2 key={k} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: size, lineHeight: 1.2, color: 'hsl(0 0% 96%)', letterSpacing: '-0.01em', margin: '40px 0 14px' }}>
+          <h2 key={k} style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: size, lineHeight: 1.2, color: 'hsl(0 0% 96%)', letterSpacing: '-0.01em', margin: `${top}px 0 14px` }}>
             {renderInline(block.text, k)}
           </h2>,
         )

@@ -53,7 +53,7 @@ function FeaturedSection({ title, href, icon: Icon, color, items, itemLinkPrefix
   }
 
   return (
-    <section className="py-16">
+    <section className="py-10 md:py-16">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-display-3 flex items-center gap-3">
@@ -332,7 +332,7 @@ export default function HomePageClient({
       />
 
       {/* Quick install */}
-      <section className="py-20 border-t border-border">
+      <section className="pt-20 pb-12 border-t border-border">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-display-3 mb-6">Get started</h2>
@@ -340,7 +340,7 @@ export default function HomePageClient({
               Add the plugin marketplace to Claude Code
             </p>
             {/* Command bar like Claude Code website */}
-            <div className="inline-flex items-center gap-1 bg-[#1a1a1a] rounded-full p-1.5 pr-4 max-sm:max-w-full max-sm:flex-wrap max-sm:rounded-3xl">
+            <div className="inline-flex items-center gap-1 bg-[#1a1a1a] rounded-full p-1.5 pr-4 max-sm:max-w-full">
               {/* Dropdown button */}
               <button className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors max-sm:shrink-0 max-sm:whitespace-nowrap">
                 Get Plugins
@@ -349,14 +349,14 @@ export default function HomePageClient({
                 </svg>
               </button>
               {/* Command */}
-              <code className="font-mono text-sm ml-3 max-sm:ml-0 max-sm:min-w-0 max-sm:order-last max-sm:basis-full max-sm:px-3 max-sm:pt-2 max-sm:pb-2.5 max-sm:text-left">
+              <code className="font-mono text-sm ml-3 max-sm:min-w-0 max-sm:break-words">
                 <span className="text-primary">/plugin</span>{' '}
                 <span className="text-foreground/80">marketplace add <span className="inline-block max-w-full">davepoon/<wbr />buildwithclaude</span></span>
               </code>
               {/* Copy button */}
               <button
                 onClick={() => navigator.clipboard.writeText('/plugin marketplace add davepoon/buildwithclaude')}
-                className="ml-3 p-1.5 text-muted-foreground hover:text-foreground transition-colors max-sm:ml-auto"
+                className="ml-3 p-1.5 text-muted-foreground hover:text-foreground transition-colors"
                 title="Copy command"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

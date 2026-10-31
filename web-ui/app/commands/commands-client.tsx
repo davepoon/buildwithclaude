@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import { CommandCard } from '@/components/command-card'
 import { Input } from '@/components/ui/input'
 import { Terminal, Loader2 } from 'lucide-react'
+import { FilterBar, FilterHeading, FilterSearch, CategoryFilter } from '@/components/filter-controls'
 import { useDebounce } from '@/hooks/use-debounce'
 import { generateCategoryDisplayName } from '@/lib/commands-types'
 import type { Command, CategoryMetadata } from '@/lib/commands-types'
@@ -83,6 +84,11 @@ export default function CommandsPageClient({ allCommands, categories }: Commands
     return () => ac.abort()
   }, [debouncedQuery, selectedCategory]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  const categoryOptions = useMemo(
+    () => categories.map((cat) => ({ value: cat.id, label: cat.displayName, count: cat.count })),
+    [categories],
+  )
+
   const bySlug = useMemo(() => new Map(allCommands.map((c) => [c.slug, c])), [allCommands])
 
   const filteredCommands = useMemo(() => {
@@ -120,56 +126,36 @@ export default function CommandsPageClient({ allCommands, categories }: Commands
   return (
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-12">
-        {/* Header */}
-        <div className="mb-10">
-          <h1 className="text-display-2 mb-2 flex items-center gap-3">
-            <Terminal className="h-8 w-8 text-green-500" />
-            Commands
-          </h1>
-          <p className="text-muted-foreground">{allCommands.length} slash commands</p>
-        </div>
+        {/* Header: the h1 docks into the sticky filter area while scrolling */}
+        <FilterHeading>
+          <Terminal className="h-8 w-8 text-green-500" />
+          Commands
+        </FilterHeading>
+        <p className="text-muted-foreground mb-10">{allCommands.length} slash commands</p>
 
-        {/* Search */}
-        <div className="mb-6 relative max-w-md">
-          <Input
-            type="text"
-            placeholder="Search commands..."
-            aria-label="Search commands"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-card border-border"
+        {/* Search and category filter */}
+        <FilterBar>
+          <FilterSearch>
+            <Input
+              type="text"
+              placeholder="Search commands..."
+              aria-label="Search commands"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-card border-border"
+            />
+            {searching && (
+              <Loader2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-muted-foreground" />
+            )}
+          </FilterSearch>
+          {/* Category filter, single-select */}
+          <CategoryFilter
+            single
+            selected={selectedCategory === 'all' ? [] : [selectedCategory]}
+            options={categoryOptions}
+            onChange={(next) => handleCategoryChange(next[0] ?? 'all')}
           />
-          {searching && (
-            <Loader2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-muted-foreground" />
-          )}
-        </div>
-
-        {/* Category filters */}
-        <div className="flex gap-2 flex-wrap mb-8">
-          <button
-            onClick={() => handleCategoryChange('all')}
-            className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
-              selectedCategory === 'all'
-                ? 'bg-primary text-primary-foreground'
-                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-            }`}
-          >
-            All
-          </button>
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => handleCategoryChange(cat.id)}
-              className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
-                selectedCategory === cat.id
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-              }`}
-            >
-              {cat.displayName}
-            </button>
-          ))}
-        </div>
+        </FilterBar>
 
         {/* Results count */}
         {(selectedCategory !== 'all' || isSearching) && (
@@ -194,7 +180,7 @@ export default function CommandsPageClient({ allCommands, categories }: Commands
         )}
 
         {/* Load more trigger / Loading indicator */}
-        <div ref={loadMoreRef} className="py-8 flex justify-center">
+        <div ref={loadMoreRef} className="pt-8 flex justify-center">
           {hasMore && <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />}
           {!hasMore && displayedCommands.length > 0 && (
             <p className="text-sm text-muted-foreground">

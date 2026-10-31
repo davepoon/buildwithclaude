@@ -129,7 +129,7 @@ export function PluginPageClient({ plugin }: PluginPageClientProps) {
                 Step 1: Add the marketplace (one-time)
               </p>
               <div className="bg-card rounded-lg p-4 font-mono text-sm flex items-center justify-between border border-border">
-                <span className="break-all">{marketplaceCommand}</span>
+                <span className="min-w-0 wrap-anywhere">{marketplaceCommand}</span>
                 <Button
                   size="sm"
                   variant="ghost"
@@ -145,7 +145,7 @@ export function PluginPageClient({ plugin }: PluginPageClientProps) {
                 Step 2: Install this plugin
               </p>
               <div className="bg-card rounded-lg p-4 font-mono text-sm flex items-center justify-between border border-border">
-                <span className="break-all">{installCommand}</span>
+                <span className="min-w-0 wrap-anywhere">{installCommand}</span>
                 <Button
                   size="sm"
                   variant="ghost"

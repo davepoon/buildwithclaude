@@ -4371,7 +4371,7 @@
     {
       "name": "buddy-chat",
       "description": "End-to-end encrypted, quantum-resistant chat between Claude Code users: direct chats, groups and read receipts in a pane, with no server to run.",
-      "version": "0.21.0",
+      "version": "0.21.2",
       "author": {
         "name": "MrMirhan",
         "url": "https://github.com/MrMirhan"
@@ -4392,7 +4392,7 @@
       "source": {
         "source": "github",
         "repo": "MrMirhan/claude-buddy-chat",
-        "sha": "04f917e876be4cd5baebe350afc6211e63e3d49c"
+        "sha": "9b18f8303ad4d3ceb0365b410f570221701c4b96"
       }
     },
     {
@@ -4609,29 +4609,29 @@
       }
     },
     {
-      "name": "bestprice-shopping",
-      "description": "Read-only shopping decisions for Greece from BestPrice.gr: product search, current offers from Greek stores with delivered prices, price history, and a buy-now-or-wait decision for a product. Adds the bestprice-shopping skill and the hosted BestPrice MCP server (https://mcp.bestprice.gr/mcp); no sign-in, no API key. It never buys anything or touches a cart.",
-      "version": "2.8.1",
+      "name": "communitymentions",
+      "description": "Which subreddits AI answers cite: describe a product or niche and it returns the subreddits where it fits, with how often AI answers (OpenAI models, Perplexity, Gemini) cited each one and its member count; ask about one subreddit and it returns its citations by engine, the kinds of questions those answers were about, and its most-cited threads. Adds the communitymentions skill and the hosted CommunityMentions MCP server (https://communitymentions.com/api/mcp); read-only, no sign-in, no API key.",
+      "version": "1.0.1",
       "author": {
-        "name": "BestPrice",
-        "url": "https://www.bestprice.gr/"
+        "name": "CommunityMentions",
+        "url": "https://communitymentions.com"
       },
-      "homepage": "https://www.bestprice.gr/mcp",
-      "repository": "https://github.com/TheBestCo/bestprice-mcp",
-      "license": "Apache-2.0",
+      "homepage": "https://communitymentions.com",
+      "repository": "https://github.com/rdoyle99/communitymentions-plugin",
+      "license": "MIT",
       "keywords": [
-        "shopping",
-        "price-comparison",
-        "price-history",
-        "e-commerce",
-        "greece",
+        "reddit",
+        "subreddits",
+        "ai search",
+        "reddit marketing",
+        "generative engine optimization",
         "mcp"
       ],
-      "category": "productivity",
+      "category": "sales-marketing",
       "source": {
         "source": "github",
-        "repo": "TheBestCo/bestprice-mcp",
-        "sha": "19c00589b329aa814812333f0a7e2020acb7b16a"
+        "repo": "rdoyle99/communitymentions-plugin",
+        "sha": "077dc86e674cbf9a64e7c8701ee2b740252315bc"
       }
     },
     {
@@ -4762,6 +4762,32 @@
         "path": "plugin-band",
         "ref": "main",
         "sha": "2c000166fd8694f6e741cee3a2ca1a7ba979c161"
+      }
+    },
+    {
+      "name": "bestprice-shopping",
+      "description": "Read-only shopping decisions for Greece from BestPrice.gr: product search, current offers from Greek stores with delivered prices, price history, and a buy-now-or-wait decision for a product. Adds the bestprice-shopping skill and the hosted BestPrice MCP server (https://mcp.bestprice.gr/mcp); no sign-in, no API key. It never buys anything or touches a cart.",
+      "version": "2.8.1",
+      "author": {
+        "name": "BestPrice",
+        "url": "https://www.bestprice.gr/"
+      },
+      "homepage": "https://www.bestprice.gr/mcp",
+      "repository": "https://github.com/TheBestCo/bestprice-mcp",
+      "license": "Apache-2.0",
+      "keywords": [
+        "shopping",
+        "price-comparison",
+        "price-history",
+        "e-commerce",
+        "greece",
+        "mcp"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "TheBestCo/bestprice-mcp",
+        "sha": "19c00589b329aa814812333f0a7e2020acb7b16a"
       }
     }
   ]
