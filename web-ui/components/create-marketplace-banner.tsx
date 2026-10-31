@@ -1,10 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { ArrowRight, Sparkles, X } from 'lucide-react'
 import Link from 'next/link'
-
-const STORAGE_KEY = 'create-marketplace-banner-dismissed'
+import { BANNER_DISMISSED_KEY } from '@/lib/create-marketplace-banner'
 
 interface CreateMarketplaceBannerProps {
   /** Reserved for future variants; only 'marketplace' is supported. */
@@ -19,31 +18,22 @@ interface CreateMarketplaceBannerProps {
  * skills.sh + the GitHub crawl — so this banner is marketplace-only.)
  */
 export function CreateMarketplaceBanner({ dismissible = true }: CreateMarketplaceBannerProps) {
-  // When dismissible, start hidden to avoid a flash before the localStorage check.
-  const [isDismissed, setIsDismissed] = useState(dismissible)
+  // Rendered on the server too; an inline script in the root layout hides it pre-paint when dismissed
   const [isVisible, setIsVisible] = useState(true)
-
-  useEffect(() => {
-    if (!dismissible) return
-    const dismissed = localStorage.getItem(STORAGE_KEY)
-    setIsDismissed(dismissed === 'true')
-  }, [dismissible])
 
   const handleDismiss = () => {
     setIsVisible(false)
     setTimeout(() => {
-      setIsDismissed(true)
-      localStorage.setItem(STORAGE_KEY, 'true')
+      localStorage.setItem(BANNER_DISMISSED_KEY, 'true')
+      document.documentElement.dataset.cmbDismissed = ''
     }, 300)
   }
-
-  if (dismissible && isDismissed) return null
 
   return (
     <div
       className={`group relative overflow-hidden rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 p-6 mb-8 transition-all duration-300 hover:border-primary/40 hover:shadow-[0_0_40px_-12px_hsl(18,55%,48%,0.3)] ${
         isVisible ? 'opacity-100' : 'opacity-0'
-      }`}
+      } ${dismissible ? '[html[data-cmb-dismissed]_&]:hidden' : ''}`}
     >
       {/* Close button (hidden when the banner is non-dismissible) */}
       {dismissible && (

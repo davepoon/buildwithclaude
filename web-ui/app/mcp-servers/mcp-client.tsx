@@ -4,20 +4,22 @@ import { useState, useMemo, useEffect, useRef } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { MCPCard } from '@/components/mcp-card'
 import { Input } from '@/components/ui/input'
-import { ArrowUpDown, Loader2 } from 'lucide-react'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { Loader2, Store } from 'lucide-react'
+import { FilterBar, FilterHeading, FilterSearch, CategoryFilter, SingleSelectFilter, SortSelect } from '@/components/filter-controls'
 import { useDebounce } from '@/hooks/use-debounce'
 import { type MCPServer, SOURCE_INDICATORS } from '@/lib/mcp-types'
 import { type MCPCategoryMetadata } from '@/lib/mcp-server'
 
 const ITEMS_PER_PAGE = 24
 const SEARCH_LIMIT = 100
+
+const SORT_OPTIONS = [
+  { value: 'stars', label: 'Most Stars' },
+  { value: 'newest', label: 'Newest' },
+  { value: 'oldest', label: 'Oldest' },
+  { value: 'name', label: 'A to Z' },
+  { value: 'name-desc', label: 'Z to A' },
+]
 
 interface MCPPageClientProps {
   allServers: MCPServer[]
@@ -175,6 +177,18 @@ export default function MCPPageClient({
     return { 'official-mcp': officialMcp, docker }
   }, [allServers])
 
+  const categoryOptions = useMemo(
+    () => categories.map((cat) => ({ value: cat.id, label: cat.displayName, count: cat.count })),
+    [categories],
+  )
+  const sourceOptions = useMemo(
+    () => [
+      { value: 'official-mcp', label: `${SOURCE_INDICATORS['official-mcp'].icon} Official`, count: sourceCounts['official-mcp'] },
+      { value: 'docker', label: `${SOURCE_INDICATORS.docker.icon} Docker`, count: sourceCounts.docker },
+    ],
+    [sourceCounts],
+  )
+
   const isSearching = searchedSlugs !== null
   const hasActiveFilters = isSearching || selectedCategory !== 'all' || selectedSource !== 'all'
 
@@ -203,110 +217,52 @@ export default function MCPPageClient({
   return (
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-12">
-        {/* Header */}
-        <div className="mb-10">
-          <h1 className="text-display-2 mb-2">MCP Servers</h1>
-          <p className="text-muted-foreground">{allServers.length} Model Context Protocol servers</p>
-        </div>
+        {/* Header: the h1 docks into the sticky filter area while scrolling */}
+        <FilterHeading>MCP Servers</FilterHeading>
+        <p className="text-muted-foreground mb-10">{allServers.length} Model Context Protocol servers</p>
 
-        {/* Search */}
-        <div className="mb-6 relative max-w-md">
-          <Input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search MCP servers..."
-            aria-label="Search MCP servers"
-            className="bg-card border-border"
+        {/* Search, category and source filters, and sort */}
+        <FilterBar>
+          <FilterSearch>
+            <Input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search MCP servers..."
+              aria-label="Search MCP servers"
+              className="bg-card border-border"
+            />
+            {searching && (
+              <Loader2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-muted-foreground" />
+            )}
+          </FilterSearch>
+          <SingleSelectFilter
+            icon={Store}
+            value={selectedSource}
+            options={sourceOptions}
+            allLabel="All Sources"
+            allCount={allServers.length}
+            placeholder="Select source"
+            searchPlaceholder="Search sources..."
+            emptyText="No source found."
+            onChange={handleSourceChange}
           />
-          {searching && (
-            <Loader2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-muted-foreground" />
-          )}
-        </div>
-
-        {/* Category filters */}
-        <div className="flex gap-2 flex-wrap mb-4">
-          <button
-            onClick={() => handleCategoryChange('all')}
-            className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
-              selectedCategory === 'all'
-                ? 'bg-primary text-primary-foreground'
-                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-            }`}
-          >
-            All
-          </button>
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => handleCategoryChange(cat.id)}
-              className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
-                selectedCategory === cat.id
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-              }`}
-            >
-              {cat.displayName}
-            </button>
-          ))}
-        </div>
-
-        {/* Source and Sort controls */}
-        <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
-          <div className="flex flex-wrap gap-2">
-            <span className="text-sm text-muted-foreground py-1.5">Source:</span>
-            <button
-              onClick={() => handleSourceChange('all')}
-              className={`px-3 py-1.5 text-sm rounded-md whitespace-nowrap transition-colors ${
-                selectedSource === 'all'
-                  ? 'bg-muted text-foreground'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-              }`}
-            >
-              All ({allServers.length})
-            </button>
-            <button
-              onClick={() => handleSourceChange('official-mcp')}
-              className={`px-3 py-1.5 text-sm rounded-md whitespace-nowrap transition-colors ${
-                selectedSource === 'official-mcp'
-                  ? 'bg-muted text-foreground'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-              }`}
-            >
-              {SOURCE_INDICATORS['official-mcp'].icon} Official ({sourceCounts['official-mcp']})
-            </button>
-            <button
-              onClick={() => handleSourceChange('docker')}
-              className={`px-3 py-1.5 text-sm rounded-md whitespace-nowrap transition-colors ${
-                selectedSource === 'docker'
-                  ? 'bg-muted text-foreground'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-              }`}
-            >
-              {SOURCE_INDICATORS.docker.icon} Docker ({sourceCounts.docker})
-            </button>
-          </div>
-
-          <Select
+          <SortSelect
             value={sortBy}
-            onValueChange={(value) => {
+            options={SORT_OPTIONS}
+            onChange={(value) => {
               setSortBy(value as typeof sortBy)
               updateURL({ sort: value })
             }}
-          >
-            <SelectTrigger className="w-[150px] bg-card border-border">
-              <ArrowUpDown className="h-4 w-4 mr-2 text-muted-foreground" />
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="stars">Most Stars</SelectItem>
-              <SelectItem value="newest">Newest</SelectItem>
-              <SelectItem value="oldest">Oldest</SelectItem>
-              <SelectItem value="name">A to Z</SelectItem>
-              <SelectItem value="name-desc">Z to A</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+          />
+          {/* Category filter, single-select */}
+          <CategoryFilter
+            single
+            selected={selectedCategory === 'all' ? [] : [selectedCategory]}
+            options={categoryOptions}
+            onChange={(next) => handleCategoryChange(next[0] ?? 'all')}
+          />
+        </FilterBar>
 
         {/* Featured Sections - Only show when no filters/search active */}
         {!hasActiveFilters && (popularServers.length > 0 || featuredServers.length > 0) && (
@@ -364,7 +320,7 @@ export default function MCPPageClient({
         )}
 
         {/* Load more trigger / Loading indicator */}
-        <div ref={loadMoreRef} className="py-8 flex justify-center">
+        <div ref={loadMoreRef} className="pt-8 flex justify-center">
           {hasMore && <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />}
           {!hasMore && displayedServers.length > 0 && (
             <p className="text-sm text-muted-foreground">

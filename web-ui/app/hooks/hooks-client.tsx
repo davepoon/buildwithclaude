@@ -4,7 +4,8 @@ import { useState, useMemo, useEffect, useRef } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { HookCard } from '@/components/hook-card'
 import { Input } from '@/components/ui/input'
-import { Webhook, Loader2 } from 'lucide-react'
+import { Webhook, Loader2, Zap } from 'lucide-react'
+import { FilterBar, FilterHeading, FilterSearch, CategoryFilter, SingleSelectFilter } from '@/components/filter-controls'
 import { useDebounce } from '@/hooks/use-debounce'
 import { type Hook, type CategoryMetadata, generateCategoryDisplayName } from '@/lib/hooks-types'
 
@@ -95,6 +96,17 @@ export default function HooksPageClient({ allHooks, categories, eventTypes }: Ho
     return () => ac.abort()
   }, [debouncedQuery, selectedCategory]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  const categoryOptions = useMemo(
+    () => categories.map((cat) => ({ value: cat.id, label: cat.displayName, count: cat.count })),
+    [categories],
+  )
+
+  const eventOptions = useMemo(() => {
+    const counts = new Map<string, number>()
+    for (const h of allHooks) counts.set(h.event, (counts.get(h.event) ?? 0) + 1)
+    return eventTypes.map((event) => ({ value: event, label: event, count: counts.get(event) ?? 0 }))
+  }, [allHooks, eventTypes])
+
   const bySlug = useMemo(() => new Map(allHooks.map((h) => [h.slug, h])), [allHooks])
 
   const filteredHooks = useMemo(() => {
@@ -134,84 +146,47 @@ export default function HooksPageClient({ allHooks, categories, eventTypes }: Ho
   return (
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-12">
-        {/* Header */}
-        <div className="mb-10">
-          <h1 className="text-display-2 mb-2 flex items-center gap-3">
-            <Webhook className="h-8 w-8 text-orange-500" />
-            Hooks
-          </h1>
-          <p className="text-muted-foreground">{allHooks.length} automation hooks for Claude Code</p>
-        </div>
+        {/* Header: the h1 docks into the sticky filter area while scrolling */}
+        <FilterHeading>
+          <Webhook className="h-8 w-8 text-orange-500" />
+          Hooks
+        </FilterHeading>
+        <p className="text-muted-foreground mb-10">{allHooks.length} automation hooks for Claude Code</p>
 
-        {/* Search */}
-        <div className="mb-6 relative max-w-md">
-          <Input
-            type="text"
-            placeholder="Search hooks..."
-            aria-label="Search hooks"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-card border-border"
+        {/* Search, category and event filters */}
+        <FilterBar>
+          <FilterSearch>
+            <Input
+              type="text"
+              placeholder="Search hooks..."
+              aria-label="Search hooks"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-card border-border"
+            />
+            {searching && (
+              <Loader2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-muted-foreground" />
+            )}
+          </FilterSearch>
+          <SingleSelectFilter
+            icon={Zap}
+            value={selectedEvent}
+            options={eventOptions}
+            allLabel="All Events"
+            allCount={allHooks.length}
+            placeholder="Select event"
+            searchPlaceholder="Search events..."
+            emptyText="No event found."
+            onChange={handleEventChange}
           />
-          {searching && (
-            <Loader2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-muted-foreground" />
-          )}
-        </div>
-
-        {/* Category filters */}
-        <div className="flex gap-2 flex-wrap mb-4">
-          <button
-            onClick={() => handleCategoryChange('all')}
-            className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
-              selectedCategory === 'all'
-                ? 'bg-primary text-primary-foreground'
-                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-            }`}
-          >
-            All
-          </button>
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => handleCategoryChange(cat.id)}
-              className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
-                selectedCategory === cat.id
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-              }`}
-            >
-              {cat.displayName}
-            </button>
-          ))}
-        </div>
-
-        {/* Event type filters */}
-        <div className="flex gap-2 flex-wrap mb-8">
-          <span className="text-sm text-muted-foreground py-1.5">Event:</span>
-          <button
-            onClick={() => handleEventChange('all')}
-            className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
-              selectedEvent === 'all'
-                ? 'bg-muted text-foreground'
-                : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-            }`}
-          >
-            All
-          </button>
-          {eventTypes.map((event) => (
-            <button
-              key={event}
-              onClick={() => handleEventChange(event)}
-              className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
-                selectedEvent === event
-                  ? 'bg-muted text-foreground'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-              }`}
-            >
-              {event}
-            </button>
-          ))}
-        </div>
+          {/* Category filter, single-select */}
+          <CategoryFilter
+            single
+            selected={selectedCategory === 'all' ? [] : [selectedCategory]}
+            options={categoryOptions}
+            onChange={(next) => handleCategoryChange(next[0] ?? 'all')}
+          />
+        </FilterBar>
 
         {/* Results count */}
         {(selectedCategory !== 'all' || selectedEvent !== 'all' || isSearching) && (
@@ -237,7 +212,7 @@ export default function HooksPageClient({ allHooks, categories, eventTypes }: Ho
         )}
 
         {/* Load more trigger / Loading indicator */}
-        <div ref={loadMoreRef} className="py-8 flex justify-center">
+        <div ref={loadMoreRef} className="pt-8 flex justify-center">
           {hasMore && <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />}
           {!hasMore && displayedHooks.length > 0 && (
             <p className="text-sm text-muted-foreground">Showing all {filteredHooks.length} hooks</p>

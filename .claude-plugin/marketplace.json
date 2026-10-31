@@ -4371,7 +4371,7 @@
     {
       "name": "buddy-chat",
       "description": "End-to-end encrypted, quantum-resistant chat between Claude Code users: direct chats, groups and read receipts in a pane, with no server to run.",
-      "version": "0.21.0",
+      "version": "0.21.2",
       "author": {
         "name": "MrMirhan",
         "url": "https://github.com/MrMirhan"
@@ -4392,7 +4392,7 @@
       "source": {
         "source": "github",
         "repo": "MrMirhan/claude-buddy-chat",
-        "sha": "04f917e876be4cd5baebe350afc6211e63e3d49c"
+        "sha": "9b18f8303ad4d3ceb0365b410f570221701c4b96"
       }
     },
     {
@@ -4606,6 +4606,32 @@
         "source": "github",
         "repo": "rdoyle99/book-a-sponsor-plugin",
         "sha": "8f6c32648e00fc12b3dd32753dfddaf9b7728893"
+      }
+    },
+    {
+      "name": "communitymentions",
+      "description": "Which subreddits AI answers cite: describe a product or niche and it returns the subreddits where it fits, with how often AI answers (OpenAI models, Perplexity, Gemini) cited each one and its member count; ask about one subreddit and it returns its citations by engine, the kinds of questions those answers were about, and its most-cited threads. Adds the communitymentions skill and the hosted CommunityMentions MCP server (https://communitymentions.com/api/mcp); read-only, no sign-in, no API key.",
+      "version": "1.0.1",
+      "author": {
+        "name": "CommunityMentions",
+        "url": "https://communitymentions.com"
+      },
+      "homepage": "https://communitymentions.com",
+      "repository": "https://github.com/rdoyle99/communitymentions-plugin",
+      "license": "MIT",
+      "keywords": [
+        "reddit",
+        "subreddits",
+        "ai search",
+        "reddit marketing",
+        "generative engine optimization",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "rdoyle99/communitymentions-plugin",
+        "sha": "077dc86e674cbf9a64e7c8701ee2b740252315bc"
       }
     },
     {

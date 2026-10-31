@@ -2,12 +2,14 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
+import { Monitor } from 'lucide-react'
+import { FilterBar, CategoryFilter, SingleSelectFilter } from '@/components/filter-controls'
 import type { Story } from '@/lib/stories-types'
 import { StoryCard } from '@/components/stories/story-card'
 import { FeaturedHero } from '@/components/stories/featured-hero'
 
-const CATEGORIES = ['All', 'Plugins', 'Skills', 'Subagents', 'Commands', 'Hooks'] as const
-const PLATFORMS = ['All', 'Claude Code', 'Claude Desktop', 'Agent SDK', 'OpenClaw'] as const
+const CATEGORIES = ['Plugins', 'Skills', 'Subagents', 'Commands', 'Hooks'] as const
+const PLATFORMS = ['Claude Code', 'Claude Desktop', 'Agent SDK', 'OpenClaw'] as const
 
 interface StoriesIndexClientProps {
   pinned: Story | null
@@ -16,16 +18,30 @@ interface StoriesIndexClientProps {
 }
 
 export function StoriesIndexClient({ pinned, stories, guide }: StoriesIndexClientProps) {
-  const [category, setCategory] = useState<string>('All')
-  const [platform, setPlatform] = useState<string>('All')
+  const [category, setCategory] = useState<string>('all')
+  const [platform, setPlatform] = useState<string>('all')
 
   const filtered = useMemo(() => {
     return stories.filter(s => {
-      if (category !== 'All' && s.category !== category) return false
-      if (platform !== 'All' && !s.platforms.includes(platform)) return false
+      if (category !== 'all' && s.category !== category) return false
+      if (platform !== 'all' && !s.platforms.includes(platform)) return false
       return true
     })
   }, [stories, category, platform])
+
+  // Category and platform counts in one pass over the stories
+  const { categoryOptions, platformOptions } = useMemo(() => {
+    const counts = new Map<string, number>()
+    const add = (key: string) => counts.set(key, (counts.get(key) ?? 0) + 1)
+    for (const s of stories) {
+      add(`c:${s.category}`)
+      for (const p of s.platforms) add(`p:${p}`)
+    }
+    return {
+      categoryOptions: CATEGORIES.map(c => ({ value: c, label: c, count: counts.get(`c:${c}`) ?? 0 })),
+      platformOptions: PLATFORMS.map(p => ({ value: p, label: p, count: counts.get(`p:${p}`) ?? 0 })),
+    }
+  }, [stories])
 
   return (
     <div>
@@ -57,7 +73,6 @@ export function StoriesIndexClient({ pinned, stories, guide }: StoriesIndexClien
                 color: 'hsl(0 0% 98%)',
                 margin: 0,
                 fontWeight: 400,
-                textWrap: 'balance',
               }}
             >
               Posts from people who actually shipped something.
@@ -65,6 +80,7 @@ export function StoriesIndexClient({ pinned, stories, guide }: StoriesIndexClien
             <div>
               <p
                 style={{
+                  marginTop: 20,
                   fontSize: 15,
                   lineHeight: 1.6,
                   color: 'hsl(0 0% 65%)',
@@ -196,38 +212,40 @@ export function StoriesIndexClient({ pinned, stories, guide }: StoriesIndexClien
         </section>
       )}
 
-      <section
-        style={{
-          padding: '40px 0 16px',
-          position: 'sticky',
-          top: 56,
-          zIndex: 20,
-          background: 'hsl(0 0% 4% / 0.92)',
-          backdropFilter: 'blur(8px)',
-        }}
-      >
+      <section className="md:pt-7" style={{ paddingBottom: 48 }}>
         <div className="container mx-auto px-4" style={{ maxWidth: 1280 }}>
-          <FilterRow label="Category" options={CATEGORIES} value={category} onChange={setCategory} />
-          <div style={{ height: 10 }} />
-          <FilterRow label="Platform" options={PLATFORMS} value={platform} onChange={setPlatform} />
-        </div>
-        <div style={{ marginTop: 18, borderBottom: '1px solid hsl(0 0% 12%)' }} />
-      </section>
-
-      <section style={{ padding: '24px 0 96px' }}>
-        <div className="container mx-auto px-4" style={{ maxWidth: 1280 }}>
+          <FilterBar dock={false}>
+            <SingleSelectFilter
+              icon={Monitor}
+              value={platform}
+              options={platformOptions}
+              allLabel="All Platforms"
+              allCount={stories.length}
+              placeholder="Select platform"
+              searchPlaceholder="Search platforms..."
+              emptyText="No platform found."
+              onChange={setPlatform}
+            />
+            {/* Category filter, single-select */}
+            <CategoryFilter
+              single
+              selected={category === 'all' ? [] : [category]}
+              options={categoryOptions}
+              onChange={(next) => setCategory(next[0] ?? 'all')}
+            />
+          </FilterBar>
           <div
             style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'baseline',
-              marginBottom: 20,
+              marginBottom: 24,
             }}
           >
             <p style={{ fontSize: 13, color: 'hsl(0 0% 55%)', margin: 0 }}>
               {filtered.length} {filtered.length === 1 ? 'story' : 'stories'}
-              {category !== 'All' && ` in ${category}`}
-              {platform !== 'All' && ` for ${platform}`}
+              {category !== 'all' && ` in ${category}`}
+              {platform !== 'all' && ` for ${platform}`}
             </p>
           </div>
 
@@ -259,56 +277,6 @@ export function StoriesIndexClient({ pinned, stories, guide }: StoriesIndexClien
           )}
         </div>
       </section>
-    </div>
-  )
-}
-
-interface FilterRowProps {
-  label: string
-  options: readonly string[]
-  value: string
-  onChange: (v: string) => void
-}
-
-function FilterRow({ label, options, value, onChange }: FilterRowProps) {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
-      <span
-        style={{
-          fontSize: 11,
-          letterSpacing: '0.1em',
-          textTransform: 'uppercase',
-          color: 'hsl(0 0% 45%)',
-          minWidth: 64,
-        }}
-      >
-        {label}
-      </span>
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-        {options.map(opt => {
-          const active = opt === value
-          return (
-            <button
-              key={opt}
-              type="button"
-              onClick={() => onChange(opt)}
-              style={{
-                padding: '6px 14px',
-                fontSize: 12,
-                fontWeight: active ? 500 : 400,
-                borderRadius: 999,
-                cursor: 'pointer',
-                border: '1px solid ' + (active ? 'hsl(18 55% 48% / 0.5)' : 'hsl(0 0% 14%)'),
-                background: active ? 'hsl(18 55% 48% / 0.14)' : 'transparent',
-                color: active ? 'hsl(18 70% 70%)' : 'hsl(0 0% 70%)',
-                transition: 'all 0.15s',
-              }}
-            >
-              {opt}
-            </button>
-          )
-        })}
-      </div>
     </div>
   )
 }

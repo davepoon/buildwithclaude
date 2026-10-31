@@ -4,30 +4,8 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { UnifiedPluginCard } from '@/components/unified-plugin-card'
 import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command'
-import { Badge } from '@/components/ui/badge'
-import { Sparkles, Store, Loader2, ArrowUpDown, Check, ChevronsUpDown, X, Tags } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { Sparkles, Store, Loader2 } from 'lucide-react'
+import { FilterBar, FilterHeading, FilterSearch, SingleSelectFilter, CategoryFilter, SortSelect } from '@/components/filter-controls'
 import type { UnifiedPlugin } from '@/lib/plugin-types'
 import type { MarketplaceOption, SortOption, PluginCategory } from '@/lib/plugin-db-server'
 
@@ -40,6 +18,16 @@ interface SkillsPageClientProps {
 }
 
 const ITEMS_PER_PAGE = 24
+
+const SORT_OPTIONS = [
+  { value: 'relevance', label: 'Relevance' },
+  { value: 'installs', label: 'Most Installs' },
+  { value: 'stars', label: 'Most Stars' },
+  { value: 'newest', label: 'Newest' },
+  { value: 'oldest', label: 'Oldest' },
+  { value: 'name', label: 'A to Z' },
+  { value: 'name-desc', label: 'Z to A' },
+]
 
 export default function SkillsPageClient({
   initialSkills,
@@ -57,8 +45,6 @@ export default function SkillsPageClient({
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [selectedMarketplace, setSelectedMarketplace] = useState<string>('all')
   const [sort, setSort] = useState<SortOption>('installs')
-  const [marketplaceOpen, setMarketplaceOpen] = useState(false)
-  const [categoryOpen, setCategoryOpen] = useState(false)
 
   // Refs
   const loadMoreRef = useRef<HTMLDivElement>(null)
@@ -241,14 +227,14 @@ export default function SkillsPageClient({
     return filtered.sort((a, b) => b.pluginCount - a.pluginCount)
   }, [marketplaces])
 
-  // Get selected marketplace display name
-  const selectedMarketplaceDisplay = useMemo(() => {
-    if (selectedMarketplace === 'all') {
-      return `All Sources (${totalSkills.toLocaleString()})`
-    }
-    const mp = filteredMarketplaces.find(m => m.id === selectedMarketplace)
-    return mp ? `${mp.displayName} (${mp.pluginCount.toLocaleString()})` : 'Select source...'
-  }, [selectedMarketplace, filteredMarketplaces, totalSkills])
+  const marketplaceOptions = useMemo(
+    () => filteredMarketplaces.map(mp => ({ value: mp.id, label: mp.displayName, count: mp.pluginCount })),
+    [filteredMarketplaces]
+  )
+  const categoryOptions = useMemo(
+    () => categories.map(cat => ({ value: cat.name, count: cat.count })),
+    [categories]
+  )
 
   // Format category name for display
   const formatCategoryName = (name: string) => {
@@ -261,198 +247,53 @@ export default function SkillsPageClient({
   return (
     <div className="min-h-screen">
       <div className="container mx-auto px-4 py-12">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-display-2 mb-2 flex items-center gap-3">
-            <Sparkles className="h-8 w-8 text-yellow-500" />
-            Skills
-          </h1>
-          <p className="text-muted-foreground">
-            Browse {totalSkills.toLocaleString()} skills for Claude Code
-          </p>
-        </div>
+        {/* Header: the h1 docks into the sticky filter area while scrolling */}
+        <FilterHeading>
+          <Sparkles className="h-8 w-8 text-yellow-500" />
+          Skills
+        </FilterHeading>
+        <p className="text-muted-foreground mb-8">
+          Browse {totalSkills.toLocaleString()} skills for Claude Code
+        </p>
 
-        {/* Search, Marketplace Filter, and Sort */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-6">
-          <Input
-            type="text"
-            placeholder="Search skills..."
-            aria-label="Search skills"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="max-w-md bg-card border-border"
-          />
+        {/* Search, Marketplace Filter, Category Filter, and Sort */}
+        <FilterBar>
+          <FilterSearch>
+            <Input
+              type="text"
+              placeholder="Search skills..."
+              aria-label="Search skills"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-card border-border"
+            />
+          </FilterSearch>
           {filteredMarketplaces.length > 0 && (
-            <Popover open={marketplaceOpen} onOpenChange={setMarketplaceOpen}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  role="combobox"
-                  aria-expanded={marketplaceOpen}
-                  className="w-[280px] justify-between bg-card border-border group gap-2"
-                >
-                  <span className="flex items-center gap-4 truncate">
-                    <Store className="h-4 w-4 text-muted-foreground group-hover:text-foreground shrink-0" />
-                    <span className="truncate">{selectedMarketplaceDisplay}</span>
-                  </span>
-                  <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-[280px] p-0">
-                <Command>
-                  <CommandInput placeholder="Search sources..." />
-                  <CommandList>
-                    <CommandEmpty>No source found.</CommandEmpty>
-                    <CommandGroup>
-                      <CommandItem
-                        value="all"
-                        onSelect={() => {
-                          setSelectedMarketplace('all')
-                          setMarketplaceOpen(false)
-                          updateURL({ source: 'all' })
-                        }}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            selectedMarketplace === 'all' ? "opacity-100" : "opacity-0"
-                          )}
-                        />
-                        All Sources ({totalSkills.toLocaleString()})
-                      </CommandItem>
-                      {filteredMarketplaces.map((mp) => (
-                        <CommandItem
-                          key={mp.id}
-                          value={mp.displayName}
-                          onSelect={() => {
-                            setSelectedMarketplace(mp.id)
-                            setMarketplaceOpen(false)
-                            updateURL({ source: mp.id })
-                          }}
-                        >
-                          <Check
-                            className={cn(
-                              "mr-2 h-4 w-4",
-                              selectedMarketplace === mp.id ? "opacity-100" : "opacity-0"
-                            )}
-                          />
-                          {mp.displayName} ({mp.pluginCount.toLocaleString()})
-                        </CommandItem>
-                      ))}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
+            <SingleSelectFilter
+              icon={Store}
+              value={selectedMarketplace}
+              options={marketplaceOptions}
+              allLabel="All Sources"
+              allCount={totalSkills}
+              placeholder="Select source"
+              searchPlaceholder="Search sources..."
+              emptyText="No source found."
+              onChange={(value) => { setSelectedMarketplace(value); updateURL({ source: value }) }}
+            />
           )}
-          <Select value={sort} onValueChange={(value) => { setSort(value as SortOption); updateURL({ sort: value }) }}>
-            <SelectTrigger className="w-[150px] bg-card border-border">
-              <ArrowUpDown className="h-4 w-4 mr-2 text-muted-foreground" />
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="relevance">Relevance</SelectItem>
-              <SelectItem value="installs">Most Installs</SelectItem>
-              <SelectItem value="stars">Most Stars</SelectItem>
-              <SelectItem value="newest">Newest</SelectItem>
-              <SelectItem value="oldest">Oldest</SelectItem>
-              <SelectItem value="name">A to Z</SelectItem>
-              <SelectItem value="name-desc">Z to A</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Category multi-select combobox */}
-        <div className="mb-8">
-          <div className="flex flex-wrap items-center gap-2">
-            {/* Selected category pills */}
-            {selectedCategories.map((catName) => {
-              const cat = categories.find(c => c.name === catName)
-              return (
-                <Badge
-                  key={catName}
-                  variant="secondary"
-                  className="pl-2 pr-1 py-1 gap-1 text-sm bg-primary/10 text-primary border-primary/20"
-                >
-                  {formatCategoryName(catName)}
-                  {cat && <span className="text-xs opacity-70">({cat.count})</span>}
-                  <button
-                    onClick={() => {
-                      const newCats = selectedCategories.filter(c => c !== catName)
-                      setSelectedCategories(newCats)
-                      updateURL({ category: newCats })
-                    }}
-                    className="ml-1 rounded-full p-0.5 hover:bg-primary/20 transition-colors"
-                  >
-                    <X className="h-3 w-3" />
-                  </button>
-                </Badge>
-              )
-            })}
-
-            {/* Category combobox */}
-            <Popover open={categoryOpen} onOpenChange={setCategoryOpen}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  role="combobox"
-                  aria-expanded={categoryOpen}
-                  className="h-8 gap-2 bg-card border-border border-dashed group"
-                >
-                  <Tags className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" />
-                  <span className="text-muted-foreground group-hover:text-foreground transition-colors">
-                    {selectedCategories.length === 0 ? 'Filter by categories...' : 'Add category'}
-                  </span>
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-[300px] p-0" align="start">
-                <Command>
-                  <CommandInput placeholder="Search categories..." />
-                  <CommandList className="max-h-[300px]">
-                    <CommandEmpty>No category found.</CommandEmpty>
-                    <CommandGroup>
-                      {selectedCategories.length > 0 && (
-                        <CommandItem
-                          onSelect={() => { setSelectedCategories([]); updateURL({ category: [] }) }}
-                          className="text-muted-foreground"
-                        >
-                          <X className="mr-2 h-4 w-4" />
-                          Clear all filters
-                        </CommandItem>
-                      )}
-                      {categories.map((cat) => {
-                        const isSelected = selectedCategories.includes(cat.name)
-                        return (
-                          <CommandItem
-                            key={cat.name}
-                            value={cat.name}
-                            className="group"
-                            onSelect={() => {
-                              const newCats = isSelected
-                                ? selectedCategories.filter(c => c !== cat.name)
-                                : [...selectedCategories, cat.name]
-                              setSelectedCategories(newCats)
-                              updateURL({ category: newCats })
-                            }}
-                          >
-                            <Check
-                              className={cn(
-                                "mr-2 h-4 w-4",
-                                isSelected ? "opacity-100" : "opacity-0"
-                              )}
-                            />
-                            <span className="flex-1">{formatCategoryName(cat.name)}</span>
-                            <span className="text-xs text-muted-foreground group-data-[selected=true]:text-accent-foreground transition-colors">({cat.count})</span>
-                          </CommandItem>
-                        )
-                      })}
-                    </CommandGroup>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
-          </div>
-        </div>
+          <SortSelect
+            value={sort}
+            options={SORT_OPTIONS}
+            onChange={(value) => { setSort(value as SortOption); updateURL({ sort: value }) }}
+          />
+          {/* Category multi-select combobox */}
+          <CategoryFilter
+            selected={selectedCategories}
+            options={categoryOptions}
+            formatLabel={formatCategoryName}
+            onChange={(newCats) => { setSelectedCategories(newCats); updateURL({ category: newCats }) }}
+          />
+        </FilterBar>
 
         {/* Results count */}
         {(selectedCategories.length > 0 || selectedMarketplace !== 'all' || debouncedSearch) && (
@@ -481,7 +322,7 @@ export default function SkillsPageClient({
         ) : null}
 
         {/* Load more trigger / Loading indicator */}
-        <div ref={loadMoreRef} className="py-8 flex justify-center">
+        <div ref={loadMoreRef} className="pt-8 flex justify-center">
           {isLoading && (
             <div className="flex items-center gap-2 text-muted-foreground">
               <Loader2 className="h-5 w-5 animate-spin" />

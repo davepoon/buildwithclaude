@@ -41,7 +41,8 @@ export function CommandPageClient({ command }: CommandPageClientProps) {
     window.URL.revokeObjectURL(url)
   }
 
-  const lines = command.content.split('\n')
+  // Skip leading blank lines so the card text starts at its padding
+  const lines = command.content.replace(/^\s*\n/, '').split('\n')
   const formattedContent = lines.map((line, i) => {
     if (line.startsWith('## ')) {
       return <h2 key={i} className="text-xl font-medium mt-6 mb-3">{line.replace('## ', '')}</h2>
@@ -72,7 +73,7 @@ export function CommandPageClient({ command }: CommandPageClientProps) {
       )
     }
     if (line.trim()) {
-      return <p key={i} className="mb-3">{line}</p>
+      return <p key={i} className="mb-3 wrap-break-word">{line}</p>
     }
     return <br key={i} />
   })
@@ -131,7 +132,7 @@ export function CommandPageClient({ command }: CommandPageClientProps) {
                 Step 1: Add the marketplace (one-time)
               </p>
               <div className="bg-card rounded-lg p-4 font-mono text-sm flex items-center justify-between border border-border">
-                <span className="break-all">{marketplaceAdd}</span>
+                <span className="min-w-0 wrap-anywhere">{marketplaceAdd}</span>
                 <Button
                   size="sm"
                   variant="ghost"
@@ -150,7 +151,7 @@ export function CommandPageClient({ command }: CommandPageClientProps) {
                 Step 2: Install the {categoryName} commands
               </p>
               <div className="bg-card rounded-lg p-4 font-mono text-sm flex items-center justify-between border border-border">
-                <span className="break-all">{pluginCommands.install}</span>
+                <span className="min-w-0 wrap-anywhere">{pluginCommands.install}</span>
                 <Button
                   size="sm"
                   variant="ghost"

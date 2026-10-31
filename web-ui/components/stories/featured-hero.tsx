@@ -124,7 +124,6 @@ export function FeaturedHero({ story }: FeaturedHeroProps) {
               color: 'white',
               margin: 0,
               fontWeight: 400,
-              textWrap: 'balance',
             }}
           >
             {story.title}
