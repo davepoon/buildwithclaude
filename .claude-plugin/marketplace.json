@@ -4816,6 +4816,36 @@
         "path": "plugins/keep-mac-awake",
         "sha": "f64ce3db2669311aeca40b21c1bdba9db4f1e56d"
       }
+    },
+    {
+      "name": "ravenpost",
+      "description": "Ravenpost — draft, preview, schedule and publish social media posts to Instagram, TikTok, X, LinkedIn, Threads, Bluesky, YouTube, Pinterest and Telegram from Claude, and read followers and engagement. Nothing is published without an explicit instruction.",
+      "author": {
+        "name": "Ravenpost",
+        "url": "https://ravenpo.st"
+      },
+      "homepage": "https://ravenpo.st/mcp/",
+      "repository": "https://github.com/target1m/ravenpost-mcp",
+      "license": "MIT",
+      "keywords": [
+        "social-media",
+        "scheduler",
+        "instagram",
+        "tiktok",
+        "x",
+        "linkedin",
+        "threads",
+        "bluesky",
+        "youtube",
+        "pinterest",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "version": "1.2.0",
+      "source": {
+        "source": "github",
+        "repo": "target1m/ravenpost-mcp"
+      }
     }
   ]
 }
