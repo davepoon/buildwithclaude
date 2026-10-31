@@ -111,7 +111,7 @@ export default function SearchClient({ initialQuery }: { initialQuery: string })
           </div>
         ) : null}
 
-        <div ref={loadMoreRef} className="flex justify-center py-8">
+        <div ref={loadMoreRef} className="flex justify-center pt-8">
           {loading && (
             <div className="flex items-center gap-2 text-muted-foreground">
               <Loader2 className="h-5 w-5 animate-spin" />

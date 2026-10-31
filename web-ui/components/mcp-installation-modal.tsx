@@ -97,7 +97,7 @@ export function MCPInstallationModal({
 
                 <div className="space-y-2">
                   <div className="flex items-start justify-between p-3 bg-muted rounded-lg font-mono text-sm">
-                    <span className="break-all whitespace-pre-wrap">{claudeCommand}</span>
+                    <span className="min-w-0 wrap-anywhere whitespace-pre-wrap">{claudeCommand}</span>
                     <Button
                       size="sm"
                       variant="ghost"
@@ -163,7 +163,7 @@ export function MCPInstallationModal({
 
                 <div className="space-y-2">
                   <div className="flex items-center justify-between p-3 bg-muted rounded-lg font-mono text-sm">
-                    <span className="break-all">{dockerCommand}</span>
+                    <span className="min-w-0 wrap-anywhere">{dockerCommand}</span>
                     <Button
                       size="sm"
                       variant="ghost"

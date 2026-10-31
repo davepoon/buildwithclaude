@@ -130,7 +130,6 @@ export function StoryCard({
               color: 'hsl(0 0% 98%)',
               margin: 0,
               fontWeight: 400,
-              textWrap: 'balance',
             }}
           >
             {story.title}

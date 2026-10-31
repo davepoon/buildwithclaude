@@ -92,8 +92,8 @@ export default async function StoryPage({ params }: StoryPageProps) {
           style={{
             maxWidth: 760,
             position: 'relative',
-            paddingTop: 80,
-            paddingBottom: 56,
+            paddingTop: 'clamp(28px, 8vw, 80px)',
+            paddingBottom: 40,
           }}
         >
           <Link
@@ -133,7 +133,6 @@ export default async function StoryPage({ params }: StoryPageProps) {
               color: 'white',
               margin: 0,
               fontWeight: 400,
-              textWrap: 'balance',
               textShadow: '0 1px 2px rgba(0,0,0,0.4), 0 4px 28px rgba(0,0,0,0.55)',
             }}
           >
@@ -184,7 +183,8 @@ export default async function StoryPage({ params }: StoryPageProps) {
                   ) : (
                     <>@{story.author.handle}</>
                   )}
-                  {' · '}{story.date} · {story.readTime} min read
+                  {' '}<span style={{ whiteSpace: 'nowrap' }}>· {story.date}</span>
+                  {' '}<span style={{ whiteSpace: 'nowrap' }}>· {story.readTime} min read</span>
                 </div>
               </div>
             </div>
@@ -217,7 +217,7 @@ export default async function StoryPage({ params }: StoryPageProps) {
       </section>
 
       <section>
-        <div className="container mx-auto px-4" style={{ maxWidth: 680, padding: '32px 16px 80px' }}>
+        <div className="container mx-auto px-4" style={{ maxWidth: 680, padding: '0 16px 80px' }}>
           <StoryContent content={story.content} slug={story.slug} pullQuote={story.pullQuote} />
 
 
@@ -301,7 +301,7 @@ export default async function StoryPage({ params }: StoryPageProps) {
       </section>
 
       {related.length > 0 && (
-        <section style={{ borderTop: '1px solid hsl(0 0% 12%)', padding: '60px 0 96px' }}>
+        <section style={{ borderTop: '1px solid hsl(0 0% 12%)', padding: '60px 0 48px' }}>
           <div className="container mx-auto px-4" style={{ maxWidth: 1280 }}>
             <h2
               style={{

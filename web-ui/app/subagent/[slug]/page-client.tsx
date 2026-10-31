@@ -38,7 +38,8 @@ export function SubagentPageClient({ subagent }: SubagentPageClientProps) {
     window.URL.revokeObjectURL(url)
   }
 
-  const lines = subagent.content.split('\n')
+  // Skip leading blank lines so the card text starts at its padding
+  const lines = subagent.content.replace(/^\s*\n/, '').split('\n')
   const formattedContent = lines.map((line, i) => {
     if (line.startsWith('## ')) {
       return <h2 key={i} className="text-xl font-medium mt-6 mb-3">{line.replace('## ', '')}</h2>
@@ -56,7 +57,7 @@ export function SubagentPageClient({ subagent }: SubagentPageClientProps) {
       return <div key={i} className="font-mono text-sm bg-muted p-2 rounded my-2">{line}</div>
     }
     if (line.trim()) {
-      return <p key={i} className="mb-3">{line}</p>
+      return <p key={i} className="mb-3 wrap-break-word">{line}</p>
     }
     return <br key={i} />
   })
@@ -110,7 +111,7 @@ export function SubagentPageClient({ subagent }: SubagentPageClientProps) {
                 Step 1: Add the marketplace (one-time)
               </p>
               <div className="bg-card rounded-lg p-4 font-mono text-sm flex items-center justify-between border border-border">
-                <span className="break-all">{marketplaceAdd}</span>
+                <span className="min-w-0 wrap-anywhere">{marketplaceAdd}</span>
                 <Button
                   size="sm"
                   variant="ghost"
@@ -129,7 +130,7 @@ export function SubagentPageClient({ subagent }: SubagentPageClientProps) {
                 Step 2: Install the {subagent.category} agents
               </p>
               <div className="bg-card rounded-lg p-4 font-mono text-sm flex items-center justify-between border border-border">
-                <span className="break-all">{pluginCommands.install}</span>
+                <span className="min-w-0 wrap-anywhere">{pluginCommands.install}</span>
                 <Button
                   size="sm"
                   variant="ghost"
