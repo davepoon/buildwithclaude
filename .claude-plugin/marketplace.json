@@ -4662,8 +4662,8 @@
     },
     {
       "name": "backlink-guard",
-      "description": "One skill and an MCP server that check a link source (directory, awesome list, guest-post site) before you submit your site to it: skip, look first, free only, low value or submit, with the evidence, against Google's link spam policies. They also verify a listing once it is live and audit your own backlinks. They never submit anything, and before an agent submits a site or opens a pull request for you, the skill has it show where it goes and the exact text and wait for your yes; a vet result is not that yes. Both run the pinned backlink-guard release from PyPI (uvx backlink-guard==0.11.1), state the cost in USD and wait for a yes before every paid call, and treat fetched pages and AI answers as data. The page checks need no key; paid signals use a Glasser or AIsa key.",
-      "version": "0.11.1",
+      "description": "One skill and an MCP server that check a link source (directory, awesome list, guest-post site) before you submit your site to it: skip, look first, free only, low value or submit, with the evidence, against Google's link spam policies. They also verify a listing once it is live and audit your own backlinks. They never submit anything, and before an agent submits a site or opens a pull request for you, the skill has it show where it goes and the exact text and wait for your yes; a vet result is not that yes. Both run the pinned backlink-guard release from PyPI (uvx backlink-guard==0.11.2), state the cost in USD and wait for a yes before every paid call, and treat fetched pages and AI answers as data. The page checks need no key; paid signals use a Glasser or AIsa key.",
+      "version": "0.11.2",
       "author": {
         "name": "Jason Zhu",
         "url": "https://github.com/zhuyansen"
@@ -4681,7 +4681,7 @@
       "source": {
         "source": "github",
         "repo": "zhuyansen/backlink-guard",
-        "sha": "588ff58d3cfd5c59590ff11e7ce967427d069afa"
+        "sha": "d00cd64fba6b39b8864ccb20fe1bfcb567df8bc8"
       }
     },
     {
