@@ -4816,6 +4816,32 @@
         "path": "plugins/keep-mac-awake",
         "sha": "f64ce3db2669311aeca40b21c1bdba9db4f1e56d"
       }
+    },
+    {
+      "name": "vidbyte-memory",
+      "description": "Correction-driven memory for coding agents. Each correction you give becomes a Markdown fact the agent loads, a pytest test or verifier that fails if the mistake returns, and a git commit in your repo. Adds 7 skills (install-memory scaffolds the memory into the current repo), 4 subagents for feedback handling and verification, and a Stop hook that keeps a turn from ending while tests fail, feedback is pending or memory is uncommitted. The hook does nothing in repos without memory/MAP.md. No API key, database or service.",
+      "version": "0.3.0",
+      "author": {
+        "name": "cerredz",
+        "url": "https://github.com/cerredz"
+      },
+      "homepage": "https://github.com/cerredz/vidbyte-memory#readme",
+      "repository": "https://github.com/cerredz/vidbyte-memory",
+      "license": "MIT",
+      "keywords": [
+        "memory",
+        "agent-memory",
+        "feedback",
+        "pytest",
+        "stop-hook",
+        "agents-md"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "cerredz/vidbyte-memory",
+        "sha": "82ddf338abd1569abcddd6b1b0a985d9641afa5d"
+      }
     }
   ]
 }
