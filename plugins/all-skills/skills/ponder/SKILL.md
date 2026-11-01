@@ -38,10 +38,10 @@ Repository and CLI: [github.com/Quinnod345/ponder](https://github.com/Quinnod345
 ### Installation
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Quinnod345/ponder/094ab0eb13bb253486d6778ca29f98780e05f3c1/install.sh | PONDER_REF=7d33c62f98ce40c747c8814404f3d00cbb94612e sh
+curl -fsSL https://raw.githubusercontent.com/Quinnod345/ponder/a27da06f2852c08d8f5a2a077dcb703c72ee5c9c/install.sh | PONDER_REF=a27da06f2852c08d8f5a2a077dcb703c72ee5c9c sh
 ```
 
-Both the install script URL (`094ab0eb13bb253486d6778ca29f98780e05f3c1`) and the repository checkout (`PONDER_REF=7d33c62f98ce40c747c8814404f3d00cbb94612e`, which is also the default inside that script) are pinned to fixed commits rather than a moving branch. This clones to `~/code/ponder` at that pinned commit and symlinks the skill into `~/.claude/skills/ponder` and the CLI into `~/.local/bin/ponder`. Requires Node 18 or newer. Check the setup with `ponder doctor`.
+Both the install script URL (`a27da06f2852c08d8f5a2a077dcb703c72ee5c9c`) and the repository checkout (`PONDER_REF=a27da06f2852c08d8f5a2a077dcb703c72ee5c9c`) are pinned to a verified commit with zero unpinned network bootstrap commands in the checked-out skill. This clones to `~/code/ponder` at that pinned commit and symlinks the skill into `~/.claude/skills/ponder` and the CLI into `~/.local/bin/ponder`. Requires Node 18 or newer. Check the setup with `ponder doctor`.
 
 ### Basic Usage
 
