@@ -4791,6 +4791,33 @@
       }
     },
     {
+      "name": "npmscan",
+      "description": "Read-only npm supply-chain checks before an agent installs or upgrades packages: confirmed-malware detection, known vulnerabilities (OSV, GitHub advisories, NVD), maintainer-change and publish-provenance checks, install-script analysis, and package.json/lockfile/SBOM audits. Adds five skills (dependency-audit, package-trust-check, new-dependency-evaluation, incident-response, ci-pr-gate) and the hosted npmscan MCP server (https://npmscan.com/api/mcp); no sign-in, no API key. It never installs, removes or edits anything.",
+      "version": "3.1.2",
+      "author": {
+        "name": "BlockHacks.io",
+        "url": "https://npmscan.com"
+      },
+      "homepage": "https://npmscan.com/docs/mcp",
+      "repository": "https://github.com/salemalem/npmscan-mcp-plugin",
+      "license": "MIT",
+      "keywords": [
+        "npm",
+        "security",
+        "supply-chain",
+        "vulnerability",
+        "malware",
+        "dependency-audit",
+        "mcp"
+      ],
+      "category": "security",
+      "source": {
+        "source": "github",
+        "repo": "salemalem/npmscan-mcp-plugin",
+        "sha": "16e865f773c36c62f2307e10ceabb5748b035d2a"
+      }
+    },
+    {
       "name": "keep-mac-awake",
       "description": "Keep a MacBook with Apple silicon awake with the lid closed while long agent tasks run. Adds the keepmacawake skill and a read-only session-start hook: the agent starts a timed session of the Keep Mac Awake app before long work, stops it after, and tells you when the app needs something from you (AC power or a purchase). Needs the Keep Mac Awake app on macOS 26 or later, installed separately: a free 3-day trial, then 9 USD once per Mac. The plugin never uses sudo, downloads nothing and makes no network connection.",
       "version": "1.0.4",
