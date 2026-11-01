@@ -4816,6 +4816,34 @@
         "path": "plugins/keep-mac-awake",
         "sha": "f64ce3db2669311aeca40b21c1bdba9db4f1e56d"
       }
+    },
+    {
+      "name": "dchub",
+      "description": "Live data center, power grid, energy and fiber data for site selection across 300+ markets. Adds the hosted DC Hub MCP server plus skills for site screens, time-to-power memos, market comparisons and capacity sourcing. Read-only.",
+      "version": "2.12.44",
+      "author": {
+        "name": "Jonathan Martone",
+        "url": "https://dchub.cloud"
+      },
+      "homepage": "https://dchub.cloud/connect?utm_source=buildwithclaude&utm_medium=listing&utm_campaign=new-products",
+      "repository": "https://github.com/azmartone67/dchub-mcp-server",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "data-center",
+        "power",
+        "grid",
+        "energy",
+        "fiber",
+        "site-selection"
+      ],
+      "category": "research",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/azmartone67/dchub-mcp-server.git",
+        "path": "plugins/dchub",
+        "sha": "942c7866c97b874f05d7f9fd5c06771e0a2cf874"
+      }
     }
   ]
 }
