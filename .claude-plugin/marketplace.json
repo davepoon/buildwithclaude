@@ -4816,6 +4816,32 @@
         "path": "plugins/keep-mac-awake",
         "sha": "f64ce3db2669311aeca40b21c1bdba9db4f1e56d"
       }
+    },
+    {
+      "name": "promptlike",
+      "description": "Your versioned prompt library inside Claude Code: fetch, fill and save prompts from your PromptLikeEngineer account, run them from the / menu, and get a local hint when a saved prompt fits what you ask. It can save prompts, add new versions and move prompts between repos and folders; there is no delete tool. Needs a PromptLikeEngineer account; a free plan is available.",
+      "version": "0.6.0",
+      "author": {
+        "name": "Zeynep Aslı Erhan",
+        "url": "https://promptlikeengineer.com"
+      },
+      "homepage": "https://promptlikeengineer.com/?utm_source=buildwithclaude&utm_medium=directory&utm_campaign=free-channels",
+      "repository": "https://github.com/zeynepaslierhann/promptlike-plugin",
+      "license": "MIT",
+      "keywords": [
+        "prompt",
+        "prompt-library",
+        "prompt-engineering",
+        "versioning",
+        "mcp",
+        "developer-tools"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "zeynepaslierhann/promptlike-plugin",
+        "sha": "9f6c3bbb6d582831f86e7627263b4a470889b22c"
+      }
     }
   ]
 }
