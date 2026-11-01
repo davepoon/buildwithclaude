@@ -4816,6 +4816,32 @@
         "path": "plugins/keep-mac-awake",
         "sha": "f64ce3db2669311aeca40b21c1bdba9db4f1e56d"
       }
+    },
+    {
+      "name": "wudland",
+      "description": "Shows Claude Code sessions as villagers in the Wudland iPhone app: working, waiting, done or failed. Updates are encrypted end to end over an ntfy relay; no account. The iPhone app is coming to the App Store.",
+      "version": "0.1.0",
+      "author": {
+        "name": "joexk1",
+        "url": "https://github.com/joexk1"
+      },
+      "homepage": "https://wudland.pages.dev",
+      "repository": "https://github.com/joexk1/wudland-plugins",
+      "license": "MIT",
+      "keywords": [
+        "notifications",
+        "monitoring",
+        "ios",
+        "pixel-art",
+        "claude-code"
+      ],
+      "category": "monitoring",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/joexk1/wudland-plugins.git",
+        "path": "claude-code",
+        "sha": "fa9250bc0e35b717fe11de06f4f34f09b8088b1a"
+      }
     }
   ]
 }
