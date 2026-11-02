@@ -4818,6 +4818,31 @@
       }
     },
     {
+      "name": "humanizer",
+      "description": "Detects 55 named AI writing patterns and rewrites text in one of five voice profiles, with an optional 0-100 AI-tell score. Adds the humanizer skill, which can audit prose without rewriting or edit a Markdown file in place. Pure Markdown skill: no dependencies, no network calls.",
+      "version": "0.7.1",
+      "author": {
+        "name": "Adam Boudjemaa",
+        "url": "https://github.com/Aboudjem"
+      },
+      "homepage": "https://github.com/Aboudjem/humanizer-skill",
+      "repository": "https://github.com/Aboudjem/humanizer-skill",
+      "license": "MIT",
+      "keywords": [
+        "writing",
+        "ai-writing",
+        "humanizer",
+        "editing",
+        "ai-detection"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "Aboudjem/humanizer-skill",
+        "sha": "a58df065367550b6ce40ff3f648335018d8e0589"
+      }
+    },
+    {
       "name": "ravenpost",
       "description": "Ravenpost — draft, preview, schedule and publish social media posts to Instagram, TikTok, X, LinkedIn, Threads, Bluesky, YouTube, Pinterest and Telegram from Claude, and read followers and engagement. Every post is previewed first; a schedule is made only after you say yes to the accounts, caption and time, and a publish waits until you confirm it.",
       "version": "1.3.1",
