@@ -3327,6 +3327,35 @@
     }
   },
   {
+    "name": "lurkapi",
+    "description": "Live public social media data for Claude Code: profiles, posts, comments, video transcripts and ads from TikTok, Instagram, YouTube, Reddit, X, LinkedIn, the Facebook Ad Library and more as clean JSON, plus skills for whole research jobs (a brand lurk, ad research, Reddit research, creator vetting, demand research, a channel's transcripts). Adds 7 skills and the hosted LurkAPI MCP server (https://api.lurkapi.com/mcp); OAuth sign-in in the browser, 100 free credits with no card, then paid per call. Read-only: it can't post, follow or message anyone.",
+    "version": "1.2.0",
+    "author": {
+      "name": "LurkAPI",
+      "url": "https://lurkapi.com"
+    },
+    "homepage": "https://lurkapi.com/docs#claude",
+    "repository": "https://github.com/mesmerlord/lurkapi-claude-plugin",
+    "license": "MIT",
+    "keywords": [
+      "social-media",
+      "tiktok",
+      "instagram",
+      "youtube",
+      "reddit",
+      "ad-library",
+      "transcripts",
+      "research",
+      "mcp"
+    ],
+    "category": "research",
+    "source": {
+      "source": "github",
+      "repo": "mesmerlord/lurkapi-claude-plugin",
+      "sha": "df407d8556a0752da3864f3673fb6bf72f864af9"
+    }
+  },
+  {
     "name": "kordoc",
     "description": "Read, create, fill, patch and compare Korean documents in Claude. One skill that runs the kordoc CLI via npx to convert HWP 3.x/5.x, HWPX, HWPML, PDF, DOCX and XLS/XLSX files to Markdown, fill form templates while keeping their formatting, and generate HWPX documents from Markdown with Korean government document presets. No Hancom Office needed.",
     "version": "4.21.14",
