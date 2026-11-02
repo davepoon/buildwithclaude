@@ -4873,6 +4873,34 @@
         "path": "claude-code",
         "sha": "fa9250bc0e35b717fe11de06f4f34f09b8088b1a"
       }
+    },
+    {
+      "name": "logbrew",
+      "description": "Fix production bugs with LogBrew error tracking, performance monitoring, logs, and product analytics. Connects the hosted LogBrew MCP server over OAuth and adds 4 skills: debug a production error, instrument an app, read product analytics, and check a release. Reads only the projects you approve; it changes an issue's status only when you allow writes and ask for it. Generous free tier, no card needed.",
+      "version": "0.3.1",
+      "author": {
+        "name": "LogBrew",
+        "url": "https://logbrew.co"
+      },
+      "homepage": "https://logbrew.co",
+      "repository": "https://github.com/LogBrewCo/skills",
+      "license": "MIT",
+      "keywords": [
+        "debugging",
+        "error-tracking",
+        "logging",
+        "tracing",
+        "observability",
+        "releases",
+        "mcp"
+      ],
+      "category": "monitoring",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/LogBrewCo/skills.git",
+        "path": "plugins/logbrew",
+        "sha": "d3a62691b10159b537af42a8bc84025f85b41af9"
+      }
     }
   ]
 }
