@@ -4818,6 +4818,37 @@
       }
     },
     {
+      "name": "ravenpost",
+      "description": "Ravenpost — draft, preview, schedule and publish social media posts to Instagram, TikTok, X, LinkedIn, Threads, Bluesky, YouTube, Pinterest and Telegram from Claude, and read followers and engagement. Every post is previewed first; a schedule is made only after you say yes to the accounts, caption and time, and a publish waits until you confirm it.",
+      "version": "1.3.1",
+      "author": {
+        "name": "Ravenpost",
+        "url": "https://ravenpo.st"
+      },
+      "homepage": "https://ravenpo.st/mcp/",
+      "repository": "https://github.com/target1m/ravenpost-mcp",
+      "license": "MIT",
+      "keywords": [
+        "social-media",
+        "scheduler",
+        "instagram",
+        "tiktok",
+        "x",
+        "linkedin",
+        "threads",
+        "bluesky",
+        "youtube",
+        "pinterest",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "target1m/ravenpost-mcp",
+        "sha": "f1f72b0a8b8338364394aec8dd747d69b4c76071"
+      }
+    },
+    {
       "name": "wudland",
       "description": "Shows Claude Code sessions as villagers in the Wudland iPhone app: working, waiting, done or failed. Updates are encrypted end to end over an ntfy relay; no account. The iPhone app is coming to the App Store.",
       "version": "0.1.0",
