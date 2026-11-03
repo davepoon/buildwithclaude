@@ -4899,6 +4899,33 @@
         "repo": "zeynepaslierhann/promptlike-plugin",
         "sha": "20e85b054641ec074c6313482ca86ad59d0015a9"
       }
+    },
+    {
+      "name": "factlot",
+      "description": "Eight commercial real estate skills (loan sizing, lease economics, CAM reconciliation, ASC 842, lease vs own, returns, hotel metrics, Texas protest deadline) that call audited calculators through the free hosted FactLot MCP server instead of doing the arithmetic in the model. Tool calls send their arguments to api.factlot.com; no account or key.",
+      "version": "0.1.0",
+      "author": {
+        "name": "FactLot",
+        "url": "https://github.com/9mp96ygnbk-alt/factlot"
+      },
+      "homepage": "https://github.com/9mp96ygnbk-alt/factlot",
+      "repository": "https://github.com/9mp96ygnbk-alt/factlot",
+      "license": "Apache-2.0",
+      "keywords": [
+        "commercial-real-estate",
+        "cre",
+        "lease",
+        "underwriting",
+        "mcp",
+        "calculators"
+      ],
+      "category": "finance",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/9mp96ygnbk-alt/factlot.git",
+        "path": "plugins/factlot",
+        "sha": "6b54878611610b6727a60f962e0ed0301ddfbc01"
+      }
     }
   ]
 }
