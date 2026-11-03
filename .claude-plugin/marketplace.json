@@ -4899,6 +4899,32 @@
         "repo": "zeynepaslierhann/promptlike-plugin",
         "sha": "20e85b054641ec074c6313482ca86ad59d0015a9"
       }
+    },
+    {
+      "name": "neverapply",
+      "description": "Job search in Claude Code with NeverApply's hosted MCP server: search jobs without signing in, then sign in with OAuth to see why each match fits, track applications and prepare for interviews. Applications are sent only after you say yes to that exact job. Needs a NeverApply account for anything personal; a free plan is available.",
+      "version": "1.0.0",
+      "author": {
+        "name": "NeverApply",
+        "url": "https://neverapply.co"
+      },
+      "homepage": "https://neverapply.co/features/mcp",
+      "repository": "https://github.com/kasovy/neverapply-mcp",
+      "license": "MIT",
+      "keywords": [
+        "jobs",
+        "job-search",
+        "job-applications",
+        "resume",
+        "careers",
+        "mcp"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "kasovy/neverapply-mcp",
+        "sha": "23a340dcfcc5065ff3e399ab435927e93377fc4e"
+      }
     }
   ]
 }
