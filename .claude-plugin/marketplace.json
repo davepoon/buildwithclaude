@@ -4899,6 +4899,32 @@
         "repo": "zeynepaslierhann/promptlike-plugin",
         "sha": "20e85b054641ec074c6313482ca86ad59d0015a9"
       }
+    },
+    {
+      "name": "easybrandkit",
+      "description": "Reads a product's website in your own Chrome and saves its real logo files (PNG and SVG), colors by role, fonts, first screen and app store images as brand.json and BRAND.md, so your agent designs with the brand instead of guessing it.",
+      "version": "0.2.1",
+      "author": {
+        "name": "Emin Budak",
+        "url": "https://github.com/EminBudak"
+      },
+      "homepage": "https://github.com/EminBudak/easybrandkit",
+      "repository": "https://github.com/EminBudak/easybrandkit",
+      "license": "MIT",
+      "keywords": [
+        "brand",
+        "logo",
+        "colors",
+        "fonts",
+        "design",
+        "skills"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "github",
+        "repo": "EminBudak/easybrandkit",
+        "sha": "0e760ca0758ccd09141b4a27e9fa59a9f327bb29"
+      }
     }
   ]
 }
