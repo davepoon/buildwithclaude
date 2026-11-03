@@ -4873,6 +4873,32 @@
         "path": "claude-code",
         "sha": "fa9250bc0e35b717fe11de06f4f34f09b8088b1a"
       }
+    },
+    {
+      "name": "promptlike",
+      "description": "Your versioned prompt library inside Claude Code: fetch, fill and save prompts from your PromptLikeEngineer account, run them from the / menu, and get a local hint when a saved prompt fits what you ask. It can save prompts, add new versions and move prompts between repos and folders; there is no delete tool. Needs a PromptLikeEngineer account; a free plan is available.",
+      "version": "0.6.2",
+      "author": {
+        "name": "Zeynep Aslı Erhan",
+        "url": "https://promptlikeengineer.com"
+      },
+      "homepage": "https://promptlikeengineer.com/?utm_source=buildwithclaude&utm_medium=directory&utm_campaign=free-channels",
+      "repository": "https://github.com/zeynepaslierhann/promptlike-plugin",
+      "license": "MIT",
+      "keywords": [
+        "prompt",
+        "prompt-library",
+        "prompt-engineering",
+        "versioning",
+        "mcp",
+        "developer-tools"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "zeynepaslierhann/promptlike-plugin",
+        "sha": "20e85b054641ec074c6313482ca86ad59d0015a9"
+      }
     }
   ]
 }
