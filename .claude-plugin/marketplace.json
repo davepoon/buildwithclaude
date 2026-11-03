@@ -2561,8 +2561,8 @@
     },
     {
       "name": "postel",
-      "description": "Draft X (Twitter) and LinkedIn posts in your own voice, then schedule or publish them through your Postel account. A remote MCP server (OAuth) plus a writing skill.",
-      "version": "1.0.1",
+      "description": "Find what's going viral in your niche, write your version in your own voice, and schedule it to X, LinkedIn, Bluesky and Mastodon through your Postel account. A remote MCP server (OAuth) plus a writing skill.",
+      "version": "1.1.0",
       "author": {
         "name": "Postel",
         "url": "https://www.postel.app"
@@ -2576,6 +2576,8 @@
         "twitter",
         "x",
         "linkedin",
+        "bluesky",
+        "mastodon",
         "scheduling",
         "writing"
       ],
