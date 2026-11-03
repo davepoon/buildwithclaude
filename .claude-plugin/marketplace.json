@@ -4903,7 +4903,7 @@
     {
       "name": "testoptim",
       "description": "Run AI QA tests on your web app from Claude Code and fix the bugs they find. The testoptim-qa skill re-tests the pages you changed with TestOptim, reads the critical and high issues (steps to reproduce, page URL, screenshot), fixes them and re-tests. It asks before every test run, because runs use your plan's executions. Needs a TestOptim account and an API key, which the plugin asks for at install.",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "author": {
         "name": "TestOptim",
         "url": "https://www.testoptim.com/"
@@ -4923,7 +4923,7 @@
       "source": {
         "source": "github",
         "repo": "TestOptim-AI/testoptim-mcp",
-        "sha": "722523c2994b2914b781928179e5f868c238a3fe"
+        "sha": "ad4493a91d83c22d0f1406656c1293028b2acc53"
       }
     }
   ]
