@@ -4899,6 +4899,32 @@
         "repo": "zeynepaslierhann/promptlike-plugin",
         "sha": "20e85b054641ec074c6313482ca86ad59d0015a9"
       }
+    },
+    {
+      "name": "popnow",
+      "description": "Generate AI images, videos, music and speech from Claude Code through the PopNow API: Nano Banana, GPT Image, Seedream, FLUX, Kling, Seedance, MiniMax and Suno behind one key, plus workflow skills for launch films, explainer videos, social covers, landing pages and brand kits. Every paid run is quoted in USD and waits for an explicit yes. Needs a PopNow API key with a prepaid balance.",
+      "version": "1.1.0",
+      "author": {
+        "name": "PopNow",
+        "url": "https://popnow.ai"
+      },
+      "homepage": "https://popnow.ai/?utm_source=buildwithclaude&utm_medium=directory",
+      "repository": "https://github.com/popnow-ai/popnow-skills",
+      "license": "MIT",
+      "keywords": [
+        "ai-video",
+        "text-to-video",
+        "ai-image",
+        "text-to-image",
+        "ai-music",
+        "text-to-speech"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "popnow-ai/popnow-skills",
+        "sha": "3706861470db1c53d643bbebc80f051f2af7ee81"
+      }
     }
   ]
 }
