@@ -4899,6 +4899,31 @@
         "repo": "zeynepaslierhann/promptlike-plugin",
         "sha": "20e85b054641ec074c6313482ca86ad59d0015a9"
       }
+    },
+    {
+      "name": "worktable",
+      "description": "Create and revise shared docs, interactive HTML Docs, drawings, structured records, comments, and threads in Worktable Cloud. Requires a Worktable account and OAuth sign-in.",
+      "version": "0.1.7",
+      "author": {
+        "name": "Reva Labs",
+        "url": "https://www.worktable.cloud"
+      },
+      "homepage": "https://www.worktable.cloud",
+      "repository": "https://github.com/worktable/worktable-dev",
+      "license": "MIT",
+      "keywords": [
+        "workspace",
+        "docs",
+        "records",
+        "mcp"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/worktable/worktable-dev.git",
+        "path": "plugins/worktable",
+        "sha": "24fd1ba6555713acd88c2d64c4be25dfdb7acdb0"
+      }
     }
   ]
 }
