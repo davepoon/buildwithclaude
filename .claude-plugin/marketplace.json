@@ -4899,6 +4899,31 @@
         "repo": "zeynepaslierhann/promptlike-plugin",
         "sha": "20e85b054641ec074c6313482ca86ad59d0015a9"
       }
+    },
+    {
+      "name": "claim-check",
+      "description": "Stop hook for Claude Code. When the agent ends a turn saying something is fixed, deployed, done or passing, it checks that something ran without failing after the last code edit; in a turn with no edits and nothing run, the reply has to cite proof, such as a commit hash, a pass count with no failures or an HTTP 2xx status. A \"doesn't exist\" claim needs at least two reads or searches. Works on English and Chinese replies. It sends the agent back once, never twice in a row. Standard-library Python, no network.",
+      "version": "0.2.0",
+      "author": {
+        "name": "Balance Zhao",
+        "url": "https://github.com/Balance0014"
+      },
+      "homepage": "https://github.com/Balance0014/claude-code-claim-check",
+      "repository": "https://github.com/Balance0014/claude-code-claim-check",
+      "license": "MIT",
+      "keywords": [
+        "hooks",
+        "stop-hook",
+        "verification",
+        "quality",
+        "agents"
+      ],
+      "category": "hooks",
+      "source": {
+        "source": "github",
+        "repo": "Balance0014/claude-code-claim-check",
+        "sha": "6e9f87dd037295a56de6002d35099d01cd3e23c9"
+      }
     }
   ]
 }
