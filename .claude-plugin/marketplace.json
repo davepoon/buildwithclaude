@@ -4899,6 +4899,32 @@
         "repo": "zeynepaslierhann/promptlike-plugin",
         "sha": "20e85b054641ec074c6313482ca86ad59d0015a9"
       }
+    },
+    {
+      "name": "money-coach",
+      "description": "Brutally honest personal-finance review: imports bank/card CSV exports (or the Cashflow MCP), runs 8 single-purpose subagents (ledger audit, subscriptions, spending critic, budget, savings goal, loan-vs-invest, dashboard), onboards you in the CLI, and builds a local budget dashboard + Excel workbook with a paycheck split planner and savings-goal tracker. Runs 100% locally; never moves money.",
+      "version": "0.1.0",
+      "author": {
+        "name": "abhinavprkash",
+        "url": "https://github.com/abhinavprkash"
+      },
+      "homepage": "https://github.com/abhinavprkash/money-coach",
+      "repository": "https://github.com/abhinavprkash/money-coach",
+      "license": "MIT",
+      "keywords": [
+        "personal-finance",
+        "budget",
+        "savings-goal",
+        "loan-vs-invest",
+        "subagents",
+        "dashboard"
+      ],
+      "category": "finance",
+      "source": {
+        "source": "github",
+        "repo": "abhinavprkash/money-coach",
+        "sha": "c0266ff1591ba13c52a70a9f9ca12cf263a58952"
+      }
     }
   ]
 }
