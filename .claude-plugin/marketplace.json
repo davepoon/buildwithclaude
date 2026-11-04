@@ -4899,6 +4899,35 @@
         "repo": "zeynepaslierhann/promptlike-plugin",
         "sha": "20e85b054641ec074c6313482ca86ad59d0015a9"
       }
+    },
+    {
+      "name": "mira",
+      "description": "Lets Claude watch Instagram, TikTok, YouTube, Pinterest, X and Facebook videos and read web pages: voiceover transcript, on-screen text, caption, and a structured extract of places, recipes, products and notes. The Extract + Video plan also downloads the original video. Read-only tools. Needs a paid Mira subscription; without one, the tools only explain how to subscribe.",
+      "version": "1.0.1",
+      "author": {
+        "name": "Mira AI Tools",
+        "url": "https://mira-ai-skill.pro"
+      },
+      "homepage": "https://mira-ai-skill.pro",
+      "repository": "https://github.com/Mira-AI-Tools/mira-skill",
+      "license": "MIT",
+      "keywords": [
+        "video",
+        "transcript",
+        "tiktok",
+        "instagram",
+        "youtube",
+        "recipes",
+        "places",
+        "mcp"
+      ],
+      "category": "research",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Mira-AI-Tools/mira-skill.git",
+        "path": "plugins/mira",
+        "sha": "fc8226175acf5c6f91e75be1737af24df1f2ae6c"
+      }
     }
   ]
 }
