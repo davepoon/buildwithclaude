@@ -27,7 +27,7 @@
     {
       "name": "nexo",
       "description": "Local delivery planning, hierarchical tasks, dependency graphs and live agent ownership for Claude Code.",
-      "version": "1.0.0-rc.6",
+      "version": "1.0.0-rc.7",
       "author": {
         "name": "Henrique Barcellos",
         "url": "https://github.com/heamaral"
@@ -48,7 +48,7 @@
         "source": "git-subdir",
         "url": "https://github.com/heamaral/nexo-claude.git",
         "path": "plugins/nexo",
-        "sha": "b6f622d87729165f6e16cbc3f6052c1692169155"
+        "sha": "4e57a3777069214e00607d28ac107e2b754372ff"
       }
     },
     {
