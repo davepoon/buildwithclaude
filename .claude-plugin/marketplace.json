@@ -4901,6 +4901,60 @@
       }
     },
     {
+      "name": "testoptim",
+      "description": "Run AI QA tests on your web app from Claude Code and fix the bugs they find. The testoptim-qa skill re-tests the pages you changed with TestOptim, reads the critical and high issues (steps to reproduce, page URL, screenshot), fixes them and re-tests. It asks before every test run, because runs use your plan's executions. Needs a TestOptim account and an API key, which the plugin asks for at install.",
+      "version": "1.1.1",
+      "author": {
+        "name": "TestOptim",
+        "url": "https://www.testoptim.com/"
+      },
+      "homepage": "https://www.testoptim.com/verify-coding-agent-changes",
+      "repository": "https://github.com/TestOptim-AI/testoptim-mcp",
+      "license": "MIT",
+      "keywords": [
+        "qa",
+        "testing",
+        "e2e",
+        "test-automation",
+        "bug-reports",
+        "mcp"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "TestOptim-AI/testoptim-mcp",
+        "sha": "ad4493a91d83c22d0f1406656c1293028b2acc53"
+      }
+    },
+    {
+      "name": "logbrew",
+      "description": "Fix production bugs with LogBrew error tracking, performance monitoring, logs, and product analytics. Connects the hosted LogBrew MCP server over OAuth and adds 4 skills: debug a production error, instrument an app, read product analytics, and check a release. Reads only the projects you approve. Every step that creates, installs, records, or changes something shows the exact command and waits for your yes. Generous free tier, no card needed.",
+      "version": "0.3.2",
+      "author": {
+        "name": "LogBrew",
+        "url": "https://logbrew.co"
+      },
+      "homepage": "https://logbrew.co",
+      "repository": "https://github.com/LogBrewCo/skills",
+      "license": "MIT",
+      "keywords": [
+        "debugging",
+        "error-tracking",
+        "logging",
+        "tracing",
+        "observability",
+        "releases",
+        "mcp"
+      ],
+      "category": "monitoring",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/LogBrewCo/skills.git",
+        "path": "plugins/logbrew",
+        "sha": "976224b269dc28556cc43794269972ce737a1dc2"
+      }
+    },
+    {
       "name": "popnow",
       "description": "Generate AI images, videos, music and speech from Claude Code through the PopNow API: Nano Banana, GPT Image, Seedream, FLUX, Kling, Seedance, MiniMax and Suno behind one key, plus workflow skills for launch films, explainer videos, social covers, landing pages and brand kits. Every paid run is quoted in USD and waits for an explicit yes. Needs a PopNow API key with a prepaid balance.",
       "version": "1.1.0",
