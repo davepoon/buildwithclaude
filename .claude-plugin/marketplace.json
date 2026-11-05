@@ -5008,6 +5008,33 @@
         "path": "claude-plugin",
         "sha": "cc8d0d05cd4392c3943f9c2c92ce96daba3ce3de"
       }
+    },
+    {
+      "name": "event-sponsorship-skills",
+      "description": "Skills for event and conference sponsorship work on live data: sponsorship context, find sponsors for an event, price packages, draft a prospectus, draft sponsor outreach, vet a trade show, budget a booth, track where competitors exhibit, build an events calendar. Adds 9 skills and the hosted ConferenceDB MCP server (https://conferencedatabase.com/api/mcp); no sign-in, no API key. Company-level data only: no people, emails or phone numbers. Drafting only: no skill sends anything.",
+      "version": "1.0.1",
+      "author": {
+        "name": "Ryan Doyle",
+        "url": "https://conferencedatabase.com"
+      },
+      "homepage": "https://github.com/rdoyle99/event-sponsorship-skills",
+      "repository": "https://github.com/rdoyle99/event-sponsorship-skills",
+      "license": "MIT",
+      "keywords": [
+        "conferences",
+        "trade-shows",
+        "sponsorship",
+        "sponsors",
+        "exhibitors",
+        "events",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "rdoyle99/event-sponsorship-skills",
+        "sha": "ab7be58382021625db3e5dc85d73318a5b481424"
+      }
     }
   ]
 }
