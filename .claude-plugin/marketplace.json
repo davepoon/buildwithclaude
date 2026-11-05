@@ -4903,7 +4903,7 @@
     {
       "name": "pharon",
       "description": "Pharon, the warning light for your stack: keeps a local inventory of your packages, runtimes, container images, CI actions and services, and alerts your team when a compromised release, an exploited vulnerability, a vendor breach or an end-of-life date reaches it. Scans run on your machine and only the inventory is uploaded, after you approve the first upload in /pharon:setup. Needs a Pharon account; a 7-day free trial is available.",
-      "version": "0.1.0",
+      "version": "0.1.2",
       "author": {
         "name": "Pharon",
         "url": "https://getpharon.com"
@@ -4924,7 +4924,7 @@
         "source": "git-subdir",
         "url": "https://github.com/getpharon/pharon.git",
         "path": "pharon-plugin",
-        "sha": "a2581e54805273aeb2c97c66ed87eb00664c62d0"
+        "sha": "25eba28b64b35da835317448f2ac7409c1c4074b"
       }
     }
   ]
