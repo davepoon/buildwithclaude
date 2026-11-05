@@ -4899,6 +4899,32 @@
         "repo": "zeynepaslierhann/promptlike-plugin",
         "sha": "20e85b054641ec074c6313482ca86ad59d0015a9"
       }
+    },
+    {
+      "name": "testoptim",
+      "description": "Run AI QA tests on your web app from Claude Code and fix the bugs they find. The testoptim-qa skill re-tests the pages you changed with TestOptim, reads the critical and high issues (steps to reproduce, page URL, screenshot), fixes them and re-tests. It asks before every test run, because runs use your plan's executions. Needs a TestOptim account and an API key, which the plugin asks for at install.",
+      "version": "1.1.1",
+      "author": {
+        "name": "TestOptim",
+        "url": "https://www.testoptim.com/"
+      },
+      "homepage": "https://www.testoptim.com/verify-coding-agent-changes",
+      "repository": "https://github.com/TestOptim-AI/testoptim-mcp",
+      "license": "MIT",
+      "keywords": [
+        "qa",
+        "testing",
+        "e2e",
+        "test-automation",
+        "bug-reports",
+        "mcp"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "TestOptim-AI/testoptim-mcp",
+        "sha": "ad4493a91d83c22d0f1406656c1293028b2acc53"
+      }
     }
   ]
 }
