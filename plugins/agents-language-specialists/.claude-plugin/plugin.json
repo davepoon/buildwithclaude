@@ -23,6 +23,7 @@
     "ruby-expert",
     "rust-expert",
     "sql-expert",
-    "typescript-expert"
+    "typescript-expert",
+    "faber-expert"
   ]
 }
