@@ -4979,6 +4979,35 @@
         "repo": "popnow-ai/popnow-skills",
         "sha": "3706861470db1c53d643bbebc80f051f2af7ee81"
       }
+    },
+    {
+      "name": "deja-vu",
+      "description": "deja-vu memory for Claude Code: your own past sessions, from every coding agent on the machine, recalled before you ask. Indexes the session files 44 agents (Claude Code, Codex, Cursor, opencode and more) already wrote to disk into a local BM25 index, and adds an MCP server, a /deja command, a skill and hooks that recall at session start, on each prompt and before edits or commands. No LLM, no embeddings, no network. Needs the deja binary (brew, npm, scoop or winget).",
+      "version": "0.23.5",
+      "author": {
+        "name": "vshulcz",
+        "url": "https://github.com/vshulcz"
+      },
+      "homepage": "https://vshulcz.github.io/deja-vu/guide/memory-for-claude-code.html",
+      "repository": "https://github.com/vshulcz/deja-vu",
+      "license": "MIT",
+      "keywords": [
+        "memory",
+        "session-history",
+        "recall",
+        "context",
+        "claude-code",
+        "codex",
+        "cursor",
+        "copilot-cli"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/vshulcz/deja-vu.git",
+        "path": "claude-plugin",
+        "sha": "cc8d0d05cd4392c3943f9c2c92ce96daba3ce3de"
+      }
     }
   ]
 }
