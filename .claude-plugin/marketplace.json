@@ -5037,6 +5037,33 @@
         "repo": "rdoyle99/event-sponsorship-skills",
         "sha": "ab7be58382021625db3e5dc85d73318a5b481424"
       }
+    },
+    {
+      "name": "pharon",
+      "description": "Pharon, the warning light for your stack: keeps a local inventory of your packages, runtimes, container images, CI actions and services, and alerts your team when a compromised release, an exploited vulnerability, a vendor breach or an end-of-life date reaches it. Scans run on your machine and only the inventory is uploaded, after you approve the first upload in /pharon:setup. Needs a Pharon account; a 7-day free trial is available.",
+      "version": "0.1.2",
+      "author": {
+        "name": "Pharon",
+        "url": "https://getpharon.com"
+      },
+      "homepage": "https://getpharon.com",
+      "repository": "https://github.com/getpharon/pharon",
+      "license": "Apache-2.0",
+      "keywords": [
+        "security",
+        "supply-chain",
+        "vulnerabilities",
+        "end-of-life",
+        "sbom",
+        "incident-response"
+      ],
+      "category": "security",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/getpharon/pharon.git",
+        "path": "pharon-plugin",
+        "sha": "25eba28b64b35da835317448f2ac7409c1c4074b"
+      }
     }
   ]
 }
