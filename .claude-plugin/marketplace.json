@@ -5064,6 +5064,34 @@
         "path": "pharon-plugin",
         "sha": "25eba28b64b35da835317448f2ac7409c1c4074b"
       }
+    },
+    {
+      "name": "caprock",
+      "description": "Ask Caprock from Claude Code: memories and decisions from past sessions, what those sessions did, spend and tokens per repo, CI status, stuck sessions. Read-only and local; needs the Caprock app.",
+      "version": "0.174.0",
+      "author": {
+        "name": "Dmitriy Solodukha",
+        "url": "https://caprock.dev"
+      },
+      "homepage": "https://caprock.dev",
+      "repository": "https://github.com/dspv/caprock",
+      "license": "Apache-2.0",
+      "keywords": [
+        "memory",
+        "session-history",
+        "cost-tracking",
+        "ci",
+        "mcp",
+        "claude-code",
+        "local-first"
+      ],
+      "category": "monitoring",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/dspv/caprock.git",
+        "path": "plugins/caprock",
+        "sha": "b86f34c17eee32bd7feaac3ae4070890f0406e74"
+      }
     }
   ]
 }
