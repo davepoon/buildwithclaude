@@ -5064,6 +5064,31 @@
         "path": "pharon-plugin",
         "sha": "25eba28b64b35da835317448f2ac7409c1c4074b"
       }
+    },
+    {
+      "name": "clawd-band",
+      "description": "A band above the prompt: an animated Clawd sprite, five-hour and weekly usage bars with a countdown to each window's reset, and a context-window bar with a countdown until the prompt cache goes cold. A Claude Code mod; the sprite needs kitty's graphics protocol.",
+      "version": "0.3.1",
+      "author": {
+        "name": "SleepNoMore",
+        "url": "https://github.com/nninkovic95"
+      },
+      "homepage": "https://github.com/nninkovic95/clawd-band",
+      "repository": "https://github.com/nninkovic95/clawd-band",
+      "license": "MIT",
+      "keywords": [
+        "clawd",
+        "usage",
+        "rate-limits",
+        "kitty",
+        "mod"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "nninkovic95/clawd-band",
+        "sha": "ad376e26bbb03de3d16c65a4de6d8183a0d389a6"
+      }
     }
   ]
 }
