@@ -2561,13 +2561,13 @@
     },
     {
       "name": "postel",
-      "description": "Draft X (Twitter) and LinkedIn posts in your own voice, then schedule or publish them through your Postel account. A remote MCP server (OAuth) plus a writing skill.",
-      "version": "1.0.1",
+      "description": "Find what's going viral in your niche, write your version in your own voice, and schedule it to X, LinkedIn, Bluesky, Mastodon, YouTube and TikTok through your Postel account. A remote MCP server (OAuth) plus a writing skill.",
+      "version": "1.2.0",
       "author": {
         "name": "Postel",
         "url": "https://www.postel.app"
       },
-      "homepage": "https://www.postel.app/postel-mcp-server",
+      "homepage": "https://www.postel.app/postel-mcp-server?utm_source=buildwithclaude&utm_medium=listing&utm_campaign=agent-distribution",
       "repository": "https://github.com/robinfaraj/postel-mcp",
       "license": "MIT",
       "keywords": [
@@ -2576,6 +2576,8 @@
         "twitter",
         "x",
         "linkedin",
+        "bluesky",
+        "mastodon",
         "scheduling",
         "writing"
       ],
@@ -4898,6 +4900,142 @@
         "source": "github",
         "repo": "zeynepaslierhann/promptlike-plugin",
         "sha": "20e85b054641ec074c6313482ca86ad59d0015a9"
+      }
+    },
+    {
+      "name": "testoptim",
+      "description": "Run AI QA tests on your web app from Claude Code and fix the bugs they find. The testoptim-qa skill re-tests the pages you changed with TestOptim, reads the critical and high issues (steps to reproduce, page URL, screenshot), fixes them and re-tests. It asks before every test run, because runs use your plan's executions. Needs a TestOptim account and an API key, which the plugin asks for at install.",
+      "version": "1.1.1",
+      "author": {
+        "name": "TestOptim",
+        "url": "https://www.testoptim.com/"
+      },
+      "homepage": "https://www.testoptim.com/verify-coding-agent-changes",
+      "repository": "https://github.com/TestOptim-AI/testoptim-mcp",
+      "license": "MIT",
+      "keywords": [
+        "qa",
+        "testing",
+        "e2e",
+        "test-automation",
+        "bug-reports",
+        "mcp"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "TestOptim-AI/testoptim-mcp",
+        "sha": "ad4493a91d83c22d0f1406656c1293028b2acc53"
+      }
+    },
+    {
+      "name": "logbrew",
+      "description": "Fix production bugs with LogBrew error tracking, performance monitoring, logs, and product analytics. Connects the hosted LogBrew MCP server over OAuth and adds 4 skills: debug a production error, instrument an app, read product analytics, and check a release. Reads only the projects you approve. Every step that creates, installs, records, or changes something shows the exact command and waits for your yes. Generous free tier, no card needed.",
+      "version": "0.3.2",
+      "author": {
+        "name": "LogBrew",
+        "url": "https://logbrew.co"
+      },
+      "homepage": "https://logbrew.co",
+      "repository": "https://github.com/LogBrewCo/skills",
+      "license": "MIT",
+      "keywords": [
+        "debugging",
+        "error-tracking",
+        "logging",
+        "tracing",
+        "observability",
+        "releases",
+        "mcp"
+      ],
+      "category": "monitoring",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/LogBrewCo/skills.git",
+        "path": "plugins/logbrew",
+        "sha": "976224b269dc28556cc43794269972ce737a1dc2"
+      }
+    },
+    {
+      "name": "popnow",
+      "description": "Generate AI images, videos, music and speech from Claude Code through the PopNow API: Nano Banana, GPT Image, Seedream, FLUX, Kling, Seedance, MiniMax and Suno behind one key, plus workflow skills for launch films, explainer videos, social covers, landing pages and brand kits. Every paid run is quoted in USD and waits for an explicit yes. Needs a PopNow API key with a prepaid balance.",
+      "version": "1.1.0",
+      "author": {
+        "name": "PopNow",
+        "url": "https://popnow.ai"
+      },
+      "homepage": "https://popnow.ai/?utm_source=buildwithclaude&utm_medium=directory",
+      "repository": "https://github.com/popnow-ai/popnow-skills",
+      "license": "MIT",
+      "keywords": [
+        "ai-video",
+        "text-to-video",
+        "ai-image",
+        "text-to-image",
+        "ai-music",
+        "text-to-speech"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "popnow-ai/popnow-skills",
+        "sha": "3706861470db1c53d643bbebc80f051f2af7ee81"
+      }
+    },
+    {
+      "name": "deja-vu",
+      "description": "deja-vu memory for Claude Code: your own past sessions, from every coding agent on the machine, recalled before you ask. Indexes the session files 44 agents (Claude Code, Codex, Cursor, opencode and more) already wrote to disk into a local BM25 index, and adds an MCP server, a /deja command, a skill and hooks that recall at session start, on each prompt and before edits or commands. No LLM, no embeddings, no network. Needs the deja binary (brew, npm, scoop or winget).",
+      "version": "0.23.5",
+      "author": {
+        "name": "vshulcz",
+        "url": "https://github.com/vshulcz"
+      },
+      "homepage": "https://vshulcz.github.io/deja-vu/guide/memory-for-claude-code.html",
+      "repository": "https://github.com/vshulcz/deja-vu",
+      "license": "MIT",
+      "keywords": [
+        "memory",
+        "session-history",
+        "recall",
+        "context",
+        "claude-code",
+        "codex",
+        "cursor",
+        "copilot-cli"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/vshulcz/deja-vu.git",
+        "path": "claude-plugin",
+        "sha": "cc8d0d05cd4392c3943f9c2c92ce96daba3ce3de"
+      }
+    },
+    {
+      "name": "event-sponsorship-skills",
+      "description": "Skills for event and conference sponsorship work on live data: sponsorship context, find sponsors for an event, price packages, draft a prospectus, draft sponsor outreach, vet a trade show, budget a booth, track where competitors exhibit, build an events calendar. Adds 9 skills and the hosted ConferenceDB MCP server (https://conferencedatabase.com/api/mcp); no sign-in, no API key. Company-level data only: no people, emails or phone numbers. Drafting only: no skill sends anything.",
+      "version": "1.0.1",
+      "author": {
+        "name": "Ryan Doyle",
+        "url": "https://conferencedatabase.com"
+      },
+      "homepage": "https://github.com/rdoyle99/event-sponsorship-skills",
+      "repository": "https://github.com/rdoyle99/event-sponsorship-skills",
+      "license": "MIT",
+      "keywords": [
+        "conferences",
+        "trade-shows",
+        "sponsorship",
+        "sponsors",
+        "exhibitors",
+        "events",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "rdoyle99/event-sponsorship-skills",
+        "sha": "ab7be58382021625db3e5dc85d73318a5b481424"
       }
     },
     {
