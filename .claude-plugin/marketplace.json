@@ -5064,6 +5064,32 @@
         "path": "pharon-plugin",
         "sha": "25eba28b64b35da835317448f2ac7409c1c4074b"
       }
+    },
+    {
+      "name": "atlias",
+      "description": "sub-atlias, the free sub version of Atlias (not the full Atlias app). Adds shared project memory through MCP tools, knowledge graph queries when a graph is present, and hooks that track edited files, check syntax and test evidence, keep a handoff note across compaction, and flag repeated or destructive commands.",
+      "version": "4.0.2",
+      "author": {
+        "name": "Ridelinkmaps",
+        "url": "https://github.com/ridelink0"
+      },
+      "homepage": "https://github.com/ridelink0/sub-atlias",
+      "repository": "https://github.com/ridelink0/sub-atlias",
+      "license": "MIT",
+      "keywords": [
+        "agent-harness",
+        "memory",
+        "knowledge-graph",
+        "hooks",
+        "mcp",
+        "verification"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "ridelink0/sub-atlias",
+        "sha": "626114f55064fb64f3e4e1de206aeb59e701a87c"
+      }
     }
   ]
 }
