@@ -5064,6 +5064,34 @@
         "path": "pharon-plugin",
         "sha": "25eba28b64b35da835317448f2ac7409c1c4074b"
       }
+    },
+    {
+      "name": "ultimate-frontend-skills",
+      "description": "Frontend design for Claude Code and Codex: one route from brief to a shipped website, app screen or game start screen. Includes a corpus of award-winning reference sites, WebGL gradients, three-plane parallax, three.js exploded views, CC0 PBR textures and HDRI lighting, GSAP and anime.js scroll choreography, a copy-in CSS chassis, a headless render check, and an audit that flags common AI-generated design tells.",
+      "version": "6.10.0",
+      "author": {
+        "name": "Gev",
+        "url": "https://github.com/ridelink0"
+      },
+      "homepage": "https://github.com/ridelink0/ultimate-frontend-skills",
+      "repository": "https://github.com/ridelink0/ultimate-frontend-skills",
+      "license": "MIT",
+      "keywords": [
+        "frontend",
+        "web-design",
+        "landing-page",
+        "parallax",
+        "threejs",
+        "webgl",
+        "gsap",
+        "typography"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "ridelink0/ultimate-frontend-skills",
+        "sha": "a071ba25a0bc784d46e19dae79e3cdb7bd738084"
+      }
     }
   ]
 }
