@@ -5064,6 +5064,33 @@
         "path": "pharon-plugin",
         "sha": "25eba28b64b35da835317448f2ac7409c1c4074b"
       }
+    },
+    {
+      "name": "video-watch",
+      "description": "Lets Claude watch a video file. Extracts evenly spaced or scene-change frames with ffmpeg and returns them as images, with optional timestamps and contact sheets so a long recording can be scanned in a few images. Runs locally and needs ffmpeg and ffprobe on PATH; it makes no network calls.",
+      "version": "1.2.0",
+      "author": {
+        "name": "Gev",
+        "url": "https://github.com/ridelink0"
+      },
+      "homepage": "https://github.com/ridelink0/video-watch",
+      "repository": "https://github.com/ridelink0/video-watch",
+      "license": "MIT",
+      "keywords": [
+        "video",
+        "frames",
+        "ffmpeg",
+        "vision",
+        "screen-recording",
+        "contact-sheet"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/ridelink0/video-watch.git",
+        "path": "video-watch",
+        "sha": "2690fde265d62e840b29edde0c9daf7e3084f7da"
+      }
     }
   ]
 }
