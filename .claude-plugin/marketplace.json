@@ -5064,6 +5064,33 @@
         "path": "pharon-plugin",
         "sha": "25eba28b64b35da835317448f2ac7409c1c4074b"
       }
+    },
+    {
+      "name": "brewpage",
+      "description": "Publish HTML, Markdown, files and multi-file static sites from Claude Code to BrewPage and get an HTTPS link back, with no account or API key: a brewpage-publish skill plus the BrewPage remote MCP server (https://brewpage.app/mcp). Only content you ask it to publish is uploaded; links are unlisted but readable by anyone who has them (optional password), and content expires (15 days by default, 30 at most).",
+      "version": "0.1.0",
+      "author": {
+        "name": "Maksim Kochetkov",
+        "url": "https://brewpage.app"
+      },
+      "homepage": "https://brewpage.app",
+      "repository": "https://github.com/kochetkov-ma/brewpage-publish-plugins",
+      "license": "MIT",
+      "keywords": [
+        "publishing",
+        "html-hosting",
+        "markdown",
+        "static-site",
+        "file-sharing",
+        "mcp"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/kochetkov-ma/brewpage-publish-plugins.git",
+        "path": "agent-plugin",
+        "sha": "967c738294e15c2a57e24c0fffed5b639d49fff3"
+      }
     }
   ]
 }
