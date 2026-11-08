@@ -5066,6 +5066,31 @@
       }
     },
     {
+      "name": "clawd-band",
+      "description": "A band above the prompt: an animated Clawd sprite, five-hour and weekly usage bars with a countdown to each window's reset, and a context-window bar with a countdown until the prompt cache goes cold. A Claude Code mod; the sprite needs kitty's graphics protocol.",
+      "version": "0.3.1",
+      "author": {
+        "name": "SleepNoMore",
+        "url": "https://github.com/nninkovic95"
+      },
+      "homepage": "https://github.com/nninkovic95/clawd-band",
+      "repository": "https://github.com/nninkovic95/clawd-band",
+      "license": "MIT",
+      "keywords": [
+        "clawd",
+        "usage",
+        "rate-limits",
+        "kitty",
+        "mod"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "nninkovic95/clawd-band",
+        "sha": "ad376e26bbb03de3d16c65a4de6d8183a0d389a6"
+      }
+    },
+    {
       "name": "brewpage",
       "description": "Publish HTML, Markdown, files and multi-file static sites from Claude Code to BrewPage and get an HTTPS link back, with no account or API key: a brewpage-publish skill plus the BrewPage remote MCP server (https://brewpage.app/mcp). Only content you ask it to publish is uploaded; links are unlisted but readable by anyone who has them (optional password), and content expires (15 days by default, 30 at most).",
       "version": "0.1.0",
