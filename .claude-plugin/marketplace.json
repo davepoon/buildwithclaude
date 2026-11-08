@@ -5116,6 +5116,64 @@
         "path": "agent-plugin",
         "sha": "967c738294e15c2a57e24c0fffed5b639d49fff3"
       }
+    },
+    {
+      "name": "google-search-console-by-crakseo",
+      "description": "Free Google Search Console MCP with Bing Webmaster Tools. Connects the hosted CrakSEO Search Console server over OAuth and adds a skill: your own sites' search queries, clicks, impressions, CTR and average position, URL inspection, sitemaps, and Bing traffic and crawl issues. Every tool is free. Submitting a sitemap is the only write, and the skill asks before it.",
+      "version": "1.0.0",
+      "author": {
+        "name": "CrakSEO",
+        "url": "https://crakseo.com"
+      },
+      "homepage": "https://crakseo.com/mcp",
+      "repository": "https://github.com/CrakSEO/crakseo-mcp-plugins",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "google-search-console",
+        "gsc",
+        "bing-webmaster-tools",
+        "search-analytics",
+        "url-inspection",
+        "sitemaps",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/CrakSEO/crakseo-mcp-plugins.git",
+        "path": "google-search-console-by-crakseo",
+        "sha": "99b533879b96f2d1de27a24bac8aee8f5d4574fd"
+      }
+    },
+    {
+      "name": "seo-tools-by-crakseo",
+      "description": "SEO data for Claude Code: keyword research with search volume, difficulty and CPC, live Google and Bing SERPs with AI Overview sources, rank tracking and competitor keyword gaps, backlinks and referring domains, site audits with Core Web Vitals. Connects the hosted CrakSEO SEO MCP server over OAuth and adds a skill. Paid tools use prepaid credits; the skill states the cost and asks before every paid call, and never buys credits.",
+      "version": "1.0.0",
+      "author": {
+        "name": "CrakSEO",
+        "url": "https://crakseo.com"
+      },
+      "homepage": "https://crakseo.com/mcp",
+      "repository": "https://github.com/CrakSEO/crakseo-mcp-plugins",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "keyword-research",
+        "serp-api",
+        "backlinks",
+        "rank-tracking",
+        "site-audit",
+        "competitor-analysis",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/CrakSEO/crakseo-mcp-plugins.git",
+        "path": "seo-tools-by-crakseo",
+        "sha": "99b533879b96f2d1de27a24bac8aee8f5d4574fd"
+      }
     }
   ]
 }
