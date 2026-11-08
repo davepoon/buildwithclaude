@@ -5174,6 +5174,32 @@
         "path": "seo-tools-by-crakseo",
         "sha": "99b533879b96f2d1de27a24bac8aee8f5d4574fd"
       }
+    },
+    {
+      "name": "visibility",
+      "description": "Plan and run listings for a project on marketplaces and directories. A scanner finds listable assets (Agent Skill, plugin, MCP server, OpenAPI, CLI, browser extension) and ranks 53 platforms by authority over effort; register then walks one platform, preparing artifacts locally and waiting for a yes before any publish, PR or upload. Accounts, payment, DNS and form submissions stay with the user.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Oren Segal",
+        "url": "https://github.com/OrenSegal"
+      },
+      "homepage": "https://github.com/OrenSegal/visibility",
+      "repository": "https://github.com/OrenSegal/visibility",
+      "license": "MIT",
+      "keywords": [
+        "visibility",
+        "distribution",
+        "marketplace",
+        "directory",
+        "backlinks",
+        "agent-skills"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "OrenSegal/visibility",
+        "sha": "dbdd0e533d2df56f3e78ed9c26a5727da23f1af8"
+      }
     }
   ]
 }
