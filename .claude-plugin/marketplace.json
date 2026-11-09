@@ -5174,6 +5174,32 @@
         "path": "seo-tools-by-crakseo",
         "sha": "99b533879b96f2d1de27a24bac8aee8f5d4574fd"
       }
+    },
+    {
+      "name": "legwise",
+      "description": "Plan, check and repair multi-day road trips: multiple-choice intake, real road distances, a deterministic checker for sunset, fuel range, opening hours and bookings, overnight and visit-order optimisation, and a fixed-format PDF, HTML or Markdown report. Its scripts send only place names and coordinates to the public OpenStreetMap services (Nominatim and OSRM); it never books or pays.",
+      "version": "1.1.0",
+      "author": {
+        "name": "Gangyi Zhang",
+        "url": "https://github.com/zhanggangyi1224"
+      },
+      "homepage": "https://github.com/zhanggangyi1224/legwise",
+      "repository": "https://github.com/zhanggangyi1224/legwise",
+      "license": "MIT",
+      "keywords": [
+        "travel",
+        "road-trip",
+        "itinerary",
+        "self-drive",
+        "planning"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/zhanggangyi1224/legwise.git",
+        "path": "plugins/legwise",
+        "sha": "8ea3d04566e1d9cae2a91c7971a307648a5d40ba"
+      }
     }
   ]
 }
