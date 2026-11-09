@@ -5177,8 +5177,8 @@
     },
     {
       "name": "pinboard",
-      "description": "Keep the replies, notes and checklists you still need in a side pane next to the chat, so they don't scroll away while you keep working: pin Claude's last reply with /pin, hover a reply and click pin, or ask Claude to pin something. Task lines become checkboxes you tick in the pane, and pins fold into cards. Session pins come back when you resume; project pins show in every session in the folder. A Claude Code mod; a pin made without a title gets a short one from haiku through your own session.",
-      "version": "0.5.0",
+      "description": "Keep the replies, notes and checklists you still need in a side pane next to the chat, so they don't scroll away while you keep working: pin Claude's last reply with /pin, hover a reply and click pin, or ask Claude to pin something. Task lines become checkboxes you tick in the pane, and pins fold into cards. Jump from a pin back to its reply, or fold the pane to a one-line band above the prompt. Session pins come back when you resume; project pins show in every session in the folder. A Claude Code mod; a pin made without a title gets a short one from haiku through your own session.",
+      "version": "0.6.0",
       "author": {
         "name": "Eleven Estudio",
         "url": "https://elevenestudio.com"
@@ -5197,7 +5197,7 @@
       "source": {
         "source": "github",
         "repo": "Eleven-Estudio/claude-pinboard",
-        "sha": "07c5d552ad553576a022ab5393650f8340235b61"
+        "sha": "9cd088a4ed29041c5702b69c12962a5f806454b5"
       }
     }
   ]
