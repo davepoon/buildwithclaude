@@ -5174,6 +5174,32 @@
         "path": "seo-tools-by-crakseo",
         "sha": "99b533879b96f2d1de27a24bac8aee8f5d4574fd"
       }
+    },
+    {
+      "name": "reelstyles-free",
+      "description": "Seven video style kits for Claude Code: Dark Keynote, Whiteboard explainer, Doodle film, Kinetic type, a stick-figure Short, a countdown quiz and Pop comic panels. Each kit has a style guide, scene templates, motion rules and a rubric Claude checks its own frames against. Claude writes every scene in code and renders the MP4 on your computer with HyperFrames, so no video model or API key is needed. A setup skill checks for Node.js 22+, ffmpeg and Chrome, asks before installing anything, and renders a 5 s test film.",
+      "version": "2026.11.9",
+      "author": {
+        "name": "ReelStyles",
+        "url": "https://reelstyles.com"
+      },
+      "homepage": "https://reelstyles.com",
+      "repository": "https://github.com/reelstyles/reelstyles-free",
+      "license": "MIT",
+      "keywords": [
+        "video",
+        "animation",
+        "hyperframes",
+        "motion-graphics",
+        "explainer",
+        "shorts"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "github",
+        "repo": "reelstyles/reelstyles-free",
+        "sha": "ce83f4fe363e9853aec9e5e13f9d765d9a2dadfe"
+      }
     }
   ]
 }
