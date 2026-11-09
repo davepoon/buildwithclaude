@@ -5174,6 +5174,31 @@
         "path": "seo-tools-by-crakseo",
         "sha": "99b533879b96f2d1de27a24bac8aee8f5d4574fd"
       }
+    },
+    {
+      "name": "evalship",
+      "description": "Checks whether a change to a prompt, model or LLM call made an AI feature worse beyond chance, sets up evals on every pull request, and acts on evalship's pull request comment.",
+      "version": "1.0.0",
+      "author": {
+        "name": "evalship",
+        "url": "https://evalship.com"
+      },
+      "homepage": "https://evalship.com",
+      "repository": "https://github.com/evalship-hq/skills",
+      "license": "MIT",
+      "keywords": [
+        "evals",
+        "llm-evaluation",
+        "prompt-testing",
+        "ci",
+        "pull-requests"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "evalship-hq/skills",
+        "sha": "b614d95cb9791b79bf91a90907ec4a3c5ba2b1d4"
+      }
     }
   ]
 }
