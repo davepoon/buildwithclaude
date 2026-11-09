@@ -5174,6 +5174,32 @@
         "path": "seo-tools-by-crakseo",
         "sha": "99b533879b96f2d1de27a24bac8aee8f5d4574fd"
       }
+    },
+    {
+      "name": "tinyeval",
+      "description": "Checks prompt, model and LLM call changes on real inputs before and after, and keeps those checks as test cases in the repo. One bash file, any language.",
+      "version": "1.0.0",
+      "author": {
+        "name": "evalship",
+        "url": "https://github.com/evalship-hq"
+      },
+      "homepage": "https://tinyeval.com",
+      "repository": "https://github.com/evalship-hq/tinyeval",
+      "license": "MIT",
+      "keywords": [
+        "evals",
+        "llm-evaluation",
+        "prompt-testing",
+        "llm-as-a-judge",
+        "testing"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/evalship-hq/tinyeval.git",
+        "path": "plugin",
+        "sha": "ccce22426a680adbcd69be5e5d5c4a68cb140c7f"
+      }
     }
   ]
 }
