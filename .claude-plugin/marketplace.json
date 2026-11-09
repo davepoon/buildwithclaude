@@ -5174,6 +5174,33 @@
         "path": "seo-tools-by-crakseo",
         "sha": "99b533879b96f2d1de27a24bac8aee8f5d4574fd"
       }
+    },
+    {
+      "name": "nextcost",
+      "description": "A band above the prompt that prices the next message before it is sent: a countdown to the prompt cache going cold and what re-warming it will cost, plus session cost, context fill and the 5-hour and weekly limits. A Claude Code mod; it never calls a model or sends data.",
+      "version": "0.22.0",
+      "author": {
+        "name": "Harvey Marzban",
+        "url": "https://github.com/HMarzban"
+      },
+      "homepage": "https://hmarzban.github.io/nextcost/",
+      "repository": "https://github.com/HMarzban/nextcost",
+      "license": "MIT",
+      "keywords": [
+        "prompt-cache",
+        "cost",
+        "usage",
+        "rate-limits",
+        "context",
+        "mod"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/HMarzban/nextcost.git",
+        "path": "plugins/nextcost",
+        "sha": "56437d498893e405004b373dddb2041314b98230"
+      }
     }
   ]
 }
