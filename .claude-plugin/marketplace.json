@@ -5174,6 +5174,33 @@
         "path": "seo-tools-by-crakseo",
         "sha": "99b533879b96f2d1de27a24bac8aee8f5d4574fd"
       }
+    },
+    {
+      "name": "mole",
+      "description": "Official skill for the free, open-source Mole CLI (mo) on macOS and Windows: answers what is using the disk from Mole's JSON output, previews every cleanup with --dry-run and waits for the user's consent before anything is removed, and leaves app uninstalls and administrator steps for the user to run.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Tw93",
+        "url": "https://github.com/tw93"
+      },
+      "homepage": "https://mole.fit",
+      "repository": "https://github.com/tw93/Mole",
+      "license": "GPL-3.0",
+      "keywords": [
+        "macos",
+        "windows",
+        "disk-cleanup",
+        "uninstall",
+        "system-health",
+        "cli"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/tw93/Mole.git",
+        "path": "plugins/mole",
+        "sha": "d357f27ad66ab923f87d0bbdb5ac6bb442109d21"
+      }
     }
   ]
 }
