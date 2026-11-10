@@ -5226,6 +5226,31 @@
         "repo": "Eleven-Estudio/claude-pinboard",
         "sha": "9cd088a4ed29041c5702b69c12962a5f806454b5"
       }
+    },
+    {
+      "name": "movoa",
+      "description": "Unlimited AI video generator with sound: on paid plans the tenth take of a shot costs what the first did, and your first clip is free to make right now. This plugin adds a movoa-video skill and the movoa MCP server, so Claude Code can make a text to video or photo to video clip with sound on movoa.ai with your own MOVOA_API_KEY. The skill checks the balance, proposes the model, length and that the run spends credits, and submits only after you say yes.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Movoa",
+        "url": "https://movoa.ai"
+      },
+      "homepage": "https://movoa.ai/?utm_source=buildwithclaude&utm_medium=package",
+      "repository": "https://github.com/hanshs474/movoa-mcp",
+      "license": "MIT",
+      "keywords": [
+        "video-generation",
+        "text-to-video",
+        "image-to-video",
+        "ai-video",
+        "mcp"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "github",
+        "repo": "hanshs474/movoa-mcp",
+        "sha": "b35a5c602ef4de225ab2c8cc55157469ffe28a9e"
+      }
     }
   ]
 }
