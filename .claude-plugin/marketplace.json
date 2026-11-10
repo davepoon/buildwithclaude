@@ -5226,6 +5226,31 @@
         "repo": "Eleven-Estudio/claude-pinboard",
         "sha": "9cd088a4ed29041c5702b69c12962a5f806454b5"
       }
+    },
+    {
+      "name": "imagera",
+      "description": "Generate and edit images, video, voice and music, and upscale media, through Imagera's remote MCP server (OAuth sign-in, no API key to paste). Ships agent skills, and the MCP tools can estimate the cost before a run. The hosted service is paid in Imagera credits.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Imagera",
+        "url": "https://imagera.ai"
+      },
+      "homepage": "https://imagera.ai/mcp",
+      "repository": "https://github.com/alexadams6ix/imagera-skills",
+      "license": "MIT",
+      "keywords": [
+        "image-generation",
+        "video-generation",
+        "text-to-speech",
+        "music",
+        "mcp"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "github",
+        "repo": "alexadams6ix/imagera-skills",
+        "sha": "481a928012739ddc1fe382d09fcdcc3e839e016f"
+      }
     }
   ]
 }
