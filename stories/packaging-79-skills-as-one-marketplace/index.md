@@ -41,36 +41,3 @@ Some directories only read the repository root and found nothing. On 6 November 
 
 Repo: https://github.com/NexaiGuy/nex-ai-skills. Disclosure: I'm the author; Nex AI also sells separate paid skills, and this repo is the free part.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
