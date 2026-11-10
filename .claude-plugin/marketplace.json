@@ -5226,6 +5226,33 @@
         "repo": "Eleven-Estudio/claude-pinboard",
         "sha": "9cd088a4ed29041c5702b69c12962a5f806454b5"
       }
+    },
+    {
+      "name": "whalory",
+      "description": "English and Persian (Farsi) copywriting for Claude Code: a skill that asks at most three questions and never invents numbers, quotes or reviews, writer and blind-editor subagents, slash commands, and a local MCP server whose linters check copy for AI tells, puffery, spelling, sentence length, brand voice and channel limits. Python standard library only; the MCP server makes no network calls.",
+      "version": "3.2.3",
+      "author": {
+        "name": "Whalya",
+        "url": "https://github.com/whalya-studio"
+      },
+      "homepage": "https://whalory.com",
+      "repository": "https://github.com/gilebehnam/whalory",
+      "license": "CC-BY-4.0 AND MIT",
+      "keywords": [
+        "copywriting",
+        "persian",
+        "farsi",
+        "brand-voice",
+        "linter",
+        "ux-writing",
+        "transcreation"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "gilebehnam/whalory",
+        "sha": "a65e8d9574725945e3aa1dd5fe958babc988f235"
+      }
     }
   ]
 }
