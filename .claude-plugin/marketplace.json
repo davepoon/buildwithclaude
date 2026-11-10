@@ -5230,7 +5230,7 @@
     {
       "name": "tinyeval",
       "description": "Checks prompt, model and LLM call changes on real inputs before and after, and keeps those checks as test cases in the repo. One bash file, any language.",
-      "version": "1.0.0",
+      "version": "0.10.0",
       "author": {
         "name": "evalship",
         "url": "https://github.com/evalship-hq"
@@ -5250,7 +5250,7 @@
         "source": "git-subdir",
         "url": "https://github.com/evalship-hq/tinyeval.git",
         "path": "plugin",
-        "sha": "ccce22426a680adbcd69be5e5d5c4a68cb140c7f"
+        "sha": "a272e4576f36d06c32be59c5f1e017d5fe244ab4"
       }
     }
   ]
