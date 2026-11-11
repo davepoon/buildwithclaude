@@ -2698,8 +2698,8 @@
     },
     {
       "name": "voicemoat-skills",
-      "description": "Twenty-six free skills for writing on LinkedIn and Twitter: write in your voice, audit a draft before you publish, draft comments, fix opening lines and endings, read your numbers and plan the week. They need no account; connecting VoiceMoat (Pro or Enterprise) adds a voice profile trained on your own published posts and a Voice Match score.",
-      "version": "1.0.4",
+      "description": "Twenty-six free skills for content on LinkedIn and Twitter: draft in your voice, audit a draft before you publish, draft comments, fix opening lines and endings, read your numbers and plan the week. They need no account; connecting VoiceMoat (Pro, Enterprise or the $5 Pro trial) adds a voice profile trained on your own published posts, and Style and Stance checks.",
+      "version": "1.1.2",
       "author": {
         "name": "VoiceMoat",
         "url": "https://voicemoat.com"
