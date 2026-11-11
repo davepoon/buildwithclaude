@@ -4454,13 +4454,13 @@
     },
     {
       "name": "tracekit",
-      "description": "Hooks that send each Claude Code tool call to a local Tracekit signer before it runs: allowed, denied with the rule that matched, or held until you approve it from another terminal. The signer signs every call, decision and result into a hash-chained record that `tracekit verify` checks offline. Needs the tracekit-ai Python package (`pip install tracekit-ai==1.4.2 && tracekit init --dev --v2 --no-hooks`). In that dev mode the signer runs as your own user; on Linux, system mode runs it as a separate user.",
-      "version": "1.4.2",
+      "description": "Hooks that send each Claude Code tool call to a local Tracekit signer before it runs: allowed, denied with the rule that matched, or held until you approve it from another terminal. The signer signs every call, decision and result into a hash-chained record that `tracekit verify` checks offline. Needs the tracekit-ai Python package (`pip install tracekit-ai==1.6.0 && tracekit init --dev --v2 --no-hooks`). In that dev mode the signer runs as your own user; on Linux, system mode runs it as a separate user.",
+      "version": "1.6.0",
       "author": {
         "name": "Cygnux Labs",
         "url": "https://github.com/Cygnux-Labs"
       },
-      "homepage": "https://github.com/Cygnux-Labs/Tracekit/tree/9d1d74b7aee051d839b708a84741b1ea6b379852/plugin",
+      "homepage": "https://github.com/Cygnux-Labs/Tracekit/tree/4c95b3c7c9d5689dafab148f8cf9bec393d08ba4/plugin",
       "repository": "https://github.com/Cygnux-Labs/Tracekit",
       "license": "MIT",
       "keywords": [
@@ -4477,7 +4477,7 @@
         "url": "https://github.com/Cygnux-Labs/Tracekit.git",
         "path": "plugin",
         "ref": "main",
-        "sha": "9d1d74b7aee051d839b708a84741b1ea6b379852"
+        "sha": "4c95b3c7c9d5689dafab148f8cf9bec393d08ba4"
       }
     },
     {
