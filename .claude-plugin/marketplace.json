@@ -5279,6 +5279,32 @@
         "path": "plugins/lexio-api",
         "sha": "943b25083789a620348fdbb3216bd41bc561f56f"
       }
+    },
+    {
+      "name": "checklist",
+      "description": "A per-session checklist pane beside the chat: each item has a number, a title, an optional one-line detail, and a status of open, done, or dropped. /checklist adds, edits, moves, and marks items; a click on a row toggles it; and a checklist tool lets Claude add items and tick them off as it finishes them. Every session keeps its own list, which survives /clear and comes back with --resume. A Claude Code mod; needs Claude Code 2.1.287 or later.",
+      "version": "0.8.0",
+      "author": {
+        "name": "mjb-it",
+        "url": "https://github.com/mjb-it"
+      },
+      "homepage": "https://github.com/mjb-it/checklist",
+      "repository": "https://github.com/mjb-it/checklist",
+      "license": "MIT",
+      "keywords": [
+        "checklist",
+        "tasks",
+        "todo",
+        "side-pane",
+        "session",
+        "mod"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "mjb-it/checklist",
+        "sha": "0d5eba954723f1d8c1fd6d6a83ae21ca077a026b"
+      }
     }
   ]
 }
