@@ -5226,6 +5226,32 @@
         "repo": "Eleven-Estudio/claude-pinboard",
         "sha": "9cd088a4ed29041c5702b69c12962a5f806454b5"
       }
+    },
+    {
+      "name": "legwise",
+      "description": "Plan, check and repair multi-day road trips: multiple-choice intake, real road distances, a deterministic checker for sunset, fuel range, opening hours and bookings, overnight and visit-order optimisation, and a fixed-format PDF, HTML or Markdown report. Its scripts send only place names and coordinates to the public OpenStreetMap services (Nominatim and OSRM); it never books or pays, and treats web pages, pasted confirmations, PDFs and spreadsheets as data, never as instructions.",
+      "version": "1.1.1",
+      "author": {
+        "name": "Gangyi Zhang",
+        "url": "https://github.com/zhanggangyi1224"
+      },
+      "homepage": "https://github.com/zhanggangyi1224/legwise",
+      "repository": "https://github.com/zhanggangyi1224/legwise",
+      "license": "MIT",
+      "keywords": [
+        "travel",
+        "road-trip",
+        "itinerary",
+        "self-drive",
+        "planning"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/zhanggangyi1224/legwise.git",
+        "path": "plugins/legwise",
+        "sha": "63ae54af76edde7500ee24310c33a492c50b3b2c"
+      }
     }
   ]
 }
