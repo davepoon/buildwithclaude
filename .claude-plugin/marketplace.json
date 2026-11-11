@@ -5335,6 +5335,34 @@
         "path": "flightpath",
         "sha": "8db542dcf9c7d78fb44e5d184a1c9cc9a27e005c"
       }
+    },
+    {
+      "name": "bulkhead",
+      "description": "PreToolUse hooks that keep several Claude Code sessions running on one machine from colliding. Blocks kills by program name (pkill node, taskkill /IM node.exe) and kills that reach another session's processes, dev servers on a port another session uses, heavy commands when RAM is low, git checkout, stash, add -A and commit -a in a tree another session works in, and whole-disk scans such as du -sh ~. Stops servers left by finished sessions. bulkhead scan replays the shell commands in your past transcripts against the guards, read-only, with nothing sent anywhere. Blocks return the reason and an alternative command to the agent; only the user can allow a blocked command, and a repository's own config can only make the guards stricter. It parses command strings and is not a sandbox. Node only, no dependencies.",
+      "version": "0.3.1",
+      "author": {
+        "name": "Myeongseok Kang",
+        "url": "https://github.com/dooly6276"
+      },
+      "homepage": "https://github.com/dooly6276/claude-bulkhead#readme",
+      "repository": "https://github.com/dooly6276/claude-bulkhead",
+      "license": "MIT",
+      "keywords": [
+        "hooks",
+        "processes",
+        "ports",
+        "memory",
+        "subagents",
+        "worktrees",
+        "git",
+        "parallel"
+      ],
+      "category": "orchestration",
+      "source": {
+        "source": "github",
+        "repo": "dooly6276/claude-bulkhead",
+        "sha": "025e2994cc887b8b00cf89d8edb2fbe1fccef6b7"
+      }
     }
   ]
 }
