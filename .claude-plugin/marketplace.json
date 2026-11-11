@@ -5226,6 +5226,36 @@
         "repo": "Eleven-Estudio/claude-pinboard",
         "sha": "9cd088a4ed29041c5702b69c12962a5f806454b5"
       }
+    },
+    {
+      "name": "flightpath",
+      "description": "Records every Claude Code session live, draws the journey as a map, and coaches the next session.",
+      "version": "1.0.3",
+      "author": {
+        "name": "Naga Golla",
+        "url": "https://github.com/dk-labs-dev"
+      },
+      "homepage": "https://github.com/dk-labs-dev/flightpath",
+      "repository": "https://github.com/dk-labs-dev/flightpath",
+      "license": "Apache-2.0",
+      "keywords": [
+        "claude-code",
+        "observability",
+        "context-window",
+        "tokens",
+        "session-replay",
+        "coaching",
+        "hooks",
+        "local-first",
+        "developer-tools"
+      ],
+      "category": "developer-tools",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/dk-labs-dev/flightpath.git",
+        "path": "flightpath",
+        "ref": "main"
+      }
     }
   ]
 }
