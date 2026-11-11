@@ -5335,6 +5335,33 @@
         "path": "flightpath",
         "sha": "8db542dcf9c7d78fb44e5d184a1c9cc9a27e005c"
       }
+    },
+    {
+      "name": "wavegrain",
+      "description": "Hosted MCP server for Wavegrain: curated TikTok slideshows and Instagram carousels for your brand on autopilot. Agents read your brand, make slideshows in its voice with your photos, edit slides, schedule them and export.",
+      "version": "0.4.0",
+      "author": {
+        "name": "Wavegrain",
+        "email": "support@wavegrain.com",
+        "url": "https://wavegrain.com"
+      },
+      "homepage": "https://wavegrain.com/mcp",
+      "repository": "https://github.com/wavegrain/wavegrain-mcp",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "tiktok",
+        "instagram",
+        "carousel",
+        "slideshow",
+        "social-media"
+      ],
+      "category": "mcp-servers",
+      "source": {
+        "source": "github",
+        "repo": "wavegrain/wavegrain-mcp",
+        "sha": "8d6b43a160cba242bc2034fefa0db050d8f7eee3"
+      }
     }
   ]
 }
