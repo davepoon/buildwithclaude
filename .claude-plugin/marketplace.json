@@ -5335,6 +5335,35 @@
         "path": "flightpath",
         "sha": "8db542dcf9c7d78fb44e5d184a1c9cc9a27e005c"
       }
+    },
+    {
+      "name": "claude-code-subagents-for-cursor",
+      "description": "Cursor plugin with the `use-claude-code-subagents` skill: run custom subagents through headless Claude Code so each honors the `model:` in its agent file when Cursor Task pins to the parent model (e.g. BYOK). Requires Claude Code 2.1.281+ signed in; used from Cursor (not hosted in Claude Code alone). The skill asks for consent before the first run and treats agent files as data, not instructions.",
+      "version": "1.3.0",
+      "author": {
+        "name": "ysskrishna",
+        "url": "https://ysskrishna.space"
+      },
+      "homepage": "https://github.com/ysskrishna/claude-code-subagents-for-cursor",
+      "repository": "https://github.com/ysskrishna/claude-code-subagents-for-cursor",
+      "license": "MIT",
+      "keywords": [
+        "claude-code",
+        "cursor",
+        "cursor-plugin",
+        "subagents",
+        "model-routing",
+        "byok",
+        "agent-skills",
+        "skill-md",
+        "headless"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "ysskrishna/claude-code-subagents-for-cursor",
+        "sha": "1bc2d0fd177be2e0045573f503af60ef0a21076d"
+      }
     }
   ]
 }
