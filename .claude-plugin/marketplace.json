@@ -5335,6 +5335,31 @@
         "path": "flightpath",
         "sha": "8db542dcf9c7d78fb44e5d184a1c9cc9a27e005c"
       }
+    },
+    {
+      "name": "scrapely",
+      "description": "Scrape websites from Claude Code with Scrape.ly: finds the right ready-made scraper in the Scrape.ly Store, runs it in the cloud through the hosted MCP server (OAuth sign-in), and reads the structured results. Bundles the scrapely-scrape skill and the Scrape.ly MCP server.",
+      "version": "0.3.17",
+      "author": {
+        "name": "Scrape.ly",
+        "url": "https://scrape.ly"
+      },
+      "homepage": "https://scrape.ly/docs/mcp",
+      "repository": "https://github.com/scrapely-app/scrapely-mcp",
+      "license": "MIT",
+      "keywords": [
+        "scraping",
+        "web-data",
+        "mcp",
+        "data-extraction",
+        "scrapely"
+      ],
+      "category": "mcp-servers",
+      "source": {
+        "source": "github",
+        "repo": "scrapely-app/scrapely-mcp",
+        "sha": "32eff82db4f6a62cd431375afff0a4ad09a6c5f4"
+      }
     }
   ]
 }
