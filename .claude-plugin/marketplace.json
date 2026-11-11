@@ -5252,6 +5252,33 @@
         "path": "plugins/legwise",
         "sha": "63ae54af76edde7500ee24310c33a492c50b3b2c"
       }
+    },
+    {
+      "name": "lexio-api",
+      "description": "Build integrations with the Lexio Rent API v1, the REST API of the Lexio vehicle rental management software: availability and prices, quotes, rentals, pick-up and return, payments, customers, fleet and event sync. One skill with the API conventions (wall-clock dates, idempotency keys, cursor pagination, rate limits) and safety rules: it asks before any write that changes a booking or money. Documentation only, no code or MCP server. Using the API requires a key from a Lexio rental company (Business plan).",
+      "version": "0.1.0",
+      "author": {
+        "name": "Lexio Rent",
+        "url": "https://lexio.rent/logiciel-location-voiture"
+      },
+      "homepage": "https://docs.lexio.rent",
+      "repository": "https://github.com/lexio-rent-git/lexio-api-skill",
+      "license": "MIT",
+      "keywords": [
+        "vehicle-rental",
+        "car-rental",
+        "rest-api",
+        "openapi",
+        "booking",
+        "integration"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/lexio-rent-git/lexio-api-skill.git",
+        "path": "plugins/lexio-api",
+        "sha": "943b25083789a620348fdbb3216bd41bc561f56f"
+      }
     }
   ]
 }
