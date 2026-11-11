@@ -5335,6 +5335,120 @@
         "path": "flightpath",
         "sha": "8db542dcf9c7d78fb44e5d184a1c9cc9a27e005c"
       }
+    },
+    {
+      "name": "govisit",
+      "description": "Read published GoVisit travel information with all available toolkit skills.",
+      "version": "0.2.0",
+      "author": {
+        "name": "inHotel Sàrl",
+        "url": "https://github.com/inhotel-io"
+      },
+      "homepage": "https://govisit.ai/en/docs/developers/agent-skills/overview",
+      "repository": "https://github.com/inhotel-io/govisit-toolkit",
+      "license": "MIT",
+      "keywords": [
+        "agent-skills",
+        "travel",
+        "destinations",
+        "places",
+        "documentation",
+        "read-only",
+        "claude-code"
+      ],
+      "category": "skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/inhotel-io/govisit-toolkit.git",
+        "path": "plugins/govisit",
+        "ref": "main"
+      },
+      "strict": false
+    },
+    {
+      "name": "govisit-travel-planner",
+      "description": "Discover destinations and research places, categories, collections, and activities using GoVisit.",
+      "version": "0.2.0",
+      "author": {
+        "name": "inHotel Sàrl",
+        "url": "https://github.com/inhotel-io"
+      },
+      "homepage": "https://govisit.ai/en/docs/developers/agent-skills/overview",
+      "repository": "https://github.com/inhotel-io/govisit-toolkit",
+      "license": "MIT",
+      "keywords": [
+        "agent-skills",
+        "travel-planning",
+        "destinations",
+        "places",
+        "activities",
+        "read-only",
+        "claude-code"
+      ],
+      "category": "skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/inhotel-io/govisit-toolkit.git",
+        "path": "plugins/govisit-travel-planner",
+        "ref": "main"
+      },
+      "strict": false
+    },
+    {
+      "name": "govisit-destination",
+      "description": "Find and inspect destination profiles and their published inventory. Destination updates are planned.",
+      "version": "0.2.0",
+      "author": {
+        "name": "inHotel Sàrl",
+        "url": "https://github.com/inhotel-io"
+      },
+      "homepage": "https://govisit.ai/en/docs/developers/agent-skills/overview",
+      "repository": "https://github.com/inhotel-io/govisit-toolkit",
+      "license": "MIT",
+      "keywords": [
+        "agent-skills",
+        "destinations",
+        "travel",
+        "catalog",
+        "read-only",
+        "claude-code"
+      ],
+      "category": "skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/inhotel-io/govisit-toolkit.git",
+        "path": "plugins/govisit-destination",
+        "ref": "main"
+      },
+      "strict": false
+    },
+    {
+      "name": "govisit-local-business",
+      "description": "Find and inspect business profiles and their local destination context. Place updates are planned.",
+      "version": "0.2.0",
+      "author": {
+        "name": "inHotel Sàrl",
+        "url": "https://github.com/inhotel-io"
+      },
+      "homepage": "https://govisit.ai/en/docs/developers/agent-skills/overview",
+      "repository": "https://github.com/inhotel-io/govisit-toolkit",
+      "license": "MIT",
+      "keywords": [
+        "agent-skills",
+        "local-business",
+        "places",
+        "travel",
+        "read-only",
+        "claude-code"
+      ],
+      "category": "skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/inhotel-io/govisit-toolkit.git",
+        "path": "plugins/govisit-local-business",
+        "ref": "main"
+      },
+      "strict": false
     }
   ]
 }
