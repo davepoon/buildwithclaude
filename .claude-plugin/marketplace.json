@@ -5226,6 +5226,31 @@
         "repo": "Eleven-Estudio/claude-pinboard",
         "sha": "9cd088a4ed29041c5702b69c12962a5f806454b5"
       }
+    },
+    {
+      "name": "clipugc",
+      "description": "Make UGC videos for mobile apps from Claude Code with an AI influencer who keeps the same face. Skills: ugc-director plans the video (reaction archetypes, hooks, casting, prompts), persona-account runs an ongoing AI creator account, story-runner makes short episode series, and the clipugc skill drives the ClipUGC CLI to create characters, generate looks and clips, and merge an app screen recording and a hook into a ready-to-post vertical video. Needs a ClipUGC account (free credits to try).",
+      "version": "2.3.2",
+      "author": {
+        "name": "ClipUGC",
+        "url": "https://clipugc.com"
+      },
+      "homepage": "https://github.com/clipugc/ClipUGC-CLI",
+      "repository": "https://github.com/clipugc/ClipUGC-CLI",
+      "license": "MIT",
+      "keywords": [
+        "ugc",
+        "video",
+        "ai-influencer",
+        "tiktok",
+        "app-marketing"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "clipugc/ClipUGC-CLI",
+        "sha": "5aef13969ea84c69aebeff3ede561ed1a50e9a36"
+      }
     }
   ]
 }
