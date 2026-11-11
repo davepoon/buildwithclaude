@@ -2698,8 +2698,8 @@
     },
     {
       "name": "voicemoat-skills",
-      "description": "Twenty-six free skills for writing on LinkedIn and Twitter: write in your voice, audit a draft before you publish, draft comments, fix opening lines and endings, read your numbers and plan the week. They need no account; connecting VoiceMoat (Pro or Enterprise) adds a voice profile trained on your own published posts and a Voice Match score.",
-      "version": "1.0.4",
+      "description": "Twenty-six free skills for content on LinkedIn and Twitter: draft in your voice, audit a draft before you publish, draft comments, fix opening lines and endings, read your numbers and plan the week. They need no account; connecting VoiceMoat (Pro, Enterprise or the $5 Pro trial) adds a voice profile trained on your own published posts, and Style and Stance checks.",
+      "version": "1.1.2",
       "author": {
         "name": "VoiceMoat",
         "url": "https://voicemoat.com"
@@ -4454,13 +4454,13 @@
     },
     {
       "name": "tracekit",
-      "description": "Hooks that send each Claude Code tool call to a local Tracekit signer before it runs: allowed, denied with the rule that matched, or held until you approve it from another terminal. The signer signs every call, decision and result into a hash-chained record that `tracekit verify` checks offline. Needs the tracekit-ai Python package (`pip install tracekit-ai==1.4.2 && tracekit init --dev --v2 --no-hooks`). In that dev mode the signer runs as your own user; on Linux, system mode runs it as a separate user.",
-      "version": "1.4.2",
+      "description": "Hooks that send each Claude Code tool call to a local Tracekit signer before it runs: allowed, denied with the rule that matched, or held until you approve it from another terminal. The signer signs every call, decision and result into a hash-chained record that `tracekit verify` checks offline. Needs the tracekit-ai Python package (`pip install tracekit-ai==1.6.0 && tracekit init --dev --v2 --no-hooks`). In that dev mode the signer runs as your own user; on Linux, system mode runs it as a separate user.",
+      "version": "1.6.0",
       "author": {
         "name": "Cygnux Labs",
         "url": "https://github.com/Cygnux-Labs"
       },
-      "homepage": "https://github.com/Cygnux-Labs/Tracekit/tree/9d1d74b7aee051d839b708a84741b1ea6b379852/plugin",
+      "homepage": "https://github.com/Cygnux-Labs/Tracekit/tree/4c95b3c7c9d5689dafab148f8cf9bec393d08ba4/plugin",
       "repository": "https://github.com/Cygnux-Labs/Tracekit",
       "license": "MIT",
       "keywords": [
@@ -4477,7 +4477,7 @@
         "url": "https://github.com/Cygnux-Labs/Tracekit.git",
         "path": "plugin",
         "ref": "main",
-        "sha": "9d1d74b7aee051d839b708a84741b1ea6b379852"
+        "sha": "4c95b3c7c9d5689dafab148f8cf9bec393d08ba4"
       }
     },
     {
@@ -5225,6 +5225,85 @@
         "source": "github",
         "repo": "Eleven-Estudio/claude-pinboard",
         "sha": "9cd088a4ed29041c5702b69c12962a5f806454b5"
+      }
+    },
+    {
+      "name": "legwise",
+      "description": "Plan, check and repair multi-day road trips: multiple-choice intake, real road distances, a deterministic checker for sunset, fuel range, opening hours and bookings, overnight and visit-order optimisation, and a fixed-format PDF, HTML or Markdown report. Its scripts send only place names and coordinates to the public OpenStreetMap services (Nominatim and OSRM); it never books or pays, and treats web pages, pasted confirmations, PDFs and spreadsheets as data, never as instructions.",
+      "version": "1.1.1",
+      "author": {
+        "name": "Gangyi Zhang",
+        "url": "https://github.com/zhanggangyi1224"
+      },
+      "homepage": "https://github.com/zhanggangyi1224/legwise",
+      "repository": "https://github.com/zhanggangyi1224/legwise",
+      "license": "MIT",
+      "keywords": [
+        "travel",
+        "road-trip",
+        "itinerary",
+        "self-drive",
+        "planning"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/zhanggangyi1224/legwise.git",
+        "path": "plugins/legwise",
+        "sha": "63ae54af76edde7500ee24310c33a492c50b3b2c"
+      }
+    },
+    {
+      "name": "lexio-api",
+      "description": "Build integrations with the Lexio Rent API v1, the REST API of the Lexio vehicle rental management software: availability and prices, quotes, rentals, pick-up and return, payments, customers, fleet and event sync. One skill with the API conventions (wall-clock dates, idempotency keys, cursor pagination, rate limits) and safety rules: it asks before any write that changes a booking or money. Documentation only, no code or MCP server. Using the API requires a key from a Lexio rental company (Business plan).",
+      "version": "0.1.0",
+      "author": {
+        "name": "Lexio Rent",
+        "url": "https://lexio.rent/logiciel-location-voiture"
+      },
+      "homepage": "https://docs.lexio.rent",
+      "repository": "https://github.com/lexio-rent-git/lexio-api-skill",
+      "license": "MIT",
+      "keywords": [
+        "vehicle-rental",
+        "car-rental",
+        "rest-api",
+        "openapi",
+        "booking",
+        "integration"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/lexio-rent-git/lexio-api-skill.git",
+        "path": "plugins/lexio-api",
+        "sha": "943b25083789a620348fdbb3216bd41bc561f56f"
+      }
+    },
+    {
+      "name": "checklist",
+      "description": "A per-session checklist pane beside the chat: each item has a number, a title, an optional one-line detail, and a status of open, done, or dropped. /checklist adds, edits, moves, and marks items; a click on a row toggles it; and a checklist tool lets Claude add items and tick them off as it finishes them. Every session keeps its own list, which survives /clear and comes back with --resume. A Claude Code mod; needs Claude Code 2.1.287 or later.",
+      "version": "0.8.0",
+      "author": {
+        "name": "mjb-it",
+        "url": "https://github.com/mjb-it"
+      },
+      "homepage": "https://github.com/mjb-it/checklist",
+      "repository": "https://github.com/mjb-it/checklist",
+      "license": "MIT",
+      "keywords": [
+        "checklist",
+        "tasks",
+        "todo",
+        "side-pane",
+        "session",
+        "mod"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "mjb-it/checklist",
+        "sha": "0d5eba954723f1d8c1fd6d6a83ae21ca077a026b"
       }
     },
     {
