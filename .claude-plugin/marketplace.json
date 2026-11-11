@@ -2698,8 +2698,8 @@
     },
     {
       "name": "voicemoat-skills",
-      "description": "Twenty-six free skills for writing on LinkedIn and Twitter: write in your voice, audit a draft before you publish, draft comments, fix opening lines and endings, read your numbers and plan the week. They need no account; connecting VoiceMoat (Pro or Enterprise) adds a voice profile trained on your own published posts and a Voice Match score.",
-      "version": "1.0.4",
+      "description": "Twenty-six free skills for content on LinkedIn and Twitter: draft in your voice, audit a draft before you publish, draft comments, fix opening lines and endings, read your numbers and plan the week. They need no account; connecting VoiceMoat (Pro, Enterprise or the $5 Pro trial) adds a voice profile trained on your own published posts, and Style and Stance checks.",
+      "version": "1.1.2",
       "author": {
         "name": "VoiceMoat",
         "url": "https://voicemoat.com"
@@ -4454,13 +4454,13 @@
     },
     {
       "name": "tracekit",
-      "description": "Hooks that send each Claude Code tool call to a local Tracekit signer before it runs: allowed, denied with the rule that matched, or held until you approve it from another terminal. The signer signs every call, decision and result into a hash-chained record that `tracekit verify` checks offline. Needs the tracekit-ai Python package (`pip install tracekit-ai==1.4.2 && tracekit init --dev --v2 --no-hooks`). In that dev mode the signer runs as your own user; on Linux, system mode runs it as a separate user.",
-      "version": "1.4.2",
+      "description": "Hooks that send each Claude Code tool call to a local Tracekit signer before it runs: allowed, denied with the rule that matched, or held until you approve it from another terminal. The signer signs every call, decision and result into a hash-chained record that `tracekit verify` checks offline. Needs the tracekit-ai Python package (`pip install tracekit-ai==1.6.0 && tracekit init --dev --v2 --no-hooks`). In that dev mode the signer runs as your own user; on Linux, system mode runs it as a separate user.",
+      "version": "1.6.0",
       "author": {
         "name": "Cygnux Labs",
         "url": "https://github.com/Cygnux-Labs"
       },
-      "homepage": "https://github.com/Cygnux-Labs/Tracekit/tree/9d1d74b7aee051d839b708a84741b1ea6b379852/plugin",
+      "homepage": "https://github.com/Cygnux-Labs/Tracekit/tree/4c95b3c7c9d5689dafab148f8cf9bec393d08ba4/plugin",
       "repository": "https://github.com/Cygnux-Labs/Tracekit",
       "license": "MIT",
       "keywords": [
@@ -4477,7 +4477,7 @@
         "url": "https://github.com/Cygnux-Labs/Tracekit.git",
         "path": "plugin",
         "ref": "main",
-        "sha": "9d1d74b7aee051d839b708a84741b1ea6b379852"
+        "sha": "4c95b3c7c9d5689dafab148f8cf9bec393d08ba4"
       }
     },
     {
