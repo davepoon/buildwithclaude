@@ -5507,6 +5507,32 @@
         "repo": "dooly6276/claude-bulkhead",
         "sha": "025e2994cc887b8b00cf89d8edb2fbe1fccef6b7"
       }
+    },
+    {
+      "name": "taskhold",
+      "description": "For developers who hand work to Claude Code, Cursor or Codex, Taskhold is a hosted task list that you and your agents share. The plugin adds the Taskhold remote MCP server and agent skills: Claude Code picks up the next task, splits it into steps, reports progress on a live board and blocks with a question when it needs you. Connects over OAuth with no account first and no API key to paste; the first tool call returns a link to start a 7-day trial. Paid plan only ($12/month).",
+      "version": "1.2.1",
+      "author": {
+        "name": "Great Work LLC",
+        "url": "https://taskhold.com/?ref=buildwithclaude"
+      },
+      "homepage": "https://taskhold.com/?ref=buildwithclaude",
+      "repository": "https://github.com/gettaskhold/taskhold-plugin",
+      "license": "MIT",
+      "keywords": [
+        "tasks",
+        "todo",
+        "project-management",
+        "coding-agents",
+        "mcp",
+        "progress"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "gettaskhold/taskhold-plugin",
+        "sha": "00c07c06e9d89862d132599e424f6d22402a6035"
+      }
     }
   ]
 }
