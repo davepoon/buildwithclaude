@@ -5507,6 +5507,35 @@
         "repo": "dooly6276/claude-bulkhead",
         "sha": "025e2994cc887b8b00cf89d8edb2fbe1fccef6b7"
       }
+    },
+    {
+      "name": "videodb",
+      "description": "Video tools for agents: watch, search, clip and caption video, and monitor live streams. Bundles VideoDB skills and slash commands with the hosted VideoDB MCP server (https://mcp.videodb.io/mcp, Streamable HTTP, OAuth 2.1 browser sign-in, no API key in chat). Summarize a video and answer questions about it, search one video or a library by what is said or shown, cut clips and highlight reels, add burned-in subtitles, reframe for Shorts and Reels, and connect RTSP camera feeds for alerts. Results come back as playable stream links. Free to start with $20 of credits, no credit card.",
+      "version": "1.4.1",
+      "author": {
+        "name": "VideoDB",
+        "url": "https://videodb.io"
+      },
+      "homepage": "https://videodb.io/agents",
+      "repository": "https://github.com/video-db/skills",
+      "license": "MIT",
+      "keywords": [
+        "video",
+        "video-search",
+        "clips",
+        "subtitles",
+        "captions",
+        "transcription",
+        "live-stream",
+        "rtsp",
+        "mcp"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "github",
+        "repo": "video-db/skills",
+        "sha": "f985577fba97705ed937cc707c3a67e35f23faf5"
+      }
     }
   ]
 }
