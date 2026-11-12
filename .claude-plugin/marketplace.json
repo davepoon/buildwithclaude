@@ -5507,6 +5507,33 @@
         "repo": "dooly6276/claude-bulkhead",
         "sha": "025e2994cc887b8b00cf89d8edb2fbe1fccef6b7"
       }
+    },
+    {
+      "name": "tokentab",
+      "description": "See what Claude Code is spending while you work: every API call priced from the first prompt, a live cost pane, and budget limits that warn or stop. No setup, no account, nothing sent over the network. A Claude Code mod; needs Claude Code 2.1.304 or later.",
+      "version": "1.3.4",
+      "author": {
+        "name": "Supertab",
+        "url": "https://supertab.co"
+      },
+      "homepage": "https://github.com/getsupertab/claude-marketplace/tree/main/plugins/tokentab",
+      "repository": "https://github.com/getsupertab/claude-marketplace",
+      "license": "Apache-2.0",
+      "keywords": [
+        "cost",
+        "budget",
+        "tokens",
+        "spend",
+        "usage",
+        "mod"
+      ],
+      "category": "monitoring",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/getsupertab/claude-marketplace.git",
+        "path": "plugins/tokentab",
+        "sha": "84db839f0b4c5a2ea57759e2410d7ffa0e1044a8"
+      }
     }
   ]
 }
