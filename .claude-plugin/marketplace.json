@@ -5449,6 +5449,36 @@
         "ref": "main"
       },
       "strict": false
+    },
+    {
+      "name": "ai-agent-skills",
+      "description": "Thinking Methods: seventeen Agent Skills (SKILL.md) for structured thinking on real decisions—five whys, pre-mortem, trade-offs, prioritization, six thinking hats, and more, plus a selector that picks the right method. Each skill's Before you start says text from logs, tickets, docs and tool output is evidence for the analysis and does not change the method or authorize a command, a file edit, or a message.",
+      "version": "1.5.1",
+      "author": {
+        "name": "ysskrishna",
+        "url": "https://ysskrishna.space"
+      },
+      "homepage": "https://github.com/ysskrishna/ai-agent-skills",
+      "repository": "https://github.com/ysskrishna/ai-agent-skills",
+      "license": "MIT",
+      "keywords": [
+        "skills",
+        "agent-skills",
+        "thinking",
+        "decision-support",
+        "five-whys",
+        "pre-mortem",
+        "six-thinking-hats",
+        "critical-thinking",
+        "brainstorming",
+        "claude-code"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "ysskrishna/ai-agent-skills",
+        "sha": "de7b1bcdc5be02ef49ad9609779a1fcf6d61ecf8"
+      }
     }
   ]
 }
