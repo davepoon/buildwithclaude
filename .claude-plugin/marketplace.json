@@ -5335,6 +5335,32 @@
         "path": "flightpath",
         "sha": "8db542dcf9c7d78fb44e5d184a1c9cc9a27e005c"
       }
+    },
+    {
+      "name": "toolbox-pod",
+      "description": "Design custom tees and hoodies, see mockups, and order prints made and shipped from Utah, through Toolbox POD's hosted MCP server (https://mcp.toolboxpod.com/mcp, OAuth sign-in; sign in or sign up to Toolbox POD on first connect, no API key). Claude can create designs from a description or reuse saved ones, show a design on the shirt in the colors you choose, price and prepare an order with a link to pay on toolboxpod.com (Claude never pays for you), and follow order status and tracking. Ships to US addresses only.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Toolbox POD",
+        "url": "https://toolboxpod.com"
+      },
+      "homepage": "https://toolboxpod.com/mcp",
+      "repository": "https://github.com/Toolbox-POD/toolbox-pod-mcp",
+      "license": "MIT",
+      "keywords": [
+        "print-on-demand",
+        "custom-t-shirts",
+        "hoodies",
+        "mockups",
+        "ecommerce",
+        "remote-mcp"
+      ],
+      "category": "mcp-servers",
+      "source": {
+        "source": "github",
+        "repo": "Toolbox-POD/toolbox-pod-mcp",
+        "sha": "f251f0265c162214c76255b02fcfb6ab692113c2"
+      }
     }
   ]
 }
