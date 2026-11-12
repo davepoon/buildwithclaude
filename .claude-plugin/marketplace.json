@@ -5507,6 +5507,32 @@
         "repo": "dooly6276/claude-bulkhead",
         "sha": "025e2994cc887b8b00cf89d8edb2fbe1fccef6b7"
       }
+    },
+    {
+      "name": "memgit",
+      "description": "One memory for Claude Code across sessions, machines and tools: versioned, searchable, with rollback. Needs Node and Python 3.11+. Optional end-to-end encrypted sync.",
+      "version": "0.16.0",
+      "author": {
+        "name": "code4161",
+        "url": "https://memgit.dev"
+      },
+      "homepage": "https://memgit.dev",
+      "repository": "https://github.com/code4161/memgit",
+      "license": "MIT",
+      "keywords": [
+        "memory",
+        "mcp",
+        "context",
+        "version-control",
+        "claude-code"
+      ],
+      "category": "mcp-servers",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/code4161/claude-plugins.git",
+        "path": "plugins/memgit",
+        "ref": "main"
+      }
     }
   ]
 }
