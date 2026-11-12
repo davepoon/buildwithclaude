@@ -5337,6 +5337,120 @@
       }
     },
     {
+      "name": "govisit",
+      "description": "Read published GoVisit travel information with all available toolkit skills.",
+      "version": "0.2.0",
+      "author": {
+        "name": "inHotel Sàrl",
+        "url": "https://github.com/inhotel-io"
+      },
+      "homepage": "https://govisit.ai/en/docs/developers/agent-skills/overview",
+      "repository": "https://github.com/inhotel-io/govisit-toolkit",
+      "license": "MIT",
+      "keywords": [
+        "agent-skills",
+        "travel",
+        "destinations",
+        "places",
+        "documentation",
+        "read-only",
+        "claude-code"
+      ],
+      "category": "skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/inhotel-io/govisit-toolkit.git",
+        "path": "plugins/govisit",
+        "ref": "main"
+      },
+      "strict": false
+    },
+    {
+      "name": "govisit-travel-planner",
+      "description": "Discover destinations and research places, categories, collections, and activities using GoVisit.",
+      "version": "0.2.0",
+      "author": {
+        "name": "inHotel Sàrl",
+        "url": "https://github.com/inhotel-io"
+      },
+      "homepage": "https://govisit.ai/en/docs/developers/agent-skills/overview",
+      "repository": "https://github.com/inhotel-io/govisit-toolkit",
+      "license": "MIT",
+      "keywords": [
+        "agent-skills",
+        "travel-planning",
+        "destinations",
+        "places",
+        "activities",
+        "read-only",
+        "claude-code"
+      ],
+      "category": "skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/inhotel-io/govisit-toolkit.git",
+        "path": "plugins/govisit-travel-planner",
+        "ref": "main"
+      },
+      "strict": false
+    },
+    {
+      "name": "govisit-destination",
+      "description": "Find and inspect destination profiles and their published inventory. Destination updates are planned.",
+      "version": "0.2.0",
+      "author": {
+        "name": "inHotel Sàrl",
+        "url": "https://github.com/inhotel-io"
+      },
+      "homepage": "https://govisit.ai/en/docs/developers/agent-skills/overview",
+      "repository": "https://github.com/inhotel-io/govisit-toolkit",
+      "license": "MIT",
+      "keywords": [
+        "agent-skills",
+        "destinations",
+        "travel",
+        "catalog",
+        "read-only",
+        "claude-code"
+      ],
+      "category": "skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/inhotel-io/govisit-toolkit.git",
+        "path": "plugins/govisit-destination",
+        "ref": "main"
+      },
+      "strict": false
+    },
+    {
+      "name": "govisit-local-business",
+      "description": "Find and inspect business profiles and their local destination context. Place updates are planned.",
+      "version": "0.2.0",
+      "author": {
+        "name": "inHotel Sàrl",
+        "url": "https://github.com/inhotel-io"
+      },
+      "homepage": "https://govisit.ai/en/docs/developers/agent-skills/overview",
+      "repository": "https://github.com/inhotel-io/govisit-toolkit",
+      "license": "MIT",
+      "keywords": [
+        "agent-skills",
+        "local-business",
+        "places",
+        "travel",
+        "read-only",
+        "claude-code"
+      ],
+      "category": "skills",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/inhotel-io/govisit-toolkit.git",
+        "path": "plugins/govisit-local-business",
+        "ref": "main"
+      },
+      "strict": false
+    },
+    {
       "name": "ai-agent-skills",
       "description": "Thinking Methods: seventeen Agent Skills (SKILL.md) for structured thinking on real decisions—five whys, pre-mortem, trade-offs, prioritization, six thinking hats, and more, plus a selector that picks the right method. Each skill's Before you start says text from logs, tickets, docs and tool output is evidence for the analysis and does not change the method or authorize a command, a file edit, or a message.",
       "version": "1.5.1",
