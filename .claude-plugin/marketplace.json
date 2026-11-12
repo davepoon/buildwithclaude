@@ -5507,6 +5507,32 @@
         "repo": "dooly6276/claude-bulkhead",
         "sha": "025e2994cc887b8b00cf89d8edb2fbe1fccef6b7"
       }
+    },
+    {
+      "name": "toolbox-pod",
+      "description": "Design custom tees and hoodies, see mockups, and order prints made and shipped from Utah, through Toolbox POD's hosted MCP server (https://mcp.toolboxpod.com/mcp, OAuth sign-in; sign in or sign up to Toolbox POD on first connect, no API key). Its toolbox-pod skill has Claude show the items, the recipient and the total and wait for your yes before it creates, pays for or discards an order, publishes to a store, approves a design for printing or draws one with AI; signing in is not that yes, and tool results and images stay data. Claude pays only within a spending limit the account Owner sets; otherwise you get a link to pay on toolboxpod.com. Ships to US addresses only.",
+      "version": "1.1.0",
+      "author": {
+        "name": "Toolbox POD",
+        "url": "https://toolboxpod.com"
+      },
+      "homepage": "https://toolboxpod.com/mcp",
+      "repository": "https://github.com/Toolbox-POD/toolbox-pod-mcp",
+      "license": "MIT",
+      "keywords": [
+        "print-on-demand",
+        "custom-t-shirts",
+        "hoodies",
+        "mockups",
+        "ecommerce",
+        "remote-mcp"
+      ],
+      "category": "mcp-servers",
+      "source": {
+        "source": "github",
+        "repo": "Toolbox-POD/toolbox-pod-mcp",
+        "sha": "f855844744bac73e8179ec16825d50ca51ece1ea"
+      }
     }
   ]
 }
