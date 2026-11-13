@@ -5507,6 +5507,32 @@
         "repo": "dooly6276/claude-bulkhead",
         "sha": "025e2994cc887b8b00cf89d8edb2fbe1fccef6b7"
       }
+    },
+    {
+      "name": "docspring-agent-playbook",
+      "description": "DocSpring's engineering principles, AGENTS.md templates and six workflow skills (ticket kickoff, PR review, second-opinion review, fix CI, browser QA, session wrap-up) for Claude Code, Codex and other agents.",
+      "version": "1.0.0",
+      "author": {
+        "name": "DocSpring",
+        "url": "https://github.com/DocSpring"
+      },
+      "homepage": "https://github.com/DocSpring/docspring-agent-playbook#readme",
+      "repository": "https://github.com/DocSpring/docspring-agent-playbook",
+      "license": "MIT",
+      "keywords": [
+        "agents-md",
+        "code-review",
+        "ci",
+        "qa",
+        "workflow",
+        "skills"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "DocSpring/docspring-agent-playbook",
+        "sha": "124980551d359e2f62ae9c17d64ff38882fc15e2"
+      }
     }
   ]
 }
