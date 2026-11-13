@@ -5338,8 +5338,8 @@
     },
     {
       "name": "rabbit-skills",
-      "description": "20 agent skills from a small agency that runs 20+ Claude Code sessions in parallel for real clients: get it right the first time, run many sessions without chaos, pick the right model per chat, and sell on WhatsApp and Meta Ads.",
-      "version": "1.0.0",
+      "description": "23 agent skills from a small agency that runs 20+ Claude Code sessions in parallel for real clients: get it right the first time, run many sessions without chaos, pick the right model per chat, and sell on WhatsApp and Meta Ads.",
+      "version": "1.2.2",
       "author": {
         "name": "Rabbit Designs",
         "url": "https://github.com/RabbitDesigns22"
@@ -5360,7 +5360,7 @@
       "source": {
         "source": "github",
         "repo": "RabbitDesigns22/claude-skills",
-        "sha": "9daf19b441d189326d585d55a8e0b0efe9852699"
+        "sha": "1112258df9ea46e946ad6123fe87e6d054c96a5a"
       }
     }
   ]
