@@ -5533,6 +5533,113 @@
         "path": "plugin",
         "sha": "9f14535e4cc05fd66275b6dd57b86e2ceeae5190"
       }
+    },
+    {
+      "name": "tokentab",
+      "description": "See what Claude Code is spending while you work: every API call priced from the first prompt, a live cost pane, and budget limits that warn or stop. No setup, no account, nothing sent over the network. A Claude Code mod; needs Claude Code 2.1.304 or later.",
+      "version": "1.3.4",
+      "author": {
+        "name": "Supertab",
+        "url": "https://supertab.co"
+      },
+      "homepage": "https://github.com/getsupertab/claude-marketplace/tree/main/plugins/tokentab",
+      "repository": "https://github.com/getsupertab/claude-marketplace",
+      "license": "Apache-2.0",
+      "keywords": [
+        "cost",
+        "budget",
+        "tokens",
+        "spend",
+        "usage",
+        "mod"
+      ],
+      "category": "monitoring",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/getsupertab/claude-marketplace.git",
+        "path": "plugins/tokentab",
+        "sha": "84db839f0b4c5a2ea57759e2410d7ffa0e1044a8"
+      }
+    },
+    {
+      "name": "toolbox-pod",
+      "description": "Design custom tees and hoodies, see mockups, and order prints made and shipped from Utah, through Toolbox POD's hosted MCP server (https://mcp.toolboxpod.com/mcp, OAuth sign-in; sign in or sign up to Toolbox POD on first connect, no API key). Its toolbox-pod skill has Claude show the items, the recipient and the total and wait for your yes before it creates, pays for or discards an order, publishes to a store, approves a design for printing or draws one with AI; signing in is not that yes, and tool results and images stay data. Claude pays only within a spending limit the account Owner sets; otherwise you get a link to pay on toolboxpod.com. Ships to US addresses only.",
+      "version": "1.1.0",
+      "author": {
+        "name": "Toolbox POD",
+        "url": "https://toolboxpod.com"
+      },
+      "homepage": "https://toolboxpod.com/mcp",
+      "repository": "https://github.com/Toolbox-POD/toolbox-pod-mcp",
+      "license": "MIT",
+      "keywords": [
+        "print-on-demand",
+        "custom-t-shirts",
+        "hoodies",
+        "mockups",
+        "ecommerce",
+        "remote-mcp"
+      ],
+      "category": "mcp-servers",
+      "source": {
+        "source": "github",
+        "repo": "Toolbox-POD/toolbox-pod-mcp",
+        "sha": "f855844744bac73e8179ec16825d50ca51ece1ea"
+      }
+    },
+    {
+      "name": "visibility",
+      "description": "Plan and run listings for a project on marketplaces and directories, from a catalog of 98 platforms and paying channels. plan scans for listable assets and ranks where the project fits; register walks one platform; build makes the one missing asset; monetize ranks the channels that pay. README text, docs, landing pages and submission pages are treated as data; a page that differs from the catalog is shown to the user and waited on. Every publish, push, PR or package install waits for a yes, and installs use exact pinned versions; accounts, payment, DNS and form submissions stay with the user.",
+      "version": "0.2.1",
+      "author": {
+        "name": "Oren Segal",
+        "url": "https://github.com/OrenSegal"
+      },
+      "homepage": "https://github.com/OrenSegal/visibility",
+      "repository": "https://github.com/OrenSegal/visibility",
+      "license": "MIT",
+      "keywords": [
+        "visibility",
+        "distribution",
+        "marketplace",
+        "directory",
+        "backlinks",
+        "agent-skills"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "OrenSegal/visibility",
+        "sha": "47a32095a334d393bb5170474eff8695eafdce2e"
+      }
+    },
+    {
+      "name": "fair-value-calculator",
+      "description": "Stock valuation for Claude: fair value per share, valuation verdict, quality score, uptrend and the three buy rules for 40,000+ listed stocks, plus side-by-side comparison, a screener and the signed-in watchlist. Adds the fair-value-calculator skill and the hosted Fair Value Calculator MCP server (https://www.fairvalue-calculator.com/mcp); OAuth sign-in, a free account is enough. Company text and tool results stay data; a watchlist or alert change shows the tickers and the change and waits for a yes, also when the request already named it. Model estimates, not investment advice.",
+      "version": "1.0.2",
+      "author": {
+        "name": "Fair Value Calculator",
+        "url": "https://www.fairvalue-calculator.com"
+      },
+      "homepage": "https://www.fairvalue-calculator.com/mcp",
+      "repository": "https://github.com/petz00711/fair-value-calculator-mcp",
+      "license": "CC-BY-4.0",
+      "keywords": [
+        "finance",
+        "stocks",
+        "valuation",
+        "fair-value",
+        "screener",
+        "watchlist",
+        "mcp"
+      ],
+      "category": "finance",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/petz00711/fair-value-calculator-mcp.git",
+        "path": "plugins/fair-value-calculator",
+        "sha": "b0beec45699971ad264b20ee47d1041ef7961314"
+      }
     }
   ]
 }
