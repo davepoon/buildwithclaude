@@ -5507,6 +5507,32 @@
         "repo": "dooly6276/claude-bulkhead",
         "sha": "025e2994cc887b8b00cf89d8edb2fbe1fccef6b7"
       }
+    },
+    {
+      "name": "tinyeval",
+      "description": "Checks prompt, model and LLM call changes on real inputs before and after, and keeps those checks as test cases in the repo. One bash file, any language.",
+      "version": "0.11.1",
+      "author": {
+        "name": "evalship",
+        "url": "https://github.com/evalship-hq"
+      },
+      "homepage": "https://tinyeval.com",
+      "repository": "https://github.com/evalship-hq/tinyeval",
+      "license": "MIT",
+      "keywords": [
+        "evals",
+        "llm-evaluation",
+        "prompt-testing",
+        "llm-as-a-judge",
+        "testing"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/evalship-hq/tinyeval.git",
+        "path": "plugin",
+        "sha": "9f14535e4cc05fd66275b6dd57b86e2ceeae5190"
+      }
     }
   ]
 }
