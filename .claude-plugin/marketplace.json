@@ -5640,6 +5640,33 @@
         "path": "plugins/fair-value-calculator",
         "sha": "b0beec45699971ad264b20ee47d1041ef7961314"
       }
+    },
+    {
+      "name": "asyntai-ai-chatbot",
+      "description": "Run the Asyntai AI chatbot on your website from Claude Code. Asyntai is an AI customer support agent and live chat widget for websites and online shops. The plugin connects the hosted Asyntai MCP server and adds one skill, so you can add knowledge and crawl pages, edit the agent's instructions, change the widget, read conversations and captured leads, reply live to visitors and check plan usage. Sign-in is OAuth with your Asyntai account.",
+      "version": "1.0.1",
+      "author": {
+        "name": "Asyntai",
+        "url": "https://asyntai.com"
+      },
+      "homepage": "https://asyntai.com/documentation/mcp/",
+      "repository": "https://github.com/asyntai/mcp-bridge",
+      "license": "MIT",
+      "keywords": [
+        "ai-chatbot",
+        "customer-support",
+        "live-chat",
+        "chat-widget",
+        "leads",
+        "knowledge-base",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "asyntai/mcp-bridge",
+        "sha": "75680ed683534aea4e158b49a7ad629c656e10a5"
+      }
     }
   ]
 }
