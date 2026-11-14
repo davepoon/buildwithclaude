@@ -503,7 +503,8 @@
     "install": [
       "/plugin marketplace add HemalathaMadeswaran18/bubblegum-fizz",
       "/plugin install bubblegum-fizz@bubblegum-fizz"
-    ]
+    ],
+    "preview": "/themes/community/bubblegum-fizz.svg"
   },
   {
     "slug": "aurora",
@@ -516,7 +517,8 @@
     "install": [
       "/plugin marketplace add 00015972/claude-aurora",
       "/plugin install aurora@claude-aurora"
-    ]
+    ],
+    "preview": "/themes/community/aurora.svg"
   },
   {
     "slug": "one-dark-pro",
@@ -529,7 +531,8 @@
     "install": [
       "/plugin marketplace add Verschnupft/claude-one-dark-pro",
       "/plugin install one-dark-pro@claude-one-dark-pro"
-    ]
+    ],
+    "preview": "/themes/community/one-dark-pro.svg"
   },
   {
     "slug": "matcra587-catppuccin",
@@ -870,6 +873,7 @@
     "repo": "chrisathook/claude-code-cli-themes",
     "kind": "terminal",
     "appearance": "both",
-    "description": "Deutan Dark, Deutan Light and a Monokai variant tuned for color vision deficiency. Copy the JSON files from the repo."
+    "description": "Deutan Dark, Deutan Light and a Monokai variant tuned for color vision deficiency. Copy the JSON files from the repo.",
+    "preview": "/themes/community/deutan-cvd.svg"
   }
 ]
