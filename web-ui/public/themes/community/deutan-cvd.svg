@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Illustrative preview of the Deutan Dark and Deutan Light terminal theme colors"><clipPath id="ca"><rect x="0" width="800" height="900"/></clipPath><g clip-path="url(#ca)" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="26">
+<rect x="0" width="800" height="900" fill="rgb(10,10,10)"/>
+<text x="56" y="70" fill="rgb(160,160,160)" font-size="22">Deutan Dark</text>
+<rect x="36" y="104" width="728" height="54" fill="rgb(30,30,30)"/><text x="56" y="140" fill="rgb(255,255,255)" >&gt; fix the failing checkout test</text>
+<text x="56" y="214" fill="rgb(251,146,60)" >●</text><text x="90" y="214" fill="rgb(255,255,255)">Update(src/cart.ts)</text>
+<rect x="36" y="240" width="728" height="46" fill="rgb(154,52,18)"/><text x="56" y="272" fill="rgb(255,255,255)" >- return subtotal</text>
+<rect x="36" y="286" width="728" height="46" fill="rgb(30,58,138)"/><text x="56" y="318" fill="rgb(255,255,255)" >+ return subtotal + tax</text>
+<text x="56" y="396" fill="rgb(20,184,166)" >✓ 42 tests passed</text>
+<text x="56" y="442" fill="rgb(236,72,153)" >✗ 1 type error in api.ts</text>
+<text x="56" y="488" fill="rgb(251,146,60)" >! 2 deprecation warnings</text>
+<text x="56" y="554" fill="rgb(160,160,160)" >Reviewing the remaining error…</text>
+<rect x="36" y="640" width="728" height="84" rx="10" fill="none" stroke="rgb(59,130,246)" stroke-width="2.5"/><text x="56" y="692" fill="rgb(255,255,255)" >&gt; </text><rect x="90" y="668" width="14" height="30" fill="rgb(255,255,255)"/>
+<text x="56" y="772" fill="rgb(167,139,250)" font-size="22">⏸ plan mode on</text><text x="744" y="772" text-anchor="end" fill="rgb(255,214,10)" font-size="22">/theme</text></g><clipPath id="cb"><rect x="800" width="800" height="900"/></clipPath><g clip-path="url(#cb)" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="26">
+<rect x="800" width="800" height="900" fill="rgb(255,255,255)"/>
+<text x="856" y="70" fill="rgb(95,95,95)" font-size="22">Deutan Light</text>
+<rect x="836" y="104" width="728" height="54" fill="rgb(240,240,240)"/><text x="856" y="140" fill="rgb(15,15,15)" >&gt; fix the failing checkout test</text>
+<text x="856" y="214" fill="rgb(194,65,12)" >●</text><text x="890" y="214" fill="rgb(15,15,15)">Update(src/cart.ts)</text>
+<rect x="836" y="240" width="728" height="46" fill="rgb(254,215,170)"/><text x="856" y="272" fill="rgb(15,15,15)" >- return subtotal</text>
+<rect x="836" y="286" width="728" height="46" fill="rgb(191,219,254)"/><text x="856" y="318" fill="rgb(15,15,15)" >+ return subtotal + tax</text>
+<text x="856" y="396" fill="rgb(13,148,136)" >✓ 42 tests passed</text>
+<text x="856" y="442" fill="rgb(190,24,93)" >✗ 1 type error in api.ts</text>
+<text x="856" y="488" fill="rgb(194,65,12)" >! 2 deprecation warnings</text>
+<text x="856" y="554" fill="rgb(95,95,95)" >Reviewing the remaining error…</text>
+<rect x="836" y="640" width="728" height="84" rx="10" fill="none" stroke="rgb(37,99,235)" stroke-width="2.5"/><text x="856" y="692" fill="rgb(15,15,15)" >&gt; </text><rect x="890" y="668" width="14" height="30" fill="rgb(15,15,15)"/>
+<text x="856" y="772" fill="rgb(109,40,217)" font-size="22">⏸ plan mode on</text><text x="1544" y="772" text-anchor="end" fill="rgb(30,64,175)" font-size="22">/theme</text></g><rect x="799" width="2" height="900" fill="#000" opacity="0.25"/></svg>
