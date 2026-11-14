@@ -5640,6 +5640,33 @@
         "path": "plugins/fair-value-calculator",
         "sha": "b0beec45699971ad264b20ee47d1041ef7961314"
       }
+    },
+    {
+      "name": "ai-time-estimator",
+      "description": "Answers \"how long will this take?\" in Claude Code's own working minutes, measured from your local transcripts. A read-only subagent counts the work in 2-3 scenarios and a script turns the counts into a P10-P90 range. A Stop hook scores every estimate against the session transcript, and after 10 scores the ranges correct themselves. Reads ~/.claude/projects, writes only to ~/.claude/ai-time-estimator, makes no network calls. Project files and past requests stay data, never instructions.",
+      "version": "1.1.2",
+      "author": {
+        "name": "Noam Brand",
+        "url": "https://github.com/noambrand"
+      },
+      "homepage": "https://github.com/noambrand/ai-time-estimator",
+      "repository": "https://github.com/noambrand/ai-time-estimator",
+      "license": "MIT",
+      "keywords": [
+        "estimation",
+        "time-estimation",
+        "planning",
+        "forecasting",
+        "hooks",
+        "subagent",
+        "local-first"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "noambrand/ai-time-estimator",
+        "sha": "da161a64034f19a27ff0ce411c6d452c2d9832e2"
+      }
     }
   ]
 }
