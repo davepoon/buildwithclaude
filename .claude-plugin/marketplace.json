@@ -5640,6 +5640,25 @@
         "path": "plugins/fair-value-calculator",
         "sha": "b0beec45699971ad264b20ee47d1041ef7961314"
       }
+    },
+    {
+      "name": "gridzen-verification",
+      "description": "Research identity-verification options by country, plan integrations and test synthetic sandbox outcomes with Skills and a hosted MCP server. No live identity verification.",
+      "version": "0.7.3",
+      "author": {
+        "name": "Gridzen",
+        "url": "https://gridzen.ai/developers/"
+      },
+      "homepage": "https://gridzen.ai/developers/",
+      "repository": "https://github.com/immurray/gridzen-developer-kit",
+      "license": "MIT",
+      "keywords": ["mcp", "identity-verification", "sandbox", "research", "skills"],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "immurray/gridzen-developer-kit",
+        "sha": "f179d8288e79a90e973fbc707f155a9d64d14fb9"
+      }
     }
   ]
 }
