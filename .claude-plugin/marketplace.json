@@ -5640,6 +5640,34 @@
         "path": "plugins/fair-value-calculator",
         "sha": "b0beec45699971ad264b20ee47d1041ef7961314"
       }
+    },
+    {
+      "name": "gomarble",
+      "description": "Paid media plugin: connects Meta, Google, TikTok and 80+ tools via MCP, with skills for diagnosing performance, creative analysis, wasted spend, budget shifts, launches and reports. Adds the hosted GoMarble MCP server (https://apps.gomarble.ai/mcp-api/mcp); OAuth sign-in with a GoMarble account.",
+      "version": "0.2.0",
+      "author": {
+        "name": "GoMarble",
+        "url": "https://www.gomarble.ai"
+      },
+      "homepage": "https://www.gomarble.ai/mcp",
+      "repository": "https://github.com/gomarble-ai/marketing-agent",
+      "license": "MIT",
+      "keywords": [
+        "paid-media",
+        "performance-marketing",
+        "meta-ads",
+        "google-ads",
+        "tiktok-ads",
+        "creative-analytics",
+        "campaign-management",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "gomarble-ai/marketing-agent",
+        "sha": "3e58349a6d29076c474a3c3b32b5afe2a3b8cdcd"
+      }
     }
   ]
 }
