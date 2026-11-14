@@ -6,6 +6,7 @@ import { getAllCommands } from '@/lib/commands-server'
 import { getAllHooks } from '@/lib/hooks-server'
 import { getAllSkills } from '@/lib/skills-server'
 import { getLocalBuildWithClaudePlugins } from '@/lib/plugin-db-server'
+import { themes } from '@/lib/themes'
 import { getMeiliClient, getContentIndex, CONTENT_INDEX } from './meilisearch-client'
 import {
   CONTENT_INDEX_SETTINGS,
@@ -145,6 +146,24 @@ export function localSkillsToDocs(): SearchDocument[] {
     console.warn('[search] localSkillsToDocs failed:', e)
     return []
   }
+}
+
+/** Themes come from the curated lib/themes.json listing (changes only on deploy). */
+export function themesToDocs(): SearchDocument[] {
+  return themes.map((t) => ({
+    objectID: makeObjectID('theme', t.slug),
+    type: 'theme',
+    slug: t.slug,
+    name: t.name,
+    description: t.description,
+    category: t.kind,
+    categories: [t.kind],
+    tags: dedupe(['theme', t.kind, t.author, t.appearance]),
+    stars: 0,
+    installs: 0,
+    updatedAt: 0,
+    url: urlForDocument('theme', t.slug, t.name),
+  }))
 }
 
 // ---------------------------------------------------------------------------
@@ -410,6 +429,8 @@ export async function docsForType(type: SearchContentType): Promise<SearchDocume
       return mcpServersToDocs()
     case 'marketplace':
       return marketplacesToDocs()
+    case 'theme':
+      return themesToDocs()
   }
 }
 
@@ -423,6 +444,7 @@ export async function allDocs(): Promise<SearchDocument[]> {
     pluginsToDocs(),
     mcpServersToDocs(),
     marketplacesToDocs(),
+    Promise.resolve(themesToDocs()),
   ])
   const seen = new Set<string>()
   const out: SearchDocument[] = []
@@ -501,7 +523,7 @@ export async function reindexMarkdown(): Promise<{ added: number; durationMs: nu
   if (!(await ensureContentIndex())) return { added: 0, durationMs: 0, byType: {}, skipped: true }
   const byType: Record<string, number> = {}
   let added = 0
-  for (const type of ['subagent', 'command', 'hook', 'skill', 'plugin'] as SearchContentType[]) {
+  for (const type of ['subagent', 'command', 'hook', 'skill', 'plugin', 'theme'] as SearchContentType[]) {
     const r = await reindexType(type)
     byType[type] = r.added
     added += r.added

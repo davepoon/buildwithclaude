@@ -58,7 +58,7 @@ export default function SearchClient({ initialQuery }: { initialQuery: string })
             Search
           </h1>
           <p className="text-muted-foreground">
-            Search across plugins, skills, subagents, commands, hooks, MCP servers, and marketplaces.
+            Search across plugins, skills, subagents, commands, hooks, MCP servers, marketplaces, and themes.
           </p>
         </div>
 

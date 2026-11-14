@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Search | Build with Claude',
   description:
-    'Search across plugins, skills, subagents, commands, hooks, MCP servers, and marketplaces.',
+    'Search across plugins, skills, subagents, commands, hooks, MCP servers, marketplaces, and themes.',
 }
 
 export default async function SearchPage({

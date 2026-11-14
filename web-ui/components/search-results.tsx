@@ -5,6 +5,7 @@ import {
   CornerDownLeft,
   Loader2,
   Package,
+  Palette,
   Server,
   Sparkles,
   SquareTerminal,
@@ -36,6 +37,7 @@ const QUICK_LINKS: { href: string; label: string; icon: React.ReactNode }[] = [
   { href: '/commands', label: 'Commands', icon: <SquareTerminal className="h-4 w-4" /> },
   { href: '/hooks', label: 'Hooks', icon: <Webhook className="h-4 w-4" /> },
   { href: '/mcp-servers', label: 'MCP Servers', icon: <Server className="h-4 w-4" /> },
+  { href: '/themes', label: 'Themes', icon: <Palette className="h-4 w-4" /> },
   { href: '/marketplaces', label: 'Marketplaces', icon: <Store className="h-4 w-4" /> },
 ]
 
