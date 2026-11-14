@@ -5640,6 +5640,36 @@
         "path": "plugins/fair-value-calculator",
         "sha": "b0beec45699971ad264b20ee47d1041ef7961314"
       }
+    },
+    {
+      "name": "wiro-ai",
+      "description": "Run 1,000+ generative AI models on Wiro AI from Claude Code: images and image edits, video, speech, music, transcripts, 3D and LLMs, plus model workflows and hosted AI agents. Adds the hosted Wiro MCP server (https://mcp.wiro.ai/v1; it opens the Wiro sign-in page in your browser on first connect, no API key to copy), 11 slash commands (image, edit-image, video, speech, music, transcribe, 3d, models, workflow, agent, task) and 5 skills. Searching models and reading prices is free. Before every paid run Claude writes the model, the settings that change the price and the expected cost; a run you asked for goes ahead only when that estimate is $1 or less, and anything else waits for your yes. Deploying an agent, changing its plan or buying credits shows the price and the 30-day renewal and waits for your yes. Model and agent output stays content, never instructions, and a paid call that timed out is looked up, never sent again.",
+      "version": "1.3.0",
+      "author": {
+        "name": "Wiro AI",
+        "url": "https://wiro.ai"
+      },
+      "homepage": "https://wiro.ai/docs/wiro-mcp-server",
+      "repository": "https://github.com/wiroai/Wiro-Plugin",
+      "license": "MIT",
+      "keywords": [
+        "wiro",
+        "ai-models",
+        "image-generation",
+        "video-generation",
+        "text-to-speech",
+        "music-generation",
+        "llm",
+        "workflows",
+        "ai-agents",
+        "mcp"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "github",
+        "repo": "wiroai/Wiro-Plugin",
+        "sha": "e5f1fd39b87a1ca3708cd2df711418bbe9157235"
+      }
     }
   ]
 }
