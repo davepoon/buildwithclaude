@@ -4,9 +4,13 @@ import { getAllPlugins } from '@/lib/plugins-server'
 import { getAllSkills } from '@/lib/skills-server'
 import { getAllHooks } from '@/lib/hooks-server'
 import { getAllStories } from '@/lib/stories-server'
+import { themes } from '@/lib/themes'
 import { getPluginOnlyCount, getSkillOnlyCount } from '@/lib/plugin-db-server'
 import { getMCPServersPaginated } from '@/lib/mcp-server-db'
 import HomePageClient from './page-client'
+
+// Themes shown on the homepage, by slug. All have light previews (no multi-megabyte GIFs).
+const FEATURED_THEME_SLUGS = ['theme-examples-honu-lagoon', 'theme-examples-night-reef', 'matcra587-catppuccin']
 
 // Hero catalog totals come from the DB; cache the page for an hour so the
 // homepage isn't a per-request DB hit (the rest of it is local-file driven).
@@ -54,6 +58,7 @@ export default async function Home() {
       commandCount={commands.length}
       skillCount={skills.length}
       hookCount={hooks.length}
+      themeCount={themes.length}
       pluginTotal={pluginTotal}
       skillTotal={skillTotal}
       mcpTotal={mcpTotal}
@@ -63,6 +68,7 @@ export default async function Home() {
       featuredCommands={commands.slice(0, 8)}
       featuredHooks={hooks.slice(0, 8)}
       featuredStories={stories.slice(0, 3)}
+      featuredThemes={FEATURED_THEME_SLUGS.flatMap((slug) => themes.filter((t) => t.slug === slug))}
     />
   )
 }

@@ -24,8 +24,8 @@ const BUILDERS = [
   { name: 'Theme Designer', repo: 'aleslanger/claude-code-theme-designer', description: 'Design, preview and install terminal themes from the command line.' },
 ]
 
-export default function ThemesPageClient({ themes }: { themes: Theme[] }) {
-  const [query, setQuery] = useState('')
+export default function ThemesPageClient({ themes, initialQuery = '' }: { themes: Theme[]; initialQuery?: string }) {
+  const [query, setQuery] = useState(initialQuery)
   const [kind, setKind] = useState<KindFilter>('all')
 
   const counts = useMemo(() => ({

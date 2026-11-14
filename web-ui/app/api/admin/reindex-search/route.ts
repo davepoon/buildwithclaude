@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     if (mode === 'type') {
       if (!typeParam || !isSearchContentType(typeParam)) {
         return NextResponse.json(
-          { error: 'mode=type requires a valid ?type= (subagent|command|hook|skill|plugin|mcp-server|marketplace)' },
+          { error: 'mode=type requires a valid ?type= (subagent|command|hook|skill|plugin|mcp-server|marketplace|theme)' },
           { status: 400 },
         )
       }
