@@ -37,7 +37,7 @@ export function GlobalSearch({
           <CommandInput
             value={query}
             onValueChange={setQuery}
-            placeholder="Search plugins, skills, agents, commands, MCP servers…"
+            placeholder="Search plugins, skills, agents, commands, MCP servers, themes…"
           />
           <CommandList className="max-h-[60vh]">
             <SearchResults

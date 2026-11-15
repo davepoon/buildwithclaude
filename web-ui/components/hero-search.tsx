@@ -60,7 +60,7 @@ export function HeroSearch() {
             setOpen(true)
           }}
           onFocus={() => setOpen(true)}
-          placeholder="Search plugins, skills, agents, commands, MCP servers…"
+          placeholder="Search plugins, skills, agents, commands, MCP servers, themes…"
           aria-label="Search the catalog"
           className="h-12 w-full rounded-xl border border-border bg-card pl-12 pr-12 text-base text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/60 focus:ring-2 focus:ring-primary/20"
         />

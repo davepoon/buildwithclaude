@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { HeroSearch } from '@/components/hero-search'
-import { ArrowRight, Bot, Terminal, Webhook, Sparkles, Package } from 'lucide-react'
+import { ArrowRight, Bot, Terminal, Webhook, Sparkles, Package, Palette } from 'lucide-react'
 import type { Plugin } from '@/lib/plugins-types'
 import type { Skill } from '@/lib/skills-types'
 import type { Subagent } from '@/lib/subagents-types'
@@ -10,6 +10,8 @@ import type { Command } from '@/lib/commands-types'
 import type { Hook } from '@/lib/hooks-types'
 import type { Story } from '@/lib/stories-types'
 import { StoriesStrip } from '@/components/stories/stories-strip'
+import { ThemeCard } from '@/components/theme-card'
+import type { Theme } from '@/lib/themes'
 
 interface HomePageClientProps {
   pluginCount: number
@@ -17,6 +19,7 @@ interface HomePageClientProps {
   commandCount: number
   skillCount: number
   hookCount: number
+  themeCount: number
   pluginTotal: number
   skillTotal: number
   mcpTotal: number
@@ -26,6 +29,7 @@ interface HomePageClientProps {
   featuredCommands: Command[]
   featuredHooks: Hook[]
   featuredStories: Story[]
+  featuredThemes: Theme[]
 }
 
 // Floor a count to a clean round number for the hero copy (e.g. 17519 → "17,500").
@@ -87,6 +91,7 @@ export default function HomePageClient({
   commandCount,
   skillCount,
   hookCount,
+  themeCount,
   pluginTotal,
   skillTotal,
   mcpTotal,
@@ -96,6 +101,7 @@ export default function HomePageClient({
   featuredCommands,
   featuredHooks,
   featuredStories,
+  featuredThemes,
 }: HomePageClientProps) {
   const categories = [
     { href: '/plugins', label: 'Plugins', count: pluginCount, icon: Package, color: 'purple' as const },
@@ -103,6 +109,7 @@ export default function HomePageClient({
     { href: '/subagents', label: 'Subagents', count: subagentCount, icon: Bot, color: 'blue' as const },
     { href: '/commands', label: 'Commands', count: commandCount, icon: Terminal, color: 'green' as const },
     { href: '/hooks', label: 'Hooks', count: hookCount, icon: Webhook, color: 'orange' as const },
+    { href: '/themes', label: 'Themes', count: themeCount, icon: Palette, color: 'pink' as const },
   ]
 
   return (
@@ -251,7 +258,7 @@ export default function HomePageClient({
           <p className="text-sm text-muted-foreground mb-8 text-center tracking-wide uppercase">
             Browse by type
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
             {categories.map((cat) => {
               const Icon = cat.icon
               const colorClasses = {
@@ -260,6 +267,7 @@ export default function HomePageClient({
                 orange: 'bg-orange-500/10 text-orange-500 group-hover:bg-orange-500/20',
                 yellow: 'bg-yellow-500/10 text-yellow-500 group-hover:bg-yellow-500/20',
                 purple: 'bg-purple-500/10 text-purple-500 group-hover:bg-purple-500/20',
+                pink: 'bg-pink-500/10 text-pink-500 group-hover:bg-pink-500/20',
               }
               return (
                 <Link key={cat.href} href={cat.href}>
@@ -280,6 +288,28 @@ export default function HomePageClient({
           </div>
         </div>
       </section>
+
+      {/* Featured Themes */}
+      {featuredThemes.length > 0 && (
+        <section className="py-10 md:py-16">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-display-3 flex items-center gap-3">
+                <Palette className="h-7 w-7 text-pink-500" />
+                Themes
+              </h2>
+              <Link href="/themes" className="py-1 -my-1 text-sm text-muted-foreground hover:text-accent transition-colors">
+                View all →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredThemes.map((theme) => (
+                <ThemeCard key={theme.slug} theme={theme} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Featured Plugins */}
       <FeaturedSection

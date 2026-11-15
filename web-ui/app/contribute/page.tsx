@@ -21,11 +21,12 @@ import {
   Webhook,
   Lightbulb,
   Puzzle,
-  Newspaper
+  Newspaper,
+  Palette
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
-const VALID_TABS = ['agents', 'commands', 'hooks', 'skills', 'plugins', 'stories'] as const
+const VALID_TABS = ['agents', 'commands', 'hooks', 'skills', 'plugins', 'themes', 'stories'] as const
 type TabValue = typeof VALID_TABS[number]
 
 export default function ContributePage() {
@@ -188,6 +189,21 @@ Example output...
   "keywords": ["keyword1", "keyword2"]
 }`
 
+  const themeTemplate = `{
+  "slug": "my-theme",
+  "name": "My Theme",
+  "author": "your-github-username",
+  "repo": "your-github-username/my-theme",
+  "kind": "desktop",
+  "appearance": "both",
+  "description": "One or two sentences on how it looks.",
+  "preview": "https://raw.githubusercontent.com/your-github-username/my-theme/main/docs/preview.png",
+  "install": [
+    "/plugin marketplace add your-github-username/my-theme",
+    "/plugin install my-theme@my-marketplace"
+  ]
+}`
+
   const storyTemplate = `---
 slug: my-story-slug                       # kebab-case, must match filename
 title: A short, punchy headline
@@ -261,6 +277,13 @@ that invite a reply outperform ones that don't.`
       description: 'Bundled plugin packages',
       count: '50',
       color: 'text-orange-400'
+    },
+    {
+      icon: Palette,
+      title: 'Themes',
+      description: 'Desktop and terminal themes',
+      count: '59',
+      color: 'text-teal-400'
     },
     {
       icon: Newspaper,
@@ -367,7 +390,7 @@ that invite a reply outperform ones that don't.`
         {/* What Can You Contribute */}
         <section className="mb-16">
           <h2 className="text-2xl font-bold mb-6">What Can You Contribute?</h2>
-          <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid md:grid-cols-4 gap-4">
             {contributionTypes.map((type) => (
               <Card key={type.title} className="p-4 border-border/50 hover:border-primary/20 transition-all">
                 <div className="flex items-start justify-between mb-3">
@@ -388,12 +411,13 @@ that invite a reply outperform ones that don't.`
         {/* Contribution Guides */}
         <section>
           <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full" id="contribute-tabs">
-            <TabsList className="grid w-full grid-cols-3 md:grid-cols-6 mb-8 max-md:h-auto max-md:gap-y-1">
+            <TabsList className="grid w-full grid-cols-4 md:grid-cols-7 mb-8 max-md:h-auto max-md:gap-y-1">
               <TabsTrigger value="agents">Agents</TabsTrigger>
               <TabsTrigger value="commands">Commands</TabsTrigger>
               <TabsTrigger value="hooks">Hooks</TabsTrigger>
               <TabsTrigger value="skills">Skills</TabsTrigger>
               <TabsTrigger value="plugins">Plugins</TabsTrigger>
+              <TabsTrigger value="themes">Themes</TabsTrigger>
               <TabsTrigger value="stories">Stories</TabsTrigger>
             </TabsList>
 
@@ -680,6 +704,85 @@ that invite a reply outperform ones that don't.`
             </TabsContent>
 
             {/* Stories Tab */}
+            <TabsContent value="themes">
+              <div className="space-y-8">
+                <Card className="p-6 border-border/50">
+                  <h3 className="text-xl font-semibold mb-2">Theme Location</h3>
+                  <pre className="text-sm text-muted-foreground bg-background/50 px-3 py-2 rounded overflow-x-auto">
+{`web-ui/lib/themes.json`}
+                  </pre>
+                  <p className="text-sm text-muted-foreground mt-3">
+                    Themes stay in your own repository; this repo only holds the listing shown on the{' '}
+                    <a href="/themes" className="text-primary hover:underline">Themes page</a>. To add yours,
+                    append one entry to the array in <code>themes.json</code> and open a pull request.
+                    Both kinds are welcome: desktop app themes built as mods, and terminal themes for{' '}
+                    <code>/theme</code>.
+                  </p>
+                </Card>
+
+                <Card className="p-6 border-border/50">
+                  <h3 className="text-xl font-semibold mb-4">Theme Entry</h3>
+                  <div className="bg-card rounded-lg border border-border/50 p-4 font-mono text-sm overflow-x-auto">
+                    <pre className="text-muted-foreground">{themeTemplate}</pre>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="mt-4 gap-2"
+                    onClick={() => handleCopy(themeTemplate, 'theme')}
+                  >
+                    <Copy className="h-3 w-3" />
+                    {copiedTemplate === 'theme' ? 'Copied!' : 'Copy Template'}
+                  </Button>
+                </Card>
+
+                <Card className="p-6 border-border/50">
+                  <h3 className="text-xl font-semibold mb-4">Field Reference</h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead className="text-left text-muted-foreground border-b border-border/50">
+                        <tr>
+                          <th className="py-2 pr-4 font-medium">Field</th>
+                          <th className="py-2 pr-4 font-medium">Required</th>
+                          <th className="py-2 font-medium">Notes</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-muted-foreground">
+                        {[
+                          ['slug', 'yes', 'Unique id for the entry. Kebab-case.'],
+                          ['name', 'yes', 'Display name on the card.'],
+                          ['author', 'yes', 'Your GitHub username or organization.'],
+                          ['repo', 'yes', 'GitHub repository as owner/name.'],
+                          ['kind', 'yes', 'desktop for a mod that themes the desktop app; terminal for a /theme color theme or a CLI mod.'],
+                          ['description', 'yes', 'One or two sentences on how it looks.'],
+                          ['appearance', 'no', 'dark, light or both.'],
+                          ['preview', 'no', 'Strongly recommended. URL of a PNG, JPG or GIF in your own repo, ideally 16:9 and under 3 MB. We link to it rather than copy it.'],
+                          ['install', 'no', 'Commands a user runs, in order. Leave it out if your README has its own steps.'],
+                          ['path', 'no', 'Folder of the theme, when the repo holds more than one plugin.'],
+                        ].map(([field, required, notes]) => (
+                          <tr key={field} className="border-b border-border/30">
+                            <td className="py-2 pr-4 font-mono text-foreground">{field}</td>
+                            <td className="py-2 pr-4">
+                              {required === 'yes' ? (
+                                <Badge variant="secondary" className="bg-primary/10 text-primary">required</Badge>
+                              ) : (
+                                <Badge variant="outline">optional</Badge>
+                              )}
+                            </td>
+                            <td className="py-2">{notes}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-4">
+                    Themes must use the supported theme formats. Tools that patch the Claude Code binary or the
+                    desktop app&apos;s internals are not listed.
+                  </p>
+                </Card>
+              </div>
+            </TabsContent>
+
             <TabsContent value="stories">
               <div className="space-y-8">
                 <Card className="p-6 border-border/50">

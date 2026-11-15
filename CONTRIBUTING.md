@@ -11,6 +11,7 @@ Thank you for your interest in contributing to Build with Claude! This guide wil
 - [Contributing Hooks](#contributing-hooks)
 - [Contributing Skills](#contributing-skills)
 - [Contributing Plugins](#contributing-plugins)
+- [Contributing Themes](#contributing-themes)
 - [File Naming Conventions](#file-naming-conventions)
 - [Validation & Testing](#validation--testing)
 - [Submitting a Pull Request](#submitting-a-pull-request)
@@ -313,6 +314,37 @@ plugins/<plugin-name>/
   "keywords": ["keyword1", "keyword2"]
 }
 ```
+
+## Contributing Themes
+
+The [Themes page](https://buildwithclaude.com/themes) lists custom themes for Claude Code: desktop app themes built as mods, and terminal themes for `/theme`. Themes stay in their authors' repositories; this repo only holds the listing.
+
+To add a theme, append an entry to `web-ui/lib/themes.json`:
+
+```json
+{
+  "slug": "my-theme",
+  "name": "My Theme",
+  "author": "your-github-username",
+  "repo": "your-github-username/my-theme",
+  "kind": "desktop",
+  "appearance": "both",
+  "description": "One or two sentences on how it looks.",
+  "preview": "https://raw.githubusercontent.com/your-github-username/my-theme/main/docs/preview.png",
+  "install": [
+    "/plugin marketplace add your-github-username/my-theme",
+    "/plugin install my-theme@my-marketplace"
+  ]
+}
+```
+
+- `kind`: `desktop` for a mod that themes the desktop app, `terminal` for a `/theme` color theme or a CLI mod.
+- `appearance` (optional): `dark`, `light` or `both`.
+- `preview` (optional, strongly recommended): a PNG, JPG or GIF hosted in your own repo, ideally 16:9 and under 3 MB. We link to it rather than copy it.
+- `install` (optional): the commands a user runs, in order. Leave it out if your README has its own steps.
+- `path` (optional): the theme's folder, when the repo holds more than one plugin.
+
+Themes must use the supported theme formats. Tools that patch the Claude Code binary or the desktop app's internals are not listed.
 
 ## File Naming Conventions
 

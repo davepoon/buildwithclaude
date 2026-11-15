@@ -49,10 +49,14 @@ describe('urlForDocument', () => {
     // Prefers the human-readable display name so the listing search surfaces it first.
     assert.equal(urlForDocument('marketplace', '@owner/repo', 'Agent Skills'), '/marketplaces?q=Agent%20Skills')
   })
+
+  it('deep-links themes into the list, pre-filtered by name', () => {
+    assert.equal(urlForDocument('theme', 'looks-neon-tokyo', 'Neon Tokyo'), '/themes?q=Neon%20Tokyo')
+  })
 })
 
 describe('isSearchContentType', () => {
-  it('accepts all seven canonical types', () => {
+  it('accepts all canonical types', () => {
     for (const t of SEARCH_CONTENT_TYPES) assert.equal(isSearchContentType(t), true)
   })
 

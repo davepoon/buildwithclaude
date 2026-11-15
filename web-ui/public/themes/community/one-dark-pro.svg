@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Illustrative preview of the One Dark Pro theme colors"><clipPath id="ca"><rect x="0" width="1600" height="900"/></clipPath><g clip-path="url(#ca)">
+<rect x="0" width="1600" height="900" fill="#282c34"/>
+<rect x="0" width="384" height="900" fill="#21252b" opacity="0.92"/>
+<circle cx="34" cy="46" r="8" fill="#e06c75"/><circle cx="60" cy="46" r="8" fill="#e5c07b"/><circle cx="86" cy="46" r="8" fill="#98c379"/>
+<rect x="36" y="100" width="115" height="14" rx="7" fill="#abb2bf" opacity="0.9"/><rect x="36" y="150" width="146" height="14" rx="7" fill="#9097a3" opacity="0.55"/><rect x="18" y="190" width="348" height="42" rx="10" fill="#2f343e"/><rect x="36" y="204" width="192" height="14" rx="7" fill="#61afef" opacity="1"/><rect x="36" y="258" width="207" height="14" rx="7" fill="#9097a3" opacity="0.55"/><rect x="36" y="312" width="177" height="14" rx="7" fill="#9097a3" opacity="0.55"/><rect x="36" y="366" width="146" height="14" rx="7" fill="#9097a3" opacity="0.55"/><rect x="36" y="420" width="238" height="14" rx="7" fill="#9097a3" opacity="0.55"/>
+<rect x="912.64" y="120" width="575.36" height="64" rx="20" fill="#2f343e"/><rect x="962" y="145" width="456" height="14" rx="7" fill="#d7dae0" opacity="1"/>
+<rect x="496" y="240" width="893" height="14" rx="7" fill="#d7dae0" opacity="0.92"/><rect x="496" y="274" width="774" height="14" rx="7" fill="#d7dae0" opacity="0.92"/><rect x="496" y="308" width="496" height="14" rx="7" fill="#abb2bf" opacity="1"/>
+<rect x="496" y="360" width="992" height="236" rx="14" fill="#21252b"/>
+<rect x="524" y="392" width="119" height="12" rx="6" fill="#c678dd" opacity="1"/><rect x="673" y="392" width="218" height="12" rx="6" fill="#61afef" opacity="1"/><rect x="921" y="392" width="99" height="12" rx="6" fill="#abb2bf" opacity="1"/>
+<rect x="584" y="428" width="99" height="12" rx="6" fill="#c678dd" opacity="1"/><rect x="712" y="428" width="179" height="12" rx="6" fill="#e5c07b" opacity="1"/><rect x="921" y="428" width="298" height="12" rx="6" fill="#98c379" opacity="1"/>
+<rect x="584" y="464" width="159" height="12" rx="6" fill="#61afef" opacity="1"/><rect x="772" y="464" width="119" height="12" rx="6" fill="#e06c75" opacity="1"/><rect x="921" y="464" width="198" height="12" rx="6" fill="#abb2bf" opacity="1"/>
+<rect x="584" y="500" width="79" height="12" rx="6" fill="#c678dd" opacity="1"/><rect x="693" y="500" width="357" height="12" rx="6" fill="#98c379" opacity="1"/>
+<rect x="524" y="536" width="50" height="12" rx="6" fill="#abb2bf" opacity="1"/>
+<rect x="496" y="626" width="92" height="34" rx="17" fill="#98c379" opacity="0.22"/><rect x="516" y="637" width="52" height="12" rx="6" fill="#98c379" opacity="1"/>
+<rect x="602" y="626" width="78" height="34" rx="17" fill="#e06c75" opacity="0.22"/><rect x="622" y="637" width="38" height="12" rx="6" fill="#e06c75" opacity="1"/>
+<rect x="496" y="730" width="992" height="104" rx="24" fill="#2c313a" stroke="#9097a3" stroke-opacity="0.35"/><rect x="526" y="764" width="397" height="14" rx="7" fill="#9097a3" opacity="0.7"/>
+<circle cx="1438" cy="782" r="22" fill="#61afef"/></g></svg>
