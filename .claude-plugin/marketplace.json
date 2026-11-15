@@ -5693,6 +5693,34 @@
         "repo": "noambrand/ai-time-estimator",
         "sha": "da161a64034f19a27ff0ce411c6d452c2d9832e2"
       }
+    },
+    {
+      "name": "telegram-bot-ui",
+      "description": "UI/UX skill that makes Telegram bots look and feel like real products: messages, keyboards, buttons, navigation, streaming AI replies with Stop, HTML widgets and premium emoji. Also covers Rich Messages, channel publishing, agent-operated bots, Stars payments, auditing an existing bot's interface and an offline Bot API catalog. Bundles the telegram-bot-ui skill and five subagents. Updated with every new Bot API release.",
+      "version": "2.0.0",
+      "author": {
+        "name": "hlibsuslov",
+        "url": "https://github.com/hlibsuslov"
+      },
+      "homepage": "https://github.com/hlibsuslov/telegram-bot-ui",
+      "repository": "https://github.com/hlibsuslov/telegram-bot-ui",
+      "license": "MIT",
+      "keywords": [
+        "telegram",
+        "telegram-bot",
+        "bot-api",
+        "ui",
+        "ux",
+        "keyboards",
+        "widgets",
+        "agent-skills"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "hlibsuslov/telegram-bot-ui",
+        "sha": "2a2b5b8e2f03b9980bf2ec5cbaef3c9a26384d46"
+      }
     }
   ]
 }
