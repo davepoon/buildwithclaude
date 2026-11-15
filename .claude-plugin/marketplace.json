@@ -5176,6 +5176,265 @@
       }
     },
     {
+      "name": "serp-api-by-crakseo",
+      "description": "SERP API: Live Google Search Results by CrakSEO. SERP API for SEO: live Google search results and keyword rankings by location and device, with SERP features, Google AI Overview sources, Google Maps and Bing. Connects the hosted CrakSEO SERP API MCP server over OAuth and adds a skill. Paid data calls use prepaid API credits; the skill states the cost and asks before every paid call, and never buys credits.",
+      "version": "1.0.0",
+      "author": {
+        "name": "CrakSEO",
+        "url": "https://crakseo.com"
+      },
+      "homepage": "https://crakseo.com/mcp",
+      "repository": "https://github.com/CrakSEO/crakseo-mcp-plugins",
+      "license": "MIT",
+      "keywords": [
+        "serp",
+        "google-search-results",
+        "serp-api",
+        "keyword-rankings",
+        "seo",
+        "local-search",
+        "location-and-device",
+        "google-ai-overview",
+        "ai-overview-sources",
+        "google-maps",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/CrakSEO/crakseo-mcp-plugins.git",
+        "path": "serp-api-by-crakseo",
+        "sha": "178aeb5cd018eddcb8acbd2429cd9065c193463b"
+      }
+    },
+    {
+      "name": "keyword-research-by-crakseo",
+      "description": "Keyword Research: Search Volume, Keyword Difficulty & CPC by CrakSEO. Keyword research for SEO: monthly search volume, keyword difficulty, CPC, keyword ideas, related keywords and competitor keyword gaps for any topic and country. Connects the hosted CrakSEO Keyword Research MCP server over OAuth and adds a skill. Paid data calls use prepaid API credits; the skill states the cost and asks before every paid call, and never buys credits.",
+      "version": "1.0.0",
+      "author": {
+        "name": "CrakSEO",
+        "url": "https://crakseo.com"
+      },
+      "homepage": "https://crakseo.com/mcp",
+      "repository": "https://github.com/CrakSEO/crakseo-mcp-plugins",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "keyword-research",
+        "search-volume",
+        "keyword-difficulty",
+        "keyword-ideas",
+        "cpc",
+        "search-trends",
+        "related-keywords",
+        "competitor-keywords",
+        "keyword-generator",
+        "topics",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/CrakSEO/crakseo-mcp-plugins.git",
+        "path": "keyword-research-by-crakseo",
+        "sha": "178aeb5cd018eddcb8acbd2429cd9065c193463b"
+      }
+    },
+    {
+      "name": "backlink-checker-by-crakseo",
+      "description": "Backlink Checker: Backlinks, Referring Domains & Anchor Text by CrakSEO. Backlink checker for SEO: backlinks, referring domains and anchor text for any website or competitor. Link analysis for backlink audits and link building. Connects the hosted CrakSEO Backlink Checker MCP server over OAuth and adds a skill. Paid data calls use prepaid API credits; the skill states the cost and asks before every paid call, and never buys credits.",
+      "version": "1.0.0",
+      "author": {
+        "name": "CrakSEO",
+        "url": "https://crakseo.com"
+      },
+      "homepage": "https://crakseo.com/mcp",
+      "repository": "https://github.com/CrakSEO/crakseo-mcp-plugins",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "backlinks",
+        "backlink-checker",
+        "referring-domains",
+        "link-analysis",
+        "anchor-text",
+        "link-gap",
+        "competitor-backlinks",
+        "lost-links",
+        "new-and-lost-backlinks",
+        "spam-score",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/CrakSEO/crakseo-mcp-plugins.git",
+        "path": "backlink-checker-by-crakseo",
+        "sha": "178aeb5cd018eddcb8acbd2429cd9065c193463b"
+      }
+    },
+    {
+      "name": "google-rank-checker-by-crakseo",
+      "description": "Google Rank Checker: Keyword Rankings & Rank Tracking by CrakSEO. Google rank checker for SEO: live keyword rankings and positions for any website, ranked keywords, ranking competitors and keyword gaps. On-demand rank tracking. Connects the hosted CrakSEO Google Rank Checker MCP server over OAuth and adds a skill. Paid data calls use prepaid API credits; the skill states the cost and asks before every paid call, and never buys credits.",
+      "version": "1.0.0",
+      "author": {
+        "name": "CrakSEO",
+        "url": "https://crakseo.com"
+      },
+      "homepage": "https://crakseo.com/mcp",
+      "repository": "https://github.com/CrakSEO/crakseo-mcp-plugins",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "rank-tracking",
+        "google-rankings",
+        "rank-checker",
+        "keyword-positions",
+        "ranked-keywords",
+        "competitor-analysis",
+        "website-traffic",
+        "organic-traffic",
+        "traffic-estimate",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/CrakSEO/crakseo-mcp-plugins.git",
+        "path": "google-rank-checker-by-crakseo",
+        "sha": "178aeb5cd018eddcb8acbd2429cd9065c193463b"
+      }
+    },
+    {
+      "name": "seo-site-audit-by-crakseo",
+      "description": "SEO Site Audit: Technical SEO Checker & Page Speed by CrakSEO. SEO site audit and technical SEO checker: on-page SEO checks, page speed, Lighthouse and Core Web Vitals scores for up to 5 URLs per call. Connects the hosted CrakSEO SEO Site Audit MCP server over OAuth and adds a skill. Paid data calls use prepaid API credits; the skill states the cost and asks before every paid call, and never buys credits.",
+      "version": "1.0.0",
+      "author": {
+        "name": "CrakSEO",
+        "url": "https://crakseo.com"
+      },
+      "homepage": "https://crakseo.com/mcp",
+      "repository": "https://github.com/CrakSEO/crakseo-mcp-plugins",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "site-audit",
+        "seo-audit",
+        "website-crawl",
+        "technical-seo",
+        "crawl-errors",
+        "broken-links",
+        "page-speed",
+        "core-web-vitals",
+        "lighthouse",
+        "structured-data",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/CrakSEO/crakseo-mcp-plugins.git",
+        "path": "seo-site-audit-by-crakseo",
+        "sha": "178aeb5cd018eddcb8acbd2429cd9065c193463b"
+      }
+    },
+    {
+      "name": "local-seo-by-crakseo",
+      "description": "Local SEO: Google Maps Rank Checker & Business Profile Ratings by CrakSEO. Local SEO for Google Maps: check Maps rankings for any keyword and location, with Google Business Profile ratings and review counts for you and local competitors. Connects the hosted CrakSEO Local SEO MCP server over OAuth and adds a skill. Paid data calls use prepaid API credits; the skill states the cost and asks before every paid call, and never buys credits.",
+      "version": "1.0.0",
+      "author": {
+        "name": "CrakSEO",
+        "url": "https://crakseo.com"
+      },
+      "homepage": "https://crakseo.com/mcp",
+      "repository": "https://github.com/CrakSEO/crakseo-mcp-plugins",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "local-seo",
+        "google-maps-ranking",
+        "local-rank-tracker",
+        "google-business-profile",
+        "local-search",
+        "google-my-business",
+        "reviews",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/CrakSEO/crakseo-mcp-plugins.git",
+        "path": "local-seo-by-crakseo",
+        "sha": "178aeb5cd018eddcb8acbd2429cd9065c193463b"
+      }
+    },
+    {
+      "name": "ai-search-visibility-by-crakseo",
+      "description": "AI Search Visibility: Brand Mentions in ChatGPT, Perplexity & AI Overviews by CrakSEO. AI search visibility for SEO and GEO: check brand mentions in ChatGPT, Perplexity and Google AI Overviews, and see which sources and citations AI answers use. Connects the hosted CrakSEO AI Search Visibility MCP server over OAuth and adds a skill. Paid data calls use prepaid API credits; the skill states the cost and asks before every paid call, and never buys credits.",
+      "version": "1.0.0",
+      "author": {
+        "name": "CrakSEO",
+        "url": "https://crakseo.com"
+      },
+      "homepage": "https://crakseo.com/mcp",
+      "repository": "https://github.com/CrakSEO/crakseo-mcp-plugins",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "ai-visibility",
+        "ai-search-visibility",
+        "brand-mentions",
+        "chatgpt",
+        "perplexity",
+        "llm-citations",
+        "geo",
+        "ai-overview-citations",
+        "llm-monitoring",
+        "ai-search-tracking",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/CrakSEO/crakseo-mcp-plugins.git",
+        "path": "ai-search-visibility-by-crakseo",
+        "sha": "178aeb5cd018eddcb8acbd2429cd9065c193463b"
+      }
+    },
+    {
+      "name": "google-search-console-indexing-by-crakseo",
+      "description": "Google Search Console Indexing: Index Checker, IndexNow & Force Indexing by CrakSEO. Google Search Console indexing for SEO: Google index checker, request indexing via IndexNow, Bing and sitemap resubmission, and force indexing for pages Google won't index. Connects the hosted CrakSEO URL indexing MCP server over OAuth and adds a skill. IndexNow, Bing, sitemap resubmission and index checks are free; optional force indexing uses URL credits after a quote and owner approval, and the skill asks before submissions.",
+      "version": "1.0.0",
+      "author": {
+        "name": "CrakSEO",
+        "url": "https://crakseo.com"
+      },
+      "homepage": "https://crakseo.com/mcp",
+      "repository": "https://github.com/CrakSEO/crakseo-mcp-plugins",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "indexing",
+        "google-index",
+        "indexnow",
+        "google-search-console",
+        "request-indexing",
+        "submit-url",
+        "url-inspection",
+        "sitemap",
+        "index-checker",
+        "force-indexing",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/CrakSEO/crakseo-mcp-plugins.git",
+        "path": "google-search-console-indexing-by-crakseo",
+        "sha": "178aeb5cd018eddcb8acbd2429cd9065c193463b"
+      }
+    },
+    {
       "name": "nextcost",
       "description": "A band above the prompt that prices the next message before it is sent: a countdown to the prompt cache going cold and what re-warming it will cost, plus session cost, context fill and the 5-hour and weekly limits. A Claude Code mod; it never calls a model or sends data.",
       "version": "0.22.0",
