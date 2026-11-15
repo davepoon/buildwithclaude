@@ -5693,6 +5693,33 @@
         "repo": "noambrand/ai-time-estimator",
         "sha": "da161a64034f19a27ff0ce411c6d452c2d9832e2"
       }
+    },
+    {
+      "name": "rabbit-skills",
+      "description": "23 agent skills from a small agency that runs 20+ Claude Code sessions in parallel for real clients: get it right the first time, run many sessions without chaos, pick the right model per chat, and sell on WhatsApp and Meta Ads.",
+      "version": "1.2.3",
+      "author": {
+        "name": "Rabbit Designs",
+        "url": "https://github.com/RabbitDesigns22"
+      },
+      "homepage": "https://github.com/RabbitDesigns22/claude-skills",
+      "repository": "https://github.com/RabbitDesigns22/claude-skills",
+      "license": "MIT",
+      "keywords": [
+        "skills",
+        "productivity",
+        "multi-session",
+        "verification",
+        "small-business",
+        "whatsapp",
+        "meta-ads"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "RabbitDesigns22/claude-skills",
+        "sha": "1e99e0ce7535f951cb65c5328d0dba36ccf45efb"
+      }
     }
   ]
 }
