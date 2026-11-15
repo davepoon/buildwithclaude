@@ -5309,7 +5309,7 @@
     {
       "name": "flightpath",
       "description": "Records every Claude Code session live, draws the journey as a map, and coaches the next session.",
-      "version": "1.0.3",
+      "version": "1.1.0",
       "author": {
         "name": "Naga Golla",
         "url": "https://github.com/dk-labs-dev"
@@ -5333,7 +5333,7 @@
         "source": "git-subdir",
         "url": "https://github.com/dk-labs-dev/flightpath.git",
         "path": "flightpath",
-        "sha": "8db542dcf9c7d78fb44e5d184a1c9cc9a27e005c"
+        "sha": "067c1d4e301ce366f2c50ea7a0963fbd9ec67459"
       }
     },
     {
