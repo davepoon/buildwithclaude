@@ -1,7 +1,7 @@
 {
   "name": "all-skills",
   "version": "1.0.0",
-  "description": "Complete collection of 208 Claude Code skills for document processing, development, business productivity, research, media safety, and creative tasks",
+  "description": "Complete collection of 230 Claude Code skills for document processing, development, business productivity, research, media safety, and creative tasks",
   "author": {
     "name": "BuildWithClaude Community",
     "url": "https://github.com/davepoon/buildwithclaude"
@@ -72,6 +72,28 @@
     "mcm-o-guide",
     "persona-collection",
     "ponder",
-    "openclawlaunch"
+    "openclawlaunch",
+    "govisit-get-category-overview",
+    "govisit-get-category-section",
+    "govisit-get-collection-overview",
+    "govisit-get-collection-section",
+    "govisit-get-destination-overview",
+    "govisit-get-destination-section",
+    "govisit-get-documentation-page",
+    "govisit-get-page-faq",
+    "govisit-get-place-overview",
+    "govisit-get-place-section",
+    "govisit-get-place-visit-facts",
+    "govisit-get-statistics",
+    "govisit-list-category-places",
+    "govisit-list-collection-places",
+    "govisit-list-destination-activities",
+    "govisit-list-destination-categories",
+    "govisit-list-destination-highlights",
+    "govisit-list-destination-places",
+    "govisit-list-related-places",
+    "govisit-search-destinations",
+    "govisit-search-documentation",
+    "govisit-search-places"
   ]
 }
