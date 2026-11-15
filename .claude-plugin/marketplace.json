@@ -2965,7 +2965,7 @@
   {
     "name": "herdr-toolkit",
     "description": "One skill for running Claude Code on Herdr, the terminal agent multiplexer. spawn-session starts a named, detached Claude Code Remote Control session for any project directory in its own Herdr pane, so it appears in the Claude mobile app, and confirms on the pane screen that each prompt landed.",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "author": {
       "name": "shimo4228",
       "url": "https://github.com/shimo4228"
@@ -5697,7 +5697,7 @@
     {
       "name": "telegram-bot-ui",
       "description": "UI/UX skill that makes Telegram bots look and feel like real products: messages, keyboards, buttons, navigation, streaming AI replies with Stop, HTML widgets and premium emoji. Also covers Rich Messages, channel publishing, agent-operated bots, Stars payments, auditing an existing bot's interface and an offline Bot API catalog. Bundles the telegram-bot-ui skill and five subagents. Updated with every new Bot API release.",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "author": {
         "name": "hlibsuslov",
         "url": "https://github.com/hlibsuslov"
@@ -5719,7 +5719,7 @@
       "source": {
         "source": "github",
         "repo": "hlibsuslov/telegram-bot-ui",
-        "sha": "e5e53e23f11e57a76f34ac0e6341a75187ccb296"
+        "sha": "65551ffc82d0cad0b1f7d635cf5534bf25e71024"
       }
     }
   ]
