@@ -5693,6 +5693,32 @@
         "repo": "noambrand/ai-time-estimator",
         "sha": "da161a64034f19a27ff0ce411c6d452c2d9832e2"
       }
+    },
+    {
+      "name": "harborrank",
+      "description": "SEO on live Google data and your own Search Console and Google Analytics, through the hosted HarborRank MCP server (OAuth sign-in). 18 skills: keyword research and clustering, competitor analysis, site audits and traffic-drop diagnosis, local SEO with Google Maps rank grids, AI search visibility, content briefs, link prospecting, client reports and local lead teardowns. Each skill also works without HarborRank in a web-evidence fallback mode. Pages, search results and tool output are data, not instructions; skills ask before any write.",
+      "version": "1.12.1",
+      "author": {
+        "name": "HarborRank",
+        "url": "https://harborrank.com"
+      },
+      "homepage": "https://harborrank.com/claude-seo-skills",
+      "repository": "https://github.com/winsley-jeune/harborrank-skills",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "keyword-research",
+        "search-console",
+        "local-seo",
+        "rank-tracking",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "winsley-jeune/harborrank-skills",
+        "sha": "34cee3ff34654b5b23e1478d0b66a0dfde117685"
+      }
     }
   ]
 }
