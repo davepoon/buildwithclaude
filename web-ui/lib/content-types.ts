@@ -9,6 +9,7 @@ export type ContentType =
   | 'plugin'
   | 'mcp-server'
   | 'marketplace'
+  | 'theme'
 
 /** A single hit from GET /api/search (mirrors the backend SearchDocument + `_formatted`). */
 export interface SearchHit {
@@ -46,6 +47,7 @@ export const TYPE_LABELS: Record<ContentType, string> = {
   plugin: 'Plugin',
   'mcp-server': 'MCP Server',
   marketplace: 'Marketplace',
+  theme: 'Theme',
 }
 
 export const TYPE_LABELS_PLURAL: Record<ContentType, string> = {
@@ -56,6 +58,7 @@ export const TYPE_LABELS_PLURAL: Record<ContentType, string> = {
   plugin: 'Plugins',
   'mcp-server': 'MCP Servers',
   marketplace: 'Marketplaces',
+  theme: 'Themes',
 }
 
 /** Fixed display order so result groups / facet tabs don't reshuffle as counts change. */
@@ -67,6 +70,7 @@ export const TYPE_ORDER: ContentType[] = [
   'hook',
   'mcp-server',
   'marketplace',
+  'theme',
 ]
 
 /** Tailwind classes for a type badge (extends the unified-plugin-card palette). */
@@ -86,6 +90,8 @@ export function getTypeBadgeClasses(type: string): string {
       return 'bg-teal-500/10 text-teal-500'
     case 'marketplace':
       return 'bg-indigo-500/10 text-indigo-500'
+    case 'theme':
+      return 'bg-pink-500/10 text-pink-500'
     default:
       return 'bg-muted text-muted-foreground'
   }

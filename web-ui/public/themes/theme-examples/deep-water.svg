@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" font-family="monospace" color="#888"><style>.shaft{transform-origin:50% 0;animation:sway 38s ease-in-out infinite alternate}
+   .shaft.b{animation-duration:52s;animation-direction:alternate-reverse}
+   .band{animation:drift 70s ease-in-out infinite alternate}
+   .band.b{animation-duration:95s;animation-direction:alternate-reverse}
+   .bubble{animation:rise 46s linear infinite}
+   .honu{animation:glide 80s ease-in-out infinite alternate}
+   @keyframes sway{from{transform:skewX(-5deg)}to{transform:skewX(6deg)}}
+   @keyframes drift{from{transform:translateX(-90px)}to{transform:translateX(90px)}}
+   @keyframes rise{from{transform:translateY(0);opacity:0}12%{opacity:1}85%{opacity:1}to{transform:translateY(-1150px);opacity:0}}
+   @keyframes glide{from{transform:translate(0,0) rotate(-4deg)}to{transform:translate(-70px,-26px) rotate(3deg)}} @media (prefers-reduced-motion: reduce) { * { animation: none !important } }</style><defs><linearGradient id="deep" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f6f86"/><stop offset="0.45" stop-color="#0a4660"/><stop offset="1" stop-color="#041c30"/></linearGradient>
+   <linearGradient id="ray" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#bff3ff" stop-opacity="0"/><stop offset="0.5" stop-color="#bff3ff" stop-opacity="0.3"/><stop offset="1" stop-color="#bff3ff" stop-opacity="0"/></linearGradient>
+   <linearGradient id="down" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="0.92" stop-color="#000"/></linearGradient>
+   <mask id="fade" maskUnits="userSpaceOnUse" x="-400" y="-40" width="2400" height="900"><rect x="-400" y="-40" width="2400" height="900" fill="url(#down)"/></mask>
+   <radialGradient id="caustic"><stop offset="0" stop-color="#9fe9f5" stop-opacity="0.2"/><stop offset="1" stop-color="#9fe9f5" stop-opacity="0"/></radialGradient>
+   <radialGradient id="orb"><stop offset="0" stop-color="#c9f6ff" stop-opacity="0.22"/><stop offset="1" stop-color="#c9f6ff" stop-opacity="0"/></radialGradient><radialGradient id="glint"><stop offset="0" stop-color="#e8fdff" stop-opacity="0.3"/><stop offset="1" stop-color="#e8fdff" stop-opacity="0"/></radialGradient><radialGradient id="calm" cx="0.5" cy="0.55" r="0.6"><stop offset="0" stop-color="#000" stop-opacity="0.12"/><stop offset="0.6" stop-color="#000" stop-opacity="0.05"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>
+<rect width="1600" height="1000" fill="url(#deep)"/>
+<g mask="url(#fade)">
+<g transform="translate(-60 0) skewX(-14)"><rect class="shaft" x="0" y="-40" width="460" height="900" fill="url(#ray)"/></g>
+<g transform="translate(1180 0) skewX(11)"><rect class="shaft b" x="0" y="-40" width="520" height="900" fill="url(#ray)"/></g>
+<g transform="translate(250 0) skewX(-20)"><rect class="shaft b" x="0" y="-40" width="420" height="900" fill="url(#ray)" opacity="0.55"/></g>
+</g>
+<g class="band"><ellipse cx="380" cy="130" rx="620" ry="70" fill="url(#caustic)"/><ellipse cx="1280" cy="170" rx="540" ry="56" fill="url(#caustic)"/></g>
+<g class="band b"><ellipse cx="300" cy="900" rx="700" ry="80" fill="url(#caustic)"/><ellipse cx="1350" cy="880" rx="560" ry="64" fill="url(#caustic)"/></g>
+<g class="bubble" style="animation-delay:-4s"><circle cx="70" cy="1060" r="46" fill="url(#orb)"/></g>
+<g class="bubble" style="animation-delay:-21s"><circle cx="1535" cy="1080" r="62" fill="url(#orb)"/><circle cx="1518" cy="1060" r="15" fill="url(#glint)"/></g>
+<g class="bubble" style="animation-delay:-33s"><circle cx="1470" cy="1050" r="30" fill="url(#orb)"/></g>
+<g class="bubble" style="animation-delay:-14s"><circle cx="150" cy="1070" r="26" fill="url(#orb)"/></g>
+<g transform="translate(1300 800)"><g class="honu" opacity="0.5"><g fill="#0b3a4d">
+  <ellipse cx="0" cy="0" rx="92" ry="62"/>
+  <ellipse cx="108" cy="-10" rx="30" ry="20"/>
+  <path d="M40 -52 q60 -64 104 -40 q-44 10 -78 62z"/><path d="M36 52 q58 60 96 34 q-40 -6 -70 -54z"/>
+  <path d="M-58 -44 q-52 -30 -70 -6 q38 0 56 34z"/><path d="M-58 44 q-50 30 -66 8 q36 -2 54 -34z"/>
+  <path d="M-92 0 l-30 6 l28 6z"/></g>
+  <ellipse cx="0" cy="0" rx="70" ry="44" fill="#124d63"/></g></g>
+<rect width="1600" height="1000" fill="url(#calm)"/></svg>

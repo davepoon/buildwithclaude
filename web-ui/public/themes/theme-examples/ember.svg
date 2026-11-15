@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" font-family="monospace" color="#888"><style>.embers{animation:pulse 9s ease-in-out infinite alternate}
+   .embers.b{animation-duration:13s;animation-direction:alternate-reverse}
+   .ember{animation:lift 34s linear infinite}
+   @keyframes pulse{from{opacity:0.6;transform:scale(0.97)}to{opacity:1;transform:scale(1.04)}}
+   @keyframes lift{from{transform:translate(0,0);opacity:0}10%{opacity:0.9}70%{opacity:0.5}to{transform:translate(60px,-1100px);opacity:0}} @media (prefers-reduced-motion: reduce) { * { animation: none !important } }</style><defs><linearGradient id="dusk2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d0709"/><stop offset="0.6" stop-color="#1c0b0e"/><stop offset="1" stop-color="#3a1210"/></linearGradient>
+   <radialGradient id="fire"><stop offset="0" stop-color="#ff7a2a" stop-opacity="0.5"/><stop offset="1" stop-color="#ff7a2a" stop-opacity="0"/></radialGradient><radialGradient id="coal"><stop offset="0" stop-color="#ff3d1a" stop-opacity="0.34"/><stop offset="1" stop-color="#ff3d1a" stop-opacity="0"/></radialGradient><radialGradient id="mote"><stop offset="0" stop-color="#ffc27a" stop-opacity="0.75"/><stop offset="1" stop-color="#ffc27a" stop-opacity="0"/></radialGradient><radialGradient id="dim"><stop offset="0" stop-color="#ffc27a" stop-opacity="0.22"/><stop offset="1" stop-color="#ffc27a" stop-opacity="0"/></radialGradient><radialGradient id="calm" cx="0.5" cy="0.55" r="0.6"><stop offset="0" stop-color="#000" stop-opacity="0.12"/><stop offset="0.6" stop-color="#000" stop-opacity="0.05"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>
+<rect width="1600" height="1000" fill="url(#dusk2)"/>
+<ellipse class="embers b" cx="1380" cy="40" rx="620" ry="300" fill="url(#coal)" opacity="0.28"/>
+<g style="transform-origin:120px 1000px" class="embers"><ellipse cx="120" cy="1010" rx="640" ry="520" fill="url(#fire)"/></g>
+<g style="transform-origin:1500px 1000px" class="embers b"><ellipse cx="1500" cy="1020" rx="680" ry="560" fill="url(#coal)"/></g>
+<ellipse cx="800" cy="1060" rx="900" ry="160" fill="url(#coal)" opacity="0.5"/>
+<circle class="ember" cx="470" cy="1040" r="14" fill="url(#mote)" style="animation-delay:-3s"/>
+<circle class="ember" cx="560" cy="1060" r="10" fill="url(#mote)" style="animation-delay:-17s"/>
+<circle class="ember" cx="1380" cy="1050" r="18" fill="url(#mote)" style="animation-delay:-9s"/>
+<circle class="ember" cx="1500" cy="1040" r="12" fill="url(#mote)" style="animation-delay:-25s"/>
+<circle class="ember" cx="1250" cy="1070" r="9" fill="url(#mote)" style="animation-delay:-30s"/>
+<circle class="ember" cx="120" cy="1080" r="18" fill="url(#dim)" style="animation-delay:-22s"/>
+<rect width="1600" height="1000" fill="url(#calm)"/></svg>

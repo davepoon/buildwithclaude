@@ -12,14 +12,14 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { GitHubLogoIcon, HamburgerMenuIcon, Cross2Icon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import { Bot, Package, Server, Sparkles, SquareTerminal, Store, Webhook } from "lucide-react";
+import { Bot, Package, Palette, Server, Sparkles, SquareTerminal, Store, Webhook } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { cn } from "@/lib/utils";
 import { GlobalSearch } from "@/components/global-search";
 import { useGlobalSearchShortcut } from "@/hooks/use-global-search-shortcut";
 
-// The seven content catalogs live under one "Browse" entry point.
+// The eight content catalogs live under one "Browse" entry point.
 const browseLinks = [
   { href: "/plugins", label: "Plugins", description: "Bundled agents, commands, and hooks", icon: Package },
   { href: "/skills", label: "Skills", description: "Reusable Claude Code skills", icon: Sparkles },
@@ -27,6 +27,7 @@ const browseLinks = [
   { href: "/commands", label: "Commands", description: "Custom slash commands", icon: SquareTerminal },
   { href: "/hooks", label: "Hooks", description: "Event-driven automations", icon: Webhook },
   { href: "/mcp-servers", label: "MCP Servers", description: "Model Context Protocol servers", icon: Server },
+  { href: "/themes", label: "Themes", description: "Desktop and terminal themes", icon: Palette },
   { href: "/marketplaces", label: "Marketplaces", description: "Community plugin registries", icon: Store },
 ];
 

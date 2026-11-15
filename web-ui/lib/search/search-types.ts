@@ -2,7 +2,7 @@ import type { Settings } from 'meilisearch'
 import { createHash } from 'node:crypto'
 
 /**
- * The seven content types BuildWithClaude indexes into Meilisearch. Values are
+ * The eight content types BuildWithClaude indexes into Meilisearch. Values are
  * chosen to match the singular detail-route directory names (`app/<type>/[slug]`)
  * so a document's detail URL is derivable as `/<type>/<slug>` for the six types
  * that have detail pages. Marketplaces have no per-item route → they deep-link
@@ -17,6 +17,7 @@ export type SearchContentType =
   | 'plugin'
   | 'mcp-server'
   | 'marketplace'
+  | 'theme'
 
 export const SEARCH_CONTENT_TYPES: SearchContentType[] = [
   'subagent',
@@ -26,6 +27,7 @@ export const SEARCH_CONTENT_TYPES: SearchContentType[] = [
   'plugin',
   'mcp-server',
   'marketplace',
+  'theme',
 ]
 
 export function isSearchContentType(value: string): value is SearchContentType {
@@ -54,6 +56,8 @@ export function makeObjectID(type: SearchContentType, slug: string): string {
  */
 export function urlForDocument(type: SearchContentType, slug: string, name?: string): string {
   if (type === 'marketplace') return `/marketplaces?q=${encodeURIComponent(name ?? slug)}`
+  // Themes have no per-item page either: deep-link into the listing, pre-filtered.
+  if (type === 'theme') return `/themes?q=${encodeURIComponent(name ?? slug)}`
   return `/${type}/${slug}`
 }
 
