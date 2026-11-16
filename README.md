@@ -216,6 +216,16 @@ Hook implementation...
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
+## Contributors
+
+This project exists thanks to all the people who contribute.
+
+<a href="https://github.com/davepoon/buildwithclaude/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=davepoon/buildwithclaude&columns=20&max=240" alt="Contributors" />
+</a>
+
+[Contribute on our GitHub](https://github.com/davepoon/buildwithclaude)
+
 ## Links
 
 - **Web UI**: [buildwithclaude.com](https://www.buildwithclaude.com)
