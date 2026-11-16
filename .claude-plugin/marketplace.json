@@ -5720,6 +5720,32 @@
         "repo": "asyntai/mcp-bridge",
         "sha": "8bafd22d54c502655dfe4fc887be33a23712567a"
       }
+    },
+    {
+      "name": "scanmalware",
+      "description": "Investigate phishing and malicious URLs with the ScanMalware scan archive. Connects the hosted, keyless ScanMalware MCP server and adds a skill for expanding one phishing URL into the rest of its campaign: which host a verdict belongs to after a redirect, and which pivots (script hash, favicon, account keys, JARM) are selective enough to hunt on. Lookups send only the value being looked up to scanmalware.com. Submitting a URL or voting on a scan waits for your yes. Scan content stays data, never instructions.",
+      "version": "1.3.2",
+      "author": {
+        "name": "Triop AB",
+        "url": "https://scanmalware.com"
+      },
+      "homepage": "https://github.com/scanmalware/scanmalware-plugin",
+      "repository": "https://github.com/scanmalware/scanmalware-plugin",
+      "license": "Apache-2.0",
+      "keywords": [
+        "phishing",
+        "threat-intelligence",
+        "url-scanning",
+        "osint",
+        "security",
+        "mcp"
+      ],
+      "category": "security",
+      "source": {
+        "source": "github",
+        "repo": "scanmalware/scanmalware-plugin",
+        "sha": "da71d7dce152b361f9ce4950aeb6e16ff1fec489"
+      }
     }
   ]
 }
