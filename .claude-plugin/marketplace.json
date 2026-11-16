@@ -5746,6 +5746,33 @@
         "repo": "scanmalware/scanmalware-plugin",
         "sha": "da71d7dce152b361f9ce4950aeb6e16ff1fec489"
       }
+    },
+    {
+      "name": "xcfs",
+      "description": "Run several Claude Code sessions or subagents on one Xcode project in parallel. The WorktreeCreate, WorktreeRemove and SessionEnd hooks hand each worktree out of xcfs: a checkout that is already built (a slot of a pool, the dependency layer cloned in with APFS clonefile), with an incremental build session and its own simulator, and the session's end returns what it opened, never anything with unsaved work. A skill tells the agent to build, compile-check and test through xcfs. Needs the xcfs CLI on PATH (brew install PatrickSCLin/xcfs/xcfs). No telemetry.",
+      "version": "0.3.1",
+      "author": {
+        "name": "PatrickSCLin",
+        "url": "https://github.com/PatrickSCLin"
+      },
+      "homepage": "https://patricksclin.github.io/xcfs/",
+      "repository": "https://github.com/PatrickSCLin/xcfs",
+      "license": "MIT",
+      "keywords": [
+        "xcode",
+        "ios",
+        "git-worktree",
+        "parallel-agents",
+        "hooks",
+        "claude-code"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/PatrickSCLin/xcfs.git",
+        "path": "plugins/xcfs",
+        "sha": "a24a3040c119f012b4a8aa1623addea6b98a7a52"
+      }
     }
   ]
 }
