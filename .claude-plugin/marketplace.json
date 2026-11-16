@@ -5746,6 +5746,35 @@
         "repo": "scanmalware/scanmalware-plugin",
         "sha": "da71d7dce152b361f9ce4950aeb6e16ff1fec489"
       }
+    },
+    {
+      "name": "sponge",
+      "description": "Find, read and cite passages from your Sponge reading library, a local-first library of saved articles and PDFs. The plugin adds one skill and a local MCP server that runs your installed Sponge CLI (`sponge mcp`) against your existing library. The launcher checks for the @hraness/sponge package first and refuses an unrelated `sponge` command; it installs nothing, signs in to nothing and creates no library. Saving a URL or adding a note happens only when you ask. Saved text stays data, never instructions.",
+      "version": "0.1.4",
+      "author": {
+        "name": "Hraness",
+        "url": "https://hraness.com"
+      },
+      "homepage": "https://sponge.computer/docs/agents",
+      "repository": "https://github.com/hraness/product-skills",
+      "license": "MIT",
+      "keywords": [
+        "reading",
+        "read-later",
+        "research",
+        "citations",
+        "highlights",
+        "pdf",
+        "local-first",
+        "mcp"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/hraness/product-skills.git",
+        "path": "plugins/sponge",
+        "sha": "45f1689ed94e41a3dbbce0477d065801b9f3d182"
+      }
     }
   ]
 }
