@@ -5746,6 +5746,33 @@
         "repo": "scanmalware/scanmalware-plugin",
         "sha": "da71d7dce152b361f9ce4950aeb6e16ff1fec489"
       }
+    },
+    {
+      "name": "rabbit-skills",
+      "description": "23 agent skills from a small agency that runs 20+ Claude Code sessions in parallel for real clients: get it right the first time, run many sessions without chaos, pick the right model per chat, and sell on WhatsApp and Meta Ads.",
+      "version": "1.2.4",
+      "author": {
+        "name": "Rabbit Designs",
+        "url": "https://github.com/RabbitDesigns22"
+      },
+      "homepage": "https://github.com/RabbitDesigns22/claude-skills",
+      "repository": "https://github.com/RabbitDesigns22/claude-skills",
+      "license": "MIT",
+      "keywords": [
+        "skills",
+        "productivity",
+        "multi-session",
+        "verification",
+        "small-business",
+        "whatsapp",
+        "meta-ads"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "RabbitDesigns22/claude-skills",
+        "sha": "0d84ae59bd70b2a33a18e2f2ff94fec0487285cf"
+      }
     }
   ]
 }
