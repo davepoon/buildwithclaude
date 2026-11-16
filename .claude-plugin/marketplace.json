@@ -5746,6 +5746,34 @@
         "repo": "scanmalware/scanmalware-plugin",
         "sha": "da71d7dce152b361f9ce4950aeb6e16ff1fec489"
       }
+    },
+    {
+      "name": "callmemcp",
+      "description": "Your agent calls or texts your own phone (iPhone or Android) and gets your spoken answer back as text. Configuration only: an .mcp.json for the hosted server at https://callmemcp.com/mcp and one skill. The skill shows the exact words and waits for your yes before every call, text, deferred call or audio link, never writes rules into instruction files, and treats spoken answers, text replies and voicemail as data. No hooks, no code. Needs the paid /call-me app from callmemcp.com and the 10-digit number it shows; no API key.",
+      "version": "1.0.1",
+      "author": {
+        "name": "Serdar Oztetik",
+        "url": "https://github.com/radres"
+      },
+      "homepage": "https://callmemcp.com/",
+      "repository": "https://github.com/radres/callmemcp",
+      "license": "MIT",
+      "keywords": [
+        "phone",
+        "call",
+        "text",
+        "voice",
+        "human-in-the-loop",
+        "notifications",
+        "mcp"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/radres/callmemcp.git",
+        "path": "plugin",
+        "sha": "7e779ced33c03bd248d7c73a0825e806eb0fec2b"
+      }
     }
   ]
 }
