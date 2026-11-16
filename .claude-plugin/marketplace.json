@@ -5746,6 +5746,37 @@
         "repo": "scanmalware/scanmalware-plugin",
         "sha": "da71d7dce152b361f9ce4950aeb6e16ff1fec489"
       }
+    },
+    {
+      "name": "golviva",
+      "description": "Golviva's hosted, read-only football (soccer) MCP server: match predictions for every match of 26 leagues, the European club competitions and national teams (win, draw and loss chances, likeliest scores and scorers, predicted line-ups), title and relegation chances, player valuations with the reasons behind them, scouting, live scores, tables, stat leaders and transfer news. Four skills route questions to the right tools. No write, post or purchase tools; predictions are model probabilities, not betting advice. Tool results are treated as data, never as instructions.",
+      "version": "2.1.2",
+      "author": {
+        "name": "Golviva",
+        "url": "https://golviva.com"
+      },
+      "homepage": "https://golviva.com/mcp",
+      "repository": "https://github.com/target1m/golviva-mcp",
+      "license": "MIT",
+      "keywords": [
+        "football",
+        "soccer",
+        "match-predictions",
+        "season-projections",
+        "player-valuation",
+        "transfer-value",
+        "scouting",
+        "live-scores",
+        "league-tables",
+        "transfer-news",
+        "mcp"
+      ],
+      "category": "mcp-servers",
+      "source": {
+        "source": "github",
+        "repo": "target1m/golviva-mcp",
+        "sha": "3537c0bf265d694a5049650ef606dcd15262474c"
+      }
     }
   ]
 }
