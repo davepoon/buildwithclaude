@@ -5068,7 +5068,7 @@
     {
       "name": "clawd-band",
       "description": "A band above the prompt: an animated Clawd sprite, five-hour and weekly usage bars with a countdown to each window's reset, and a context-window bar with a countdown until the prompt cache goes cold. A Claude Code mod; the sprite needs kitty's graphics protocol.",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "author": {
         "name": "SleepNoMore",
         "url": "https://github.com/nninkovic95"
@@ -5087,7 +5087,7 @@
       "source": {
         "source": "github",
         "repo": "nninkovic95/clawd-band",
-        "sha": "ad376e26bbb03de3d16c65a4de6d8183a0d389a6"
+        "sha": "3231f13ebf7f667fd62fd0138e808913024776e1"
       }
     },
     {
