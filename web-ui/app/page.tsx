@@ -14,9 +14,10 @@ import HomePageClient, { type Pick } from './page-client'
 // Themes eligible for the homepage's daily rotation: any with a preview that is not a GIF (those run to several megabytes).
 const HOMEPAGE_THEMES = themes.filter((t) => t.preview && !/\.gif($|\?)/i.test(t.preview))
 
-// Hero catalog totals come from the DB; cache the page for an hour so the
-// homepage isn't a per-request DB hit (the rest of it is local-file driven).
-export const revalidate = 3600
+// Totals and rankings come from the DB; cache the page so the homepage isn't a
+// per-request DB hit. Kept to five minutes because the build has no database
+// access: the build-time page has no rankings and stays up until it regenerates.
+export const revalidate = 300
 
 // Real catalog totals for the discovery subhead, matching the per-page header
 // numbers (/plugins, /skills, /mcp-servers). Resilient: each helper already
