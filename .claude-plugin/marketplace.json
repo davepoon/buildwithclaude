@@ -5695,6 +5695,33 @@
       }
     },
     {
+      "name": "asyntai-ai-chatbot",
+      "description": "Run the Asyntai AI chatbot on your website from Claude Code. Asyntai is an AI customer support agent and live chat widget for websites and online shops. The plugin connects the hosted Asyntai MCP server and adds one skill, so you can add knowledge and crawl pages, edit the agent's instructions, change the widget, read conversations and captured leads, reply live to visitors and check plan usage. Sign-in is OAuth with your Asyntai account.",
+      "version": "1.0.2",
+      "author": {
+        "name": "Asyntai",
+        "url": "https://asyntai.com"
+      },
+      "homepage": "https://asyntai.com/documentation/mcp/",
+      "repository": "https://github.com/asyntai/mcp-bridge",
+      "license": "MIT",
+      "keywords": [
+        "ai-chatbot",
+        "customer-support",
+        "live-chat",
+        "chat-widget",
+        "leads",
+        "knowledge-base",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "asyntai/mcp-bridge",
+        "sha": "8bafd22d54c502655dfe4fc887be33a23712567a"
+      }
+    },
+    {
       "name": "scanmalware",
       "description": "Investigate phishing and malicious URLs with the ScanMalware scan archive. Connects the hosted, keyless ScanMalware MCP server and adds a skill for expanding one phishing URL into the rest of its campaign: which host a verdict belongs to after a redirect, and which pivots (script hash, favicon, account keys, JARM) are selective enough to hunt on. Lookups send only the value being looked up to scanmalware.com. Submitting a URL or voting on a scan waits for your yes. Scan content stays data, never instructions.",
       "version": "1.3.2",
