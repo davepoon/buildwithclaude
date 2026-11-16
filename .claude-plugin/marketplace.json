@@ -5746,6 +5746,30 @@
         "repo": "scanmalware/scanmalware-plugin",
         "sha": "da71d7dce152b361f9ce4950aeb6e16ff1fec489"
       }
+    },
+    {
+      "name": "specstream",
+      "description": "Live web search, page extraction, structured Deep Search lists, and cited research reports in Claude Code through the hosted SpecStream MCP server. Sign in over OAuth from /mcp; new accounts include $10 of credit.",
+      "version": "1.0.0",
+      "author": {
+        "name": "SpecStream",
+        "url": "https://specstream.ai"
+      },
+      "homepage": "https://specstream.ai/docs/mcp",
+      "repository": "https://github.com/davepoon/buildwithclaude",
+      "license": "MIT",
+      "keywords": [
+        "web-search",
+        "web-extraction",
+        "research",
+        "deep-search",
+        "citations",
+        "structured-data",
+        "mcp",
+        "oauth"
+      ],
+      "category": "research",
+      "source": "./plugins/specstream"
     }
   ]
 }

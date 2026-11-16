@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "specstream": {
+      "type": "http",
+      "url": "https://api.specstream.ai/mcp"
+    }
+  }
+}
