@@ -27,7 +27,7 @@
     {
       "name": "agentwhy",
       "description": "See which private files Claude Code and its subagents reached and whether secret values entered the conversation. Choose which files to block or track, and get alerts when Claude Code reads a private file. The audit runs locally on session records already on your computer.",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "author": {
         "name": "Nessprim Karol Kozer",
         "url": "https://github.com/karolkozer"
@@ -44,7 +44,8 @@
       "category": "security",
       "source": {
         "source": "npm",
-        "package": "@agentwhy/cli"
+        "package": "@agentwhy/cli",
+        "version": "0.8.0"
       }
     },
     {
