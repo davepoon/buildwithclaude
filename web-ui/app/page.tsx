@@ -7,10 +7,12 @@ import { getAllStories } from '@/lib/stories-server'
 import { themes } from '@/lib/themes'
 import { getPluginOnlyCount, getSkillOnlyCount } from '@/lib/plugin-db-server'
 import { getMCPServersPaginated } from '@/lib/mcp-server-db'
-import HomePageClient from './page-client'
+import { getHomeTrending } from '@/lib/home-trending'
+import { dailyPicks } from '@/lib/home-picks'
+import HomePageClient, { type Pick } from './page-client'
 
-// Themes shown on the homepage, by slug. All have light previews (no multi-megabyte GIFs).
-const FEATURED_THEME_SLUGS = ['theme-examples-honu-lagoon', 'theme-examples-night-reef', 'matcra587-catppuccin']
+// Themes eligible for the homepage's daily rotation: any with a preview that is not a GIF (those run to several megabytes).
+const HOMEPAGE_THEMES = themes.filter((t) => t.preview && !/\.gif($|\?)/i.test(t.preview))
 
 // Hero catalog totals come from the DB; cache the page for an hour so the
 // homepage isn't a per-request DB hit (the rest of it is local-file driven).
@@ -42,6 +44,13 @@ async function getCatalogTotals() {
   }
 }
 
+// Slim rows for the client: the collections carry full markdown bodies we don't want in the page payload.
+const toPicks = <T extends { slug?: string; name?: string; description: string }>(items: T[], prefix: string): Pick[] =>
+  dailyPicks(items, 5).map((item) => {
+    const id = item.slug ?? item.name ?? ''
+    return { name: item.name || id, href: `${prefix}/${id}`, description: item.description }
+  })
+
 export default async function Home() {
   const plugins = getAllPlugins()
   const subagents = getAllSubagents()
@@ -49,26 +58,34 @@ export default async function Home() {
   const skills = getAllSkills()
   const hooks = getAllHooks()
   const stories = getAllStories()
-  const { pluginTotal, skillTotal, mcpTotal } = await getCatalogTotals()
+  const [{ pluginTotal, skillTotal, mcpTotal }, trending] = await Promise.all([getCatalogTotals(), getHomeTrending()])
 
   return (
     <HomePageClient
-      pluginCount={plugins.length}
-      subagentCount={subagents.length}
-      commandCount={commands.length}
-      skillCount={skills.length}
-      hookCount={hooks.length}
-      themeCount={themes.length}
-      pluginTotal={pluginTotal}
-      skillTotal={skillTotal}
-      mcpTotal={mcpTotal}
-      featuredPlugins={plugins.slice(0, 8)}
-      featuredSkills={skills.slice(0, 8)}
-      featuredSubagents={subagents.slice(0, 8)}
-      featuredCommands={commands.slice(0, 8)}
-      featuredHooks={hooks.slice(0, 8)}
+      counts={{
+        plugins: pluginTotal,
+        skills: skillTotal,
+        mcp: mcpTotal,
+        subagents: subagents.length,
+        commands: commands.length,
+        hooks: hooks.length,
+        themes: themes.length,
+      }}
+      trending={trending}
+      picks={{
+        subagents: toPicks(subagents, '/subagent'),
+        commands: toPicks(commands.map((c) => ({ ...c, name: `/${c.slug}` })), '/command'),
+        hooks: toPicks(hooks, '/hook'),
+        // Only shown when the ranked lists are empty (database unreachable)
+        plugins: toPicks(plugins.map((p) => ({ name: p.name, description: p.description })), '/plugin'),
+        skills: toPicks(skills, '/skill'),
+      }}
+      heroThemes={dailyPicks(
+        themes.filter((t) => t.preview?.startsWith('/themes/theme-examples/') && t.slug !== 'theme-examples'),
+        4,
+      ).map((t) => ({ name: t.name, preview: t.preview! }))}
       featuredStories={stories.slice(0, 3)}
-      featuredThemes={FEATURED_THEME_SLUGS.flatMap((slug) => themes.filter((t) => t.slug === slug))}
+      featuredThemes={dailyPicks(HOMEPAGE_THEMES, 3)}
     />
   )
 }
