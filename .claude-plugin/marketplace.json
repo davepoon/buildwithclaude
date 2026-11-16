@@ -5746,6 +5746,33 @@
         "repo": "scanmalware/scanmalware-plugin",
         "sha": "da71d7dce152b361f9ce4950aeb6e16ff1fec489"
       }
+    },
+    {
+      "name": "textmock",
+      "description": "Make fictional iMessage-style conversations as Textmock share links. The plugin adds one skill and a small dependency-free Node.js helper that encodes a conversation into a textmock.com link; the text travels in the link fragment, which browsers do not send to the server. Open the link, choose Make a Copy, then save an image or a video. Uses fictional content unless you ask to share your own.",
+      "version": "0.1.2",
+      "author": {
+        "name": "Hraness",
+        "url": "https://hraness.com"
+      },
+      "homepage": "https://textmock.com/docs/agents",
+      "repository": "https://github.com/hraness/product-skills",
+      "license": "MIT",
+      "keywords": [
+        "imessage",
+        "mockup",
+        "text-message",
+        "conversation",
+        "video",
+        "screenshots"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/hraness/product-skills.git",
+        "path": "plugins/textmock",
+        "sha": "45f1689ed94e41a3dbbce0477d065801b9f3d182"
+      }
     }
   ]
 }
