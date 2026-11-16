@@ -335,6 +335,20 @@
     "preview": "/themes/theme-examples/ember.svg"
   },
   {
+    "slug": "snowfall",
+    "name": "Snowfall",
+    "author": "Brezn610",
+    "repo": "Brezn610/snowfall-theme",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "A moonlit cabin and pines under falling snow that reacts to your session: the snowfall grows as the context window fills, with a ring badge showing how full it is.",
+    "preview": "/themes/community/snowfall.svg",
+    "install": [
+      "/plugin marketplace add Brezn610/snowfall-theme",
+      "/plugin install snowfall-theme@snowfall"
+    ]
+  },
+  {
     "slug": "rainy-window",
     "name": "Rainy Window",
     "author": "ishuagrawal",
