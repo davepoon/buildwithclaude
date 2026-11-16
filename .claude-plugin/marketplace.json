@@ -5746,6 +5746,35 @@
         "repo": "scanmalware/scanmalware-plugin",
         "sha": "da71d7dce152b361f9ce4950aeb6e16ff1fec489"
       }
+    },
+    {
+      "name": "ccx",
+      "description": "Hand a task from Claude Code to Codex or Antigravity with its context intact, then switch back when the quota refills. A macOS menu bar app plus a Claude Code plugin with handoff skills (/to-codex, /from-codex, /to-antigravity, /from-antigravity) and a local MCP server. macOS 13+, no account, no telemetry, no API keys.",
+      "version": "0.1.1",
+      "author": {
+        "name": "Aaron Wong",
+        "url": "https://github.com/AaronWong1999"
+      },
+      "homepage": "https://github.com/AaronWong1999/ccx",
+      "repository": "https://github.com/AaronWong1999/ccx",
+      "license": "MIT",
+      "keywords": [
+        "codex",
+        "antigravity",
+        "session",
+        "context",
+        "handoff",
+        "sync",
+        "claude-code",
+        "usage-limit"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/AaronWong1999/ccx.git",
+        "path": "plugins/ccx",
+        "ref": "main"
+      }
     }
   ]
 }
