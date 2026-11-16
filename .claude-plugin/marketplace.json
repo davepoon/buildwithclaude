@@ -5746,6 +5746,32 @@
         "repo": "scanmalware/scanmalware-plugin",
         "sha": "da71d7dce152b361f9ce4950aeb6e16ff1fec489"
       }
+    },
+    {
+      "name": "runlater",
+      "description": "Schedule HTTP requests from Claude Code: call any public URL once at an exact time or on a cron schedule, with retries and a log of every run. A skill that picks the right schedule tool, plus the hosted RunLater MCP server (9 tools, OAuth sign-in, no key to paste). Scheduling needs a RunLater plan (from $15/mo, 14-day trial).",
+      "version": "1.1.0",
+      "author": {
+        "name": "Great Work LLC",
+        "url": "https://runlater.app"
+      },
+      "homepage": "https://runlater.app",
+      "repository": "https://github.com/runlater-app/runlater-plugin",
+      "license": "MIT",
+      "keywords": [
+        "cron",
+        "scheduler",
+        "webhooks",
+        "scheduled-jobs",
+        "http-requests",
+        "mcp"
+      ],
+      "category": "automation",
+      "source": {
+        "source": "github",
+        "repo": "runlater-app/runlater-plugin",
+        "sha": "b0c37597377a566895497435502f7987fba90b54"
+      }
     }
   ]
 }
