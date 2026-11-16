@@ -5746,6 +5746,31 @@
         "repo": "scanmalware/scanmalware-plugin",
         "sha": "da71d7dce152b361f9ce4950aeb6e16ff1fec489"
       }
+    },
+    {
+      "name": "vibesenpai",
+      "description": "Reads the Claude Code session transcripts already on disk and shows where the agent went wrong: the turns where it misread intent, broke a stated constraint, misreported its own work or overreached, quoted in the developer's own words, plus edit retries, repeated calls and cache rebuilds. A pane beside the chat lists the findings and offers a fix for each kind (a rule, a permission or a hook); Apply drafts it into the prompt box and nothing changes until the developer sends it. Transcripts are read in place and never copied. Model reads are off until the developer says yes after seeing the exact text they would send; they then send redacted session text to Claude Haiku on the user's own Claude Code account, within about 2M tokens a day, until /vibesenpai:judge off.",
+      "version": "0.1.0",
+      "author": {
+        "name": "vibesenpai contributors",
+        "url": "https://github.com/vibesenpai"
+      },
+      "homepage": "https://vibesenpai.github.io/vibesenpai/",
+      "repository": "https://github.com/vibesenpai/vibesenpai",
+      "license": "MIT",
+      "keywords": [
+        "observability",
+        "transcripts",
+        "session-review",
+        "claude-code-mod",
+        "hooks"
+      ],
+      "category": "monitoring",
+      "source": {
+        "source": "github",
+        "repo": "vibesenpai/vibesenpai",
+        "sha": "2c484452f77a0295559f1bd8237834e50c1ed291"
+      }
     }
   ]
 }
