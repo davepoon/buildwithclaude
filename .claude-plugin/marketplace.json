@@ -5963,6 +5963,34 @@
         "path": "plugin",
         "sha": "7e779ced33c03bd248d7c73a0825e806eb0fec2b"
       }
+    },
+    {
+      "name": "treeproof",
+      "description": "Stop and TaskCompleted hooks: after Claude edits code, it cannot end the turn until a passing test run exists for the exact git tree on disk. Tests run through `treeproof run -- <cmd>`, which writes a signed in-toto test-result receipt for that tree; a later edit, a failing run, a 0-test run or a filtered subset leaves the gate closed, and after 3 blocks on the same tree it lets the turn end with a warning. Receipts can be re-verified in CI with the treeproof GitHub Action, and identical trees in other worktrees reuse the result. Also adds the receipt_run, receipt_query and receipt_verify MCP tools. Needs the treeproof binary on PATH (cargo install treeproof, or a release binary). Runs locally; nothing is sent anywhere unless you set an OTLP endpoint.",
+      "version": "0.1.1",
+      "author": {
+        "name": "Matthew Busel",
+        "url": "https://github.com/Mattbusel"
+      },
+      "homepage": "https://github.com/Mattbusel/treeproof",
+      "repository": "https://github.com/Mattbusel/treeproof",
+      "license": "MIT OR Apache-2.0",
+      "keywords": [
+        "testing",
+        "verification",
+        "stop-hook",
+        "in-toto",
+        "receipts",
+        "worktrees",
+        "mcp"
+      ],
+      "category": "hooks",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Mattbusel/treeproof.git",
+        "path": "plugin",
+        "sha": "3d5fe1803cd48b7804a685983cb94dad7ad3caf5"
+      }
     }
   ]
 }
