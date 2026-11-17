@@ -5,7 +5,7 @@ import { eq, and, sql, inArray } from 'drizzle-orm'
 import { z } from 'zod'
 import { expandSkillCollection } from './skill-expander'
 import { resolveMarketplaceSkills } from './marketplace-skills'
-import { KNOWN_MARKETPLACE_REPOS } from './marketplace-indexer'
+import { DISPLAY_NAME_OVERRIDES, KNOWN_MARKETPLACE_REPOS } from './marketplace-indexer'
 import { staleMissing } from './missing-marketplaces'
 
 // Plugin schema for GitHub marketplace data
@@ -326,7 +326,7 @@ export async function indexPlugins(
   const bumpIds: string[] = [] // unchanged / skipped / failed → bulk last_indexed_at bump
   // Card metadata (GitHub About) that drifted. Editing About does not move
   // pushed_at, so this is tracked separately from change-detection.
-  const metaUpdates: Array<{ id: string; description: string; url: string; stars: number }> = []
+  const metaUpdates: Array<{ id: string; displayName: string; description: string; url: string; stars: number }> = []
   let metaRefreshed = 0
 
   const MAX_SKILL_EXPANSIONS = 10
@@ -442,11 +442,13 @@ export async function indexPlugins(
     // place existing marketplaces are refreshed.
     if (!KNOWN_MARKETPLACE_REPOS.has(repoPath)) {
       const fresh = {
+        displayName: DISPLAY_NAME_OVERRIDES[repoPath.toLowerCase()] ?? marketplace.displayName,
         description: repoMeta.description || marketplace.description || '',
         url: repoMeta.homepage || repoMeta.html_url,
         stars: repoMeta.stargazers_count,
       }
       if (
+        fresh.displayName !== marketplace.displayName ||
         fresh.description !== (marketplace.description ?? '') ||
         fresh.url !== marketplace.url ||
         fresh.stars !== marketplace.stars
