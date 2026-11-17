@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { CarbonAd } from '@/components/carbon-ad'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { 
@@ -86,9 +87,9 @@ export default function DocsPage() {
       </div>
       
       <div className="container mx-auto px-4 py-12">
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 lg:grid-rows-[auto_1fr] gap-8">
           {/* Main Content */}
-          <div className="lg:col-span-2 min-w-0">
+          <div className="lg:col-span-2 lg:row-span-2 min-w-0">
             <h2 className="text-2xl font-bold mb-6">Browse Documentation</h2>
             <div className="grid md:grid-cols-2 gap-4 mb-12">
               {docsSections.map((section) => {
@@ -171,8 +172,12 @@ export default function DocsPage() {
             </div>
           </div>
           
+          {/* The page's one ad heads the sidebar column: above the fold on desktop, as Carbon's placement policy asks.
+              The short card's height is reserved; a full cover moves the sidebar links down when it arrives. */}
+          <CarbonAd className="mx-auto lg:col-start-3 lg:row-start-1 lg:min-h-[155px]" />
+
           {/* Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-start-3 lg:row-start-2">
             <div className="sticky top-20 space-y-6">
               {/* Quick Links */}
               <div>

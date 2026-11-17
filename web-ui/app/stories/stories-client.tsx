@@ -1,16 +1,18 @@
 'use client'
 
 import { CarbonAd } from '@/components/carbon-ad'
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import { Monitor } from 'lucide-react'
 import { FilterBar, CategoryFilter, SingleSelectFilter } from '@/components/filter-controls'
 import type { Story } from '@/lib/stories-types'
 import { StoryCard } from '@/components/stories/story-card'
 import { FeaturedHero } from '@/components/stories/featured-hero'
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination'
 
 const CATEGORIES = ['Plugins', 'Skills', 'Subagents', 'Commands', 'Hooks'] as const
 const PLATFORMS = ['Claude Code', 'Claude Desktop', 'Agent SDK', 'OpenClaw'] as const
+const PAGE_SIZE = 20
 
 interface StoriesIndexClientProps {
   pinned: Story | null
@@ -21,6 +23,8 @@ interface StoriesIndexClientProps {
 export function StoriesIndexClient({ pinned, stories, guide }: StoriesIndexClientProps) {
   const [category, setCategory] = useState<string>('all')
   const [platform, setPlatform] = useState<string>('all')
+  const [page, setPage] = useState(1)
+  const listRef = useRef<HTMLDivElement>(null)
 
   const filtered = useMemo(() => {
     return stories.filter(s => {
@@ -29,6 +33,15 @@ export function StoriesIndexClient({ pinned, stories, guide }: StoriesIndexClien
       return true
     })
   }, [stories, category, platform])
+
+  // A filter change can leave fewer pages than the current one, so the page is clamped rather than reset in each handler
+  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const current = Math.min(page, pageCount)
+  const visible = filtered.slice((current - 1) * PAGE_SIZE, current * PAGE_SIZE)
+  const goTo = (next: number) => {
+    setPage(next)
+    listRef.current?.scrollIntoView({ block: 'start' })
+  }
 
   // Category and platform counts in one pass over the stories
   const { categoryOptions, platformOptions } = useMemo(() => {
@@ -46,8 +59,11 @@ export function StoriesIndexClient({ pinned, stories, guide }: StoriesIndexClien
 
   return (
     <div>
+      {/* The page's one ad sits to the right of the header on desktop (above the fold, as Carbon's placement
+          policy asks), and under it on smaller screens. */}
       <section style={{ padding: '64px 0 32px' }}>
-        <div className="container mx-auto px-4" style={{ maxWidth: 1280 }}>
+        <div className="container mx-auto flex flex-col gap-8 px-4 lg:flex-row lg:items-start" style={{ maxWidth: 1280 }}>
+          <div className="min-w-0 flex-1">
           <div
             style={{
               display: 'inline-flex',
@@ -114,6 +130,8 @@ export function StoriesIndexClient({ pinned, stories, guide }: StoriesIndexClien
               </Link>
             </div>
           </div>
+          </div>
+          <CarbonAd className="mx-auto shrink-0 lg:w-[400px]" />
         </div>
       </section>
 
@@ -205,18 +223,13 @@ export function StoriesIndexClient({ pinned, stories, guide }: StoriesIndexClien
         </section>
       )}
 
-      {/* The editor's pick shares its row with the page's one ad: beside it on desktop (above the fold,
-          as Carbon's placement policy asks), under it on smaller screens. */}
-      <section style={{ padding: '32px 0 8px' }}>
-        <div className="container mx-auto flex flex-col gap-6 px-4 lg:flex-row lg:items-start" style={{ maxWidth: 1280 }}>
-          {pinned && (
-            <div className="min-w-0 flex-1 self-stretch">
-              <FeaturedHero story={pinned} />
-            </div>
-          )}
-          <CarbonAd className="shrink-0 lg:w-[400px]" />
-        </div>
-      </section>
+      {pinned && (
+        <section style={{ padding: '32px 0 8px' }}>
+          <div className="container mx-auto px-4" style={{ maxWidth: 1280 }}>
+            <FeaturedHero story={pinned} />
+          </div>
+        </section>
+      )}
 
       <section className="md:pt-7" style={{ paddingBottom: 48 }}>
         <div className="container mx-auto px-4" style={{ maxWidth: 1280 }}>
@@ -230,17 +243,19 @@ export function StoriesIndexClient({ pinned, stories, guide }: StoriesIndexClien
               placeholder="Select platform"
               searchPlaceholder="Search platforms..."
               emptyText="No platform found."
-              onChange={setPlatform}
+              onChange={(value) => { setPlatform(value); setPage(1) }}
             />
             {/* Category filter, single-select */}
             <CategoryFilter
               single
               selected={category === 'all' ? [] : [category]}
               options={categoryOptions}
-              onChange={(next) => setCategory(next[0] ?? 'all')}
+              onChange={(next) => { setCategory(next[0] ?? 'all'); setPage(1) }}
             />
           </FilterBar>
           <div
+            ref={listRef}
+            className="scroll-mt-32"
             style={{
               display: 'flex',
               justifyContent: 'space-between',
@@ -274,12 +289,32 @@ export function StoriesIndexClient({ pinned, stories, guide }: StoriesIndexClien
                 display: 'grid',
                 gap: 18,
               }}
-              className="stories-index-grid grid-cols-1 sm:grid-cols-2"
+              className="stories-index-grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
             >
-              {filtered.map(s => (
+              {visible.map(s => (
                 <StoryCard key={s.slug} story={s} density="roomy" />
               ))}
             </div>
+          )}
+
+          {pageCount > 1 && (
+            <Pagination className="mt-10">
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious disabled={current === 1} onClick={() => goTo(current - 1)} />
+                </PaginationItem>
+                {Array.from({ length: pageCount }, (_, i) => i + 1).map(n => (
+                  <PaginationItem key={n}>
+                    <PaginationLink isActive={n === current} aria-label={`Page ${n}`} onClick={() => goTo(n)}>
+                      {n}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+                <PaginationItem>
+                  <PaginationNext disabled={current === pageCount} onClick={() => goTo(current + 1)} />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
           )}
         </div>
       </section>
