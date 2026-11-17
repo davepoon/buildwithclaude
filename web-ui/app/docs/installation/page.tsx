@@ -1,5 +1,6 @@
 'use client'
 
+import { CarbonAd } from '@/components/carbon-ad'
 import { useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
@@ -94,6 +95,10 @@ for %f in (\\path\\to\\buildwithclaude\\commands\\*.md) do copy "%f" .claude\\co
       </div>
       
       <div className="container mx-auto px-4 pt-8 pb-12 max-w-5xl">
+        {/* The two callouts share their row with the page's one ad: beside them on desktop (above the fold,
+            as Carbon's placement policy asks), under them on smaller screens. */}
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-x-8">
+        <div className="min-w-0">
         {/* Plugin Marketplace - Recommended */}
         <div className="mb-8 p-6 bg-green-500/10 rounded-xl border border-green-500/20">
           <div className="flex items-start gap-3">
@@ -137,7 +142,10 @@ for %f in (\\path\\to\\buildwithclaude\\commands\\*.md) do copy "%f" .claude\\co
             </div>
           </div>
         </div>
-        
+        </div>
+        <CarbonAd className="mx-auto mb-8" />
+        </div>
+
         {/* Main Installation Content */}
         <Tabs defaultValue="everything" className="space-y-8">
           <TabsList className="grid w-full grid-cols-3 max-w-2xl max-sm:h-auto">

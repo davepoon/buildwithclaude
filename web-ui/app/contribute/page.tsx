@@ -1,5 +1,6 @@
 'use client'
 
+import { CarbonAd } from '@/components/carbon-ad'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -356,8 +357,10 @@ that invite a reply outperform ones that don't.`
 
       <div className="container mx-auto px-4 py-12 max-w-6xl">
         {/* Quick Start Section */}
-        <section className="mb-16">
-          <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-8 border border-primary/20">
+        {/* The card shares its row with the page's one ad: beside it on desktop (above the fold, as Carbon's
+            placement policy asks), under it on smaller screens. */}
+        <section className="mb-16 flex flex-col gap-8 lg:flex-row lg:items-start">
+          <div className="min-w-0 flex-1 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-8 border border-primary/20">
             <div className="flex items-center gap-3 mb-4">
               <Heart className="h-6 w-6 text-primary" />
               <h2 className="text-2xl font-bold">Why Contribute?</h2>
@@ -385,6 +388,7 @@ that invite a reply outperform ones that don't.`
               ))}
             </div>
           </div>
+          <CarbonAd className="mx-auto shrink-0 lg:w-[400px]" />
         </section>
 
         {/* What Can You Contribute */}
