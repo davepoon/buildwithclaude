@@ -903,5 +903,19 @@
       "/plugin marketplace add kimthangk/claude-theme-lewell",
       "/plugin install lewell-theme@claude-theme-lewell"
     ]
+  },
+  {
+    "slug": "looks-malaysia",
+    "name": "Looks Malaysia",
+    "author": "aimanamri",
+    "repo": "aimanamri/claude-code-themes",
+    "kind": "desktop",
+    "appearance": "both",
+    "description": "Seven moving pixel-art backdrops of Malaysia: Kuala Lumpur, Penang, Terengganu, Sepang, Kelantan by night and by day, and Sabah at sunset. Each look also colors headings, quotes and inline code in the chat.",
+    "preview": "https://raw.githubusercontent.com/aimanamri/claude-code-themes/main/assets/preview.png",
+    "install": [
+      "/plugin marketplace add aimanamri/claude-code-themes",
+      "/plugin install looks-malaysia@looks-malaysia"
+    ]
   }
 ]
