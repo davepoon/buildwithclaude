@@ -164,18 +164,42 @@ export async function indexMarketplaces(): Promise<IndexResult> {
     }
   }
 
+  // One batched metadata pass over everything the searches returned, so a
+  // marketplace we already have costs nothing unless it has new commits. (Its
+  // card metadata is refreshed by the plugin indexer, which checks every
+  // marketplace each run.)
+  const metaByRepo = await github.fetchReposMetadata([...repoSet])
+  const known = new Map(
+    (
+      await db
+        .select({ namespace: marketplaces.namespace, sourcePushedAt: marketplaces.sourcePushedAt })
+        .from(marketplaces)
+    ).map((m) => [m.namespace, m.sourcePushedAt]),
+  )
+
   console.log(`Processing ${repoSet.size} repositories...`)
+  let unchanged = 0
+  let missing = 0
 
   // Process each repo
   for (const repoFullName of repoSet) {
+    const repoMeta = metaByRepo.get(repoFullName)
+    if (!repoMeta) {
+      missing++
+      continue
+    }
+    const indexedPushedAt = known.get(`@${repoMeta.owner.login}/${repoMeta.name}`)
+    if (indexedPushedAt && repoMeta.pushed_at && new Date(repoMeta.pushed_at) <= indexedPushedAt) {
+      unchanged++
+      continue
+    }
     try {
-      const result = await processRepository(repoFullName)
+      const result = await processRepository(repoFullName, repoMeta)
       if (result) {
         indexed++
       } else {
         // Not a marketplace — check if it has skill indicators
         try {
-          const repoMeta = await github.fetchRepoMetadata(repoFullName)
           if (!repoMeta.fork && hasSkillIndicators(repoMeta)) {
             const skillResult = await processSkillRepository(repoFullName)
             if (skillResult) indexed++
@@ -190,6 +214,11 @@ export async function indexMarketplaces(): Promise<IndexResult> {
     }
   }
 
+  console.log(
+    `Marketplace discovery done: found ${repoSet.size}, indexed ${indexed}, ` +
+      `unchanged ${unchanged}, missing ${missing}, failed ${failed}`,
+  )
+
   return {
     indexed,
     failed,
@@ -200,11 +229,8 @@ export async function indexMarketplaces(): Promise<IndexResult> {
 /**
  * Process a single repository to determine if it's a marketplace
  */
-async function processRepository(repoFullName: string): Promise<boolean> {
+async function processRepository(repoFullName: string, repoMeta: GitHubRepo): Promise<boolean> {
   const github = getGitHubClient()
-
-  // Fetch repo metadata
-  const repoMeta = await github.fetchRepoMetadata(repoFullName)
 
   // Skip forks
   if (repoMeta.fork) {
