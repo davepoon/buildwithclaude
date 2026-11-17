@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { ArrowRight, ArrowUpRight, Bot, Check, Copy, Package, Palette, Server, Sparkles, SquareTerminal, Store, Webhook } from 'lucide-react'
+import { CarbonAd } from '@/components/carbon-ad'
 import { HeroSearch } from '@/components/hero-search'
 import { StoriesStrip } from '@/components/stories/stories-strip'
 import { ThemeCard } from '@/components/theme-card'
@@ -113,20 +114,36 @@ function WavyStrokes({ className }: { className?: string }) {
   )
 }
 
+const tileWidth = (size: number) => `min(${size}px, ${(size / 14.4).toFixed(2)}vw)`
+const tileDrift = (i: number) => ({ animationDelay: `${-i * 1.3}s`, animationDuration: `${7 + (i % 4)}s` })
+
 /** Real catalog items drifting around the search: theme previews and the current top items. Decorative layout, real links. */
 function HeroTiles({ tiles }: { tiles: HeroTile[] }) {
   return (
-    <div className="hero-tiles pointer-events-none absolute inset-0 hidden min-[1100px]:block">
+    <div className="hero-tiles pointer-events-none absolute inset-0 hidden overflow-hidden min-[1100px]:block">
       {tiles.slice(0, TILE_SLOTS.length).map((tile, i) => {
         const [side, offset, top, size] = TILE_SLOTS[i]
-        const Icon = tile.icon
+        // The right-hand slots are drawn by HeroAdColumn, under the ad
+        if (side === 'right') return null
         return (
           <ItemLink
             key={`${tile.href}${tile.name}`}
             href={tile.href}
             className={`hero-tile group pointer-events-auto absolute rounded-xl ${INNER_SLOTS.has(i) ? 'hidden xl:block' : 'block'} ${focusRing}`}
-            style={{ [side]: offset, top, width: `min(${size}px, ${(size / 14.4).toFixed(2)}vw)`, animationDelay: `${-i * 1.3}s`, animationDuration: `${7 + (i % 4)}s` }}
+            style={{ [side]: offset, top, width: tileWidth(size), ...tileDrift(i) }}
           >
+            <TileFace tile={tile} i={i} />
+          </ItemLink>
+        )
+      })}
+    </div>
+  )
+}
+
+function TileFace({ tile, i }: { tile: HeroTile; i: number }) {
+  const Icon = tile.icon
+  return (
+    <>
             <span
               className={`relative block aspect-square overflow-hidden rounded-xl border border-white/10 transition-transform duration-300 ease-out group-hover:scale-[1.05] ${
                 tile.image ? 'bg-card' : i % 3 === 1 ? 'bg-[#c96a50] text-[#9a4a3a]' : 'bg-card text-[#c96a50]/45'
@@ -144,9 +161,32 @@ function HeroTiles({ tiles }: { tiles: HeroTile[] }) {
             </span>
             <span className="mt-2 block truncate text-xs text-foreground/80 transition-colors group-hover:text-foreground">{tile.name}</span>
             <span className="block truncate text-[11px] text-muted-foreground">{tile.label}</span>
+    </>
+  )
+}
+
+/**
+ * The page's one ad, as the largest box in the hero's right-hand column with the right-side tiles
+ * flowing under it. It is above the fold on desktop, as Carbon's placement policy asks. Carbon decides
+ * the ad's height (a short card or a tall cover), so the tiles take whatever room is left and fade out.
+ * Below 1100px the tiles are hidden and there is no room beside the search: the ad sits centered under the hero.
+ */
+function HeroAdColumn({ tiles }: { tiles: Array<HeroTile & { slot: number }> }) {
+  return (
+    <div className="relative px-4 pb-14 md:pb-20 min-[1100px]:absolute min-[1100px]:bottom-0 min-[1100px]:right-[1.5%] min-[1100px]:top-10 min-[1100px]:flex min-[1100px]:w-[clamp(10.5rem,calc(23vw-5.2rem),15rem)] min-[1100px]:flex-col min-[1100px]:gap-7 min-[1100px]:p-0">
+      <CarbonAd className="mx-auto shrink-0 min-[1100px]:min-h-[230px]" />
+      <div className="hidden min-h-0 flex-1 flex-col gap-6 overflow-hidden px-1 [mask-image:linear-gradient(to_bottom,#000_55%,transparent_96%)] min-[1100px]:flex">
+        {tiles.map((tile, n) => (
+          <ItemLink
+            key={`${tile.href}${tile.name}`}
+            href={tile.href}
+            className={`hero-tile group block shrink-0 rounded-xl ${n % 2 ? 'self-start' : 'self-end'} ${focusRing}`}
+            style={{ width: tileWidth(TILE_SLOTS[tile.slot][3]), ...tileDrift(tile.slot) }}
+          >
+            <TileFace tile={tile} i={tile.slot} />
           </ItemLink>
-        )
-      })}
+        ))}
+      </div>
     </div>
   )
 }
@@ -336,10 +376,11 @@ export default function HomePageClient({ counts, trending, picks, heroThemes, fe
   return (
     <div className="min-h-screen">
       {/* Hero: search is the page */}
-      <section className="relative overflow-hidden">
+      {/* Not clipped: the search results dropdown hangs below the hero. The decorative layers clip themselves. */}
+      <section className="relative">
         <HeroBackdrop />
         <HeroTiles tiles={heroTiles} />
-        <div className="container relative mx-auto px-4 pb-14 pt-16 text-center md:pb-20 md:pt-28 xl:pb-28 xl:pt-36">
+        <div className="container relative mx-auto px-4 pb-10 pt-16 text-center md:pt-28 min-[1100px]:pb-20 xl:pb-28 xl:pt-36">
           <h1 className="mx-auto max-w-4xl text-balance font-serif text-[clamp(2.75rem,7.2vw,5rem)] leading-[1.04] tracking-[-0.02em]">
             Discover <span className="text-[#e89a7a]">everything</span> for Claude
           </h1>
@@ -351,7 +392,7 @@ export default function HomePageClient({ counts, trending, picks, heroThemes, fe
             <HeroSearch />
           </div>
 
-          <nav aria-label="Browse by type" className="mx-auto mt-6 flex max-w-5xl flex-wrap justify-center gap-x-1 gap-y-1">
+          <nav aria-label="Browse by type" className="mx-auto mt-6 flex max-w-5xl flex-wrap justify-center gap-x-1 gap-y-1 min-[1100px]:max-[1699px]:max-w-[42rem]">
             {types.map(({ href, label, count, icon: Icon }) => (
               <Link
                 key={href}
@@ -364,7 +405,9 @@ export default function HomePageClient({ counts, trending, picks, heroThemes, fe
               </Link>
             ))}
           </nav>
+
         </div>
+        <HeroAdColumn tiles={[5, 7, 9].flatMap((slot) => (heroTiles[slot] ? [{ ...heroTiles[slot], slot }] : []))} />
       </section>
 
       {hasRankings ? (

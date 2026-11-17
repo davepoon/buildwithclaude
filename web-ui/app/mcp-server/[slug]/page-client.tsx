@@ -1,5 +1,6 @@
 'use client'
 
+import { AD_RAIL_CONTAINER, CarbonAdRail } from '@/components/carbon-ad'
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -42,7 +43,7 @@ export default function MCPServerPageClient({ server }: MCPServerPageClientProps
 
   return (
     <div className="min-h-screen">
-      <div className="container mx-auto px-4 pt-8 pb-12 max-w-4xl">
+      <div className={`container mx-auto px-4 pt-8 pb-12 max-w-4xl ${AD_RAIL_CONTAINER}`}>
         {/* Back button */}
         <Link href="/mcp-servers" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary -mt-1 py-1 mb-5">
           <ArrowLeft className="h-4 w-4" />
@@ -249,6 +250,8 @@ export default function MCPServerPageClient({ server }: MCPServerPageClientProps
             </CardContent>
           </Card>
         </div>
+
+        <CarbonAdRail column="56rem" />
 
         {/* Installation Methods */}
         <Card className="mb-8">

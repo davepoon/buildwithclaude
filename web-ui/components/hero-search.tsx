@@ -124,7 +124,7 @@ export function HeroSearch() {
 
       {showDropdown && (
         <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-xl">
-          <CommandList className="max-h-[60vh]">
+          <CommandList className="max-h-[min(60vh,24rem)]">
             <SearchResults
               hits={hits}
               facets={facets}

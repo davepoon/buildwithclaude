@@ -1,5 +1,6 @@
 'use client'
 
+import { CarbonAd } from '@/components/carbon-ad'
 import { useState, useMemo, useEffect, useRef } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { SubagentCard } from '@/components/subagent-card'
@@ -176,6 +177,8 @@ export default function SubagentsPageClient({ allSubagents, categories }: Subage
         {/* Grid */}
         {filteredSubagents.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* The page's one ad sits in the grid as a card: top right on desktop, after two cards on phones */}
+            <CarbonAd className="row-start-3 md:col-start-2 md:row-start-1 lg:col-start-3" />
             {displayedSubagents.map((subagent) => (
               <SubagentCard key={subagent.slug} subagent={subagent} />
             ))}

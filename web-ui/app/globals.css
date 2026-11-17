@@ -381,3 +381,30 @@ textarea {
   }
 }
 
+
+/* Carbon ad, dressed for the dark site. Only colors, type and corners change: every element Carbon
+   renders stays visible (placement policy). The unit arrives as a cover or, when the advertiser has
+   no cover artwork, as the smaller responsive card; Carbon's own styles load after ours, hence the
+   .carbon-ad prefix for specificity. */
+.carbon-ad #carbon-cover {
+  --carbon-font-family: var(--font-outfit), system-ui, sans-serif;
+}
+.carbon-ad #carbon-cover > a:first-child {
+  border-radius: 0.75rem;
+  box-shadow: 0 0 0 1px hsl(var(--border));
+}
+.carbon-ad #carbon-cover .carbon-footer button {
+  background-color: hsl(var(--secondary));
+}
+.carbon-ad #carbon-responsive {
+  --carbon-bg-primary: hsl(var(--card));
+  --carbon-bg-secondary: hsl(var(--border));
+  --carbon-text-color: hsl(var(--foreground) / 0.9);
+  font-family: var(--font-outfit), system-ui, sans-serif;
+}
+.carbon-ad #carbon-responsive .carbon-responsive-wrap {
+  border-radius: 0.75rem;
+}
+.carbon-ad #carbon-responsive .carbon-img img {
+  border-radius: 0.375rem;
+}

@@ -1,5 +1,6 @@
 'use client'
 
+import { CarbonAd } from '@/components/carbon-ad'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { MarketplaceRegistryItem } from '@/components/marketplace-registry-item'
 import { Input } from '@/components/ui/input'
@@ -199,6 +200,8 @@ export default function MarketplacesPageClient({
         {/* Marketplace list */}
         {marketplaces.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* The page's one ad sits in the grid as a card */}
+            <CarbonAd className="row-start-3 md:col-start-2 md:row-start-1" />
             {marketplaces.map((marketplace) => (
               <MarketplaceRegistryItem key={marketplace.id || marketplace.name} marketplace={marketplace} />
             ))}

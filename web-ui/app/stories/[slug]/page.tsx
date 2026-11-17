@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { CarbonAd } from '@/components/carbon-ad'
 import { notFound } from 'next/navigation'
 import { getAllStories, getStoryBySlug } from '@/lib/stories-server'
 import { Wallpaper, CoverGlyph, Avatar, CategoryTag, PlatformTag } from '@/components/stories/primitives'
@@ -46,7 +47,7 @@ export default async function StoryPage({ params }: StoryPageProps) {
     .slice(0, 3)
 
   return (
-    <article>
+    <article className="relative">
       <section style={{ position: 'relative' }}>
         <div
           style={{
@@ -215,6 +216,12 @@ export default async function StoryPage({ params }: StoryPageProps) {
           </div>
         </div>
       </section>
+
+      {/* The page's one ad: a narrow box at the top right of the header backdrop (above the fold, as Carbon's
+          placement policy asks). Under 1200px there is no room beside the title, so it sits between the header and the story. */}
+      <div className="relative z-10 px-4 pb-10 min-[1200px]:absolute min-[1200px]:right-[1.5%] min-[1200px]:top-20 min-[1200px]:w-[clamp(10.5rem,calc(23vw-5.2rem),15rem)] min-[1200px]:p-0">
+        <CarbonAd className="mx-auto" />
+      </div>
 
       <section>
         <div className="container mx-auto px-4" style={{ maxWidth: 680, padding: '0 16px 80px' }}>

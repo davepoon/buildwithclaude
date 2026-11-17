@@ -1,5 +1,6 @@
 'use client'
 
+import { CarbonAd } from '@/components/carbon-ad'
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
@@ -81,6 +82,8 @@ export default function ThemesPageClient({ themes, initialQuery = '' }: { themes
 
         {filtered.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* The page's one ad sits in the grid as a card */}
+            <CarbonAd className="row-start-3 sm:col-start-2 sm:row-start-1 lg:col-start-3" />
             {filtered.map(t => <ThemeCard key={t.slug} theme={t} />)}
           </div>
         ) : (
