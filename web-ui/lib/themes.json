@@ -889,5 +889,19 @@
     "appearance": "both",
     "description": "Deutan Dark, Deutan Light and a Monokai variant tuned for color vision deficiency. Copy the JSON files from the repo.",
     "preview": "/themes/community/deutan-cvd.svg"
+  },
+  {
+    "slug": "lewell-theme",
+    "name": "Christmas Night & City Tour",
+    "author": "kimthangk",
+    "repo": "kimthangk/claude-theme-lewell",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "Pixel-art backdrops with a little moss companion that walks while Claude works and stops when Claude needs you. A snowy Christmas village, plus a city tour of Bangkok, Tokyo, Paris, London, New York, San Francisco and Singapore.",
+    "preview": "https://raw.githubusercontent.com/kimthangk/claude-theme-lewell/main/images/christmas.jpg",
+    "install": [
+      "/plugin marketplace add kimthangk/claude-theme-lewell",
+      "/plugin install lewell-theme@claude-theme-lewell"
+    ]
   }
 ]
