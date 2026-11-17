@@ -13,6 +13,8 @@ import {
   makeObjectID,
   urlForDocument,
   SEARCH_CONTENT_TYPES,
+  planSync,
+  type SyncPlan,
   type SearchContentType,
   type SearchDocument,
 } from './search-types'
@@ -485,55 +487,117 @@ function assertSucceeded(task: { uid: number; status: string; error?: { message?
   }
 }
 
-async function addDocs(docs: SearchDocument[], runAt: number): Promise<number> {
-  const index = getContentIndex()
-  if (!index || docs.length === 0) return 0
+async function addDocs(docs: SearchDocument[]): Promise<void> {
+  const index = getContentIndex()!
   // Enqueue every chunk (fast HTTP POSTs), then wait for each. Meilisearch
   // processes tasks FIFO, so the waits after the first return almost at once.
   const taskUids: number[] = []
   for (let i = 0; i < docs.length; i += ADD_CHUNK) {
-    const chunk = docs.slice(i, i + ADD_CHUNK).map((d) => ({ ...d, indexedAt: runAt }))
-    const enqueued = await index.addDocuments(chunk, { primaryKey: 'objectID' })
+    const enqueued = await index.addDocuments(docs.slice(i, i + ADD_CHUNK), { primaryKey: 'objectID' })
     taskUids.push(enqueued.taskUid)
   }
   for (const uid of taskUids) {
     assertSucceeded(await index.tasks.waitForTask(uid, WAIT))
   }
-  return docs.length
+}
+
+/** objectID → hash for every document of a type currently in the index. */
+async function indexedHashes(type: SearchContentType): Promise<Map<string, string | undefined>> {
+  const index = getContentIndex()!
+  const out = new Map<string, string | undefined>()
+  for (let offset = 0; ; offset += ADD_CHUNK) {
+    const page = await index.getDocuments<Pick<SearchDocument, 'objectID' | 'hash'>>({
+      filter: `type = "${type}"`,
+      fields: ['objectID', 'hash'],
+      limit: ADD_CHUNK,
+      offset,
+    })
+    for (const d of page.results) out.set(d.objectID, d.hash)
+    if (page.results.length < ADD_CHUNK) return out
+  }
+}
+
+/** What a sync of this type would send and remove, without touching the index. */
+async function planType(type: SearchContentType): Promise<SyncPlan & { total: number; indexed: number }> {
+  const docs = await docsForType(type)
+  // The transforms swallow source errors and return []. Every type has content,
+  // so an empty result means the source failed — never sync on it.
+  if (docs.length === 0) {
+    throw new Error(`reindex ${type}: source returned 0 documents; index left untouched`)
+  }
+  const indexed = await indexedHashes(type)
+  return { ...planSync(docs, indexed), total: docs.length, indexed: indexed.size }
 }
 
 export interface ReindexTypeResult {
   type: SearchContentType
+  /** Documents sent to Meilisearch (new or changed). */
   added: number
+  /** Documents removed because the source no longer has them. */
+  deleted: number
+  unchanged: number
   durationMs: number
   skipped?: boolean
 }
 
 /**
- * Refresh a single type: upsert every current doc, then prune the ones this run
- * did not write. Upsert-then-prune (rather than delete-then-add) means search
- * never has a window with the type missing, and a run that dies part-way leaves
- * the previous docs in place instead of an empty type.
+ * Bring one type in step with its source incrementally: send only the
+ * documents whose content hash differs from what the index holds, and remove
+ * the ones the source dropped. Unchanged documents are not touched, so a
+ * routine run costs two reads and a handful of writes.
+ *
+ * `force` lifts the mass-deletion guard below.
  */
-export async function reindexType(type: SearchContentType): Promise<ReindexTypeResult> {
+export async function reindexType(type: SearchContentType, force = false): Promise<ReindexTypeResult> {
   const start = Date.now()
   if (!(await ensureContentIndex())) {
-    return { type, added: 0, durationMs: 0, skipped: true }
+    return { type, added: 0, deleted: 0, unchanged: 0, durationMs: 0, skipped: true }
   }
   const index = getContentIndex()!
-  const docs = await docsForType(type)
-  // The transforms swallow source errors and return []. Every type has content,
-  // so an empty result means the source failed — never prune on it.
-  if (docs.length === 0) {
-    throw new Error(`reindex ${type}: source returned 0 documents; index left untouched`)
+  const plan = await planType(type)
+  // A source that half-failed (e.g. the DB query threw but local files loaded)
+  // looks like most of the type being deleted. Refuse rather than gut search.
+  if (!force && plan.remove.length > 100 && plan.remove.length > plan.indexed / 2) {
+    throw new Error(
+      `reindex ${type}: would delete ${plan.remove.length} of ${plan.indexed} indexed documents; ` +
+        `refusing (source probably failed). Pass force=1 if this is intended.`,
+    )
   }
-  const added = await addDocs(docs, start)
-  assertSucceeded(
-    await index
-      .deleteDocuments({ filter: `type = "${type}" AND (indexedAt < ${start} OR indexedAt NOT EXISTS)` })
-      .waitTask(WAIT),
-  )
-  return { type, added, durationMs: Date.now() - start }
+  await addDocs(plan.upsert)
+  for (let i = 0; i < plan.remove.length; i += ADD_CHUNK) {
+    assertSucceeded(await index.deleteDocuments(plan.remove.slice(i, i + ADD_CHUNK)).waitTask(WAIT))
+  }
+  return {
+    type,
+    added: plan.upsert.length,
+    deleted: plan.remove.length,
+    unchanged: plan.unchanged,
+    durationMs: Date.now() - start,
+  }
+}
+
+type ReindexManyResult = { added: number; deleted: number; durationMs: number; byType: Record<string, number>; skipped?: boolean }
+
+async function reindexTypes(types: SearchContentType[], force: boolean): Promise<ReindexManyResult> {
+  const start = Date.now()
+  if (!(await ensureContentIndex())) return { added: 0, deleted: 0, durationMs: 0, byType: {}, skipped: true }
+  const byType: Record<string, number> = {}
+  const errors: string[] = []
+  let added = 0
+  let deleted = 0
+  for (const type of types) {
+    try {
+      const r = await reindexType(type, force)
+      byType[type] = r.added
+      added += r.added
+      deleted += r.deleted
+    } catch (e) {
+      // Keep going so one bad type does not block the rest, then report it.
+      errors.push(e instanceof Error ? e.message : String(e))
+    }
+  }
+  if (errors.length) throw new Error(`reindex: ${errors.join('; ')}`)
+  return { added, deleted, durationMs: Date.now() - start, byType }
 }
 
 /**
@@ -541,76 +605,42 @@ export async function reindexType(type: SearchContentType): Promise<ReindexTypeR
  * marketplace entries plus DB rows, so new local plugins do not wait for the
  * external marketplace indexer to make them searchable.
  */
-export async function reindexMarkdown(): Promise<{ added: number; durationMs: number; byType: Record<string, number>; skipped?: boolean }> {
-  const start = Date.now()
-  if (!(await ensureContentIndex())) return { added: 0, durationMs: 0, byType: {}, skipped: true }
-  const byType: Record<string, number> = {}
-  let added = 0
-  for (const type of ['subagent', 'command', 'hook', 'skill', 'plugin', 'theme'] as SearchContentType[]) {
-    const r = await reindexType(type)
-    byType[type] = r.added
-    added += r.added
-  }
-  return { added, durationMs: Date.now() - start, byType }
+export function reindexMarkdown(force = false): Promise<ReindexManyResult> {
+  return reindexTypes(['subagent', 'command', 'hook', 'skill', 'plugin', 'theme'], force)
 }
 
-/** Full rebuild: refresh every type in turn (each one upsert-then-prune). */
-export async function reindexAll(): Promise<{ added: number; durationMs: number; byType: Record<string, number>; skipped?: boolean }> {
-  const start = Date.now()
-  if (!(await ensureContentIndex())) return { added: 0, durationMs: 0, byType: {}, skipped: true }
-  const byType: Record<string, number> = {}
-  const errors: string[] = []
-  let added = 0
-  for (const type of SEARCH_CONTENT_TYPES) {
-    try {
-      const r = await reindexType(type)
-      byType[type] = r.added
-      added += r.added
-    } catch (e) {
-      // Keep going so one bad type does not block the rest, then report it.
-      errors.push(e instanceof Error ? e.message : String(e))
-    }
-  }
-  if (errors.length) throw new Error(`reindexAll: ${errors.join('; ')}`)
-  return { added, durationMs: Date.now() - start, byType }
+/** Sync every type. `byType` counts the documents sent, not the totals. */
+export function reindexAll(force = false): Promise<ReindexManyResult> {
+  return reindexTypes(SEARCH_CONTENT_TYPES, force)
 }
 
-export interface SearchTypeStatus {
-  /** Documents of this type in the index. */
-  count: number
-  /** Documents no reindex has stamped (pre-date indexedAt). Should be 0. */
-  unstamped: number
-  /** indexedAt of the stalest stamped doc: the last time this type was fully refreshed. */
-  oldestIndexedAt: number | null
+export interface SearchTypeDrift {
+  /** Documents the source has. */
+  source: number
+  /** Documents the index has. */
+  indexed: number
+  /** Missing from the index, or indexed with out-of-date content. */
+  stale: number
+  /** In the index but gone from the source. */
+  extra: number
 }
 
 /**
- * Per-type freshness of the index. A type is fully up to date as of
- * `oldestIndexedAt` when `unstamped` is 0, because every reindex re-stamps all
- * of the type's docs and prunes the rest.
+ * How far the index is from its sources, per type, without changing anything.
+ * All `stale` and `extra` at 0 means search holds exactly what the site has.
  */
-export async function searchIndexStatus(): Promise<Record<SearchContentType, SearchTypeStatus> | null> {
-  const index = getContentIndex()
-  if (!index) return null
-  const [all, unstamped] = await Promise.all([
-    index.search('', { limit: 0, facets: ['type'] }),
-    index.search('', { limit: 0, facets: ['type'], filter: 'indexedAt NOT EXISTS' }),
-  ])
-  const out = {} as Record<SearchContentType, SearchTypeStatus>
-  await Promise.all(
-    SEARCH_CONTENT_TYPES.map(async (type) => {
-      const oldest = await index.search('', {
-        limit: 1,
-        filter: `type = "${type}" AND indexedAt EXISTS`,
-        sort: ['indexedAt:asc'],
-        attributesToRetrieve: ['indexedAt'],
-      })
-      out[type] = {
-        count: all.facetDistribution?.type?.[type] ?? 0,
-        unstamped: unstamped.facetDistribution?.type?.[type] ?? 0,
-        oldestIndexedAt: (oldest.hits[0]?.indexedAt as number | undefined) ?? null,
-      }
-    }),
-  )
+export async function searchIndexDrift(
+  types: SearchContentType[] = SEARCH_CONTENT_TYPES,
+): Promise<Record<string, SearchTypeDrift | { error: string }> | null> {
+  if (!getContentIndex()) return null
+  const out: Record<string, SearchTypeDrift | { error: string }> = {}
+  for (const type of types) {
+    try {
+      const plan = await planType(type)
+      out[type] = { source: plan.total, indexed: plan.indexed, stale: plan.upsert.length, extra: plan.remove.length }
+    } catch (e) {
+      out[type] = { error: e instanceof Error ? e.message : String(e) }
+    }
+  }
   return out
 }

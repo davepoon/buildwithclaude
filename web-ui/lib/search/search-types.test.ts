@@ -5,6 +5,9 @@ import {
   urlForDocument,
   isSearchContentType,
   SEARCH_CONTENT_TYPES,
+  docHash,
+  planSync,
+  type SearchDocument,
 } from './search-types.ts'
 
 describe('makeObjectID', () => {
@@ -64,5 +67,45 @@ describe('isSearchContentType', () => {
     assert.equal(isSearchContentType('mcp'), false)
     assert.equal(isSearchContentType('all'), false)
     assert.equal(isSearchContentType(''), false)
+  })
+})
+
+describe('planSync', () => {
+  const doc = (slug: string, over: Partial<SearchDocument> = {}): SearchDocument => ({
+    objectID: makeObjectID('hook', slug),
+    type: 'hook',
+    slug,
+    name: slug,
+    description: '',
+    categories: [],
+    tags: [],
+    stars: 0,
+    installs: 0,
+    updatedAt: 0,
+    url: `/hook/${slug}`,
+    ...over,
+  })
+
+  it('sends only new, changed and unhashed documents, and removes dropped ones', () => {
+    const same = doc('same')
+    const indexed = new Map<string, string | undefined>([
+      [same.objectID, docHash(same)],
+      [doc('changed').objectID, docHash(doc('changed'))],
+      [doc('legacy').objectID, undefined], // indexed before hashes existed
+      [doc('gone').objectID, 'whatever'],
+    ])
+    const plan = planSync(
+      [same, doc('changed', { stars: 5 }), doc('legacy'), doc('new')],
+      indexed,
+    )
+    assert.deepEqual(plan.upsert.map((d) => d.slug), ['changed', 'legacy', 'new'])
+    assert.ok(plan.upsert.every((d) => d.hash === docHash(d)))
+    assert.deepEqual(plan.remove, [doc('gone').objectID])
+    assert.equal(plan.unchanged, 1)
+  })
+
+  it('ignores updatedAt, which the indexers bump on unchanged rows', () => {
+    assert.equal(docHash(doc('a')), docHash(doc('a', { updatedAt: 123 })))
+    assert.notEqual(docHash(doc('a')), docHash(doc('a', { description: 'x' })))
   })
 })
