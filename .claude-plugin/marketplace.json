@@ -5878,6 +5878,32 @@
         "package": "@agentwhy/cli",
         "version": "0.8.0"
       }
+    },
+    {
+      "name": "appstruct-social",
+      "description": "Connect Claude Code to AppStruct Social to read channels and measured analytics and prepare unscheduled drafts for review. Includes a workflow skill and remote HTTP MCP connection. Requires an AppStruct account, Social access and a scoped workspace key. Does not schedule, publish or delete posts.",
+      "version": "1.1.0",
+      "author": {
+        "name": "AppStruct",
+        "url": "https://appstruct.ai"
+      },
+      "homepage": "https://blog.appstruct.ai/blog/social-media-mcp-server?utm_source=buildwithclaude&utm_medium=referral&utm_campaign=social_mcp_launch_20261114",
+      "repository": "https://github.com/VladimirTambovtsev/appstruct-social-cursor-plugin",
+      "license": "MIT",
+      "keywords": [
+        "appstruct",
+        "social-media",
+        "draft-review",
+        "marketing",
+        "mcp",
+        "claude-code"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "VladimirTambovtsev/appstruct-social-cursor-plugin",
+        "sha": "212124ea2d1a816aa6929d0494f8574a622b6b81"
+      }
     }
   ]
 }
