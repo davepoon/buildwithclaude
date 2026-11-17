@@ -5963,6 +5963,34 @@
         "path": "plugin",
         "sha": "7e779ced33c03bd248d7c73a0825e806eb0fec2b"
       }
+    },
+    {
+      "name": "nogpu",
+      "description": "Finds your app's recurring LLM classification or routing call (intent routing, ticket triage, moderation, pick-one-category) and extracts its past decisions locally into nogpu.jsonl, printing only counts and the label histogram. Only after you say yes, it uploads that file to nogpu.dev (the plugin author's service) for a free report on how many of those decisions a small CPU model can take alone; certified only if the one-sided 95% Clopper-Pearson lower bound of held-out accuracy is at least 90%. Keeping the model is $99 one-time and runs offline on any CPU; after an explicit yes to $99 the agent gives you the card link, or pays 99 USDC with your own x402 wallet tool capped at 99 for that one call. Uploads are deleted within 24 hours (24 hours after payment if bought). Asks before writing or running any local file, and before adding a local logger. Bundles the nogpu MCP server (nogpu_report, nogpu_buy, nogpu_delete). MIT.",
+      "version": "0.2.1",
+      "author": {
+        "name": "doronp",
+        "url": "https://github.com/doronp"
+      },
+      "homepage": "https://nogpu.dev",
+      "repository": "https://github.com/doronp/nogpu-mcp",
+      "license": "MIT",
+      "keywords": [
+        "llm",
+        "classification",
+        "routing",
+        "distillation",
+        "cpu",
+        "cost",
+        "mcp"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/doronp/nogpu-mcp.git",
+        "path": "plugin",
+        "sha": "0ef1f168892f1251476a7c70bd45f04fb54bd798"
+      }
     }
   ]
 }
