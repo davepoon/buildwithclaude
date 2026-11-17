@@ -5068,7 +5068,7 @@
     {
       "name": "clawd-band",
       "description": "A band above the prompt: an animated Clawd sprite, five-hour and weekly usage bars with a countdown to each window's reset, and a context-window bar with a countdown until the prompt cache goes cold. A Claude Code mod; the sprite needs kitty's graphics protocol.",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "author": {
         "name": "SleepNoMore",
         "url": "https://github.com/nninkovic95"
@@ -5087,7 +5087,7 @@
       "source": {
         "source": "github",
         "repo": "nninkovic95/clawd-band",
-        "sha": "ad376e26bbb03de3d16c65a4de6d8183a0d389a6"
+        "sha": "3231f13ebf7f667fd62fd0138e808913024776e1"
       }
     },
     {
@@ -5745,6 +5745,33 @@
         "source": "github",
         "repo": "scanmalware/scanmalware-plugin",
         "sha": "da71d7dce152b361f9ce4950aeb6e16ff1fec489"
+      }
+    },
+    {
+      "name": "rabbit-skills",
+      "description": "25 agent skills from a small agency that runs 20+ Claude Code sessions in parallel for real clients: get it right the first time, run many sessions without chaos, pick the right model per chat, and sell on WhatsApp and Meta Ads.",
+      "version": "1.2.5",
+      "author": {
+        "name": "Rabbit Designs",
+        "url": "https://github.com/RabbitDesigns22"
+      },
+      "homepage": "https://github.com/RabbitDesigns22/claude-skills",
+      "repository": "https://github.com/RabbitDesigns22/claude-skills",
+      "license": "MIT",
+      "keywords": [
+        "skills",
+        "productivity",
+        "multi-session",
+        "verification",
+        "small-business",
+        "whatsapp",
+        "meta-ads"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "RabbitDesigns22/claude-skills",
+        "sha": "02ad3d77ef51d8e0ff3f59143ad3a3d696600962"
       }
     },
     {

@@ -282,7 +282,7 @@ that invite a reply outperform ones that don't.`
       icon: Palette,
       title: 'Themes',
       description: 'Desktop and terminal themes',
-      count: '59',
+      count: '60',
       color: 'text-teal-400'
     },
     {
