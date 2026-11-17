@@ -1,308 +1,449 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
+import { ArrowRight, ArrowUpRight, Bot, Check, Copy, Package, Palette, Server, Sparkles, SquareTerminal, Store, Webhook } from 'lucide-react'
 import { HeroSearch } from '@/components/hero-search'
-import { ArrowRight, Bot, Terminal, Webhook, Sparkles, Package, Palette } from 'lucide-react'
-import type { Plugin } from '@/lib/plugins-types'
-import type { Skill } from '@/lib/skills-types'
-import type { Subagent } from '@/lib/subagents-types'
-import type { Command } from '@/lib/commands-types'
-import type { Hook } from '@/lib/hooks-types'
-import type { Story } from '@/lib/stories-types'
 import { StoriesStrip } from '@/components/stories/stories-strip'
 import { ThemeCard } from '@/components/theme-card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import type { HomeTrending, TrendingItem } from '@/lib/home-trending'
+import type { Story } from '@/lib/stories-types'
 import type { Theme } from '@/lib/themes'
 
+export interface Pick {
+  name: string
+  href: string
+  description: string
+}
+
 interface HomePageClientProps {
-  pluginCount: number
-  subagentCount: number
-  commandCount: number
-  skillCount: number
-  hookCount: number
-  themeCount: number
-  pluginTotal: number
-  skillTotal: number
-  mcpTotal: number
-  featuredPlugins: Plugin[]
-  featuredSkills: Skill[]
-  featuredSubagents: Subagent[]
-  featuredCommands: Command[]
-  featuredHooks: Hook[]
+  counts: { plugins: number; skills: number; mcp: number; subagents: number; commands: number; hooks: number; themes: number }
+  trending: HomeTrending
+  picks: { subagents: Pick[]; commands: Pick[]; hooks: Pick[]; plugins: Pick[]; skills: Pick[] }
+  heroThemes: Array<{ name: string; preview: string }>
   featuredStories: Story[]
   featuredThemes: Theme[]
 }
 
-// Floor a count to a clean round number for the hero copy (e.g. 17519 → "17,500").
-function floorToRound(n: number): string {
-  const step = n >= 10000 ? 500 : n >= 1000 ? 100 : 10
-  return (Math.floor(n / step) * step).toLocaleString()
+const MARKETPLACE_COMMAND = '/plugin marketplace add davepoon/buildwithclaude'
+
+const COMPACT = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 })
+const compact = (n: number) => COMPACT.format(n)
+
+const KIND_ICON = { skill: Sparkles, plugin: Package, mcp: Server, marketplace: Store } as const
+
+// One entry per ranked list: what it ranks by is stated wherever a number is shown.
+const BOARDS = [
+  { key: 'skills', label: 'Skills', noun: 'Skill', metric: 'Installs / week', unit: 'installs/wk', href: '/skills', all: 'All skills' },
+  { key: 'marketplaces', label: 'Plugin marketplaces', noun: 'Marketplace', metric: 'GitHub stars', unit: 'stars', href: '/marketplaces', all: 'All marketplaces' },
+  { key: 'mcp', label: 'MCP servers', noun: 'Server', metric: 'Docker pulls', unit: 'pulls', href: '/mcp-servers', all: 'All MCP servers' },
+] as const
+
+const focusRing = 'outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background'
+
+/** Marketplaces have no detail page, so their rows open the repo in a new tab; everything else is an in-app link. */
+function ItemLink({ href, children, ...rest }: { href: string; children: React.ReactNode; className?: string; tabIndex?: number; style?: React.CSSProperties }) {
+  return href.startsWith('http') ? (
+    <a href={href} target="_blank" rel="noopener noreferrer" {...rest}>
+      {children}
+    </a>
+  ) : (
+    <Link href={href} {...rest}>
+      {children}
+    </Link>
+  )
 }
 
-interface FeaturedSectionProps {
-  title: string
+function HeroBackdrop() {
+  // The wavy terracotta strokes from the old hero panel, kept as a faint ground behind the search.
+  return (
+    <svg
+      aria-hidden
+      className="pointer-events-none absolute inset-x-0 top-0 h-full w-full [mask-image:radial-gradient(ellipse_75%_90%_at_50%_0%,#000_10%,transparent_72%)]"
+      viewBox="0 0 1440 560"
+      preserveAspectRatio="xMidYMin slice"
+      fill="none"
+      stroke="#c96a50"
+      strokeOpacity="0.26"
+    >
+      <path d="M-40 70 Q180 10 360 80 T720 60 T1080 95 T1480 40" strokeWidth="1.5" />
+      <path d="M-40 150 Q220 90 430 160 T860 130 T1200 175 T1480 120" strokeWidth="1" />
+      <path d="M-40 235 Q160 290 390 225 T800 270 T1160 210 T1480 255" strokeWidth="1.5" />
+      <path d="M-40 320 Q240 265 470 330 T900 290 T1240 345 T1480 300" strokeWidth="1" />
+      <path d="M-40 405 Q190 455 410 395 T830 440 T1190 390 T1480 430" strokeWidth="1.5" />
+      <path d="M-40 490 Q230 440 450 500 T880 465 T1220 515 T1480 475" strokeWidth="1" />
+    </svg>
+  )
+}
+
+// Where the hero's floating tiles sit (wide screens only), as [side, offset from that side, top, size in px at 1440 wide].
+// Kept clear of the centered column and the type shortcuts row.
+const TILE_SLOTS = [
+  ['left', '4%', '6%', 128],
+  ['left', '14%', '23%', 104],
+  ['left', '2%', '39%', 112],
+  ['left', '12.5%', '51%', 120],
+  ['left', '1.5%', '67%', 96],
+  ['right', '5%', '4%', 112],
+  ['right', '13.5%', '19%', 128],
+  ['right', '3%', '35%', 120],
+  ['right', '13%', '50%', 104],
+  ['right', '2%', '65%', 112],
+] as const
+
+// The inner column of each side only fits beside the search on xl screens.
+const INNER_SLOTS = new Set([1, 3, 6, 8])
+
+interface HeroTile {
+  name: string
   href: string
-  icon: React.ElementType
-  color: 'purple' | 'yellow' | 'blue' | 'green' | 'orange'
-  items: Array<{ name?: string; slug: string; description: string }>
-  itemLinkPrefix: string
+  label: string
+  image?: string
+  icon?: React.ElementType
 }
 
-function FeaturedSection({ title, href, icon: Icon, color, items, itemLinkPrefix }: FeaturedSectionProps) {
-  const colorClasses = {
-    purple: 'text-purple-500',
-    yellow: 'text-yellow-500',
-    blue: 'text-blue-500',
-    green: 'text-green-500',
-    orange: 'text-orange-500',
-  }
+function WavyStrokes({ className }: { className?: string }) {
+  return (
+    <svg aria-hidden className={className} viewBox="0 0 120 120" preserveAspectRatio="none" fill="none" stroke="currentColor">
+      <path d="M-10 22 Q20 4 46 24 T96 18 T140 30" strokeWidth="2" />
+      <path d="M-10 58 Q26 78 52 54 T100 66 T140 50" strokeWidth="1.5" />
+      <path d="M-10 96 Q22 78 50 98 T98 88 T140 102" strokeWidth="2" />
+    </svg>
+  )
+}
+
+/** Real catalog items drifting around the search: theme previews and the current top items. Decorative layout, real links. */
+function HeroTiles({ tiles }: { tiles: HeroTile[] }) {
+  return (
+    <div className="hero-tiles pointer-events-none absolute inset-0 hidden min-[1100px]:block">
+      {tiles.slice(0, TILE_SLOTS.length).map((tile, i) => {
+        const [side, offset, top, size] = TILE_SLOTS[i]
+        const Icon = tile.icon
+        return (
+          <ItemLink
+            key={`${tile.href}${tile.name}`}
+            href={tile.href}
+            className={`hero-tile group pointer-events-auto absolute rounded-xl ${INNER_SLOTS.has(i) ? 'hidden xl:block' : 'block'} ${focusRing}`}
+            style={{ [side]: offset, top, width: `min(${size}px, ${(size / 14.4).toFixed(2)}vw)`, animationDelay: `${-i * 1.3}s`, animationDuration: `${7 + (i % 4)}s` }}
+          >
+            <span
+              className={`relative block aspect-square overflow-hidden rounded-xl border border-white/10 transition-transform duration-300 ease-out group-hover:scale-[1.05] ${
+                tile.image ? 'bg-card' : i % 3 === 1 ? 'bg-[#c96a50] text-[#9a4a3a]' : 'bg-card text-[#c96a50]/45'
+              }`}
+            >
+              {tile.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={tile.image} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
+              ) : (
+                <>
+                  <WavyStrokes className="absolute inset-0 h-full w-full" />
+                  {Icon && <Icon className="absolute left-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 text-white" />}
+                </>
+              )}
+            </span>
+            <span className="mt-2 block truncate text-xs text-foreground/80 transition-colors group-hover:text-foreground">{tile.name}</span>
+            <span className="block truncate text-[11px] text-muted-foreground">{tile.label}</span>
+          </ItemLink>
+        )
+      })}
+    </div>
+  )
+}
+
+/** The old hero's terracotta panel with its wavy strokes, framing a dark card. */
+function Panel({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className="relative overflow-hidden rounded-3xl bg-[#c96a50] p-2.5 sm:p-6 lg:p-10">
+      <WavyStrokes className="absolute inset-0 h-full w-full text-[#9a4a3a] opacity-50" />
+      <div className={`relative rounded-2xl bg-background p-4 shadow-[0_30px_80px_-20px_rgb(0_0_0/0.6)] sm:p-8 lg:p-12 ${className}`}>{children}</div>
+    </div>
+  )
+}
+
+function Ticker({ label, items }: { label: string; items: Array<{ name: string; href: string; icon: React.ElementType; detail: string }> }) {
+  // The list is rendered twice so the track can loop seamlessly at -50%; the copy is hidden from AT and the tab order.
+  const row = (copy: boolean) =>
+    items.map((item) => {
+      const Icon = item.icon
+      return (
+        <li key={`${copy}${item.href}`} aria-hidden={copy || undefined}>
+          <ItemLink
+            href={item.href}
+            tabIndex={copy ? -1 : undefined}
+            className={`group/t flex items-center gap-2.5 whitespace-nowrap px-6 py-3.5 text-sm ${focusRing} focus-visible:ring-inset focus-visible:ring-offset-0`}
+          >
+            <Icon className="h-3.5 w-3.5 text-muted-foreground transition-colors group-hover/t:text-[#e89a7a]" />
+            <span className="text-foreground/90 transition-colors group-hover/t:text-foreground">{item.name}</span>
+            <span className="font-mono text-xs tabular-nums text-muted-foreground">{item.detail}</span>
+          </ItemLink>
+        </li>
+      )
+    })
 
   return (
-    <section className="py-10 md:py-16">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-display-3 flex items-center gap-3">
-            <Icon className={`h-7 w-7 ${colorClasses[color]}`} />
-            {title}
-          </h2>
-          <Link href={href} className="py-1 -my-1 text-sm text-muted-foreground hover:text-accent transition-colors">
-            View all →
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {items.map((item) => (
-            <Link key={item.slug} href={`${itemLinkPrefix}/${item.slug}`}>
-              <div className="p-6 rounded-lg border border-border hover:border-primary/40 transition-colors h-full">
-                <h3 className="font-medium mb-2">{item.name || item.slug}</h3>
-                <p className="text-sm text-muted-foreground line-clamp-2">
-                  {item.description}
-                </p>
-              </div>
-            </Link>
-          ))}
-        </div>
+    <section aria-label={label} className="ticker flex border-y border-border">
+      <div className="flex shrink-0 items-center gap-2 border-r border-border px-4 text-xs font-medium uppercase tracking-[0.12em] text-[#e89a7a] sm:px-6">
+        <span className="h-1.5 w-1.5 rounded-full bg-[#e89a7a]" />
+        {label}
+      </div>
+      <div className="ticker-viewport min-w-0 flex-1">
+        <ul className="ticker-track flex w-max" style={{ animationDuration: `${items.length * 4.5}s` }}>
+          {row(false)}
+          {row(true)}
+        </ul>
       </div>
     </section>
   )
 }
 
-export default function HomePageClient({
-  pluginCount,
-  subagentCount,
-  commandCount,
-  skillCount,
-  hookCount,
-  themeCount,
-  pluginTotal,
-  skillTotal,
-  mcpTotal,
-  featuredPlugins,
-  featuredSkills,
-  featuredSubagents,
-  featuredCommands,
-  featuredHooks,
-  featuredStories,
-  featuredThemes,
-}: HomePageClientProps) {
-  const categories = [
-    { href: '/plugins', label: 'Plugins', count: pluginCount, icon: Package, color: 'purple' as const },
-    { href: '/skills', label: 'Skills', count: skillCount, icon: Sparkles, color: 'yellow' as const },
-    { href: '/subagents', label: 'Subagents', count: subagentCount, icon: Bot, color: 'blue' as const },
-    { href: '/commands', label: 'Commands', count: commandCount, icon: Terminal, color: 'green' as const },
-    { href: '/hooks', label: 'Hooks', count: hookCount, icon: Webhook, color: 'orange' as const },
-    { href: '/themes', label: 'Themes', count: themeCount, icon: Palette, color: 'pink' as const },
+function Leaderboard({ board, items }: { board: (typeof BOARDS)[number]; items: TrendingItem[] }) {
+  return (
+    <>
+      <div className="grid grid-cols-[2rem_minmax(0,1fr)_auto] gap-x-4 border-b border-border px-2 pb-2.5 text-xs text-muted-foreground">
+        <span>#</span>
+        <span>{board.noun}</span>
+        <span>{board.metric}</span>
+      </div>
+      <ol>
+        {items.map((item, i) => (
+          <li key={item.href} className="border-b border-border">
+            <ItemLink
+              href={item.href}
+              className={`group grid grid-cols-[2rem_minmax(0,1fr)_auto] items-baseline gap-x-4 rounded-md px-2 py-3.5 transition-colors hover:bg-card ${focusRing}`}
+            >
+              <span className={`font-mono text-sm tabular-nums ${i < 3 ? 'text-[#e89a7a]' : 'text-muted-foreground'}`}>{i + 1}</span>
+              <span className="min-w-0">
+                <span className="flex min-w-0 items-baseline gap-2.5">
+                  <span className="truncate font-medium transition-colors group-hover:text-[#e89a7a]">{item.name}</span>
+                  {item.source && <span className="hidden shrink-0 text-sm text-muted-foreground sm:inline">{item.source}</span>}
+                  {item.href.startsWith('http') && <ArrowUpRight aria-label="Opens on GitHub" className="h-3.5 w-3.5 shrink-0 self-center text-muted-foreground" />}
+                </span>
+                {item.description && <span className="mt-0.5 block truncate text-sm text-muted-foreground">{item.description}</span>}
+              </span>
+              <span className="font-mono text-sm tabular-nums">{compact(item.metric)}</span>
+            </ItemLink>
+          </li>
+        ))}
+      </ol>
+      <Link href={board.href} className={`mt-5 inline-flex items-center gap-1.5 rounded-sm py-1 text-sm text-muted-foreground transition-colors hover:text-foreground ${focusRing}`}>
+        {board.all} <ArrowRight className="h-3.5 w-3.5" />
+      </Link>
+    </>
+  )
+}
+
+function CopyCommand() {
+  const [copied, setCopied] = useState(false)
+  const copy = async () => {
+    await navigator.clipboard.writeText(MARKETPLACE_COMMAND)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+  return (
+    <div className="flex min-w-0 max-w-full items-center gap-2 rounded-lg border border-border bg-card py-1.5 pl-4 pr-1.5">
+      <code className="min-w-0 break-words font-mono text-sm">
+        <span className="text-[#e89a7a]">/plugin</span> marketplace add davepoon/<wbr />buildwithclaude
+      </code>
+      <button
+        type="button"
+        onClick={copy}
+        aria-label={copied ? 'Copied' : 'Copy command'}
+        className={`shrink-0 rounded-md p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground ${focusRing}`}
+      >
+        {copied ? <Check className="h-4 w-4 text-[#e89a7a]" /> : <Copy className="h-4 w-4" />}
+      </button>
+    </div>
+  )
+}
+
+export default function HomePageClient({ counts, trending, picks, heroThemes, featuredStories, featuredThemes }: HomePageClientProps) {
+  const types = [
+    { href: '/plugins', label: 'Plugins', count: counts.plugins, icon: Package },
+    { href: '/skills', label: 'Skills', count: counts.skills, icon: Sparkles },
+    { href: '/mcp-servers', label: 'MCP servers', count: counts.mcp, icon: Server },
+    { href: '/subagents', label: 'Subagents', count: counts.subagents, icon: Bot },
+    { href: '/commands', label: 'Commands', count: counts.commands, icon: SquareTerminal },
+    { href: '/hooks', label: 'Hooks', count: counts.hooks, icon: Webhook },
+    { href: '/themes', label: 'Themes', count: counts.themes, icon: Palette },
   ]
+
+  const boards = BOARDS.filter((b) => trending[b.key].length > 0)
+  const hasRankings = boards.length > 0
+
+  // Interleave the lists so the ticker mixes types instead of running one list after another.
+  const tickerItems = Array.from({ length: 8 }, (_, i) => boards.flatMap((b) => (trending[b.key][i] ? [{ ...trending[b.key][i], unit: b.unit }] : []))).flat()
+
+  // Hero tiles: today's theme previews mixed with the top ranked items, or daily picks when rankings are unavailable.
+  const KIND_LABEL = { skill: 'Skill', plugin: 'Plugin', mcp: 'MCP server', marketplace: 'Marketplace' } as const
+  const itemTiles: HeroTile[] = hasRankings
+    ? tickerItems.slice(0, 6).map((t) => ({ name: t.name, href: t.href, label: KIND_LABEL[t.kind], icon: KIND_ICON[t.kind] }))
+    : [
+        ...picks.subagents.slice(0, 2).map((p) => ({ ...p, label: 'Subagent', icon: Bot })),
+        ...picks.commands.slice(0, 2).map((p) => ({ ...p, label: 'Command', icon: SquareTerminal })),
+        ...picks.hooks.slice(0, 2).map((p) => ({ ...p, label: 'Hook', icon: Webhook })),
+      ]
+  const themeTiles: HeroTile[] = heroThemes.map((t) => ({ name: t.name, href: '/themes', label: 'Theme', image: t.preview }))
+  // Slot order alternates sides of the page; put a theme image at every third slot so both sides get pictures.
+  const heroTiles = TILE_SLOTS.flatMap((_, i) => {
+    const tile = i % 3 === 0 ? themeTiles[i / 3] : itemTiles[i - Math.floor(i / 3) - 1]
+    return tile ? [tile] : []
+  })
+
+  // Collections with no popularity signal get a daily rotation. Plugins and skills join only when their rankings are unavailable.
+  const pickColumns = [
+    ...(hasRankings
+      ? []
+      : [
+          { label: 'Plugins', href: '/plugins', icon: Package, count: counts.plugins, items: picks.plugins },
+          { label: 'Skills', href: '/skills', icon: Sparkles, count: counts.skills, items: picks.skills },
+        ]),
+    { label: 'Subagents', href: '/subagents', icon: Bot, count: counts.subagents, items: picks.subagents },
+    { label: 'Commands', href: '/commands', icon: SquareTerminal, count: counts.commands, items: picks.commands },
+    { label: 'Hooks', href: '/hooks', icon: Webhook, count: counts.hooks, items: picks.hooks },
+  ]
+
+  const picksBody = (
+    <>
+          <h2 className="text-display-2">From the collection</h2>
+          <p className="mt-2 max-w-xl text-muted-foreground">A different handful every day from the Build with Claude repo.</p>
+          <div className="mt-10 grid gap-x-12 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+            {pickColumns.map(({ label, href, icon: Icon, count, items }) => (
+              <div key={href} className="min-w-0">
+                <h3 className="flex items-center gap-2.5 border-b border-border pb-3 font-sans text-base font-medium tracking-normal">
+                  <Icon className="h-4 w-4 text-[#e89a7a]" />
+                  {label}
+                </h3>
+                <ul>
+                  {items.map((item) => (
+                    <li key={item.href} className="border-b border-border">
+                      <Link href={item.href} className={`group block rounded-md px-2 py-3 transition-colors hover:bg-card ${focusRing}`}>
+                        <span className="block truncate font-medium transition-colors group-hover:text-[#e89a7a]">{item.name}</span>
+                        <span className="block truncate text-sm text-muted-foreground">{item.description}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+                <Link href={href} className={`mt-4 inline-flex items-center gap-1.5 rounded-sm py-1 text-sm text-muted-foreground transition-colors hover:text-foreground ${focusRing}`}>
+                  All {count.toLocaleString('en-US')} {label.toLowerCase()} <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            ))}
+          </div>
+    </>
+  )
 
   return (
     <div className="min-h-screen">
-      {/* Hero */}
-      <section className="py-20 md:py-32">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left: Text content */}
-            <div className="max-w-xl min-w-0">
-              <h1 className="text-display-1 mb-6">
-                Discover <span className="text-[#e89a7a]">everything</span> for Claude
-              </h1>
-              <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-                Search {floorToRound(pluginTotal)}+ plugins, {floorToRound(skillTotal)}+ skills, and{' '}
-                {floorToRound(mcpTotal)}+ MCP servers. Or start with our curated picks.
-              </p>
-
-              <HeroSearch />
-
-              <div className="mt-5 flex items-center gap-5 text-sm">
-                <Link
-                  href="/plugins"
-                  className="inline-flex items-center gap-1 py-1 -my-1 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Browse all <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
-                <a
-                  href="https://github.com/davepoon/buildwithclaude"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="py-1 -my-1 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  View on GitHub
-                </a>
-              </div>
-
-              {/* Platform badges */}
-              <div className="flex flex-wrap gap-3 mt-10">
-                <div className="px-4 py-2 rounded-md border border-border text-center">
-                  <div className="text-sm font-medium">Claude.ai</div>
-                  <div className="text-xs text-muted-foreground">Chat</div>
-                </div>
-                <div className="px-4 py-2 rounded-md border border-border text-center">
-                  <div className="text-sm font-medium">Claude Code</div>
-                  <div className="text-xs text-muted-foreground">CLI</div>
-                </div>
-                <div className="px-4 py-2 rounded-md border border-border text-center">
-                  <div className="text-sm font-medium">Claude API</div>
-                  <div className="text-xs text-muted-foreground">Developers</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right: Terminal mockup with pattern background */}
-            <div className="hidden lg:block">
-              {/* Terracotta pattern background */}
-              <div className="relative rounded-2xl overflow-hidden p-6 bg-[#c96a50]">
-                {/* SVG pattern overlay */}
-                <svg
-                  className="absolute inset-0 w-full h-full opacity-30"
-                  viewBox="0 0 400 300"
-                  preserveAspectRatio="none"
-                >
-                  <path
-                    d="M-20,50 Q50,20 100,60 T200,50 T300,70 T400,40 T500,60"
-                    stroke="#9a4a3a"
-                    strokeWidth="3"
-                    fill="none"
-                  />
-                  <path
-                    d="M-20,100 Q80,70 150,110 T280,90 T400,120 T500,80"
-                    stroke="#9a4a3a"
-                    strokeWidth="2"
-                    fill="none"
-                  />
-                  <path
-                    d="M-20,150 Q60,180 130,140 T250,170 T380,130 T500,160"
-                    stroke="#9a4a3a"
-                    strokeWidth="3"
-                    fill="none"
-                  />
-                  <path
-                    d="M-20,200 Q90,170 160,210 T300,180 T420,220 T500,190"
-                    stroke="#9a4a3a"
-                    strokeWidth="2"
-                    fill="none"
-                  />
-                  <path
-                    d="M-20,250 Q70,280 140,240 T270,270 T400,240 T500,270"
-                    stroke="#9a4a3a"
-                    strokeWidth="3"
-                    fill="none"
-                  />
-                </svg>
-
-                {/* Terminal window */}
-                <div className="relative bg-[#1a1a1a] rounded-xl overflow-hidden shadow-2xl">
-                  {/* Terminal header */}
-                  <div className="flex items-center gap-2 px-4 py-3 bg-[#252525]">
-                    <div className="flex gap-1.5">
-                      <div className="w-3 h-3 rounded-full bg-[#5a5a5a]" />
-                      <div className="w-3 h-3 rounded-full bg-[#5a5a5a]" />
-                      <div className="w-3 h-3 rounded-full bg-[#5a5a5a]" />
-                    </div>
-                  </div>
-                  {/* Terminal content */}
-                  <div className="p-5 font-mono text-sm leading-relaxed">
-                    {/* Welcome box */}
-                    <div className="inline-block border border-primary rounded px-4 py-2 mb-6">
-                      <span className="text-primary">*</span>{' '}
-                      <span className="text-foreground">Welcome to Claude Code</span>
-                    </div>
-
-                    <div className="text-muted-foreground mb-4">
-                      <span className="text-muted-foreground">{'>'}</span>{' '}
-                      <span className="text-foreground">/plugin marketplace add davepoon/buildwithclaude</span>
-                    </div>
-
-                    <div className="text-muted-foreground/70 space-y-1.5">
-                      <div><span className="text-green-500">✓</span> Fetching marketplace registry...</div>
-                      <div><span className="text-green-500">✓</span> Adding buildwithclaude marketplace</div>
-                      <div className="mt-3 text-foreground/80">Available plugins:</div>
-                      <div className="ml-2 text-muted-foreground/60">• frontend-design-pro</div>
-                      <div className="ml-2 text-muted-foreground/60">• nextjs-expert</div>
-                      <div className="ml-2 text-muted-foreground/60">• interview</div>
-                      <div className="ml-2 text-muted-foreground/60">• + {pluginCount - 3} more</div>
-                      <div className="mt-3 text-foreground/80">
-                        Run <span className="text-primary">/plugin install {'<name>'}</span> to install
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Community stories */}
-      <StoriesStrip stories={featuredStories} />
-
-      {/* Browse by type */}
-      <section className="py-20 border-t border-border">
-        <div className="container mx-auto px-4">
-          <p className="text-sm text-muted-foreground mb-8 text-center tracking-wide uppercase">
-            Browse by type
+      {/* Hero: search is the page */}
+      <section className="relative overflow-hidden">
+        <HeroBackdrop />
+        <HeroTiles tiles={heroTiles} />
+        <div className="container relative mx-auto px-4 pb-14 pt-16 text-center md:pb-20 md:pt-28 xl:pb-28 xl:pt-36">
+          <h1 className="mx-auto max-w-4xl text-balance font-serif text-[clamp(2.75rem,7.2vw,5rem)] leading-[1.04] tracking-[-0.02em]">
+            Discover <span className="text-[#e89a7a]">everything</span> for Claude
+          </h1>
+          <p className="mx-auto mt-5 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
+            Plugins, skills, subagents, commands, hooks, MCP servers and themes from every community marketplace, searchable in one place.
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
-            {categories.map((cat) => {
-              const Icon = cat.icon
-              const colorClasses = {
-                blue: 'bg-blue-500/10 text-blue-500 group-hover:bg-blue-500/20',
-                green: 'bg-green-500/10 text-green-500 group-hover:bg-green-500/20',
-                orange: 'bg-orange-500/10 text-orange-500 group-hover:bg-orange-500/20',
-                yellow: 'bg-yellow-500/10 text-yellow-500 group-hover:bg-yellow-500/20',
-                purple: 'bg-purple-500/10 text-purple-500 group-hover:bg-purple-500/20',
-                pink: 'bg-pink-500/10 text-pink-500 group-hover:bg-pink-500/20',
-              }
-              return (
-                <Link key={cat.href} href={cat.href}>
-                  <div className="p-6 rounded-lg border border-border hover:border-primary/40 transition-all group text-center">
-                    <div className={`w-12 h-12 rounded-full ${colorClasses[cat.color]} flex items-center justify-center mx-auto mb-4 transition-colors`}>
-                      <Icon className="h-6 w-6" />
-                    </div>
-                    <div className="text-3xl font-serif text-foreground mb-1">
-                      {cat.count}
-                    </div>
-                    <div className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
-                      {cat.label}
-                    </div>
-                  </div>
-                </Link>
-              )
-            })}
+
+          <div className="mx-auto mt-9 max-w-[42rem] text-left">
+            <HeroSearch />
           </div>
+
+          <nav aria-label="Browse by type" className="mx-auto mt-6 flex max-w-5xl flex-wrap justify-center gap-x-1 gap-y-1">
+            {types.map(({ href, label, count, icon: Icon }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`group inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-sm text-foreground/90 transition-colors hover:bg-secondary hover:text-foreground ${focusRing}`}
+              >
+                <Icon className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-[#e89a7a]" />
+                {label}
+                <span className="font-mono text-xs tabular-nums text-muted-foreground">{compact(count)}</span>
+              </Link>
+            ))}
+          </nav>
         </div>
       </section>
 
-      {/* Featured Themes */}
+      {hasRankings ? (
+        <Ticker label="Trending" items={tickerItems.map((t) => ({ name: t.name, href: t.href, icon: KIND_ICON[t.kind], detail: `${compact(t.metric)} ${t.unit}` }))} />
+      ) : (
+        <Ticker
+          label="Today's picks"
+          items={Array.from({ length: 5 }, (_, i) => pickColumns.flatMap((c) => (c.items[i] ? [{ name: c.items[i].name, href: c.items[i].href, icon: c.icon, detail: c.label.replace(/s$/, '') }] : []))).flat()}
+        />
+      )}
+
+      {/* Rankings by real signal, plus what was indexed most recently */}
+      {hasRankings && (
+        <section className="container mx-auto px-4 py-16 md:py-24">
+          <Panel className="grid gap-x-16 gap-y-14 lg:grid-cols-[minmax(0,1fr)_20rem]">
+            <Tabs defaultValue={boards[0].key} className="min-w-0">
+              <div className="mb-7 flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
+                <h2 className="text-display-2">Trending now</h2>
+                <TabsList className="max-w-full justify-start overflow-x-auto [scrollbar-width:none]">
+                  {boards.map((b) => (
+                    <TabsTrigger key={b.key} value={b.key}>
+                      {b.label}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </div>
+              {boards.map((b) => (
+                <TabsContent key={b.key} value={b.key} className="mt-0">
+                  <Leaderboard board={b} items={trending[b.key]} />
+                </TabsContent>
+              ))}
+            </Tabs>
+
+            {trending.justAdded.length > 0 && (
+              <aside aria-labelledby="just-added" className="min-w-0">
+                <h2 id="just-added" className="text-display-3 mb-7 lg:mt-2.5">
+                  Just added
+                </h2>
+                <ul className="border-t border-border">
+                  {trending.justAdded.map((item) => {
+                    const Icon = KIND_ICON[item.kind]
+                    return (
+                      <li key={item.href} className="border-b border-border">
+                        <Link href={item.href} className={`group flex items-baseline gap-3 rounded-md px-2 py-3 transition-colors hover:bg-card ${focusRing}`}>
+                          <Icon className="h-3.5 w-3.5 shrink-0 translate-y-0.5 text-muted-foreground" />
+                          <span className="min-w-0 flex-1">
+                            <span className="block truncate font-medium transition-colors group-hover:text-[#e89a7a]">{item.name}</span>
+                            {item.source && <span className="block truncate text-sm text-muted-foreground">{item.source}</span>}
+                          </span>
+                          <span className="shrink-0 font-mono text-xs tabular-nums text-muted-foreground">{item.added}</span>
+                        </Link>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </aside>
+            )}
+          </Panel>
+        </section>
+      )}
+
+      {/* Without rankings (database unreachable) the daily picks take the panel instead */}
+      {!hasRankings && (
+        <section className="container mx-auto px-4 py-16 md:py-24">
+          <Panel>{picksBody}</Panel>
+        </section>
+      )}
+
+      {/* Themes: the one visual shelf */}
       {featuredThemes.length > 0 && (
-        <section className="py-10 md:py-16">
+        <section className="border-t border-border py-16 md:py-20">
           <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-display-3 flex items-center gap-3">
-                <Palette className="h-7 w-7 text-pink-500" />
-                Themes
-              </h2>
-              <Link href="/themes" className="py-1 -my-1 text-sm text-muted-foreground hover:text-accent transition-colors">
-                View all →
+            <div className="mb-8 flex items-end justify-between gap-6">
+              <h2 className="text-display-2">Themes</h2>
+              <Link href="/themes" className={`inline-flex items-center gap-1.5 rounded-sm py-1 text-sm text-muted-foreground transition-colors hover:text-foreground ${focusRing}`}>
+                All {counts.themes} themes <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {featuredThemes.map((theme) => (
                 <ThemeCard key={theme.slug} theme={theme} />
               ))}
@@ -311,96 +452,22 @@ export default function HomePageClient({
         </section>
       )}
 
-      {/* Featured Plugins */}
-      <FeaturedSection
-        title="Plugins"
-        href="/plugins"
-        icon={Package}
-        color="purple"
-        items={featuredPlugins.map(p => ({ slug: p.name, name: p.name, description: p.description }))}
-        itemLinkPrefix="/plugin"
-      />
+      {/* Daily picks for the collections that have no popularity data */}
+      {hasRankings && (
+        <section className="border-t border-border py-16 md:py-20">
+          <div className="container mx-auto px-4">{picksBody}</div>
+        </section>
+      )}
 
-      {/* Featured Skills */}
-      <FeaturedSection
-        title="Skills"
-        href="/skills"
-        icon={Sparkles}
-        color="yellow"
-        items={featuredSkills}
-        itemLinkPrefix="/skill"
-      />
+      <StoriesStrip stories={featuredStories} />
 
-      {/* Featured Subagents */}
-      <FeaturedSection
-        title="Subagents"
-        href="/subagents"
-        icon={Bot}
-        color="blue"
-        items={featuredSubagents}
-        itemLinkPrefix="/subagent"
-      />
-
-      {/* Featured Commands */}
-      <FeaturedSection
-        title="Commands"
-        href="/commands"
-        icon={Terminal}
-        color="green"
-        items={featuredCommands}
-        itemLinkPrefix="/command"
-      />
-
-      {/* Featured Hooks */}
-      <FeaturedSection
-        title="Hooks"
-        href="/hooks"
-        icon={Webhook}
-        color="orange"
-        items={featuredHooks}
-        itemLinkPrefix="/hook"
-      />
-
-      {/* Quick install */}
-      <section className="pt-20 pb-12 border-t border-border">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-display-3 mb-6">Get started</h2>
-            <p className="text-muted-foreground mb-10">
-              Add the plugin marketplace to Claude Code
-            </p>
-            {/* Command bar like Claude Code website */}
-            <div className="inline-flex items-center gap-1 bg-[#1a1a1a] rounded-full p-1.5 pr-4 max-sm:max-w-full">
-              {/* Dropdown button */}
-              <button className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-100 transition-colors max-sm:shrink-0 max-sm:whitespace-nowrap">
-                Get Plugins
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-              {/* Command */}
-              <code className="font-mono text-sm ml-3 max-sm:min-w-0 max-sm:break-words">
-                <span className="text-primary">/plugin</span>{' '}
-                <span className="text-foreground/80">marketplace add <span className="inline-block max-w-full">davepoon/<wbr />buildwithclaude</span></span>
-              </code>
-              {/* Copy button */}
-              <button
-                onClick={() => navigator.clipboard.writeText('/plugin marketplace add davepoon/buildwithclaude')}
-                className="ml-3 p-1.5 text-muted-foreground hover:text-foreground transition-colors"
-                title="Copy command"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-              </button>
-            </div>
-            <p className="text-sm text-muted-foreground mt-8">
-              Or{' '}
-              <Link href="/plugins" className="py-1 text-accent hover:underline">
-                browse plugins
-              </Link>
-            </p>
-          </div>
+      {/* The curated marketplace: one quiet line */}
+      <section className="border-t border-border py-12">
+        <div className="container mx-auto flex flex-col items-start justify-between gap-5 px-4 md:flex-row md:items-center">
+          <p className="text-muted-foreground">
+            <span className="text-foreground">Want the curated set inside Claude Code?</span> Add the Build with Claude marketplace.
+          </p>
+          <CopyCommand />
         </div>
       </section>
     </div>
