@@ -216,13 +216,22 @@ Hook implementation...
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
+## Contributors
+
+This project exists thanks to all the people who contribute.
+
+<a href="https://github.com/davepoon/buildwithclaude/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=davepoon/buildwithclaude&columns=20&max=240" alt="Contributors" />
+</a>
+
+[Contribute on our GitHub](https://github.com/davepoon/buildwithclaude)
+
 ## Links
 
 - **Web UI**: [buildwithclaude.com](https://www.buildwithclaude.com)
 - **Documentation**: [Claude Code Docs](https://docs.anthropic.com/en/docs/claude-code)
 - **Plugin Marketplaces**: [Plugin Docs](https://code.claude.com/docs/en/plugin-marketplaces)
 - **Issues**: [GitHub Issues](https://github.com/davepoon/buildwithclaude/issues)
-- **Visual Index**: [Vexilo · A field guide to Claude Code](https://vexilo.app/?lang=en) — Interactive index of 31 agents · 99 commands · 123 skills · 13 rules, organized around the 5-step workflow. ([companion repo](https://github.com/lilhawk7077/claude-code-resources))
 
 ## License
 

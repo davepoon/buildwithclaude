@@ -324,3 +324,60 @@ html {
     }
   }
 }
+
+/* Text selection and caret in the accent, site-wide */
+::selection {
+  background: hsl(var(--primary) / 0.4);
+  color: hsl(var(--foreground));
+}
+input,
+textarea {
+  caret-color: hsl(18 70% 69%);
+}
+
+/* Homepage ticker: the track holds its items twice and slides half its width, so the loop has no seam.
+   Pauses under the pointer and for keyboard focus; with reduced motion it becomes a plain scrollable row. */
+@keyframes ticker {
+  to { transform: translateX(-50%); }
+}
+.ticker-viewport {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent);
+}
+.ticker-track {
+  animation: ticker 60s linear infinite;
+}
+.ticker:hover .ticker-track,
+.ticker:focus-within .ticker-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticker-viewport {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .ticker-track {
+    animation: none;
+  }
+  .ticker-track > [aria-hidden] {
+    display: none;
+  }
+}
+
+/* Homepage hero tiles: a slow, staggered drift. Faded toward the page edges and the fold. */
+@keyframes hero-float {
+  from { transform: translateY(6px); }
+  to { transform: translateY(-8px); }
+}
+.hero-tiles {
+  mask-image: linear-gradient(to bottom, #000 62%, transparent 96%);
+}
+.hero-tile {
+  animation: hero-float 8s ease-in-out infinite alternate;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-tile {
+    animation: none;
+  }
+}
+

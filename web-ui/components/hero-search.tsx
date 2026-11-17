@@ -16,6 +16,39 @@ import { cn } from '@/lib/utils'
  * the see-all footer (and an empty submit) lands on the full /search page.
  * The global ⌘K palette is still available via the nav (hinted by the chip).
  */
+const PLACEHOLDER = 'Search plugins, skills, agents, commands, MCP servers, themes…'
+const EXAMPLES = ['frontend design skills', 'postgres MCP server', 'code review subagent', 'git commit command', 'dark terminal theme', 'notification hooks']
+
+/** Types example queries into the placeholder, one after another. Static under reduced motion. */
+function useTypedPlaceholder(paused: boolean) {
+  const [text, setText] = useState(PLACEHOLDER)
+  useEffect(() => {
+    if (paused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setText(PLACEHOLDER)
+      return
+    }
+    let word = 0
+    let len = 0
+    let timer: ReturnType<typeof setTimeout>
+    const tick = () => {
+      const example = EXAMPLES[word]
+      len += 1
+      if (len > example.length) {
+        // Hold the finished query, then start the next one
+        word = (word + 1) % EXAMPLES.length
+        len = 0
+        timer = setTimeout(tick, 1800)
+        return
+      }
+      setText(`Try “${example.slice(0, len)}”`)
+      timer = setTimeout(tick, 55)
+    }
+    timer = setTimeout(tick, 2200)
+    return () => clearTimeout(timer)
+  }, [paused])
+  return text
+}
+
 export function HeroSearch() {
   const router = useRouter()
   const [query, setQuery] = useState('')
@@ -40,13 +73,15 @@ export function HeroSearch() {
   }
 
   const showDropdown = open && trimmed.length > 0
+  const [focused, setFocused] = useState(false)
+  const placeholder = useTypedPlaceholder(focused || query.length > 0)
 
   return (
     <CommandPrimitive
       ref={rootRef}
       shouldFilter={false}
       label="Search the catalog"
-      className={cn('relative max-w-xl', SEARCH_GROUP_HEADING_CLASS)}
+      className={cn('relative', SEARCH_GROUP_HEADING_CLASS)}
       onKeyDown={(e) => {
         if (e.key === 'Escape') setOpen(false)
       }}
@@ -59,10 +94,14 @@ export function HeroSearch() {
             setQuery(v)
             setOpen(true)
           }}
-          onFocus={() => setOpen(true)}
-          placeholder="Search plugins, skills, agents, commands, MCP servers, themes…"
+          onFocus={() => {
+            setOpen(true)
+            setFocused(true)
+          }}
+          onBlur={() => setFocused(false)}
+          placeholder={placeholder}
           aria-label="Search the catalog"
-          className="h-12 w-full rounded-xl border border-border bg-card pl-12 pr-12 text-base text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/60 focus:ring-2 focus:ring-primary/20"
+          className="h-14 w-full rounded-2xl border border-border bg-card pl-12 pr-14 text-base shadow-[0_12px_40px_-12px_rgb(0_0_0/0.8)] text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/60 focus:ring-2 focus:ring-primary/20"
         />
         {query ? (
           <button
