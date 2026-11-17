@@ -6,6 +6,7 @@ import { z } from 'zod'
 import { expandSkillCollection } from './skill-expander'
 import { resolveMarketplaceSkills } from './marketplace-skills'
 import { KNOWN_MARKETPLACE_REPOS } from './marketplace-indexer'
+import { staleMissing } from './missing-marketplaces'
 
 // Plugin schema for GitHub marketplace data
 const PluginSchema = z.object({
@@ -46,6 +47,7 @@ export interface PluginIndexResult {
   examined?: number    // marketplaces checked for changes this run (all active ones)
   missing?: number     // repositories GitHub could not resolve (deleted or private)
   deferred?: number    // changed marketplaces left for the next run (over the per-run cap)
+  hidden?: number      // missing for days and re-checked: set inactive this run
   skillsInserted?: number
   durationMs: number
 }
@@ -56,6 +58,10 @@ export interface PluginIndexResult {
 // throttled requests each). The cap bounds a run after a long outage; the
 // overflow keeps its place at the front of the queue for the next run.
 const DEFAULT_CHANGED_PER_RUN = 2500
+
+// Refuse to hide more than this share of the catalog in one run: that many
+// repos vanishing at once means GitHub or the token is wrong, not the repos.
+const MAX_HIDE_FRACTION = 0.2
 
 type PluginUpsertRecord = {
   name: string
@@ -273,6 +279,9 @@ async function fetchGitHubMarketplacePlugins(repoFullName: string): Promise<Plug
  * last_indexed_at means "confirmed current as of": it is bumped when a
  * marketplace is found unchanged or is re-fetched, and left alone when its
  * repo is missing or it was deferred, so those stay at the front of the queue.
+ *
+ * A marketplace whose repo stays missing is hidden (active = false); see
+ * staleMissing. Nothing re-activates it automatically if the repo returns.
  */
 export async function indexPlugins(
   options: { batchSize?: number } = {},
@@ -295,6 +304,7 @@ export async function indexPlugins(
       description: marketplaces.description,
       url: marketplaces.url,
       stars: marketplaces.stars,
+      lastIndexedAt: marketplaces.lastIndexedAt,
     })
     .from(marketplaces)
     .where(eq(marketplaces.active, true))
@@ -329,7 +339,8 @@ export async function indexPlugins(
   let unchanged = 0
   let reindexed = 0
   let failed = 0
-  let missing = 0
+  const missingRows: typeof marketplaceSlice = []
+  let hidden = 0
   let deferred = 0
   let attempted = 0 // changed marketplaces we spent requests on this run
 
@@ -422,7 +433,7 @@ export async function indexPlugins(
     const repoPath = repoPathOf(marketplace)
     const repoMeta = metaByRepo.get(repoPath)
     if (!repoMeta) {
-      missing++ // deleted or private; nothing to refresh
+      missingRows.push(marketplace) // deleted or private; nothing to refresh
       continue
     }
 
@@ -564,9 +575,29 @@ export async function indexPlugins(
   // Flush the final partial window.
   await flush()
 
+  // Hide marketplaces whose repo has been gone for days. Ask GitHub once more
+  // first, so a failure during the batched check above cannot hide anything.
+  const missing = missingRows.length
+  const stale = staleMissing(missingRows, now)
+  if (stale.length) {
+    const recheck = await github.fetchReposMetadata(stale.map(repoPathOf))
+    const gone = stale.filter((m) => !recheck.get(repoPathOf(m)))
+    if (gone.length > marketplaceSlice.length * MAX_HIDE_FRACTION) {
+      console.error(`Refusing to hide ${gone.length} of ${marketplaceSlice.length} marketplaces in one run`)
+      failed += gone.length
+    } else {
+      for (let i = 0; i < gone.length; i += 500) {
+        const ids = gone.slice(i, i + 500).map((m) => m.id)
+        await db.update(marketplaces).set({ active: false, updatedAt: now }).where(inArray(marketplaces.id, ids))
+        hidden += ids.length
+      }
+      for (const m of gone) console.log(`Hid marketplace ${m.name}: repository no longer on GitHub`)
+    }
+  }
+
   console.log(
     `Incremental plugin index done: examined ${marketplaceSlice.length}, reindexed ${reindexed}, ` +
-      `unchanged ${unchanged}, deferred ${deferred}, missing ${missing}, skipped ${skipped}, failed ${failed}, ` +
+      `unchanged ${unchanged}, deferred ${deferred}, missing ${missing}, hidden ${hidden}, skipped ${skipped}, failed ${failed}, ` +
       `metadata refreshed ${metaRefreshed}, ` +
       `plugins upserted ${indexed}, skills ${skillsInserted}`,
   )
@@ -580,6 +611,7 @@ export async function indexPlugins(
     examined: marketplaceSlice.length,
     missing,
     deferred,
+    hidden,
     skillsInserted,
     durationMs: Date.now() - startTime,
   }
