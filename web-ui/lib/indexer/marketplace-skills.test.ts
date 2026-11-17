@@ -1,6 +1,7 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
 import { resolveMarketplaceSkills } from './marketplace-skills.ts'
+import { resolveMarketplaceCategories } from './marketplace-categories.ts'
 
 describe('resolveMarketplaceSkills', () => {
   it('reads SKILL.md relative to the plugin source (issue #315)', async () => {
@@ -123,5 +124,28 @@ describe('resolveMarketplaceSkills', () => {
       '\uFEFF---yaml\r\nname: review\r\ndescription: >\r\n  Review code\r\n  carefully.\r\n---\r\n')
     assert.equal(result[0].name, 'review')
     assert.equal(result[0].description, 'Review code carefully.')
+  })
+})
+
+const repo = { topics: ['claude-code-plugins', 'devtools', 'productivity'] }
+
+describe('resolveMarketplaceCategories', () => {
+  it('keeps the curated categories of a known marketplace', () => {
+    assert.deepEqual(
+      resolveMarketplaceCategories({ categories: ['plugins', 'skills'] }, [], repo),
+      ['plugins', 'skills'],
+    )
+    assert.deepEqual(
+      resolveMarketplaceCategories({ categories: ['plugins', 'skills'] }, ['testing'], repo),
+      ['plugins', 'skills'],
+    )
+  })
+
+  it('uses marketplace.json categories for other marketplaces', () => {
+    assert.deepEqual(resolveMarketplaceCategories(undefined, ['testing', 'devops'], repo), ['testing', 'devops'])
+  })
+
+  it('falls back to repo topics when marketplace.json has no categories', () => {
+    assert.deepEqual(resolveMarketplaceCategories(undefined, [], repo), ['devtools', 'productivity'])
   })
 })
