@@ -97,6 +97,9 @@ export interface SearchDocument {
   installs: number
   /** Epoch milliseconds; 0 when the source has no timestamp. */
   updatedAt: number
+  /** Epoch ms of the reindex run that wrote this doc. Stamped by the indexer;
+   *  docs older than a type's latest run are pruned, so it doubles as freshness. */
+  indexedAt?: number
   /** Pre-computed detail route so the UI can link without a type→url map. */
   url: string
 }
@@ -130,8 +133,9 @@ export const CONTENT_INDEX_SETTINGS: Settings = {
     'model',
     'vendor',
     'sourceRegistry',
+    'indexedAt',
   ],
-  sortableAttributes: ['stars', 'installs', 'updatedAt'],
+  sortableAttributes: ['stars', 'installs', 'updatedAt', 'indexedAt'],
   rankingRules: [
     'words',
     'typo',

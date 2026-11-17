@@ -62,6 +62,9 @@ const KNOWN_MARKETPLACES = [
   },
 ]
 
+/** Repos whose description/url are hand-written above and must not be overwritten from GitHub. */
+export const KNOWN_MARKETPLACE_REPOS = new Set(KNOWN_MARKETPLACES.map((m) => m.repo))
+
 // Curated high-signal skill repositories (owner/repo). Hand-picked from the
 // open agent-skills ecosystem (vercel-labs/skills providers, anthropics/skills,
 // and other well-known SKILL.md repos). Seeded directly into the crawl so we get
@@ -87,6 +90,7 @@ export interface IndexResult {
 export async function indexMarketplaces(): Promise<IndexResult> {
   const startTime = Date.now()
   const github = getGitHubClient()
+  await github.assertAuthenticated()
 
   let indexed = 0
   let failed = 0

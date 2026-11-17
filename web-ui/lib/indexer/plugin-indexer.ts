@@ -5,6 +5,7 @@ import { eq, and, sql, inArray } from 'drizzle-orm'
 import { z } from 'zod'
 import { expandSkillCollection } from './skill-expander'
 import { resolveMarketplaceSkills } from './marketplace-skills'
+import { KNOWN_MARKETPLACE_REPOS } from './marketplace-indexer'
 
 // Plugin schema for GitHub marketplace data
 const PluginSchema = z.object({
@@ -273,6 +274,7 @@ export async function indexPlugins(
   const startTime = Date.now()
   const batchSize = options.batchSize ?? DEFAULT_MARKETPLACE_BATCH
   const github = getGitHubClient()
+  await github.assertAuthenticated()
   const now = new Date()
 
   // The N stalest active marketplaces.
@@ -284,6 +286,9 @@ export async function indexPlugins(
       repository: marketplaces.repository,
       namespace: marketplaces.namespace,
       sourcePushedAt: marketplaces.sourcePushedAt,
+      description: marketplaces.description,
+      url: marketplaces.url,
+      stars: marketplaces.stars,
     })
     .from(marketplaces)
     .where(eq(marketplaces.active, true))
@@ -299,6 +304,10 @@ export async function indexPlugins(
   const collectionNamespaces = new Set<string>()
   const changedUpdates: Array<{ id: string; pluginCount: number; sourcePushedAt: Date | null }> = []
   const bumpIds: string[] = [] // unchanged / skipped / failed → bulk last_indexed_at bump
+  // Card metadata (GitHub About) that drifted. Editing About does not move
+  // pushed_at, so this is tracked separately from change-detection.
+  const metaUpdates: Array<{ id: string; description: string; url: string; stars: number }> = []
+  let metaRefreshed = 0
 
   const MAX_SKILL_EXPANSIONS = 10
   const expandedRepos = new Set<string>()
@@ -358,6 +367,15 @@ export async function indexPlugins(
       }
     }
     changedUpdates.length = 0
+    for (const { id, ...meta } of metaUpdates) {
+      try {
+        await db.update(marketplaces).set({ ...meta, updatedAt: now }).where(eq(marketplaces.id, id))
+        metaRefreshed++
+      } catch (error) {
+        console.error(`Failed to refresh metadata for marketplace ${id}:`, error)
+      }
+    }
+    metaUpdates.length = 0
     // Unchanged / skipped / failed: bulk-bump last_indexed_at so they rotate to the back.
     for (let i = 0; i < bumpIds.length; i += 500) {
       const chunk = bumpIds.slice(i, i + 500)
@@ -401,6 +419,25 @@ export async function indexPlugins(
       failed++
       bumpIds.push(marketplace.id) // rotate to back; retry next cycle
       continue
+    }
+
+    // We already paid for the metadata request: keep the card's description,
+    // link and stars in step with GitHub. The marketplace crawl only revisits
+    // repos its searches happen to return, so this rotation is the one place
+    // every existing marketplace is guaranteed a refresh.
+    if (!KNOWN_MARKETPLACE_REPOS.has(repoPath)) {
+      const fresh = {
+        description: repoMeta.description || marketplace.description || '',
+        url: repoMeta.homepage || repoMeta.html_url,
+        stars: repoMeta.stargazers_count,
+      }
+      if (
+        fresh.description !== (marketplace.description ?? '') ||
+        fresh.url !== marketplace.url ||
+        fresh.stars !== marketplace.stars
+      ) {
+        metaUpdates.push({ id: marketplace.id, ...fresh })
+      }
     }
 
     const pushedAt = repoMeta.pushed_at ? new Date(repoMeta.pushed_at) : null
@@ -519,7 +556,8 @@ export async function indexPlugins(
 
   console.log(
     `Incremental plugin index done: examined ${marketplaceSlice.length}, reindexed ${reindexed}, ` +
-      `unchanged ${unchanged}, skipped ${skipped}, failed ${failed}, plugins upserted ${indexed}, skills ${skillsInserted}`,
+      `unchanged ${unchanged}, skipped ${skipped}, failed ${failed}, metadata refreshed ${metaRefreshed}, ` +
+      `plugins upserted ${indexed}, skills ${skillsInserted}`,
   )
 
   return {

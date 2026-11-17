@@ -58,71 +58,111 @@ const DAY_TO_TASK = {
   6: 'plugins',
 }
 
+const ADMIN_URL = `${APP_BASE_URL}/api/admin/reindex-search`
+// Statuses that mean "the proxy gave up waiting", not "the reindex failed":
+// the web app keeps working, so confirm the outcome from the index itself.
+const PROXY_TIMEOUTS = new Set([502, 504, 522, 524])
+const CONFIRM_TIMEOUT_MS = 15 * 60_000
+const CONFIRM_POLL_MS = 20_000
+
+/** Search types to refresh once every DB sync in this run has finished. */
+const pendingReindex = new Set()
+/** Anything that went wrong. A non-empty list fails the run (exit 1). */
+const failures = []
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
 /**
- * Ask the web app to refresh Meilisearch for the given types.
- * Never throws — search hiccups must not fail the DB sync.
- * @param {string[]} types
+ * Poll the index until every doc of `type` carries a stamp from a run that
+ * started after `since`, i.e. the reindex we asked for finished and pruned.
+ * @param {string} type
+ * @param {number} since
+ * @param {Record<string, string>} headers
+ */
+async function confirmReindexed(type, since, headers) {
+  const deadline = Date.now() + CONFIRM_TIMEOUT_MS
+  while (Date.now() < deadline) {
+    await sleep(CONFIRM_POLL_MS)
+    try {
+      const res = await fetch(ADMIN_URL, { headers })
+      const status = res.ok ? (await res.json()).types?.[type] : null
+      // 60s slack for clock skew between this container and the web app.
+      if (status && status.unstamped === 0 && status.oldestIndexedAt >= since - 60_000) {
+        return true
+      }
+    } catch {
+      // transient; keep polling
+    }
+  }
+  return false
+}
+
+/**
+ * Ask the web app to refresh Meilisearch for the given types. The web app does
+ * it (not this container) because it has the markdown sources on disk.
+ * Never throws; problems land in `failures` so the run exits non-zero.
+ * @param {Iterable<string>} types
  */
 async function reindexSearch(types) {
   const adminToken = process.env.ADMIN_API_TOKEN
   if (!adminToken) {
-    console.warn('[search] ADMIN_API_TOKEN not set; skipping reindex')
+    failures.push('search: ADMIN_API_TOKEN not set, nothing was reindexed')
     return
   }
+  const headers = { Authorization: `Bearer ${adminToken}` }
   for (const type of types) {
+    const since = Date.now()
+    let outcome
     try {
-      const res = await fetch(
-        `${APP_BASE_URL}/api/admin/reindex-search?mode=type&type=${type}`,
-        {
-          method: 'POST',
-          headers: { Authorization: `Bearer ${adminToken}` },
-        }
-      )
-      console.log(`[search] reindex ${type} -> HTTP ${res.status}`)
+      const res = await fetch(`${ADMIN_URL}?mode=type&type=${type}`, { method: 'POST', headers })
+      outcome = `HTTP ${res.status}`
+      if (res.ok) {
+        console.log(`[search] reindex ${type} -> ${outcome}`)
+        continue
+      }
+      if (!PROXY_TIMEOUTS.has(res.status)) {
+        failures.push(`search: reindex ${type} -> ${outcome}`)
+        continue
+      }
     } catch (error) {
-      console.error(`[search] reindex ${type} failed:`, error)
+      outcome = String(error)
+    }
+    console.log(`[search] reindex ${type} -> ${outcome}; confirming from the index`)
+    if (await confirmReindexed(type, since, headers)) {
+      console.log(`[search] reindex ${type} confirmed`)
+    } else {
+      failures.push(`search: reindex ${type} -> ${outcome}, not confirmed within ${CONFIRM_TIMEOUT_MS / 60_000} min`)
     }
   }
 }
 
+/** Sync one source into Postgres and queue the search types it touched. */
+const TASKS = {
+  mcp: { run: indexMCPServers, reindex: ['mcp-server'] },
+  marketplaces: { run: indexMarketplaces, reindex: ['marketplace'] },
+  // Also refreshes marketplace rows (card metadata, plugin counts).
+  plugins: { run: indexPlugins, reindex: ['plugin', 'skill', 'marketplace'] },
+  skills: { run: indexSkillsFromSkillsSh, reindex: ['skill'] },
+  stats: { run: syncMCPServerStats, reindex: ['mcp-server'] },
+  // Deploy-static content: nothing to sync, just re-read the deployed files.
+  markdown: { run: async () => ({}), reindex: ['subagent', 'command', 'hook', 'plugin', 'skill', 'theme'] },
+}
+
 /**
+ * Run one task. A failure is recorded and the remaining tasks still run.
  * @param {string} task
  * @returns {Promise<unknown>}
  */
 async function runPrimaryTask(task) {
-  switch (task) {
-    case 'mcp': {
-      const result = await indexMCPServers()
-      await reindexSearch(['mcp-server'])
-      return result
-    }
-    case 'marketplaces': {
-      const result = await indexMarketplaces()
-      await reindexSearch(['marketplace'])
-      return result
-    }
-    case 'plugins': {
-      const result = await indexPlugins()
-      await reindexSearch(['plugin', 'skill'])
-      return result
-    }
-    case 'skills': {
-      const result = await indexSkillsFromSkillsSh()
-      await reindexSearch(['skill'])
-      return result
-    }
-    case 'stats': {
-      const result = await syncMCPServerStats()
-      await reindexSearch(['mcp-server'])
-      return result
-    }
-    case 'markdown': {
-      const reindexed = ['subagent', 'command', 'hook', 'plugin', 'skill']
-      await reindexSearch(reindexed)
-      return { reindexed }
-    }
-    default:
-      throw new Error(`Unknown task: ${task}`)
+  const { run, reindex } = TASKS[task]
+  try {
+    const result = await run()
+    reindex.forEach((type) => pendingReindex.add(type))
+    return result
+  } catch (error) {
+    console.error(`[indexer] ${task} failed:`, error)
+    failures.push(`${task}: ${error instanceof Error ? error.message : String(error)}`)
+    return { error: String(error) }
   }
 }
 
@@ -179,9 +219,18 @@ async function main() {
     results[task] = await runPrimaryTask(task)
   }
 
+  // One search refresh per type, after every DB sync, instead of one per task.
+  console.log(`[indexer] --- search reindex: ${[...pendingReindex].join(', ') || 'nothing'} ---`)
+  await reindexSearch(pendingReindex)
+
   const durationMs = Date.now() - startTime
   console.log(`[indexer] Completed in ${durationMs}ms`)
   console.log('[indexer] Result:', JSON.stringify(results, null, 2))
+
+  if (failures.length) {
+    // Exit non-zero so Railway marks the run failed instead of SUCCESS.
+    throw new Error(`${failures.length} step(s) failed:\n  - ${failures.join('\n  - ')}`)
+  }
 }
 
 main()
