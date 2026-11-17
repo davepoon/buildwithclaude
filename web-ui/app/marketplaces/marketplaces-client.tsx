@@ -158,6 +158,14 @@ export default function MarketplacesPageClient({
       <div className="container mx-auto px-4 py-12">
         {/* Header: the h1 docks into the sticky filter area while scrolling */}
         <FilterHeading>Plugin Marketplaces</FilterHeading>
+        {/* The page's one ad sits to the right of the title and intro on desktop, its top level with the top of
+            the title's letters, with the full-width banner below both; on smaller screens it sits under the banner.
+            The ad is pulled up by the title row's height less the gap above its letters, in the title's own fluid
+            font size (text-display-2), and layered above that row's page-colored sticky background (z-10), which
+            would otherwise cover its top edge. The row is as tall as the ad Carbon serves: the short card's
+            height is reserved, a full cover pushes the banner down when it arrives. */}
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-x-6">
+        <div className="lg:col-start-1 lg:row-start-1">
         <p className="text-muted-foreground mb-4">
           Community-maintained registries for Claude Code plugins and skills
         </p>
@@ -175,8 +183,14 @@ export default function MarketplacesPageClient({
           </span>
         </div>
 
+        </div>
+
         {/* Create Marketplace CTA */}
-        <CreateMarketplaceBanner />
+        <div className="lg:col-span-2 lg:row-start-2">
+          <CreateMarketplaceBanner />
+        </div>
+        <CarbonAd className="relative mx-auto mb-8 lg:z-20 lg:col-start-2 lg:row-start-1 lg:mt-[calc(-0.921*clamp(2rem,4vw,3rem)-8px)] lg:min-h-[155px]" />
+        </div>
 
         {/* Search and Sort */}
         <FilterBar>
@@ -200,8 +214,6 @@ export default function MarketplacesPageClient({
         {/* Marketplace list */}
         {marketplaces.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* The page's one ad sits in the grid as a card */}
-            <CarbonAd className="row-start-3 md:col-start-2 md:row-start-1" />
             {marketplaces.map((marketplace) => (
               <MarketplaceRegistryItem key={marketplace.id || marketplace.name} marketplace={marketplace} />
             ))}
