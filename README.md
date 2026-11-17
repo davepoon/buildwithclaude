@@ -232,7 +232,6 @@ This project exists thanks to all the people who contribute.
 - **Documentation**: [Claude Code Docs](https://docs.anthropic.com/en/docs/claude-code)
 - **Plugin Marketplaces**: [Plugin Docs](https://code.claude.com/docs/en/plugin-marketplaces)
 - **Issues**: [GitHub Issues](https://github.com/davepoon/buildwithclaude/issues)
-- **Visual Index**: [Vexilo · A field guide to Claude Code](https://vexilo.app/?lang=en) — Interactive index of 31 agents · 99 commands · 123 skills · 13 rules, organized around the 5-step workflow. ([companion repo](https://github.com/lilhawk7077/claude-code-resources))
 
 ## License
 
