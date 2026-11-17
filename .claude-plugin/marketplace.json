@@ -5854,6 +5854,30 @@
         "repo": "vibesenpai/vibesenpai",
         "sha": "2c484452f77a0295559f1bd8237834e50c1ed291"
       }
+    },
+    {
+      "name": "agentwhy",
+      "description": "See which private files Claude Code and its subagents reached and whether secret values entered the conversation. Choose which files to block or track, and get alerts when Claude Code reads a private file. The audit runs locally on session records already on your computer.",
+      "version": "0.8.0",
+      "author": {
+        "name": "Nessprim Karol Kozer",
+        "url": "https://github.com/karolkozer"
+      },
+      "homepage": "https://github.com/karolkozer/agentwhy#readme",
+      "repository": "https://github.com/karolkozer/agentwhy",
+      "license": "Apache-2.0",
+      "keywords": [
+        "security",
+        "privacy",
+        "secrets",
+        "audit"
+      ],
+      "category": "security",
+      "source": {
+        "source": "npm",
+        "package": "@agentwhy/cli",
+        "version": "0.8.0"
+      }
     }
   ]
 }
