@@ -6,6 +6,7 @@ import { z } from 'zod'
 import { expandSkillCollection } from './skill-expander'
 import { resolveMarketplaceSkills } from './marketplace-skills'
 import { KNOWN_MARKETPLACE_REPOS } from './marketplace-indexer'
+import { staleMissing } from './missing-marketplaces'
 
 // Plugin schema for GitHub marketplace data
 const PluginSchema = z.object({
@@ -43,15 +44,24 @@ export interface PluginIndexResult {
   skipped: number
   unchanged?: number   // marketplaces skipped via change-detection (no new commits)
   reindexed?: number   // marketplaces that had changes and were re-fetched
-  examined?: number    // marketplaces examined this run (the staleness slice size)
+  examined?: number    // marketplaces checked for changes this run (all active ones)
+  missing?: number     // repositories GitHub could not resolve (deleted or private)
+  deferred?: number    // changed marketplaces left for the next run (over the per-run cap)
+  hidden?: number      // missing for days and re-checked: set inactive this run
   skillsInserted?: number
   durationMs: number
 }
 
-// How many marketplaces to examine per run. With change-detection most cost
-// only one metadata request (~2s throttle each), so this stays well under the
-// Trigger.dev maxDuration while the whole catalog refreshes over a few runs.
-const DEFAULT_MARKETPLACE_BATCH = 2500
+// How many *changed* marketplaces to re-fetch per run. Checking for changes is
+// one batched request per 100 repos, so every marketplace is checked every run;
+// only the file fetch + skill expansion of a changed one is expensive (several
+// throttled requests each). The cap bounds a run after a long outage; the
+// overflow keeps its place at the front of the queue for the next run.
+const DEFAULT_CHANGED_PER_RUN = 2500
+
+// Refuse to hide more than this share of the catalog in one run: that many
+// repos vanishing at once means GitHub or the token is wrong, not the repos.
+const MAX_HIDE_FRACTION = 0.2
 
 type PluginUpsertRecord = {
   name: string
@@ -256,28 +266,33 @@ async function fetchGitHubMarketplacePlugins(repoFullName: string): Promise<Plug
 /**
  * Index plugins from active marketplaces — incrementally.
  *
- * Re-fetching all ~6k marketplaces every run exceeds the Trigger.dev maxDuration
- * (each GitHub request is throttled). Instead, each run:
- *   1. Examines only the N stalest active marketplaces (round-robin via
- *      last_indexed_at; NULLS FIRST so never-indexed go first).
- *   2. Makes one cheap metadata call per marketplace and skips the expensive
- *      file-fetch + skill-expansion when the repo has no new commits since our
- *      last full index (pushed_at <= source_pushed_at).
- *   3. Batches all DB writes.
- *   4. Always bumps last_indexed_at so processed marketplaces rotate to the back
- *      of the queue — even when skipped or failed — so the catalog refreshes
- *      fully over a few runs instead of starving the tail.
+ * Each run:
+ *   1. Fetches GitHub metadata for every active marketplace in batches
+ *      (fetchReposMetadata), and refreshes any card whose description, link or
+ *      stars drifted.
+ *   2. Skips the expensive file-fetch + skill-expansion when the repo has no
+ *      new commits since our last full index (pushed_at <= source_pushed_at).
+ *   3. Re-fetches the changed ones, stalest first, up to `batchSize` per run.
+ *   4. Batches all DB writes, flushing in windows so a killed run keeps its
+ *      progress.
+ *
+ * last_indexed_at means "confirmed current as of": it is bumped when a
+ * marketplace is found unchanged or is re-fetched, and left alone when its
+ * repo is missing or it was deferred, so those stay at the front of the queue.
+ *
+ * A marketplace whose repo stays missing is hidden (active = false); see
+ * staleMissing. Nothing re-activates it automatically if the repo returns.
  */
 export async function indexPlugins(
   options: { batchSize?: number } = {},
 ): Promise<PluginIndexResult> {
   const startTime = Date.now()
-  const batchSize = options.batchSize ?? DEFAULT_MARKETPLACE_BATCH
+  const batchSize = options.batchSize ?? DEFAULT_CHANGED_PER_RUN
   const github = getGitHubClient()
   await github.assertAuthenticated()
   const now = new Date()
 
-  // The N stalest active marketplaces.
+  // Every active marketplace, stalest first.
   const marketplaceSlice = await db
     .select({
       id: marketplaces.id,
@@ -289,14 +304,19 @@ export async function indexPlugins(
       description: marketplaces.description,
       url: marketplaces.url,
       stars: marketplaces.stars,
+      lastIndexedAt: marketplaces.lastIndexedAt,
     })
     .from(marketplaces)
     .where(eq(marketplaces.active, true))
     .orderBy(sql`${marketplaces.lastIndexedAt} ASC NULLS FIRST`)
-    .limit(batchSize)
 
-  console.log(
-    `Incremental plugin index: examining ${marketplaceSlice.length} stalest marketplaces (batch ${batchSize})`,
+  const repoPathOf = (m: { repository: string }) => m.repository.replace('https://github.com/', '')
+  const isLocal = (m: { name: string; displayName: string }) =>
+    m.name === 'davepoon/buildwithclaude' || m.displayName === 'Build with Claude'
+
+  console.log(`Incremental plugin index: checking ${marketplaceSlice.length} marketplaces for changes`)
+  const metaByRepo = await github.fetchReposMetadata(
+    marketplaceSlice.filter((m) => !isLocal(m)).map(repoPathOf),
   )
 
   const pluginRecords: PluginUpsertRecord[] = []
@@ -319,6 +339,10 @@ export async function indexPlugins(
   let unchanged = 0
   let reindexed = 0
   let failed = 0
+  const missingRows: typeof marketplaceSlice = []
+  let hidden = 0
+  let deferred = 0
+  let attempted = 0 // changed marketplaces we spent requests on this run
 
   // Persist accumulated work in windows so a run killed by maxDuration still
   // makes durable progress — and the bumped last_indexed_at rotates finished
@@ -376,13 +400,14 @@ export async function indexPlugins(
       }
     }
     metaUpdates.length = 0
-    // Unchanged / skipped / failed: bulk-bump last_indexed_at so they rotate to the back.
+    // Unchanged / skipped / failed: bulk-bump last_indexed_at so they rotate to
+    // the back. updated_at is left alone: nothing about the row changed.
     for (let i = 0; i < bumpIds.length; i += 500) {
       const chunk = bumpIds.slice(i, i + 500)
       try {
         await db
           .update(marketplaces)
-          .set({ lastIndexedAt: now, updatedAt: now })
+          .set({ lastIndexedAt: now })
           .where(inArray(marketplaces.id, chunk))
       } catch (error) {
         console.error(`Failed to bump ${chunk.length} marketplaces:`, error)
@@ -399,32 +424,22 @@ export async function indexPlugins(
     processedSinceFlush++
 
     // Build with Claude is served from local files — never crawl it, but rotate it.
-    if (
-      marketplace.name === 'davepoon/buildwithclaude' ||
-      marketplace.displayName === 'Build with Claude'
-    ) {
+    if (isLocal(marketplace)) {
       skipped++
       bumpIds.push(marketplace.id)
       continue
     }
 
-    const repoPath = marketplace.repository.replace('https://github.com/', '')
-
-    // Change-detection: one cheap metadata request.
-    let repoMeta
-    try {
-      repoMeta = await github.fetchRepoMetadata(repoPath)
-    } catch (error) {
-      console.error(`Metadata fetch failed for ${repoPath}:`, error)
-      failed++
-      bumpIds.push(marketplace.id) // rotate to back; retry next cycle
+    const repoPath = repoPathOf(marketplace)
+    const repoMeta = metaByRepo.get(repoPath)
+    if (!repoMeta) {
+      missingRows.push(marketplace) // deleted or private; nothing to refresh
       continue
     }
 
-    // We already paid for the metadata request: keep the card's description,
-    // link and stars in step with GitHub. The marketplace crawl only revisits
-    // repos its searches happen to return, so this rotation is the one place
-    // every existing marketplace is guaranteed a refresh.
+    // Keep the card's description, link and stars in step with GitHub. The
+    // marketplace crawl only adds repos it has not seen, so this is the one
+    // place existing marketplaces are refreshed.
     if (!KNOWN_MARKETPLACE_REPOS.has(repoPath)) {
       const fresh = {
         description: repoMeta.description || marketplace.description || '',
@@ -449,6 +464,12 @@ export async function indexPlugins(
       bumpIds.push(marketplace.id) // source_pushed_at stays; just bump last_indexed_at
       continue
     }
+
+    if (attempted >= batchSize) {
+      deferred++ // over this run's cap; stays at the front of the queue
+      continue
+    }
+    attempted++
 
     // Changed (or first index): fetch + expand, accumulate for batch upsert.
     try {
@@ -554,9 +575,30 @@ export async function indexPlugins(
   // Flush the final partial window.
   await flush()
 
+  // Hide marketplaces whose repo has been gone for days. Ask GitHub once more
+  // first, so a failure during the batched check above cannot hide anything.
+  const missing = missingRows.length
+  const stale = staleMissing(missingRows, now)
+  if (stale.length) {
+    const recheck = await github.fetchReposMetadata(stale.map(repoPathOf))
+    const gone = stale.filter((m) => !recheck.get(repoPathOf(m)))
+    if (gone.length > marketplaceSlice.length * MAX_HIDE_FRACTION) {
+      console.error(`Refusing to hide ${gone.length} of ${marketplaceSlice.length} marketplaces in one run`)
+      failed += gone.length
+    } else {
+      for (let i = 0; i < gone.length; i += 500) {
+        const ids = gone.slice(i, i + 500).map((m) => m.id)
+        await db.update(marketplaces).set({ active: false, updatedAt: now }).where(inArray(marketplaces.id, ids))
+        hidden += ids.length
+      }
+      for (const m of gone) console.log(`Hid marketplace ${m.name}: repository no longer on GitHub`)
+    }
+  }
+
   console.log(
     `Incremental plugin index done: examined ${marketplaceSlice.length}, reindexed ${reindexed}, ` +
-      `unchanged ${unchanged}, skipped ${skipped}, failed ${failed}, metadata refreshed ${metaRefreshed}, ` +
+      `unchanged ${unchanged}, deferred ${deferred}, missing ${missing}, hidden ${hidden}, skipped ${skipped}, failed ${failed}, ` +
+      `metadata refreshed ${metaRefreshed}, ` +
       `plugins upserted ${indexed}, skills ${skillsInserted}`,
   )
 
@@ -567,6 +609,9 @@ export async function indexPlugins(
     unchanged,
     reindexed,
     examined: marketplaceSlice.length,
+    missing,
+    deferred,
+    hidden,
     skillsInserted,
     durationMs: Date.now() - startTime,
   }

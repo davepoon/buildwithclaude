@@ -11,9 +11,10 @@
  *   npm run index:cron -- stats
  *
  * Tasks:
- *   mcp | marketplaces | plugins | skills | stats | markdown | scheduled | all
+ *   mcp | marketplaces | plugins | skills | stats | markdown | all
  *
- * Default (scheduled): day-rotated primary task + skills.sh + markdown reindex.
+ * Default (all): every task, every day. Each one is incremental, so a routine
+ * run only pays for what changed upstream. `scheduled` is accepted as an alias.
  */
 const path = require('path')
 
@@ -43,20 +44,11 @@ const TASK_NAMES = {
   skills: 'skills.sh',
   stats: 'MCP server stats',
   markdown: 'Deploy-static content reindex',
-  scheduled: 'Scheduled (day-rotated + skills + markdown)',
   all: 'All indexing tasks',
 }
 
-/** @type {Record<number, keyof typeof TASK_NAMES | null>} */
-const DAY_TO_TASK = {
-  0: 'stats',
-  1: 'mcp',
-  2: 'marketplaces',
-  3: 'plugins',
-  4: 'stats',
-  5: 'marketplaces',
-  6: 'plugins',
-}
+// Discovery first, so marketplaces found today get their plugins indexed today.
+const ALL_TASKS = ['marketplaces', 'plugins', 'skills', 'mcp', 'stats', 'markdown']
 
 const ADMIN_URL = `${APP_BASE_URL}/api/admin/reindex-search`
 // Statuses that mean "the proxy gave up waiting", not "the reindex failed":
@@ -146,11 +138,11 @@ async function runPrimaryTask(task) {
 }
 
 async function main() {
-  // CLI argv overrides INDEXER_TASK so one-off tests work while cron keeps scheduled.
-  const arg = process.argv[2] || process.env.INDEXER_TASK || 'scheduled'
-  const task = arg.toLowerCase()
+  // CLI argv overrides INDEXER_TASK so one-off tests work while cron runs all.
+  const arg = (process.argv[2] || process.env.INDEXER_TASK || 'all').toLowerCase()
+  const task = arg === 'scheduled' ? 'all' : arg
 
-  if (!(task in TASK_NAMES) && task !== 'scheduled' && task !== 'all') {
+  if (!(task in TASK_NAMES)) {
     console.error(
       `Unknown task "${task}". Valid: ${Object.keys(TASK_NAMES).join(', ')}`
     )
@@ -158,44 +150,14 @@ async function main() {
   }
 
   const startTime = Date.now()
-  console.log(`[indexer] Starting task="${task}" (${TASK_NAMES[task] || task})`)
+  console.log(`[indexer] Starting task="${task}" (${TASK_NAMES[task]})`)
 
   /** @type {Record<string, unknown>} */
   const results = {}
 
-  if (task === 'all') {
-    for (const name of [
-      'mcp',
-      'marketplaces',
-      'plugins',
-      'skills',
-      'stats',
-      'markdown',
-    ]) {
-      console.log(`[indexer] --- ${name} ---`)
-      results[name] = await runPrimaryTask(name)
-    }
-  } else if (task === 'scheduled') {
-    const dayOfWeek = new Date().getUTCDay()
-    const primary = DAY_TO_TASK[dayOfWeek]
-    if (primary) {
-      console.log(
-        `[indexer] Day ${dayOfWeek}: primary=${primary} (${TASK_NAMES[primary]})`
-      )
-      results.primary = primary
-      results[primary] = await runPrimaryTask(primary)
-    } else {
-      console.log(`[indexer] Day ${dayOfWeek}: no primary indexing scheduled`)
-      results.primary = null
-    }
-
-    console.log('[indexer] --- skills (daily) ---')
-    results.skills = await runPrimaryTask('skills')
-
-    console.log('[indexer] --- markdown (daily) ---')
-    results.markdown = await runPrimaryTask('markdown')
-  } else {
-    results[task] = await runPrimaryTask(task)
+  for (const name of task === 'all' ? ALL_TASKS : [task]) {
+    console.log(`[indexer] --- ${name} ---`)
+    results[name] = await runPrimaryTask(name)
   }
 
   // One search refresh per type, after every DB sync, instead of one per task.

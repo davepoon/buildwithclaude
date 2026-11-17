@@ -5,6 +5,7 @@ const MIN_DELAY_MS = 2000 // 2 second delay between requests
 const MAX_RETRIES = 3
 const MAX_CONSECUTIVE_FAILURES = 5 // Circuit breaker threshold
 const MAX_RATE_LIMIT_WAIT_MS = 15000 // Cap wait time at 15s for serverless
+const REPO_BATCH = 100 // Repositories per GraphQL metadata request
 
 // GitHub API response schemas
 const GitHubSearchItemSchema = z.object({
@@ -201,6 +202,72 @@ export class GitHubClient {
   }
 
   /**
+   * Fetch metadata for many repositories at once through the GraphQL API
+   * (REPO_BATCH per request), so checking the whole catalog for changes costs
+   * a few hundred requests instead of one per repository.
+   *
+   * Keys are the names as passed in. A repository GitHub cannot resolve
+   * (deleted, private, bad name) maps to null. Throws only when a whole
+   * request fails.
+   */
+  async fetchReposMetadata(repoFullNames: string[]): Promise<Map<string, GitHubRepo | null>> {
+    const out = new Map<string, GitHubRepo | null>()
+    for (let i = 0; i < repoFullNames.length; i += REPO_BATCH) {
+      const batch = repoFullNames.slice(i, i + REPO_BATCH)
+      const fields: string[] = []
+      batch.forEach((fullName, n) => {
+        const [owner, name] = fullName.split('/')
+        if (!owner || !name) return out.set(fullName, null)
+        // JSON.stringify yields a valid GraphQL string literal.
+        fields.push(`r${n}: repository(owner: ${JSON.stringify(owner)}, name: ${JSON.stringify(name)}) { ...meta }`)
+      })
+      if (fields.length === 0) continue
+      const query =
+        `fragment meta on Repository { databaseId nameWithOwner name description stargazerCount updatedAt pushedAt ` +
+        `url homepageUrl isFork owner { login } repositoryTopics(first: 20) { nodes { topic { name } } } }\n` +
+        `query { ${fields.join('\n')} }`
+
+      await this.throttle()
+      const response = await this.fetchWithRetry(`${this.baseUrl}/graphql`, {
+        method: 'POST',
+        body: JSON.stringify({ query }),
+      })
+      const body = response.ok ? await response.json() : null
+      // Unresolvable repositories come back as null fields plus an `errors`
+      // entry each; that is expected. No `data` at all is a failed request.
+      if (!body?.data) {
+        throw new Error(
+          `GitHub GraphQL batch failed: ${response.status} ${JSON.stringify(body?.errors ?? '').slice(0, 300)}`,
+        )
+      }
+      batch.forEach((fullName, n) => {
+        const r = body.data[`r${n}`]
+        if (out.has(fullName)) return
+        out.set(
+          fullName,
+          r
+            ? GitHubRepoSchema.parse({
+                id: r.databaseId ?? 0,
+                full_name: r.nameWithOwner,
+                name: r.name,
+                description: r.description,
+                stargazers_count: r.stargazerCount,
+                updated_at: r.updatedAt,
+                pushed_at: r.pushedAt,
+                html_url: r.url,
+                homepage: r.homepageUrl || null,
+                topics: r.repositoryTopics.nodes.map((t: { topic: { name: string } }) => t.topic.name),
+                fork: r.isFork,
+                owner: r.owner,
+              })
+            : null,
+        )
+      })
+    }
+    return out
+  }
+
+  /**
    * Fetch the full file tree of a repository in a single API call
    */
   async fetchRepoTree(repoFullName: string, sha: string = 'HEAD'): Promise<GitHubTreeResponse> {
@@ -250,7 +317,7 @@ export class GitHubClient {
   /**
    * Fetch with exponential backoff retry and circuit breaker
    */
-  private async fetchWithRetry(url: string): Promise<Response> {
+  private async fetchWithRetry(url: string, init: RequestInit = {}): Promise<Response> {
     // Circuit breaker: fail fast if too many consecutive failures
     if (this.consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
       throw new Error(
@@ -264,7 +331,7 @@ export class GitHubClient {
 
     for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
       try {
-        const response = await fetch(url, { headers: this.headers })
+        const response = await fetch(url, { ...init, headers: this.headers })
 
         // Handle rate limiting
         if (response.status === 429 || response.status === 403) {
