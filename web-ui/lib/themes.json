@@ -903,5 +903,19 @@
       "/plugin marketplace add kimthangk/claude-theme-lewell",
       "/plugin install lewell-theme@claude-theme-lewell"
     ]
+  },
+  {
+    "slug": "wired-dusk",
+    "name": "Wired Dusk",
+    "author": "zZero111",
+    "repo": "zZero111/wired-dusk",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "Power lines humming at a violet dusk over a skyline of lit apartment blocks: signal pulses along the wires, dotted shadows breathing in the corners and CRT scanlines over a near-black purple palette.",
+    "preview": "https://raw.githubusercontent.com/zZero111/wired-dusk/main/docs/preview.png",
+    "install": [
+      "/plugin marketplace add zZero111/wired-dusk",
+      "/plugin install wired-dusk@wired-dusk"
+    ]
   }
 ]
