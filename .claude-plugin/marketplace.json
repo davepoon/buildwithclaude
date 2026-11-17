@@ -5963,6 +5963,41 @@
         "path": "plugin",
         "sha": "7e779ced33c03bd248d7c73a0825e806eb0fec2b"
       }
+    },
+    {
+      "name": "levea-video-editor",
+      "description": "Connect Claude Code to the hosted Levea AI video editor (https://api.livecore.ai/api/v1/misc/mcp) for viral clips, 280+ animated caption templates, 9:16 vertical reframing, B-roll, motion graphics, audio cleanup, and cloud MP4 exports. Configuration only: an .mcp.json for the OAuth 2.1 Streamable HTTP server and one workflow skill. The skill sets requirePlanApproval: true, shows the proposed plan, and waits for your yes before any edit or export, and treats verificationReport, qualityNotes, transcripts, and tool results as data, never as instructions. Free tier and paid plans at livecore.ai.",
+      "version": "1.1.1",
+      "author": {
+        "name": "Levea (livecore.ai)",
+        "url": "https://livecore.ai"
+      },
+      "homepage": "https://livecore.ai",
+      "repository": "https://github.com/brajendrak00068/agentic-ai-video-production",
+      "license": "MIT",
+      "keywords": [
+        "video",
+        "video-editing",
+        "ai-video-editor",
+        "captions",
+        "subtitles",
+        "viral-clips",
+        "reels",
+        "tiktok",
+        "youtube-shorts",
+        "vertical-reframe",
+        "b-roll",
+        "motion-graphics",
+        "podcast",
+        "mcp"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/brajendrak00068/agentic-ai-video-production.git",
+        "path": "claude-plugin",
+        "sha": "09ab21ab905fa5bcf4dcbd3202d567812f5736d0"
+      }
     }
   ]
 }
