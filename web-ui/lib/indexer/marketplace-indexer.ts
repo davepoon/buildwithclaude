@@ -7,6 +7,12 @@ import { scanSkillContent, getSubmissionStatus } from './content-scanner'
 import { getSearchMaxPages } from './search-pagination'
 import { eq, sql } from 'drizzle-orm'
 
+// Display names a maintainer asked for, keyed by lower-case owner/repo. The
+// default is the repo name title-cased, which cannot express punctuation.
+export const DISPLAY_NAME_OVERRIDES: Record<string, string> = {
+  'akii-technologies-ltd/akii-seo-ai-search-optimizer': 'Akii: SEO & AI Search Optimizer', // issue 635
+}
+
 // Known/seed marketplaces with accurate fallback counts
 // Fallback counts are used when marketplace.json parsing fails
 const KNOWN_MARKETPLACES = [
@@ -293,7 +299,10 @@ async function processRepository(repoFullName: string, repoMeta: GitHubRepo): Pr
     .insert(marketplaces)
     .values({
       name: repoMeta.name,
-      displayName: known?.displayName || formatDisplayName(repoMeta.name),
+      displayName:
+        known?.displayName ||
+        DISPLAY_NAME_OVERRIDES[repoFullName.toLowerCase()] ||
+        formatDisplayName(repoMeta.name),
       namespace,
       url: known?.url || repoMeta.homepage || repoMeta.html_url,
       repository: repoMeta.html_url,
