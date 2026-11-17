@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { reindexAll, reindexMarkdown, reindexType } from '@/lib/search/indexer'
+import { reindexAll, reindexMarkdown, reindexType, searchIndexStatus } from '@/lib/search/indexer'
 import { isSearchEnabled } from '@/lib/search/meilisearch-client'
 import { isSearchContentType } from '@/lib/search/search-types'
 
@@ -19,9 +19,13 @@ export const maxDuration = 300 // 5 minutes max
  *   ?mode=markdown  refresh deploy-static types (subagent/command/hook/skill/plugin)
  *   ?mode=type&type=<t>  refresh a single type
  *
+ * GET returns per-type freshness instead ({ count, unstamped, oldestIndexedAt }),
+ * which is how a caller confirms a reindex landed when the POST outlives the
+ * proxy timeout.
+ *
  * Auth: Authorization: Bearer ${ADMIN_API_TOKEN}
  */
-export async function POST(request: NextRequest) {
+function guard(request: NextRequest): NextResponse | null {
   const authHeader = request.headers.get('authorization')
   const expectedToken = process.env.ADMIN_API_TOKEN
 
@@ -38,6 +42,26 @@ export async function POST(request: NextRequest) {
       { status: 503 },
     )
   }
+  return null
+}
+
+export async function GET(request: NextRequest) {
+  const denied = guard(request)
+  if (denied) return denied
+  try {
+    return NextResponse.json({ success: true, now: Date.now(), types: await searchIndexStatus() })
+  } catch (error) {
+    console.error('Search status failed:', error)
+    return NextResponse.json(
+      { success: false, error: error instanceof Error ? error.message : String(error) },
+      { status: 500 },
+    )
+  }
+}
+
+export async function POST(request: NextRequest) {
+  const denied = guard(request)
+  if (denied) return denied
 
   const mode = request.nextUrl.searchParams.get('mode') ?? 'full'
   const typeParam = request.nextUrl.searchParams.get('type')

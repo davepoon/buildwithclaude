@@ -116,6 +116,18 @@ export class GitHubClient {
   }
 
   /**
+   * Throw if GITHUB_TOKEN is set but GitHub rejects it. Call before a crawl: a
+   * dead token turns every request into a 401 that the per-repo error handling
+   * would otherwise absorb, so the run "succeeds" having refreshed nothing.
+   */
+  async assertAuthenticated(): Promise<void> {
+    const response = await fetch(`${this.baseUrl}/rate_limit`, { headers: this.headers })
+    if (response.status === 401) {
+      throw new Error('GITHUB_TOKEN was rejected by GitHub (401): it is expired or revoked. Replace it.')
+    }
+  }
+
+  /**
    * Search for files matching a query
    */
   async searchCode(query: string, page: number = 1): Promise<GitHubSearchResponse> {
