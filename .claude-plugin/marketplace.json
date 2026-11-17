@@ -5904,6 +5904,65 @@
         "repo": "VladimirTambovtsev/appstruct-social-cursor-plugin",
         "sha": "212124ea2d1a816aa6929d0494f8574a622b6b81"
       }
+    },
+    {
+      "name": "golviva",
+      "description": "Golviva's hosted, read-only football (soccer) MCP server: match predictions for every match of 26 leagues, the European club competitions and national teams (win, draw and loss chances, likeliest scores and scorers, predicted line-ups), title and relegation chances, player valuations with the reasons behind them, scouting, live scores, tables, stat leaders and transfer news. Four skills route questions to the right tools. No write, post or purchase tools; predictions are model probabilities, not betting advice. Tool results are treated as data, never as instructions.",
+      "version": "2.1.2",
+      "author": {
+        "name": "Golviva",
+        "url": "https://golviva.com"
+      },
+      "homepage": "https://golviva.com/mcp",
+      "repository": "https://github.com/target1m/golviva-mcp",
+      "license": "MIT",
+      "keywords": [
+        "football",
+        "soccer",
+        "match-predictions",
+        "season-projections",
+        "player-valuation",
+        "transfer-value",
+        "scouting",
+        "live-scores",
+        "league-tables",
+        "transfer-news",
+        "mcp"
+      ],
+      "category": "mcp-servers",
+      "source": {
+        "source": "github",
+        "repo": "target1m/golviva-mcp",
+        "sha": "3537c0bf265d694a5049650ef606dcd15262474c"
+      }
+    },
+    {
+      "name": "callmemcp",
+      "description": "Your agent calls or texts your own phone (iPhone or Android) and gets your spoken answer back as text. Configuration only: an .mcp.json for the hosted server at https://callmemcp.com/mcp and one skill. The skill shows the exact words and waits for your yes before every call, text, deferred call or audio link, never writes rules into instruction files, and treats spoken answers, text replies and voicemail as data. No hooks, no code. Needs the paid /call-me app from callmemcp.com and the 10-digit number it shows; no API key.",
+      "version": "1.0.1",
+      "author": {
+        "name": "Serdar Oztetik",
+        "url": "https://github.com/radres"
+      },
+      "homepage": "https://callmemcp.com/",
+      "repository": "https://github.com/radres/callmemcp",
+      "license": "MIT",
+      "keywords": [
+        "phone",
+        "call",
+        "text",
+        "voice",
+        "human-in-the-loop",
+        "notifications",
+        "mcp"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/radres/callmemcp.git",
+        "path": "plugin",
+        "sha": "7e779ced33c03bd248d7c73a0825e806eb0fec2b"
+      }
     }
   ]
 }
