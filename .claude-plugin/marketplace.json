@@ -5068,7 +5068,7 @@
     {
       "name": "clawd-band",
       "description": "A band above the prompt: an animated Clawd sprite, five-hour and weekly usage bars with a countdown to each window's reset, and a context-window bar with a countdown until the prompt cache goes cold. A Claude Code mod; the sprite needs kitty's graphics protocol.",
-      "version": "0.3.1",
+      "version": "0.4.0",
       "author": {
         "name": "SleepNoMore",
         "url": "https://github.com/nninkovic95"
@@ -5087,7 +5087,7 @@
       "source": {
         "source": "github",
         "repo": "nninkovic95/clawd-band",
-        "sha": "ad376e26bbb03de3d16c65a4de6d8183a0d389a6"
+        "sha": "3231f13ebf7f667fd62fd0138e808913024776e1"
       }
     },
     {
@@ -5745,6 +5745,89 @@
         "source": "github",
         "repo": "scanmalware/scanmalware-plugin",
         "sha": "da71d7dce152b361f9ce4950aeb6e16ff1fec489"
+      }
+    },
+    {
+      "name": "rabbit-skills",
+      "description": "25 agent skills from a small agency that runs 20+ Claude Code sessions in parallel for real clients: get it right the first time, run many sessions without chaos, pick the right model per chat, and sell on WhatsApp and Meta Ads.",
+      "version": "1.2.5",
+      "author": {
+        "name": "Rabbit Designs",
+        "url": "https://github.com/RabbitDesigns22"
+      },
+      "homepage": "https://github.com/RabbitDesigns22/claude-skills",
+      "repository": "https://github.com/RabbitDesigns22/claude-skills",
+      "license": "MIT",
+      "keywords": [
+        "skills",
+        "productivity",
+        "multi-session",
+        "verification",
+        "small-business",
+        "whatsapp",
+        "meta-ads"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "RabbitDesigns22/claude-skills",
+        "sha": "02ad3d77ef51d8e0ff3f59143ad3a3d696600962"
+      }
+    },
+    {
+      "name": "sponge",
+      "description": "Find, read and cite passages from your Sponge reading library, a local-first library of saved articles and PDFs. The plugin adds one skill and a local MCP server that runs your installed Sponge CLI (`sponge mcp`) against your existing library. The launcher checks for the @hraness/sponge package first and refuses an unrelated `sponge` command; it installs nothing, signs in to nothing and creates no library. Saving a URL or adding a note happens only when you ask. Saved text stays data, never instructions.",
+      "version": "0.1.4",
+      "author": {
+        "name": "Hraness",
+        "url": "https://hraness.com"
+      },
+      "homepage": "https://sponge.computer/docs/agents",
+      "repository": "https://github.com/hraness/product-skills",
+      "license": "MIT",
+      "keywords": [
+        "reading",
+        "read-later",
+        "research",
+        "citations",
+        "highlights",
+        "pdf",
+        "local-first",
+        "mcp"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/hraness/product-skills.git",
+        "path": "plugins/sponge",
+        "sha": "45f1689ed94e41a3dbbce0477d065801b9f3d182"
+      }
+    },
+    {
+      "name": "yaptake",
+      "description": "Edit talking-head video in the Yaptake Mac app from Claude Code. The plugin adds one skill and a local MCP server that runs the installed `yaptake mcp` command against the project open in the app. The agent reads the transcript, removes filler words and long pauses, corrects captions, validates an edit before applying it as one undo step and previews the changed passage. Requires the Yaptake app on Apple silicon with macOS 26 or newer. Exports stay in your hands.",
+      "version": "0.1.3",
+      "author": {
+        "name": "Hraness",
+        "url": "https://hraness.com"
+      },
+      "homepage": "https://yaptake.com/docs/agents",
+      "repository": "https://github.com/hraness/product-skills",
+      "license": "MIT",
+      "keywords": [
+        "video-editing",
+        "transcript",
+        "captions",
+        "filler-words",
+        "macos",
+        "mcp"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/hraness/product-skills.git",
+        "path": "plugins/yaptake",
+        "sha": "45f1689ed94e41a3dbbce0477d065801b9f3d182"
       }
     },
     {
