@@ -903,5 +903,19 @@
       "/plugin marketplace add kimthangk/claude-theme-lewell",
       "/plugin install lewell-theme@claude-theme-lewell"
     ]
+  },
+  {
+    "slug": "paper-dials",
+    "name": "Paper Dials",
+    "author": "cktang88",
+    "repo": "cktang88/claude-paper-dials",
+    "kind": "desktop",
+    "appearance": "light",
+    "description": "Warm paper with four pencil-sketched dials that move and show your session live: context rising like an ink wash, an hourglass with the turn's time and a tally mark per tool call, session cost, and a clock.",
+    "preview": "https://raw.githubusercontent.com/cktang88/claude-paper-dials/main/docs/preview.png",
+    "install": [
+      "/plugin marketplace add cktang88/claude-paper-dials",
+      "/plugin install paper-dials@claude-paper-dials"
+    ]
   }
 ]
