@@ -905,17 +905,17 @@
     ]
   },
   {
-    "slug": "paper-dials",
-    "name": "Paper Dials",
+    "slug": "garden-theme",
+    "name": "Garden",
     "author": "cktang88",
-    "repo": "cktang88/claude-paper-dials",
+    "repo": "cktang88/claude-garden-theme",
     "kind": "desktop",
     "appearance": "light",
-    "description": "Warm paper with four pencil-sketched dials that move and show your session live: context rising like an ink wash, an hourglass with the turn's time and a tally mark per tool call, session cost, and a clock.",
-    "preview": "https://raw.githubusercontent.com/cktang88/claude-paper-dials/main/docs/preview.gif",
+    "description": "Cream paper with a pencil garden that grows as your session goes on: seedlings turn into flowers, a tree at the edge keeps getting bigger, and a fox looks in now and then. Four hand-drawn dials show context, turn time, session cost and the clock.",
+    "preview": "https://raw.githubusercontent.com/cktang88/claude-garden-theme/main/docs/preview.gif",
     "install": [
-      "/plugin marketplace add cktang88/claude-paper-dials",
-      "/plugin install paper-dials@claude-paper-dials"
+      "/plugin marketplace add cktang88/claude-garden-theme",
+      "/plugin install garden-theme@claude-garden-theme"
     ]
   }
 ]
