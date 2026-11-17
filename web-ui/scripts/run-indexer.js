@@ -60,10 +60,10 @@ const DAY_TO_TASK = {
 
 const ADMIN_URL = `${APP_BASE_URL}/api/admin/reindex-search`
 // Statuses that mean "the proxy gave up waiting", not "the reindex failed":
-// the web app keeps working, so confirm the outcome from the index itself.
+// the web app keeps working, so retry instead of giving up.
 const PROXY_TIMEOUTS = new Set([502, 504, 522, 524])
-const CONFIRM_TIMEOUT_MS = 15 * 60_000
-const CONFIRM_POLL_MS = 20_000
+const RETRY_WAIT_MS = 120_000
+const MAX_ATTEMPTS = 6
 
 /** Search types to refresh once every DB sync in this run has finished. */
 const pendingReindex = new Set()
@@ -71,31 +71,6 @@ const pendingReindex = new Set()
 const failures = []
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
-
-/**
- * Poll the index until every doc of `type` carries a stamp from a run that
- * started after `since`, i.e. the reindex we asked for finished and pruned.
- * @param {string} type
- * @param {number} since
- * @param {Record<string, string>} headers
- */
-async function confirmReindexed(type, since, headers) {
-  const deadline = Date.now() + CONFIRM_TIMEOUT_MS
-  while (Date.now() < deadline) {
-    await sleep(CONFIRM_POLL_MS)
-    try {
-      const res = await fetch(ADMIN_URL, { headers })
-      const status = res.ok ? (await res.json()).types?.[type] : null
-      // 60s slack for clock skew between this container and the web app.
-      if (status && status.unstamped === 0 && status.oldestIndexedAt >= since - 60_000) {
-        return true
-      }
-    } catch {
-      // transient; keep polling
-    }
-  }
-  return false
-}
 
 /**
  * Ask the web app to refresh Meilisearch for the given types. The web app does
@@ -111,28 +86,32 @@ async function reindexSearch(types) {
   }
   const headers = { Authorization: `Bearer ${adminToken}` }
   for (const type of types) {
-    const since = Date.now()
     let outcome
-    try {
-      const res = await fetch(`${ADMIN_URL}?mode=type&type=${type}`, { method: 'POST', headers })
-      outcome = `HTTP ${res.status}`
-      if (res.ok) {
-        console.log(`[search] reindex ${type} -> ${outcome}`)
-        continue
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+      // The sync is incremental and idempotent, so after a proxy timeout we
+      // just ask again: the retry sends whatever the first call had not yet
+      // written and returns 200 once the index matches the source.
+      if (attempt > 1) await sleep(RETRY_WAIT_MS)
+      try {
+        const res = await fetch(`${ADMIN_URL}?mode=type&type=${type}`, { method: 'POST', headers })
+        outcome = `HTTP ${res.status}`
+        if (res.ok) {
+          const r = await res.json()
+          outcome = `ok: ${r.added} sent, ${r.deleted} removed, ${r.unchanged} unchanged`
+          break
+        }
+        if (!PROXY_TIMEOUTS.has(res.status)) {
+          const body = await res.text()
+          outcome += ` ${body.slice(0, 300)}`
+          break
+        }
+      } catch (error) {
+        outcome = String(error)
       }
-      if (!PROXY_TIMEOUTS.has(res.status)) {
-        failures.push(`search: reindex ${type} -> ${outcome}`)
-        continue
-      }
-    } catch (error) {
-      outcome = String(error)
+      console.log(`[search] reindex ${type} attempt ${attempt} -> ${outcome}`)
     }
-    console.log(`[search] reindex ${type} -> ${outcome}; confirming from the index`)
-    if (await confirmReindexed(type, since, headers)) {
-      console.log(`[search] reindex ${type} confirmed`)
-    } else {
-      failures.push(`search: reindex ${type} -> ${outcome}, not confirmed within ${CONFIRM_TIMEOUT_MS / 60_000} min`)
-    }
+    console.log(`[search] reindex ${type} -> ${outcome}`)
+    if (!outcome.startsWith('ok')) failures.push(`search: reindex ${type} -> ${outcome}`)
   }
 }
 

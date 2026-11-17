@@ -97,11 +97,44 @@ export interface SearchDocument {
   installs: number
   /** Epoch milliseconds; 0 when the source has no timestamp. */
   updatedAt: number
-  /** Epoch ms of the reindex run that wrote this doc. Stamped by the indexer;
-   *  docs older than a type's latest run are pruned, so it doubles as freshness. */
-  indexedAt?: number
+  /** Content hash (see docHash). Stamped by the indexer so the next sync can
+   *  skip documents that have not changed. */
+  hash?: string
   /** Pre-computed detail route so the UI can link without a type→url map. */
   url: string
+}
+
+/**
+ * Fingerprint of a document's content, used to send Meilisearch only what
+ * changed. `updatedAt` is left out on purpose: the DB indexers bump updated_at
+ * on every row they examine, changed or not, so including it would re-send
+ * thousands of identical documents per run. The cost is that a doc's
+ * `updatedAt` in the index only moves when something else about it changes.
+ */
+export function docHash(doc: SearchDocument): string {
+  const { hash: _hash, updatedAt: _updatedAt, ...content } = doc
+  return createHash('sha256').update(JSON.stringify(content)).digest('hex').slice(0, 16)
+}
+
+export interface SyncPlan {
+  /** New or changed documents, stamped with their hash, to upsert. */
+  upsert: SearchDocument[]
+  /** Ids in the index that the source no longer has. */
+  remove: string[]
+  unchanged: number
+}
+
+/** Diff the source's documents against the id → hash map read from the index. */
+export function planSync(docs: SearchDocument[], indexed: Map<string, string | undefined>): SyncPlan {
+  const upsert: SearchDocument[] = []
+  const seen = new Set<string>()
+  for (const doc of docs) {
+    seen.add(doc.objectID)
+    const hash = docHash(doc)
+    if (indexed.get(doc.objectID) !== hash) upsert.push({ ...doc, hash })
+  }
+  const remove = [...indexed.keys()].filter((id) => !seen.has(id))
+  return { upsert, remove, unchanged: docs.length - upsert.length }
 }
 
 /**
@@ -133,9 +166,8 @@ export const CONTENT_INDEX_SETTINGS: Settings = {
     'model',
     'vendor',
     'sourceRegistry',
-    'indexedAt',
   ],
-  sortableAttributes: ['stars', 'installs', 'updatedAt', 'indexedAt'],
+  sortableAttributes: ['stars', 'installs', 'updatedAt'],
   rankingRules: [
     'words',
     'typo',
