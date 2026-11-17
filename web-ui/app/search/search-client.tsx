@@ -1,5 +1,6 @@
 'use client'
 
+import { CarbonAd } from '@/components/carbon-ad'
 import { useEffect, useMemo, useState } from 'react'
 import { Loader2, Search as SearchIcon } from 'lucide-react'
 import { SearchBar } from '@/components/search-bar'
@@ -101,6 +102,8 @@ export default function SearchClient({ initialQuery }: { initialQuery: string })
 
         {items.length > 0 ? (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {/* The page's one ad sits in the grid as a card: top right on desktop, after two cards on phones */}
+            <CarbonAd className="row-start-3 md:col-start-2 md:row-start-1 lg:col-start-3" />
             {items.map((hit) => (
               <SearchResultCard key={hit.objectID} hit={hit} />
             ))}

@@ -1,5 +1,6 @@
 'use client'
 
+import { CarbonAd } from '@/components/carbon-ad'
 import { useState, useMemo, useEffect, useRef } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { MCPCard } from '@/components/mcp-card'
@@ -11,6 +12,7 @@ import { type MCPServer, SOURCE_INDICATORS } from '@/lib/mcp-types'
 import { type MCPCategoryMetadata } from '@/lib/mcp-server'
 
 const ITEMS_PER_PAGE = 24
+const AD_CELL = 'row-start-3 md:col-start-2 md:row-start-1 lg:col-start-3'
 const SEARCH_LIMIT = 100
 
 const SORT_OPTIONS = [
@@ -191,6 +193,8 @@ export default function MCPPageClient({
 
   const isSearching = searchedSlugs !== null
   const hasActiveFilters = isSearching || selectedCategory !== 'all' || selectedSource !== 'all'
+  // The ad goes in whichever grid is first on the page: Popular when browsing, the results grid otherwise.
+  const hasPopular = !hasActiveFilters && popularServers.length > 0
 
   const displayedServers = filteredServers.slice(0, displayCount)
   const hasMore = displayCount < filteredServers.length
@@ -271,6 +275,8 @@ export default function MCPPageClient({
               <div className="mb-10">
                 <h2 className="text-xl font-medium mb-4">Popular</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {/* The page's one ad sits in the first grid on the page, as a card */}
+                  <CarbonAd className={AD_CELL} />
                   {popularServers.map((server) => (
                     <MCPCard key={server.path} server={server} />
                   ))}
@@ -309,6 +315,7 @@ export default function MCPPageClient({
         {/* Grid */}
         {filteredServers.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {!hasPopular && <CarbonAd className={AD_CELL} />}
             {displayedServers.map((server) => (
               <MCPCard key={server.path} server={server} />
             ))}

@@ -1,5 +1,6 @@
 'use client'
 
+import { AD_RAIL_CONTAINER, CarbonAdRail } from '@/components/carbon-ad'
 import { useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -93,7 +94,7 @@ export function PluginPageClient({ plugin }: PluginPageClientProps) {
 
   return (
     <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-12 max-w-3xl">
+      <div className={`container mx-auto px-4 py-12 max-w-3xl ${AD_RAIL_CONTAINER}`}>
         {/* Back */}
         <Link href="/plugins" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground -mt-1 py-1 mb-7">
           <ArrowLeft className="h-4 w-4" />
@@ -158,6 +159,8 @@ export function PluginPageClient({ plugin }: PluginPageClientProps) {
             </div>
           </div>
         </div>
+
+        <CarbonAdRail />
 
         {/* Linked Items */}
         {linkedItems.length > 0 && (

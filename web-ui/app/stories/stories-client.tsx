@@ -1,5 +1,6 @@
 'use client'
 
+import { CarbonAd } from '@/components/carbon-ad'
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Monitor } from 'lucide-react'
@@ -204,13 +205,18 @@ export function StoriesIndexClient({ pinned, stories, guide }: StoriesIndexClien
         </section>
       )}
 
-      {pinned && (
-        <section style={{ padding: '32px 0 8px' }}>
-          <div className="container mx-auto px-4" style={{ maxWidth: 1280 }}>
-            <FeaturedHero story={pinned} />
-          </div>
-        </section>
-      )}
+      {/* The editor's pick shares its row with the page's one ad: beside it on desktop (above the fold,
+          as Carbon's placement policy asks), under it on smaller screens. */}
+      <section style={{ padding: '32px 0 8px' }}>
+        <div className="container mx-auto flex flex-col gap-6 px-4 lg:flex-row lg:items-start" style={{ maxWidth: 1280 }}>
+          {pinned && (
+            <div className="min-w-0 flex-1 self-stretch">
+              <FeaturedHero story={pinned} />
+            </div>
+          )}
+          <CarbonAd className="shrink-0 lg:w-[400px]" />
+        </div>
+      </section>
 
       <section className="md:pt-7" style={{ paddingBottom: 48 }}>
         <div className="container mx-auto px-4" style={{ maxWidth: 1280 }}>
