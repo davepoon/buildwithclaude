@@ -54,4 +54,20 @@ describe('fetchReposMetadata', () => {
       globalThis.fetch = realFetch
     }
   })
+
+  it('retries a 502 from GitHub instead of failing the batch', async () => {
+    let calls = 0
+    const realFetch = globalThis.fetch
+    globalThis.fetch = (async () =>
+      ++calls === 1
+        ? new Response('', { status: 502 })
+        : new Response(JSON.stringify({ data: { r0: null } }))) as typeof fetch
+    try {
+      const out = await new GitHubClient().fetchReposMetadata(['gone/repo'])
+      assert.equal(calls, 2)
+      assert.equal(out.get('gone/repo'), null)
+    } finally {
+      globalThis.fetch = realFetch
+    }
+  })
 })
