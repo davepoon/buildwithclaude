@@ -18,4 +18,13 @@ describe('hydrateHitsByTypeAndSlug', () => {
       records[0],
     ])
   })
+
+  it('picks the record from the marketplace the hit came from', () => {
+    const hits = [{ type: 'plugin', slug: 'impeccable', marketplaceId: 'original' }]
+    const records = [
+      { type: 'plugin', slug: 'impeccable', marketplaceId: 'relisting' },
+      { type: 'plugin', slug: 'impeccable', marketplaceId: 'original' },
+    ]
+    assert.deepEqual(hydrateHitsByTypeAndSlug(hits, records), [records[1]])
+  })
 })

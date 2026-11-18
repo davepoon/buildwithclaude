@@ -1,10 +1,14 @@
 import { z } from 'zod'
 
 // Rate limiting configuration
-const MIN_DELAY_MS = 2000 // 2 second delay between requests
+// 0.75s between requests is 4,800 an hour, just inside GitHub's 5,000 an hour.
+const MIN_DELAY_MS = 750
 const MAX_RETRIES = 3
 const MAX_CONSECUTIVE_FAILURES = 5 // Circuit breaker threshold
 const MAX_RATE_LIMIT_WAIT_MS = 15000 // Cap wait time at 15s for serverless
+const REPO_BATCH = 100 // Repositories per GraphQL metadata request
+const GRAPHQL_ATTEMPTS = 3
+const FILE_BATCH = 20 // Repositories per GraphQL file-contents request
 
 // GitHub API response schemas
 const GitHubSearchItemSchema = z.object({
@@ -116,6 +120,18 @@ export class GitHubClient {
   }
 
   /**
+   * Throw if GITHUB_TOKEN is set but GitHub rejects it. Call before a crawl: a
+   * dead token turns every request into a 401 that the per-repo error handling
+   * would otherwise absorb, so the run "succeeds" having refreshed nothing.
+   */
+  async assertAuthenticated(): Promise<void> {
+    const response = await fetch(`${this.baseUrl}/rate_limit`, { headers: this.headers })
+    if (response.status === 401) {
+      throw new Error('GITHUB_TOKEN was rejected by GitHub (401): it is expired or revoked. Replace it.')
+    }
+  }
+
+  /**
    * Search for files matching a query
    */
   async searchCode(query: string, page: number = 1): Promise<GitHubSearchResponse> {
@@ -189,6 +205,132 @@ export class GitHubClient {
   }
 
   /**
+   * Fetch metadata for many repositories at once through the GraphQL API
+   * (REPO_BATCH per request), so checking the whole catalog for changes costs
+   * a few hundred requests instead of one per repository.
+   *
+   * Keys are the names as passed in. A repository GitHub cannot resolve
+   * (deleted, private, bad name) maps to null. Throws only when a whole
+   * request fails.
+   */
+  async fetchReposMetadata(repoFullNames: string[]): Promise<Map<string, GitHubRepo | null>> {
+    const out = new Map<string, GitHubRepo | null>()
+    for (let i = 0; i < repoFullNames.length; i += REPO_BATCH) {
+      const batch = repoFullNames.slice(i, i + REPO_BATCH)
+      const fields: string[] = []
+      batch.forEach((fullName, n) => {
+        const [owner, name] = fullName.split('/')
+        if (!owner || !name) return out.set(fullName, null)
+        // JSON.stringify yields a valid GraphQL string literal.
+        fields.push(`r${n}: repository(owner: ${JSON.stringify(owner)}, name: ${JSON.stringify(name)}) { ...meta }`)
+      })
+      if (fields.length === 0) continue
+      const query =
+        `fragment meta on Repository { databaseId nameWithOwner name description stargazerCount updatedAt pushedAt ` +
+        `url homepageUrl isFork owner { login } repositoryTopics(first: 20) { nodes { topic { name } } } }\n` +
+        `query { ${fields.join('\n')} }`
+
+      const data = await this.graphql(query)
+      batch.forEach((fullName, n) => {
+        const r = data[`r${n}`]
+        if (out.has(fullName)) return
+        out.set(
+          fullName,
+          r
+            ? GitHubRepoSchema.parse({
+                id: r.databaseId ?? 0,
+                full_name: r.nameWithOwner,
+                name: r.name,
+                description: r.description,
+                stargazers_count: r.stargazerCount,
+                updated_at: r.updatedAt,
+                pushed_at: r.pushedAt,
+                html_url: r.url,
+                homepage: r.homepageUrl || null,
+                topics: r.repositoryTopics.nodes.map((t: { topic: { name: string } }) => t.topic.name),
+                fork: r.isFork,
+                owner: r.owner,
+              })
+            : null,
+        )
+      })
+    }
+    return out
+  }
+
+  /**
+   * Fetch the text of the given paths from many repositories' default branches
+   * (FILE_BATCH repositories per request). A repository maps to the paths that
+   * exist in it. A repository is left out of the result, so the caller can fall
+   * back to fetchFileContent, when its batch failed or a file came back
+   * truncated or binary.
+   */
+  async fetchFiles(repoFullNames: string[], paths: string[]): Promise<Map<string, Record<string, string>>> {
+    const out = new Map<string, Record<string, string>>()
+    const files = paths
+      .map((path, f) => `f${f}: object(expression: ${JSON.stringify(`HEAD:${path}`)}) { ... on Blob { text isTruncated } }`)
+      .join(' ')
+    for (let i = 0; i < repoFullNames.length; i += FILE_BATCH) {
+      const batch = repoFullNames.slice(i, i + FILE_BATCH)
+      const fields = batch.map((fullName, n) => {
+        const [owner, name] = fullName.split('/')
+        return `r${n}: repository(owner: ${JSON.stringify(owner ?? '')}, name: ${JSON.stringify(name ?? '')}) { ${files} }`
+      })
+      let data: Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
+      try {
+        data = await this.graphql(`query { ${fields.join('\n')} }`)
+      } catch (error) {
+        console.warn(`Batched file fetch failed for ${batch.length} repositories:`, error)
+        continue
+      }
+      batch.forEach((fullName, n) => {
+        const r = data[`r${n}`]
+        if (!r) return
+        const found: Record<string, string> = {}
+        for (const [f, path] of paths.entries()) {
+          const blob = r[`f${f}`]
+          if (!blob) continue // no such file
+          if (blob.isTruncated || typeof blob.text !== 'string') return
+          found[path] = blob.text
+        }
+        out.set(fullName, found)
+      })
+    }
+    return out
+  }
+
+  /**
+   * Run one GraphQL query and return its `data`. Fields GitHub cannot resolve
+   * come back null plus an `errors` entry each; that is expected. No `data` at
+   * all is a failed request: GitHub answers 502 or a data-less 200 when a query
+   * times out, and one of those in hundreds of requests must not end the run,
+   * so it is retried before throwing.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private async graphql(query: string): Promise<Record<string, any>> {
+    let response!: Response
+    let body: { data?: Record<string, any>; errors?: unknown } | null = null // eslint-disable-line @typescript-eslint/no-explicit-any
+    for (let attempt = 0; attempt < GRAPHQL_ATTEMPTS && !body?.data; attempt++) {
+      if (attempt > 0) {
+        console.warn(`GitHub GraphQL batch failed (${response.status}), retrying...`)
+        await this.sleep(5000 * attempt)
+      }
+      await this.throttle()
+      response = await this.fetchWithRetry(`${this.baseUrl}/graphql`, {
+        method: 'POST',
+        body: JSON.stringify({ query }),
+      })
+      body = response.ok ? await response.json().catch(() => null) : null
+    }
+    if (!body?.data) {
+      throw new Error(
+        `GitHub GraphQL batch failed: ${response.status} ${JSON.stringify(body?.errors ?? '').slice(0, 300)}`,
+      )
+    }
+    return body.data
+  }
+
+  /**
    * Fetch the full file tree of a repository in a single API call
    */
   async fetchRepoTree(repoFullName: string, sha: string = 'HEAD'): Promise<GitHubTreeResponse> {
@@ -238,7 +380,7 @@ export class GitHubClient {
   /**
    * Fetch with exponential backoff retry and circuit breaker
    */
-  private async fetchWithRetry(url: string): Promise<Response> {
+  private async fetchWithRetry(url: string, init: RequestInit = {}): Promise<Response> {
     // Circuit breaker: fail fast if too many consecutive failures
     if (this.consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
       throw new Error(
@@ -252,7 +394,7 @@ export class GitHubClient {
 
     for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
       try {
-        const response = await fetch(url, { headers: this.headers })
+        const response = await fetch(url, { ...init, headers: this.headers })
 
         // Handle rate limiting
         if (response.status === 429 || response.status === 403) {
@@ -265,6 +407,16 @@ export class GitHubClient {
           )
           console.warn(`Rate limited. Waiting ${waitTime / 1000}s before retry... (attempt ${attempt + 1}/${MAX_RETRIES})`)
           await this.sleep(waitTime)
+          continue
+        }
+
+        // GitHub answers a slow or overloaded request (the batched GraphQL
+        // query especially) with a 5xx. Retry; the last attempt's response is
+        // returned for the caller to report.
+        if (response.status >= 500 && attempt < MAX_RETRIES) {
+          const delay = Math.min(1000 * Math.pow(2, attempt), 10000)
+          console.warn(`GitHub returned ${response.status}, retrying in ${delay}ms... (attempt ${attempt + 1}/${MAX_RETRIES})`)
+          await this.sleep(delay)
           continue
         }
 

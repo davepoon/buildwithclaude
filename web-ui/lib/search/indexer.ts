@@ -11,8 +11,11 @@ import { getMeiliClient, getContentIndex, CONTENT_INDEX } from './meilisearch-cl
 import {
   CONTENT_INDEX_SETTINGS,
   makeObjectID,
+  collapseRelistings,
   urlForDocument,
   SEARCH_CONTENT_TYPES,
+  planSync,
+  type SyncPlan,
   type SearchContentType,
   type SearchDocument,
 } from './search-types'
@@ -217,9 +220,25 @@ export async function pluginsToDocs(): Promise<SearchDocument[]> {
           ne(plugins.submissionStatus, 'rejected'),
         ),
       )
-    for (const p of rows) {
+    // The plugin indexer never fills plugins.stars, so a plugin takes the stars
+    // of the repository it lives in. Without this every plugin ties at 0 and
+    // the stars ranking rule cannot put the original above a copy.
+    // Only a listing hosted by that repository's own marketplace gets them: a
+    // marketplace entry can name any repository, and must not be able to
+    // borrow a popular project's stars by pointing at it.
+    const repos = await db
+      .select({ id: marketplaces.id, repository: marketplaces.repository, stars: marketplaces.stars })
+      .from(marketplaces)
+    const starsByRepo = new Map(repos.map((m) => [m.repository.toLowerCase(), m.stars]))
+    const repoById = new Map(repos.map((m) => [m.id, m.repository.toLowerCase()]))
+    const ranked = rows.map((p) => {
+      const repo = p.repository?.toLowerCase() ?? ''
+      const hosted = !!p.marketplaceId && repoById.get(p.marketplaceId) === repo
+      return { ...p, hosted, stars: hosted ? starsByRepo.get(repo) || 0 : 0 }
+    })
+    for (const [key, p] of collapseRelistings(ranked)) {
       docs.push({
-        objectID: makeObjectID('plugin', p.slug),
+        objectID: makeObjectID('plugin', key),
         type: 'plugin',
         slug: p.slug,
         name: p.name,
@@ -470,47 +489,139 @@ export async function ensureContentIndex(): Promise<boolean> {
   try {
     await client.getIndex(CONTENT_INDEX) // throws if missing
   } catch {
-    await client.createIndex(CONTENT_INDEX, { primaryKey: 'objectID' }).waitTask()
+    await client.createIndex(CONTENT_INDEX, { primaryKey: 'objectID' }).waitTask(WAIT)
   }
-  await client.index(CONTENT_INDEX).updateSettings(CONTENT_INDEX_SETTINGS).waitTask()
+  // WAIT, not the client's 5s default: the task queue is FIFO and shared, so a
+  // settings task can sit behind another reindex's document batches for a while.
+  await client.index(CONTENT_INDEX).updateSettings(CONTENT_INDEX_SETTINGS).waitTask(WAIT)
   return true
 }
 
-async function addDocs(docs: SearchDocument[]): Promise<number> {
-  const index = getContentIndex()
-  if (!index || docs.length === 0) return 0
-  // Enqueue every chunk (fast HTTP POSTs), then wait once. Meilisearch processes
-  // tasks FIFO, so when the last add task finishes, all prior ones are done —
-  // avoids N serial waitTask round-trips.
-  let lastTaskUid: number | undefined
+/** Fail loudly on a task Meilisearch processed but rejected (waitTask resolves either way). */
+function assertSucceeded(task: { uid: number; status: string; error?: { message?: string } | null }): void {
+  if (task.status !== 'succeeded') {
+    throw new Error(`Meilisearch task ${task.uid} ${task.status}: ${task.error?.message ?? 'no error message'}`)
+  }
+}
+
+async function addDocs(docs: SearchDocument[]): Promise<void> {
+  const index = getContentIndex()!
+  // Enqueue every chunk (fast HTTP POSTs), then wait for each. Meilisearch
+  // processes tasks FIFO, so the waits after the first return almost at once.
+  const taskUids: number[] = []
   for (let i = 0; i < docs.length; i += ADD_CHUNK) {
     const enqueued = await index.addDocuments(docs.slice(i, i + ADD_CHUNK), { primaryKey: 'objectID' })
-    lastTaskUid = enqueued.taskUid
+    taskUids.push(enqueued.taskUid)
   }
-  if (lastTaskUid !== undefined) {
-    await index.tasks.waitForTask(lastTaskUid, WAIT)
+  for (const uid of taskUids) {
+    assertSucceeded(await index.tasks.waitForTask(uid, WAIT))
   }
-  return docs.length
+}
+
+/** objectID → hash for every document of a type currently in the index. */
+async function indexedHashes(type: SearchContentType): Promise<Map<string, string | undefined>> {
+  const index = getContentIndex()!
+  const out = new Map<string, string | undefined>()
+  for (let offset = 0; ; offset += ADD_CHUNK) {
+    const page = await index.getDocuments<Pick<SearchDocument, 'objectID' | 'hash'>>({
+      filter: `type = "${type}"`,
+      fields: ['objectID', 'hash'],
+      limit: ADD_CHUNK,
+      offset,
+    })
+    for (const d of page.results) out.set(d.objectID, d.hash)
+    if (page.results.length < ADD_CHUNK) return out
+  }
+}
+
+/** What a sync of this type would send and remove, without touching the index. */
+async function planType(type: SearchContentType): Promise<SyncPlan & { total: number; indexed: number }> {
+  const docs = await docsForType(type)
+  // The transforms swallow source errors and return []. Every type has content,
+  // so an empty result means the source failed — never sync on it.
+  if (docs.length === 0) {
+    throw new Error(`reindex ${type}: source returned 0 documents; index left untouched`)
+  }
+  const indexed = await indexedHashes(type)
+  return { ...planSync(docs, indexed), total: docs.length, indexed: indexed.size }
 }
 
 export interface ReindexTypeResult {
   type: SearchContentType
+  /** Documents sent to Meilisearch (new or changed). */
   added: number
+  /** Documents removed because the source no longer has them. */
+  deleted: number
+  unchanged: number
   durationMs: number
   skipped?: boolean
 }
 
-/** Refresh a single type: delete that type's docs then re-add. Reflects deletions. */
-export async function reindexType(type: SearchContentType): Promise<ReindexTypeResult> {
+/**
+ * Bring one type in step with its source incrementally: send only the
+ * documents whose content hash differs from what the index holds, and remove
+ * the ones the source dropped. Unchanged documents are not touched, so a
+ * routine run costs two reads and a handful of writes.
+ *
+ * `force` lifts the mass-deletion guard below.
+ */
+export async function reindexType(type: SearchContentType, force = false): Promise<ReindexTypeResult> {
   const start = Date.now()
   if (!(await ensureContentIndex())) {
-    return { type, added: 0, durationMs: 0, skipped: true }
+    return { type, added: 0, deleted: 0, unchanged: 0, durationMs: 0, skipped: true }
   }
   const index = getContentIndex()!
-  const docs = await docsForType(type)
-  await index.deleteDocuments({ filter: `type = "${type}"` }).waitTask(WAIT)
-  const added = await addDocs(docs)
-  return { type, added, durationMs: Date.now() - start }
+  const plan = await planType(type)
+  // A source that half-failed (e.g. the DB query threw but local files loaded)
+  // looks like most of the type being deleted. Refuse rather than gut search.
+  // A source that still has most of its documents is not that case, even if
+  // their ids all changed.
+  if (
+    !force &&
+    plan.remove.length > 100 &&
+    plan.remove.length > plan.indexed / 2 &&
+    plan.total < plan.indexed / 2
+  ) {
+    throw new Error(
+      `reindex ${type}: would delete ${plan.remove.length} of ${plan.indexed} indexed documents; ` +
+        `refusing (source probably failed). Pass force=1 if this is intended.`,
+    )
+  }
+  await addDocs(plan.upsert)
+  for (let i = 0; i < plan.remove.length; i += ADD_CHUNK) {
+    assertSucceeded(await index.deleteDocuments(plan.remove.slice(i, i + ADD_CHUNK)).waitTask(WAIT))
+  }
+  return {
+    type,
+    added: plan.upsert.length,
+    deleted: plan.remove.length,
+    unchanged: plan.unchanged,
+    durationMs: Date.now() - start,
+  }
+}
+
+type ReindexManyResult = { added: number; deleted: number; durationMs: number; byType: Record<string, number>; skipped?: boolean }
+
+async function reindexTypes(types: SearchContentType[], force: boolean): Promise<ReindexManyResult> {
+  const start = Date.now()
+  if (!(await ensureContentIndex())) return { added: 0, deleted: 0, durationMs: 0, byType: {}, skipped: true }
+  const byType: Record<string, number> = {}
+  const errors: string[] = []
+  let added = 0
+  let deleted = 0
+  for (const type of types) {
+    try {
+      const r = await reindexType(type, force)
+      byType[type] = r.added
+      added += r.added
+      deleted += r.deleted
+    } catch (e) {
+      // Keep going so one bad type does not block the rest, then report it.
+      errors.push(e instanceof Error ? e.message : String(e))
+    }
+  }
+  if (errors.length) throw new Error(`reindex: ${errors.join('; ')}`)
+  return { added, deleted, durationMs: Date.now() - start, byType }
 }
 
 /**
@@ -518,29 +629,42 @@ export async function reindexType(type: SearchContentType): Promise<ReindexTypeR
  * marketplace entries plus DB rows, so new local plugins do not wait for the
  * external marketplace indexer to make them searchable.
  */
-export async function reindexMarkdown(): Promise<{ added: number; durationMs: number; byType: Record<string, number>; skipped?: boolean }> {
-  const start = Date.now()
-  if (!(await ensureContentIndex())) return { added: 0, durationMs: 0, byType: {}, skipped: true }
-  const byType: Record<string, number> = {}
-  let added = 0
-  for (const type of ['subagent', 'command', 'hook', 'skill', 'plugin', 'theme'] as SearchContentType[]) {
-    const r = await reindexType(type)
-    byType[type] = r.added
-    added += r.added
-  }
-  return { added, durationMs: Date.now() - start, byType }
+export function reindexMarkdown(force = false): Promise<ReindexManyResult> {
+  return reindexTypes(['subagent', 'command', 'hook', 'skill', 'plugin', 'theme'], force)
 }
 
-/** Full rebuild: gather everything, clear the index, re-add. */
-export async function reindexAll(): Promise<{ added: number; durationMs: number; byType: Record<string, number>; skipped?: boolean }> {
-  const start = Date.now()
-  if (!(await ensureContentIndex())) return { added: 0, durationMs: 0, byType: {}, skipped: true }
-  const index = getContentIndex()!
-  const docs = await allDocs()
-  await index.deleteAllDocuments().waitTask(WAIT)
-  const added = await addDocs(docs)
-  const byType: Record<string, number> = {}
-  for (const t of SEARCH_CONTENT_TYPES) byType[t] = 0
-  for (const d of docs) byType[d.type] = (byType[d.type] ?? 0) + 1
-  return { added, durationMs: Date.now() - start, byType }
+/** Sync every type. `byType` counts the documents sent, not the totals. */
+export function reindexAll(force = false): Promise<ReindexManyResult> {
+  return reindexTypes(SEARCH_CONTENT_TYPES, force)
+}
+
+export interface SearchTypeDrift {
+  /** Documents the source has. */
+  source: number
+  /** Documents the index has. */
+  indexed: number
+  /** Missing from the index, or indexed with out-of-date content. */
+  stale: number
+  /** In the index but gone from the source. */
+  extra: number
+}
+
+/**
+ * How far the index is from its sources, per type, without changing anything.
+ * All `stale` and `extra` at 0 means search holds exactly what the site has.
+ */
+export async function searchIndexDrift(
+  types: SearchContentType[] = SEARCH_CONTENT_TYPES,
+): Promise<Record<string, SearchTypeDrift | { error: string }> | null> {
+  if (!getContentIndex()) return null
+  const out: Record<string, SearchTypeDrift | { error: string }> = {}
+  for (const type of types) {
+    try {
+      const plan = await planType(type)
+      out[type] = { source: plan.total, indexed: plan.indexed, stale: plan.upsert.length, extra: plan.remove.length }
+    } catch (e) {
+      out[type] = { error: e instanceof Error ? e.message : String(e) }
+    }
+  }
+  return out
 }
