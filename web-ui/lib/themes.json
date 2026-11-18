@@ -967,7 +967,7 @@
     "repo": "neverblinks/backdrops",
     "kind": "desktop",
     "appearance": "dark",
-    "description": "Nine animated themes in one picker: type /backdrops to try each on a strip of live previews, then keep the one you like.",
+    "description": "Every Backdrops theme in one picker, new ones included as they come out: type /backdrops to try each on a strip of live previews, then keep the one you like.",
     "preview": "https://raw.githubusercontent.com/neverblinks/backdrops/main/assets/previews/backdrops.png",
     "install": [
       "/plugin marketplace add neverblinks/backdrops",
