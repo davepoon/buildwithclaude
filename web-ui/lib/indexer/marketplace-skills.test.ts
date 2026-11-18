@@ -1,6 +1,7 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
 import { resolveMarketplaceSkills, sourceRepoUrl } from './marketplace-skills.ts'
+import { resolveMarketplaceCategories } from './marketplace-categories.ts'
 
 describe('resolveMarketplaceSkills', () => {
   it('skips skill entries that are not strings', async () => {
@@ -140,5 +141,28 @@ describe('sourceRepoUrl', () => {
     assert.equal(sourceRepoUrl('./plugins/pegasus-dev'), undefined)
     assert.equal(sourceRepoUrl({ source: 'npm', package: 'x' }), undefined)
     assert.equal(sourceRepoUrl({ source: 'github', repo: 'not a repo' }), undefined)
+  })
+})
+
+const repo = { topics: ['claude-code-plugins', 'devtools', 'productivity'] }
+
+describe('resolveMarketplaceCategories', () => {
+  it('keeps the curated categories of a known marketplace', () => {
+    assert.deepEqual(
+      resolveMarketplaceCategories({ categories: ['plugins', 'skills'] }, [], repo),
+      ['plugins', 'skills'],
+    )
+    assert.deepEqual(
+      resolveMarketplaceCategories({ categories: ['plugins', 'skills'] }, ['testing'], repo),
+      ['plugins', 'skills'],
+    )
+  })
+
+  it('uses marketplace.json categories for other marketplaces', () => {
+    assert.deepEqual(resolveMarketplaceCategories(undefined, ['testing', 'devops'], repo), ['testing', 'devops'])
+  })
+
+  it('falls back to repo topics when marketplace.json has no categories', () => {
+    assert.deepEqual(resolveMarketplaceCategories(undefined, [], repo), ['devtools', 'productivity'])
   })
 })
