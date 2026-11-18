@@ -3,6 +3,13 @@ import assert from 'node:assert/strict'
 import { resolveMarketplaceSkills, sourceRepoUrl } from './marketplace-skills.ts'
 
 describe('resolveMarketplaceSkills', () => {
+  it('skips skill entries that are not strings', async () => {
+    const result = await resolveMarketplaceSkills({
+      name: 'example', skills: [{ name: 'object-skill' }, 'plain-skill'] as unknown as string[],
+    }, 'owner/repo', async () => '')
+    assert.deepEqual(result.map((s) => s.name), ['plain-skill'])
+  })
+
   it('reads SKILL.md relative to the plugin source (issue #315)', async () => {
     const result = await resolveMarketplaceSkills({
       name: 'recast',

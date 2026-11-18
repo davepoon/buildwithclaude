@@ -39,7 +39,9 @@ export async function resolveMarketplaceSkills(
   const skills = []
 
   for (const entry of plugin.skills || []) {
-    if (!entry) continue
+    // Manifests are untrusted: some list skills as objects. Skip those rather
+    // than fail the whole marketplace.
+    if (typeof entry !== 'string' || !entry) continue
     let name = entry
     let description = `Skill from ${plugin.name}`
     const skillPath = localPath(entry)
