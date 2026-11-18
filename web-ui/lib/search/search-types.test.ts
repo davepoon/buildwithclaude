@@ -1,6 +1,7 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
 import {
+  collapseRelistings,
   makeObjectID,
   urlForDocument,
   isSearchContentType,
@@ -107,5 +108,19 @@ describe('planSync', () => {
   it('ignores updatedAt, which the indexers bump on unchanged rows', () => {
     assert.equal(docHash(doc('a')), docHash(doc('a', { updatedAt: 123 })))
     assert.notEqual(docHash(doc('a')), docHash(doc('a', { description: 'x' })))
+  })
+})
+
+describe('collapseRelistings', () => {
+  it('keeps one entry per repository + slug, preferring the host then stars', () => {
+    const row = (id: string, repository: string, stars: number, hosted = false) =>
+      ({ id, marketplaceId: id, slug: 'impeccable', repository, stars, hosted })
+    const kept = collapseRelistings([
+      row('relisting', 'https://github.com/pbakaus/impeccable', 99999),
+      row('original', 'https://github.com/PBakaus/impeccable', 48370, true),
+      row('fork', 'https://github.com/someone/impeccable', 0, true),
+    ])
+    assert.deepEqual([...kept.keys()], ['pbakaus/impeccable/impeccable', 'someone/impeccable/impeccable'])
+    assert.deepEqual([...kept.values()].map((r) => r.id), ['original', 'fork'])
   })
 })

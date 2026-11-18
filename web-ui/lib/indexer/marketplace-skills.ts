@@ -16,6 +16,19 @@ function localPath(value: unknown): string | null {
   return parts.filter(part => part && part !== '.').join('/')
 }
 
+/**
+ * Repository a marketplace entry's `source` points at, when the plugin lives
+ * outside the marketplace repo: { source: 'github', repo: 'owner/name' } or
+ * { source: 'url' | 'git-subdir', url }. Local paths and npm return undefined.
+ */
+export function sourceRepoUrl(source: unknown): string | undefined {
+  if (!source || typeof source !== 'object') return undefined
+  const { repo, url } = source as { repo?: unknown; url?: unknown }
+  if (typeof repo === 'string' && /^[\w.-]+\/[\w.-]+$/.test(repo)) return `https://github.com/${repo}`
+  if (typeof url === 'string' && /^https:\/\//.test(url)) return url.replace(/\.git$/, '')
+  return undefined
+}
+
 /** Resolve locally declared skill paths, retaining legacy metadata on failure. */
 export async function resolveMarketplaceSkills(
   plugin: MarketplaceSkillPlugin,

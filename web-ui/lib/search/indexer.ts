@@ -11,6 +11,7 @@ import { getMeiliClient, getContentIndex, CONTENT_INDEX } from './meilisearch-cl
 import {
   CONTENT_INDEX_SETTINGS,
   makeObjectID,
+  collapseRelistings,
   urlForDocument,
   SEARCH_CONTENT_TYPES,
   planSync,
@@ -219,9 +220,25 @@ export async function pluginsToDocs(): Promise<SearchDocument[]> {
           ne(plugins.submissionStatus, 'rejected'),
         ),
       )
-    for (const p of rows) {
+    // The plugin indexer never fills plugins.stars, so a plugin takes the stars
+    // of the repository it lives in. Without this every plugin ties at 0 and
+    // the stars ranking rule cannot put the original above a copy.
+    // Only a listing hosted by that repository's own marketplace gets them: a
+    // marketplace entry can name any repository, and must not be able to
+    // borrow a popular project's stars by pointing at it.
+    const repos = await db
+      .select({ id: marketplaces.id, repository: marketplaces.repository, stars: marketplaces.stars })
+      .from(marketplaces)
+    const starsByRepo = new Map(repos.map((m) => [m.repository.toLowerCase(), m.stars]))
+    const repoById = new Map(repos.map((m) => [m.id, m.repository.toLowerCase()]))
+    const ranked = rows.map((p) => {
+      const repo = p.repository?.toLowerCase() ?? ''
+      const hosted = !!p.marketplaceId && repoById.get(p.marketplaceId) === repo
+      return { ...p, hosted, stars: hosted ? starsByRepo.get(repo) || 0 : 0 }
+    })
+    for (const [key, p] of collapseRelistings(ranked)) {
       docs.push({
-        objectID: makeObjectID('plugin', p.slug),
+        objectID: makeObjectID('plugin', key),
         type: 'plugin',
         slug: p.slug,
         name: p.name,
@@ -557,7 +574,14 @@ export async function reindexType(type: SearchContentType, force = false): Promi
   const plan = await planType(type)
   // A source that half-failed (e.g. the DB query threw but local files loaded)
   // looks like most of the type being deleted. Refuse rather than gut search.
-  if (!force && plan.remove.length > 100 && plan.remove.length > plan.indexed / 2) {
+  // A source that still has most of its documents is not that case, even if
+  // their ids all changed.
+  if (
+    !force &&
+    plan.remove.length > 100 &&
+    plan.remove.length > plan.indexed / 2 &&
+    plan.total < plan.indexed / 2
+  ) {
     throw new Error(
       `reindex ${type}: would delete ${plan.remove.length} of ${plan.indexed} indexed documents; ` +
         `refusing (source probably failed). Pass force=1 if this is intended.`,

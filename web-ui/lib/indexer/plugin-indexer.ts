@@ -4,7 +4,7 @@ import { getGitHubClient } from '@/lib/github/client'
 import { eq, and, sql, inArray } from 'drizzle-orm'
 import { z } from 'zod'
 import { expandSkillCollection } from './skill-expander'
-import { resolveMarketplaceSkills } from './marketplace-skills'
+import { resolveMarketplaceSkills, sourceRepoUrl } from './marketplace-skills'
 import { DISPLAY_NAME_OVERRIDES, KNOWN_MARKETPLACE_REPOS } from './marketplace-indexer'
 import { staleMissing } from './missing-marketplaces'
 
@@ -127,7 +127,8 @@ async function fetchGitHubMarketplacePlugins(repoFullName: string): Promise<Plug
             skills: plugin.skills,
             source: plugin.source,
             author: plugin.author || repoFullName.split('/')[0],
-            gitUrl: plugin.repository || `https://github.com/${repoFullName}`,
+            // A marketplace can list a plugin that lives in someone else's repo.
+            gitUrl: plugin.repository || sourceRepoUrl(plugin.source) || `https://github.com/${repoFullName}`,
             stars: 0,
             downloads: 0,
             verified: false,

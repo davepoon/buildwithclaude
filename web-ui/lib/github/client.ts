@@ -347,6 +347,16 @@ export class GitHubClient {
           continue
         }
 
+        // GitHub answers a slow or overloaded request (the batched GraphQL
+        // query especially) with a 5xx. Retry; the last attempt's response is
+        // returned for the caller to report.
+        if (response.status >= 500 && attempt < MAX_RETRIES) {
+          const delay = Math.min(1000 * Math.pow(2, attempt), 10000)
+          console.warn(`GitHub returned ${response.status}, retrying in ${delay}ms... (attempt ${attempt + 1}/${MAX_RETRIES})`)
+          await this.sleep(delay)
+          continue
+        }
+
         // Success - reset circuit breaker
         this.consecutiveFailures = 0
         return response
