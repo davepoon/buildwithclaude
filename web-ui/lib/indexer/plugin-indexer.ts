@@ -629,6 +629,9 @@ async function batchUpsertPlugins(
 ): Promise<{ indexed: number; failed: number }> {
   let indexed = 0
   let failed = 0
+  // Two marketplaces can list the same plugin. Postgres rejects a whole INSERT
+  // ... ON CONFLICT that names one namespace twice, so keep the last of each.
+  records = [...new Map(records.map((r) => [r.namespace, r])).values()]
   for (let i = 0; i < records.length; i += chunkSize) {
     const batch = records.slice(i, i + chunkSize)
     try {

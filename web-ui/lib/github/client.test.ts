@@ -63,7 +63,9 @@ describe('fetchReposMetadata', () => {
         ? new Response('', { status: 502 })
         : new Response(JSON.stringify({ data: { r0: null } }))) as typeof fetch
     try {
-      const out = await new GitHubClient().fetchReposMetadata(['gone/repo'])
+      const client = new GitHubClient()
+      ;(client as unknown as { sleep: () => Promise<void> }).sleep = async () => {}
+      const out = await client.fetchReposMetadata(['gone/repo'])
       assert.equal(calls, 2)
       assert.equal(out.get('gone/repo'), null)
     } finally {
