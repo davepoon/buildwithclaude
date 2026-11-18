@@ -5,6 +5,7 @@ import { parseMarketplaceJson, extractCounts, extractCategories as extractPlugin
 import { analyzeRepository, hasSkillIndicators } from './repo-analyzer'
 import { scanSkillContent, getSubmissionStatus } from './content-scanner'
 import { getSearchMaxPages } from './search-pagination'
+import { resolveMarketplaceCategories } from './marketplace-categories'
 import { eq, sql } from 'drizzle-orm'
 
 // Display names a maintainer asked for, keyed by lower-case owner/repo. The
@@ -310,7 +311,7 @@ async function processRepository(repoFullName: string, repoMeta: GitHubRepo): Pr
       pluginCount: pluginCount || known?.fallbackPluginCount || 0,
       skillCount: skillCount || known?.fallbackSkillCount || 0,
       description: known?.description || repoMeta.description || '',
-      categories: known?.categories || jsonCategories.length > 0 ? jsonCategories : extractRepoCategories(repoMeta),
+      categories: resolveMarketplaceCategories(known, jsonCategories, repoMeta),
       badges: known?.badges || [],
       maintainerName: repoMeta.owner.login,
       maintainerGithub: repoMeta.owner.login,
@@ -388,22 +389,6 @@ function formatDisplayName(name: string): string {
     .split(/[-_]/)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ')
-}
-
-/**
- * Extract categories from repository topics
- */
-function extractRepoCategories(repo: GitHubRepo): string[] {
-  const categories = new Set<string>()
-
-  for (const topic of repo.topics || []) {
-    // Skip generic topics
-    if (!topic.includes('claude') && !topic.includes('plugin') && !topic.includes('mcp')) {
-      categories.add(topic)
-    }
-  }
-
-  return Array.from(categories).slice(0, 5)
 }
 
 /**
