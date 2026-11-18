@@ -903,5 +903,19 @@
       "/plugin marketplace add kimthangk/claude-theme-lewell",
       "/plugin install lewell-theme@claude-theme-lewell"
     ]
+  },
+  {
+    "slug": "bat-cave",
+    "name": "Bat Cave",
+    "author": "Sumit189",
+    "repo": "Sumit189/bat-cave",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "A black terminal look with a spinning block-character bat and live widgets: a clock, weather, a street map of any place, an RSS feed and a terminal of Claude's tool calls. Arrange them with /bat-cave.",
+    "preview": "https://raw.githubusercontent.com/Sumit189/bat-cave/main/docs/backdrop.png",
+    "install": [
+      "/plugin marketplace add Sumit189/bat-cave",
+      "/plugin install bat-cave@bat-cave"
+    ]
   }
 ]
