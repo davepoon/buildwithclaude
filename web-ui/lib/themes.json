@@ -959,5 +959,154 @@
       "/plugin marketplace add aimanamri/claude-code-themes",
       "/plugin install looks-malaysia@looks-malaysia"
     ]
+  },
+  {
+    "slug": "backdrop-picker",
+    "name": "Backdrop Picker",
+    "author": "neverblinks",
+    "repo": "neverblinks/backdrops",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "Nine animated themes in one picker: type /backdrops to try each on a strip of live previews, then keep the one you like.",
+    "preview": "https://raw.githubusercontent.com/neverblinks/backdrops/main/assets/previews/backdrops.png",
+    "install": [
+      "/plugin marketplace add neverblinks/backdrops",
+      "/plugin install backdrops@backdrops"
+    ]
+  },
+  {
+    "slug": "backdrops-reaching",
+    "name": "Reaching",
+    "author": "neverblinks",
+    "repo": "neverblinks/backdrops",
+    "path": "plugins/reaching",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "Two hands in dots after Michelangelo's Creation of Adam; a wave crosses from arm to arm and turns the dots to ASCII. Artwork by @samdape.",
+    "preview": "https://raw.githubusercontent.com/neverblinks/backdrops/main/assets/previews/reaching.png",
+    "install": [
+      "/plugin marketplace add neverblinks/backdrops",
+      "/plugin install reaching@backdrops"
+    ]
+  },
+  {
+    "slug": "backdrops-magenta-hour",
+    "name": "Magenta Hour",
+    "author": "neverblinks",
+    "repo": "neverblinks/backdrops",
+    "path": "plugins/magenta-hour",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "A synthwave Miami dusk: palms, a causeway and the sun going down over a violet bay. Comes with three original tracks.",
+    "preview": "https://raw.githubusercontent.com/neverblinks/backdrops/main/assets/previews/magenta-hour.png",
+    "install": [
+      "/plugin marketplace add neverblinks/backdrops",
+      "/plugin install magenta-hour@backdrops"
+    ]
+  },
+  {
+    "slug": "backdrops-after-hours",
+    "name": "After Hours",
+    "author": "neverblinks",
+    "repo": "neverblinks/backdrops",
+    "path": "plugins/after-hours",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "A synthwave Miami night: the city lit up across the bay, seen from a rooftop.",
+    "preview": "https://raw.githubusercontent.com/neverblinks/backdrops/main/assets/previews/after-hours.png",
+    "install": [
+      "/plugin marketplace add neverblinks/backdrops",
+      "/plugin install after-hours@backdrops"
+    ]
+  },
+  {
+    "slug": "backdrops-crossing-hour",
+    "name": "Crossing Hour",
+    "author": "neverblinks",
+    "repo": "neverblinks/backdrops",
+    "path": "plugins/crossing-hour",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "Tower Bridge at sunset: a cyclist rides across, a red bus passes, boats and gulls on the Thames.",
+    "preview": "https://raw.githubusercontent.com/neverblinks/backdrops/main/assets/previews/crossing-hour.png",
+    "install": [
+      "/plugin marketplace add neverblinks/backdrops",
+      "/plugin install crossing-hour@backdrops"
+    ]
+  },
+  {
+    "slug": "backdrops-promenade",
+    "name": "Promenade",
+    "author": "neverblinks",
+    "repo": "neverblinks/backdrops",
+    "path": "plugins/promenade",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "The Brooklyn Bridge at dusk: a cyclist on the promenade, cars glinting through the deck, a ferry on the East River.",
+    "preview": "https://raw.githubusercontent.com/neverblinks/backdrops/main/assets/previews/promenade.png",
+    "install": [
+      "/plugin marketplace add neverblinks/backdrops",
+      "/plugin install promenade@backdrops"
+    ]
+  },
+  {
+    "slug": "backdrops-coast-road",
+    "name": "Coast Road",
+    "author": "neverblinks",
+    "repo": "neverblinks/backdrops",
+    "path": "plugins/coast-road",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "Bixby Creek Bridge in Big Sur at sunset: a cyclist rides north, fog breathes in the canyon, pelicans over the surf.",
+    "preview": "https://raw.githubusercontent.com/neverblinks/backdrops/main/assets/previews/coast-road.png",
+    "install": [
+      "/plugin marketplace add neverblinks/backdrops",
+      "/plugin install coast-road@backdrops"
+    ]
+  },
+  {
+    "slug": "backdrops-ocean-road",
+    "name": "Ocean Road",
+    "author": "neverblinks",
+    "repo": "neverblinks/backdrops",
+    "path": "plugins/ocean-road",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "Norway's Atlantic Ocean Road at dusk: a cyclist rides the long curve over the sea as the coastal express passes.",
+    "preview": "https://raw.githubusercontent.com/neverblinks/backdrops/main/assets/previews/ocean-road.png",
+    "install": [
+      "/plugin marketplace add neverblinks/backdrops",
+      "/plugin install ocean-road@backdrops"
+    ]
+  },
+  {
+    "slug": "backdrops-fractal-glass",
+    "name": "Fractal Glass",
+    "author": "neverblinks",
+    "repo": "neverblinks/backdrops",
+    "path": "plugins/fractal-glass",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "A blue glow drifting behind a pane of fluted glass.",
+    "preview": "https://raw.githubusercontent.com/neverblinks/backdrops/main/assets/previews/fractal-glass.png",
+    "install": [
+      "/plugin marketplace add neverblinks/backdrops",
+      "/plugin install fractal-glass@backdrops"
+    ]
+  },
+  {
+    "slug": "backdrops-night-hearth",
+    "name": "Night Hearth",
+    "author": "neverblinks",
+    "repo": "neverblinks/backdrops",
+    "path": "plugins/ember",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "A warm glow breathing in the corner of a dark, grainy screen.",
+    "preview": "https://raw.githubusercontent.com/neverblinks/backdrops/main/assets/previews/ember.png",
+    "install": [
+      "/plugin marketplace add neverblinks/backdrops",
+      "/plugin install ember@backdrops"
+    ]
   }
 ]
