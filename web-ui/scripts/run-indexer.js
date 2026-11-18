@@ -155,6 +155,15 @@ async function main() {
   /** @type {Record<string, unknown>} */
   const results = {}
 
+  // Content merged into this repo (subagents, commands, hooks, skills, plugins,
+  // themes) only needs the deployed files, so make it searchable before the
+  // GitHub crawls. They take hours, and a run that is stopped part-way never
+  // reaches the search refresh at the end.
+  if (task === 'all') {
+    console.log('[indexer] --- search reindex: repo content ---')
+    await reindexSearch(TASKS.markdown.reindex)
+  }
+
   for (const name of task === 'all' ? ALL_TASKS : [task]) {
     console.log(`[indexer] --- ${name} ---`)
     results[name] = await runPrimaryTask(name)
