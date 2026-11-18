@@ -931,5 +931,19 @@
       "/plugin marketplace add zZero111/wired-dusk",
       "/plugin install wired-dusk@wired-dusk"
     ]
+  },
+  {
+    "slug": "garden-theme",
+    "name": "Garden",
+    "author": "cktang88",
+    "repo": "cktang88/claude-garden-theme",
+    "kind": "desktop",
+    "appearance": "light",
+    "description": "Cream paper with a pencil garden that grows as your session goes on: seedlings turn into flowers, a tree at the edge keeps getting bigger, and a fox looks in now and then. Four hand-drawn dials show context, turn time, session cost and the clock.",
+    "preview": "https://raw.githubusercontent.com/cktang88/claude-garden-theme/main/docs/preview.gif",
+    "install": [
+      "/plugin marketplace add cktang88/claude-garden-theme",
+      "/plugin install garden-theme@claude-garden-theme"
+    ]
   }
 ]
