@@ -1,9 +1,16 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { resolveMarketplaceSkills } from './marketplace-skills.ts'
+import { resolveMarketplaceSkills, sourceRepoUrl } from './marketplace-skills.ts'
 import { resolveMarketplaceCategories } from './marketplace-categories.ts'
 
 describe('resolveMarketplaceSkills', () => {
+  it('skips skill entries that are not strings', async () => {
+    const result = await resolveMarketplaceSkills({
+      name: 'example', skills: [{ name: 'object-skill' }, 'plain-skill'] as unknown as string[],
+    }, 'owner/repo', async () => '')
+    assert.deepEqual(result.map((s) => s.name), ['plain-skill'])
+  })
+
   it('reads SKILL.md relative to the plugin source (issue #315)', async () => {
     const result = await resolveMarketplaceSkills({
       name: 'recast',
@@ -124,6 +131,16 @@ describe('resolveMarketplaceSkills', () => {
       '\uFEFF---yaml\r\nname: review\r\ndescription: >\r\n  Review code\r\n  carefully.\r\n---\r\n')
     assert.equal(result[0].name, 'review')
     assert.equal(result[0].description, 'Review code carefully.')
+  })
+})
+
+describe('sourceRepoUrl', () => {
+  it('resolves remote sources and ignores local ones', () => {
+    assert.equal(sourceRepoUrl({ source: 'github', repo: 'pbakaus/impeccable' }), 'https://github.com/pbakaus/impeccable')
+    assert.equal(sourceRepoUrl({ source: 'url', url: 'https://gitlab.com/a/b.git' }), 'https://gitlab.com/a/b')
+    assert.equal(sourceRepoUrl('./plugins/pegasus-dev'), undefined)
+    assert.equal(sourceRepoUrl({ source: 'npm', package: 'x' }), undefined)
+    assert.equal(sourceRepoUrl({ source: 'github', repo: 'not a repo' }), undefined)
   })
 })
 

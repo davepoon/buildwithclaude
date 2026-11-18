@@ -22,6 +22,7 @@ export interface SearchHit {
   tags?: string[]
   content?: string
   marketplace?: string
+  marketplaceId?: string
   stars?: number
   installs?: number
   url: string

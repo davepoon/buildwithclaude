@@ -97,8 +97,68 @@ export interface SearchDocument {
   installs: number
   /** Epoch milliseconds; 0 when the source has no timestamp. */
   updatedAt: number
+  /** Content hash (see docHash). Stamped by the indexer so the next sync can
+   *  skip documents that have not changed. */
+  hash?: string
   /** Pre-computed detail route so the UI can link without a type→url map. */
   url: string
+}
+
+/**
+ * Fingerprint of a document's content, used to send Meilisearch only what
+ * changed. `updatedAt` is left out on purpose: the DB indexers bump updated_at
+ * on every row they examine, changed or not, so including it would re-send
+ * thousands of identical documents per run. The cost is that a doc's
+ * `updatedAt` in the index only moves when something else about it changes.
+ */
+export function docHash(doc: SearchDocument): string {
+  const { hash: _hash, updatedAt: _updatedAt, ...content } = doc
+  return createHash('sha256').update(JSON.stringify(content)).digest('hex').slice(0, 16)
+}
+
+/**
+ * One search entry per plugin. Plugins are keyed by repository + slug, so two
+ * authors' same-named plugins stay separate while one plugin listed by several
+ * marketplaces collapses to a single entry: the listing hosted by the
+ * plugin's own repository wins over one that merely points at it, then the
+ * most-starred, then the lowest marketplace id so the choice is stable.
+ */
+export function collapseRelistings<
+  T extends { slug: string; repository: string | null; stars: number; hosted: boolean; marketplaceId: string | null },
+>(rows: T[]): Map<string, T> {
+  const best = new Map<string, T>()
+  for (const row of rows) {
+    const repo = (row.repository ?? '').replace(/^https?:\/\/(www\.)?github\.com\//i, '').toLowerCase()
+    const key = `${repo}/${row.slug}`
+    const cur = best.get(key)
+    const rank = (r: T) => [r.hosted ? 1 : 0, r.stars, r.marketplaceId ?? ''] as const
+    const [a, b] = [rank(row), cur && rank(cur)]
+    if (!b || a[0] > b[0] || (a[0] === b[0] && (a[1] > b[1] || (a[1] === b[1] && a[2] < b[2])))) {
+      best.set(key, row)
+    }
+  }
+  return best
+}
+
+export interface SyncPlan {
+  /** New or changed documents, stamped with their hash, to upsert. */
+  upsert: SearchDocument[]
+  /** Ids in the index that the source no longer has. */
+  remove: string[]
+  unchanged: number
+}
+
+/** Diff the source's documents against the id → hash map read from the index. */
+export function planSync(docs: SearchDocument[], indexed: Map<string, string | undefined>): SyncPlan {
+  const upsert: SearchDocument[] = []
+  const seen = new Set<string>()
+  for (const doc of docs) {
+    seen.add(doc.objectID)
+    const hash = docHash(doc)
+    if (indexed.get(doc.objectID) !== hash) upsert.push({ ...doc, hash })
+  }
+  const remove = [...indexed.keys()].filter((id) => !seen.has(id))
+  return { upsert, remove, unchanged: docs.length - upsert.length }
 }
 
 /**

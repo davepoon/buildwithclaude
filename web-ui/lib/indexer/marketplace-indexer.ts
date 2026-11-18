@@ -8,6 +8,12 @@ import { getSearchMaxPages } from './search-pagination'
 import { resolveMarketplaceCategories } from './marketplace-categories'
 import { eq, sql } from 'drizzle-orm'
 
+// Display names a maintainer asked for, keyed by lower-case owner/repo. The
+// default is the repo name title-cased, which cannot express punctuation.
+export const DISPLAY_NAME_OVERRIDES: Record<string, string> = {
+  'akii-technologies-ltd/akii-seo-ai-search-optimizer': 'Akii: SEO & AI Search Optimizer', // issue 635
+}
+
 // Known/seed marketplaces with accurate fallback counts
 // Fallback counts are used when marketplace.json parsing fails
 const KNOWN_MARKETPLACES = [
@@ -63,6 +69,9 @@ const KNOWN_MARKETPLACES = [
   },
 ]
 
+/** Repos whose description/url are hand-written above and must not be overwritten from GitHub. */
+export const KNOWN_MARKETPLACE_REPOS = new Set(KNOWN_MARKETPLACES.map((m) => m.repo))
+
 // Curated high-signal skill repositories (owner/repo). Hand-picked from the
 // open agent-skills ecosystem (vercel-labs/skills providers, anthropics/skills,
 // and other well-known SKILL.md repos). Seeded directly into the crawl so we get
@@ -88,6 +97,7 @@ export interface IndexResult {
 export async function indexMarketplaces(): Promise<IndexResult> {
   const startTime = Date.now()
   const github = getGitHubClient()
+  await github.assertAuthenticated()
 
   let indexed = 0
   let failed = 0
@@ -161,18 +171,42 @@ export async function indexMarketplaces(): Promise<IndexResult> {
     }
   }
 
+  // One batched metadata pass over everything the searches returned, so a
+  // marketplace we already have costs nothing unless it has new commits. (Its
+  // card metadata is refreshed by the plugin indexer, which checks every
+  // marketplace each run.)
+  const metaByRepo = await github.fetchReposMetadata([...repoSet])
+  const known = new Map(
+    (
+      await db
+        .select({ namespace: marketplaces.namespace, sourcePushedAt: marketplaces.sourcePushedAt })
+        .from(marketplaces)
+    ).map((m) => [m.namespace, m.sourcePushedAt]),
+  )
+
   console.log(`Processing ${repoSet.size} repositories...`)
+  let unchanged = 0
+  let missing = 0
 
   // Process each repo
   for (const repoFullName of repoSet) {
+    const repoMeta = metaByRepo.get(repoFullName)
+    if (!repoMeta) {
+      missing++
+      continue
+    }
+    const indexedPushedAt = known.get(`@${repoMeta.owner.login}/${repoMeta.name}`)
+    if (indexedPushedAt && repoMeta.pushed_at && new Date(repoMeta.pushed_at) <= indexedPushedAt) {
+      unchanged++
+      continue
+    }
     try {
-      const result = await processRepository(repoFullName)
+      const result = await processRepository(repoFullName, repoMeta)
       if (result) {
         indexed++
       } else {
         // Not a marketplace — check if it has skill indicators
         try {
-          const repoMeta = await github.fetchRepoMetadata(repoFullName)
           if (!repoMeta.fork && hasSkillIndicators(repoMeta)) {
             const skillResult = await processSkillRepository(repoFullName)
             if (skillResult) indexed++
@@ -187,6 +221,11 @@ export async function indexMarketplaces(): Promise<IndexResult> {
     }
   }
 
+  console.log(
+    `Marketplace discovery done: found ${repoSet.size}, indexed ${indexed}, ` +
+      `unchanged ${unchanged}, missing ${missing}, failed ${failed}`,
+  )
+
   return {
     indexed,
     failed,
@@ -197,11 +236,8 @@ export async function indexMarketplaces(): Promise<IndexResult> {
 /**
  * Process a single repository to determine if it's a marketplace
  */
-async function processRepository(repoFullName: string): Promise<boolean> {
+async function processRepository(repoFullName: string, repoMeta: GitHubRepo): Promise<boolean> {
   const github = getGitHubClient()
-
-  // Fetch repo metadata
-  const repoMeta = await github.fetchRepoMetadata(repoFullName)
 
   // Skip forks
   if (repoMeta.fork) {
@@ -264,7 +300,10 @@ async function processRepository(repoFullName: string): Promise<boolean> {
     .insert(marketplaces)
     .values({
       name: repoMeta.name,
-      displayName: known?.displayName || formatDisplayName(repoMeta.name),
+      displayName:
+        known?.displayName ||
+        DISPLAY_NAME_OVERRIDES[repoFullName.toLowerCase()] ||
+        formatDisplayName(repoMeta.name),
       namespace,
       url: known?.url || repoMeta.homepage || repoMeta.html_url,
       repository: repoMeta.html_url,
