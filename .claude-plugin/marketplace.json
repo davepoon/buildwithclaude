@@ -5963,6 +5963,35 @@
         "path": "plugin",
         "sha": "7e779ced33c03bd248d7c73a0825e806eb0fec2b"
       }
+    },
+    {
+      "name": "asitis",
+      "description": "Read-only linter for CLAUDE.md, AGENTS.md, SKILL.md, Cursor rules and memory files. Shows what each agent loads at launch, about how many tokens that costs, and where hidden text sits: HTML and [//]: # comments, zero-width and bidi characters. Commands /asitis:md-lint, /asitis:md-loads, /asitis:md-budget and /asitis:md-fix, a skill for minimal markdown edits, and an optional guard hook that warns before Write or Edit changes line endings, drops a BOM or breaks frontmatter. Stdio MCP server, no network calls, runs under Node's permission model (Node 22.13+).",
+      "version": "0.4.5",
+      "author": {
+        "name": "AsItIs",
+        "url": "https://asitis.app"
+      },
+      "homepage": "https://asitis.app",
+      "repository": "https://github.com/Katta041/asitis-agent-tools",
+      "license": "MIT",
+      "keywords": [
+        "markdown",
+        "claude-md",
+        "agents-md",
+        "skill-md",
+        "lint",
+        "hidden-instructions",
+        "context-budget",
+        "mcp"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Katta041/asitis-agent-tools.git",
+        "path": "plugins/asitis",
+        "sha": "4d24770239c2ccd33eda7a9439ae57b4a56f0bd1"
+      }
     }
   ]
 }
