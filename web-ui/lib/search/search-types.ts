@@ -116,6 +116,27 @@ export function docHash(doc: SearchDocument): string {
   return createHash('sha256').update(JSON.stringify(content)).digest('hex').slice(0, 16)
 }
 
+/**
+ * One search entry per plugin. Plugins are keyed by repository + slug, so two
+ * authors' same-named plugins stay separate while one plugin listed by several
+ * marketplaces collapses to a single entry: the most-starred listing wins,
+ * and on a tie the marketplace that hosts the plugin itself.
+ */
+export function collapseRelistings<
+  T extends { slug: string; repository: string | null; stars: number; hosted: boolean },
+>(rows: T[]): Map<string, T> {
+  const best = new Map<string, T>()
+  for (const row of rows) {
+    const repo = (row.repository ?? '').replace(/^https?:\/\/(www\.)?github\.com\//i, '').toLowerCase()
+    const key = `${repo}/${row.slug}`
+    const cur = best.get(key)
+    if (!cur || row.stars > cur.stars || (row.stars === cur.stars && row.hosted && !cur.hosted)) {
+      best.set(key, row)
+    }
+  }
+  return best
+}
+
 export interface SyncPlan {
   /** New or changed documents, stamped with their hash, to upsert. */
   upsert: SearchDocument[]
