@@ -72,4 +72,25 @@ describe('fetchReposMetadata', () => {
       globalThis.fetch = realFetch
     }
   })
+
+  it('fetchFiles maps existing files and leaves out truncated or missing repos', async () => {
+    const realFetch = globalThis.fetch
+    globalThis.fetch = (async () =>
+      new Response(
+        JSON.stringify({
+          data: {
+            r0: { f0: { text: '{"plugins":[]}', isTruncated: false }, f1: null },
+            r1: { f0: null, f1: null },
+            r2: { f0: { text: '{"plu', isTruncated: true }, f1: null },
+            r3: null,
+          },
+        }),
+      )) as typeof fetch
+    try {
+      const out = await new GitHubClient().fetchFiles(['a/has', 'b/none', 'c/big', 'd/gone'], ['m.json', 'p.json'])
+      assert.deepEqual(Object.fromEntries(out), { 'a/has': { 'm.json': '{"plugins":[]}' }, 'b/none': {} })
+    } finally {
+      globalThis.fetch = realFetch
+    }
+  })
 })

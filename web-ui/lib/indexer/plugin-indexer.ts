@@ -92,24 +92,30 @@ type SkillUpsertRecord = {
   lastIndexedAt: Date
 }
 
+// Standard paths for a marketplace manifest, tried in this order.
+const MANIFEST_PATHS = [
+  '.claude-plugin/marketplace.json',
+  'marketplace.json',
+  'plugins.json',
+  'registry.json',
+]
+
 /**
- * Fetch plugins from GitHub repository marketplace.json
+ * Fetch plugins from GitHub repository marketplace.json. `prefetched` holds
+ * the manifest files already fetched in a batch (path -> text, existing files
+ * only); without it each path costs one throttled request.
  */
-async function fetchGitHubMarketplacePlugins(repoFullName: string): Promise<Plugin[]> {
+async function fetchGitHubMarketplacePlugins(
+  repoFullName: string,
+  prefetched?: Record<string, string>,
+): Promise<Plugin[]> {
   const github = getGitHubClient()
   const plugins: Plugin[] = []
 
-  // Try standard paths for marketplace.json
-  const paths = [
-    '.claude-plugin/marketplace.json',
-    'marketplace.json',
-    'plugins.json',
-    'registry.json',
-  ]
-
-  for (const path of paths) {
+  for (const path of MANIFEST_PATHS) {
     try {
-      const content = await github.fetchFileContent(repoFullName, path)
+      if (prefetched && !(path in prefetched)) continue
+      const content = prefetched ? prefetched[path] : await github.fetchFileContent(repoFullName, path)
       const data = JSON.parse(content)
 
       // Handle different formats
@@ -320,6 +326,21 @@ export async function indexPlugins(
     marketplaceSlice.filter((m) => !isLocal(m)).map(repoPathOf),
   )
 
+  // Fetch the manifests of the marketplaces this run will re-fetch in batches,
+  // instead of up to four throttled requests each inside the loop below.
+  const hasNewCommits = (m: (typeof marketplaceSlice)[number]) => {
+    const pushed = metaByRepo.get(repoPathOf(m))?.pushed_at
+    return !(pushed && m.sourcePushedAt && new Date(pushed) <= m.sourcePushedAt)
+  }
+  const manifests = await github.fetchFiles(
+    marketplaceSlice
+      .filter((m) => !isLocal(m) && metaByRepo.get(repoPathOf(m)) && hasNewCommits(m))
+      .slice(0, batchSize)
+      .map(repoPathOf),
+    MANIFEST_PATHS,
+  )
+  console.log(`Fetched manifests for ${manifests.size} changed marketplaces`)
+
   const pluginRecords: PluginUpsertRecord[] = []
   const skillRecords: SkillUpsertRecord[] = []
   const collectionNamespaces = new Set<string>()
@@ -459,10 +480,8 @@ export async function indexPlugins(
     }
 
     const pushedAt = repoMeta.pushed_at ? new Date(repoMeta.pushed_at) : null
-    const unchangedSinceLastIndex =
-      pushedAt && marketplace.sourcePushedAt && pushedAt <= marketplace.sourcePushedAt
 
-    if (unchangedSinceLastIndex) {
+    if (!hasNewCommits(marketplace)) {
       unchanged++
       bumpIds.push(marketplace.id) // source_pushed_at stays; just bump last_indexed_at
       continue
@@ -476,7 +495,7 @@ export async function indexPlugins(
 
     // Changed (or first index): fetch + expand, accumulate for batch upsert.
     try {
-      const fetchedPlugins = await fetchGitHubMarketplacePlugins(repoPath)
+      const fetchedPlugins = await fetchGitHubMarketplacePlugins(repoPath, manifests.get(repoPath))
       const expandedPlugins: Plugin[] = []
 
       for (const plugin of fetchedPlugins) {
