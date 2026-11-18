@@ -1099,14 +1099,14 @@
     "name": "Night Hearth",
     "author": "neverblinks",
     "repo": "neverblinks/backdrops",
-    "path": "plugins/ember",
+    "path": "plugins/night-hearth",
     "kind": "desktop",
     "appearance": "dark",
     "description": "A warm glow breathing in the corner of a dark, grainy screen.",
-    "preview": "https://raw.githubusercontent.com/neverblinks/backdrops/main/assets/previews/ember.png",
+    "preview": "https://raw.githubusercontent.com/neverblinks/backdrops/main/assets/previews/night-hearth.png",
     "install": [
       "/plugin marketplace add neverblinks/backdrops",
-      "/plugin install ember@backdrops"
+      "/plugin install night-hearth@backdrops"
     ]
   }
 ]
