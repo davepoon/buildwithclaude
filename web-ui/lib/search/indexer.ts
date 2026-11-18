@@ -223,6 +223,9 @@ export async function pluginsToDocs(): Promise<SearchDocument[]> {
     // The plugin indexer never fills plugins.stars, so a plugin takes the stars
     // of the repository it lives in. Without this every plugin ties at 0 and
     // the stars ranking rule cannot put the original above a copy.
+    // Only a listing hosted by that repository's own marketplace gets them: a
+    // marketplace entry can name any repository, and must not be able to
+    // borrow a popular project's stars by pointing at it.
     const repos = await db
       .select({ id: marketplaces.id, repository: marketplaces.repository, stars: marketplaces.stars })
       .from(marketplaces)
@@ -230,11 +233,8 @@ export async function pluginsToDocs(): Promise<SearchDocument[]> {
     const repoById = new Map(repos.map((m) => [m.id, m.repository.toLowerCase()]))
     const ranked = rows.map((p) => {
       const repo = p.repository?.toLowerCase() ?? ''
-      return {
-        ...p,
-        stars: p.stars || starsByRepo.get(repo) || 0,
-        hosted: !!p.marketplaceId && repoById.get(p.marketplaceId) === repo,
-      }
+      const hosted = !!p.marketplaceId && repoById.get(p.marketplaceId) === repo
+      return { ...p, hosted, stars: hosted ? starsByRepo.get(repo) || 0 : 0 }
     })
     for (const [key, p] of collapseRelistings(ranked)) {
       docs.push({

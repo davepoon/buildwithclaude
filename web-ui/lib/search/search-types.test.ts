@@ -112,11 +112,11 @@ describe('planSync', () => {
 })
 
 describe('collapseRelistings', () => {
-  it('keeps one entry per repository + slug, preferring stars then the host', () => {
+  it('keeps one entry per repository + slug, preferring the host then stars', () => {
     const row = (id: string, repository: string, stars: number, hosted = false) =>
-      ({ id, slug: 'impeccable', repository, stars, hosted })
+      ({ id, marketplaceId: id, slug: 'impeccable', repository, stars, hosted })
     const kept = collapseRelistings([
-      row('relisting', 'https://github.com/pbakaus/impeccable', 48370),
+      row('relisting', 'https://github.com/pbakaus/impeccable', 99999),
       row('original', 'https://github.com/PBakaus/impeccable', 48370, true),
       row('fork', 'https://github.com/someone/impeccable', 0, true),
     ])
