@@ -959,5 +959,20 @@
       "/plugin marketplace add aimanamri/claude-code-themes",
       "/plugin install looks-malaysia@looks-malaysia"
     ]
+  },
+  {
+    "slug": "claude-code-themes-library",
+    "name": "Claude Code Themes (45 themes)",
+    "author": "PerspicaciousGuy",
+    "repo": "PerspicaciousGuy/ClaudeCodeThemes",
+    "path": "theme-library",
+    "kind": "desktop",
+    "appearance": "both",
+    "description": "Forty-five themes in one plugin with a /ccthemes picker: moving pixel-art and vector backdrops (a night market, a snow station, a rainy cafe, fog valley, desert noon), light and dark twins that switch with your clock, and still high-contrast and colorblind-safe palettes. Filter, search, preview and apply from a card.",
+    "preview": "https://raw.githubusercontent.com/PerspicaciousGuy/ClaudeCodeThemes/main/docs/screenshots/forest-trail.png",
+    "install": [
+      "/plugin marketplace add PerspicaciousGuy/ClaudeCodeThemes",
+      "/plugin install theme-library@claude-code-themes"
+    ]
   }
 ]
