@@ -5068,7 +5068,7 @@
     {
       "name": "clawd-band",
       "description": "A band above the prompt: an animated Clawd sprite, five-hour and weekly usage bars with a countdown to each window's reset, and a context-window bar with a countdown until the prompt cache goes cold. A Claude Code mod; the sprite needs kitty's graphics protocol.",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "author": {
         "name": "SleepNoMore",
         "url": "https://github.com/nninkovic95"
@@ -5087,7 +5087,7 @@
       "source": {
         "source": "github",
         "repo": "nninkovic95/clawd-band",
-        "sha": "3231f13ebf7f667fd62fd0138e808913024776e1"
+        "sha": "800136153bedf21e88b1a593acf9ef73b46d8b44"
       }
     },
     {
@@ -6056,6 +6056,89 @@
         "url": "https://github.com/brajendrak00068/agentic-ai-video-production.git",
         "path": "claude-plugin",
         "sha": "09ab21ab905fa5bcf4dcbd3202d567812f5736d0"
+      }
+    },
+    {
+      "name": "treeproof",
+      "description": "Stop and TaskCompleted hooks: after Claude edits code, it cannot end the turn until a passing test run exists for the exact git tree on disk. Tests run through `treeproof run -- <cmd>`, which writes a signed in-toto test-result receipt for that tree; a later edit, a failing run, a 0-test run or a filtered subset leaves the gate closed, and after 3 blocks on the same tree it lets the turn end with a warning. The gate is on in every git repository once enabled; turn it off per repo with `[gate] mode = \"off\"` in a committed treeproof.toml, or everywhere with TREEPROOF_GATE=off. Also adds the receipt_run (only the repo's committed test commands or a standard test runner, no shell), receipt_query and receipt_verify MCP tools. Needs the pinned binary on PATH: cargo install treeproof --version 0.1.2 --locked, or the v0.1.2 release archive checked against SHA256SUMS. Nothing is sent anywhere unless you set TREEPROOF_OTLP_ENDPOINT, or TREEPROOF_OTEL=1 with OTEL_EXPORTER_OTLP_ENDPOINT.",
+      "version": "0.1.2",
+      "author": {
+        "name": "Matthew Busel",
+        "url": "https://github.com/Mattbusel"
+      },
+      "homepage": "https://github.com/Mattbusel/treeproof",
+      "repository": "https://github.com/Mattbusel/treeproof",
+      "license": "MIT OR Apache-2.0",
+      "keywords": [
+        "testing",
+        "verification",
+        "stop-hook",
+        "in-toto",
+        "receipts",
+        "worktrees",
+        "mcp"
+      ],
+      "category": "hooks",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Mattbusel/treeproof.git",
+        "path": "plugin",
+        "sha": "8030abc302b0492b4f824f0afba2c587b3d91d9f"
+      }
+    },
+    {
+      "name": "nogpu",
+      "description": "Finds your app's recurring LLM classification or routing call (intent routing, ticket triage, moderation, pick-one-category) and extracts its past decisions locally into nogpu.jsonl, printing only counts and the label histogram. Only after you say yes, it uploads that file to nogpu.dev (the plugin author's service) for a free report on how many of those decisions a small CPU model can take alone; certified only if the one-sided 95% Clopper-Pearson lower bound of held-out accuracy is at least 90%. Keeping the model is $99 one-time and runs offline on any CPU; after an explicit yes to $99 the agent gives you the card link, or pays 99 USDC with your own x402 wallet tool capped at 99 for that one call. Uploads are deleted within 24 hours (24 hours after payment if bought). Asks before writing or running any local file, and before adding a local logger. Ships its log converter inside the plugin (nothing is downloaded and run). Bundles the nogpu MCP server (nogpu_report, nogpu_buy, nogpu_delete). MIT.",
+      "version": "0.2.3",
+      "author": {
+        "name": "doronp",
+        "url": "https://github.com/doronp"
+      },
+      "homepage": "https://nogpu.dev",
+      "repository": "https://github.com/doronp/nogpu-mcp",
+      "license": "MIT",
+      "keywords": [
+        "llm",
+        "classification",
+        "routing",
+        "distillation",
+        "cpu",
+        "cost",
+        "mcp"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/doronp/nogpu-mcp.git",
+        "path": "plugin",
+        "sha": "988c50fb32729d9fbf1c54b0565f1324d705557f"
+      }
+    },
+    {
+      "name": "textmock",
+      "description": "Make iMessage-style conversations and save them as images or videos with Textmock. The plugin adds one skill and a small dependency-free Node.js helper that turns a fictional conversation into a textmock.com link. The text travels in the link fragment, which browsers do not send to the server. Open the link, choose Make a Copy, then save an image or a video. For saved conversations the agent uses the Textmock editor's browser API or the Mac app's command. Textmock's online guide is reference material: importing from Messages, rendering over an existing file and deleting happen only when you ask.",
+      "version": "0.1.3",
+      "author": {
+        "name": "Hraness",
+        "url": "https://hraness.com"
+      },
+      "homepage": "https://textmock.com/docs/agents",
+      "repository": "https://github.com/hraness/product-skills",
+      "license": "MIT",
+      "keywords": [
+        "imessage",
+        "mockup",
+        "text-message",
+        "conversation",
+        "video",
+        "screenshots"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/hraness/product-skills.git",
+        "path": "plugins/textmock",
+        "sha": "bab04a90fca677f49851a3949de584d8707e05a3"
       }
     }
   ]
