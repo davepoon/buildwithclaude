@@ -1,7 +1,7 @@
 {
   "name": "all-skills",
   "version": "1.0.0",
-  "description": "Complete collection of 235 Claude Code skills for document processing, development, business productivity, research, media safety, and creative tasks",
+  "description": "Complete collection of 236 Claude Code skills for document processing, development, business productivity, research, media safety, and creative tasks",
   "author": {
     "name": "BuildWithClaude Community",
     "url": "https://github.com/davepoon/buildwithclaude"
@@ -98,6 +98,7 @@
     "shopify-firebase-app",
     "doesitworkin",
     "hourlore",
-    "e2e"
+    "e2e",
+    "siebly-crypto-exchange-api"
   ]
 }
