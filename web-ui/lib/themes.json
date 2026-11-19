@@ -947,6 +947,20 @@
     ]
   },
   {
+    "slug": "ticker-theme",
+    "name": "Ticker",
+    "author": "cktang88",
+    "repo": "cktang88/claude-ticker-theme",
+    "kind": "desktop",
+    "appearance": "light",
+    "description": "A white page with one stock's day as a single soft line, updating live every 10 seconds. Green above yesterday's close, red below, with the close and the price now at the right. Watches ANT (Anthropic) out of the box.",
+    "preview": "https://raw.githubusercontent.com/cktang88/claude-ticker-theme/main/docs/preview.gif",
+    "install": [
+      "/plugin marketplace add cktang88/claude-ticker-theme",
+      "/plugin install ticker-theme@claude-ticker-theme"
+    ]
+  },
+  {
     "slug": "looks-malaysia",
     "name": "Looks Malaysia",
     "author": "aimanamri",
