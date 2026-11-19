@@ -6113,6 +6113,33 @@
         "path": "plugin",
         "sha": "988c50fb32729d9fbf1c54b0565f1324d705557f"
       }
+    },
+    {
+      "name": "textmock",
+      "description": "Make iMessage-style conversations and save them as images or videos with Textmock. The plugin adds one skill and a small dependency-free Node.js helper that turns a fictional conversation into a textmock.com link. The text travels in the link fragment, which browsers do not send to the server. Open the link, choose Make a Copy, then save an image or a video. For saved conversations the agent uses the Textmock editor's browser API or the Mac app's command. Textmock's online guide is reference material: importing from Messages, rendering over an existing file and deleting happen only when you ask.",
+      "version": "0.1.3",
+      "author": {
+        "name": "Hraness",
+        "url": "https://hraness.com"
+      },
+      "homepage": "https://textmock.com/docs/agents",
+      "repository": "https://github.com/hraness/product-skills",
+      "license": "MIT",
+      "keywords": [
+        "imessage",
+        "mockup",
+        "text-message",
+        "conversation",
+        "video",
+        "screenshots"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/hraness/product-skills.git",
+        "path": "plugins/textmock",
+        "sha": "bab04a90fca677f49851a3949de584d8707e05a3"
+      }
     }
   ]
 }
