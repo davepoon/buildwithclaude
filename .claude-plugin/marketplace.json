@@ -6057,6 +6057,34 @@
         "path": "claude-plugin",
         "sha": "09ab21ab905fa5bcf4dcbd3202d567812f5736d0"
       }
+    },
+    {
+      "name": "treeproof",
+      "description": "Stop and TaskCompleted hooks: after Claude edits code, it cannot end the turn until a passing test run exists for the exact git tree on disk. Tests run through `treeproof run -- <cmd>`, which writes a signed in-toto test-result receipt for that tree; a later edit, a failing run, a 0-test run or a filtered subset leaves the gate closed, and after 3 blocks on the same tree it lets the turn end with a warning. The gate is on in every git repository once enabled; turn it off per repo with `[gate] mode = \"off\"` in a committed treeproof.toml, or everywhere with TREEPROOF_GATE=off. Also adds the receipt_run (only the repo's committed test commands or a standard test runner, no shell), receipt_query and receipt_verify MCP tools. Needs the pinned binary on PATH: cargo install treeproof --version 0.1.2 --locked, or the v0.1.2 release archive checked against SHA256SUMS. Nothing is sent anywhere unless you set TREEPROOF_OTLP_ENDPOINT, or TREEPROOF_OTEL=1 with OTEL_EXPORTER_OTLP_ENDPOINT.",
+      "version": "0.1.2",
+      "author": {
+        "name": "Matthew Busel",
+        "url": "https://github.com/Mattbusel"
+      },
+      "homepage": "https://github.com/Mattbusel/treeproof",
+      "repository": "https://github.com/Mattbusel/treeproof",
+      "license": "MIT OR Apache-2.0",
+      "keywords": [
+        "testing",
+        "verification",
+        "stop-hook",
+        "in-toto",
+        "receipts",
+        "worktrees",
+        "mcp"
+      ],
+      "category": "hooks",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Mattbusel/treeproof.git",
+        "path": "plugin",
+        "sha": "8030abc302b0492b4f824f0afba2c587b3d91d9f"
+      }
     }
   ]
 }
