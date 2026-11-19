@@ -5092,8 +5092,8 @@
     },
     {
       "name": "brewpage",
-      "description": "Publish HTML, Markdown, files and multi-file static sites from Claude Code to BrewPage and get an HTTPS link back, with no account or API key: a brewpage-publish skill plus the BrewPage remote MCP server (https://brewpage.app/mcp). Only content you ask it to publish is uploaded; links are unlisted but readable by anyone who has them (optional password), and content expires (15 days by default, 30 at most).",
-      "version": "0.1.0",
+      "description": "Draft, publish and update HTML, Markdown, files and sites with BrewPage. Published content expires. Anyone with the link can open it unless password protection is enabled.",
+      "version": "1.1.2",
       "author": {
         "name": "Maksim Kochetkov",
         "url": "https://brewpage.app"
@@ -5113,8 +5113,8 @@
       "source": {
         "source": "git-subdir",
         "url": "https://github.com/kochetkov-ma/brewpage-publish-plugins.git",
-        "path": "agent-plugin",
-        "sha": "967c738294e15c2a57e24c0fffed5b639d49fff3"
+        "path": "catalogs/buildwithclaude",
+        "sha": "3af490b6ce1a495c796115d7d65a20b55a4d7497"
       }
     },
     {
