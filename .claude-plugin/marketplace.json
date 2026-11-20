@@ -5880,6 +5880,32 @@
       }
     },
     {
+      "name": "appstruct-docs",
+      "description": "Connect Claude Code to owned AppStruct Docs meeting notes and draft a source-grounded brief in the conversation. Includes a manually invoked workflow and HTTP MCP config. Requires an AppStruct account, applicable Docs access and a Docs read key. The bundled workflow does not create or edit documents.",
+      "version": "1.0.0",
+      "author": {
+        "name": "AppStruct",
+        "url": "https://appstruct.ai"
+      },
+      "homepage": "https://blog.appstruct.ai/blog/docs-mcp-meeting-notes-to-project-brief?utm_source=buildwithclaude&utm_medium=referral&utm_campaign=docs_claude_code_20261120&utm_content=marketplace_listing_01#use-the-optional-meeting-brief-plugin",
+      "repository": "https://github.com/AppStructAI/appstruct-docs-claude-plugin",
+      "license": "MIT",
+      "keywords": [
+        "appstruct",
+        "docs",
+        "meeting-notes",
+        "project-brief",
+        "mcp",
+        "claude-code"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "AppStructAI/appstruct-docs-claude-plugin",
+        "sha": "e7721c969d97b484eba3d2882875911601b4354b"
+      }
+    },
+    {
       "name": "appstruct-social",
       "description": "Connect Claude Code to AppStruct Social to read channels and measured analytics and prepare unscheduled drafts for review. Includes a workflow skill and remote HTTP MCP connection. Requires an AppStruct account, Social access and a scoped workspace key. Does not schedule, publish or delete posts.",
       "version": "1.1.0",
