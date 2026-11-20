@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { GitHubClient } from './client.ts'
+import { GitHubClient, GitHubNotFoundError } from './client.ts'
 
 describe('fetchReposMetadata', () => {
   it('maps a GraphQL batch to repo metadata, with null for unresolvable repos', async () => {
@@ -68,6 +68,46 @@ describe('fetchReposMetadata', () => {
       const out = await client.fetchReposMetadata(['gone/repo'])
       assert.equal(calls, 2)
       assert.equal(out.get('gone/repo'), null)
+    } finally {
+      globalThis.fetch = realFetch
+    }
+  })
+
+  it('waits for the quota reset on a rate limit, and does not trip the circuit breaker', async () => {
+    const realFetch = globalThis.fetch
+    const reset = Math.floor(Date.now() / 1000) + 600
+    let calls = 0
+    globalThis.fetch = (async () =>
+      ++calls <= 4
+        ? new Response('{"message":"API rate limit exceeded"}', {
+            status: 403,
+            headers: { 'x-ratelimit-remaining': '0', 'x-ratelimit-reset': String(reset) },
+          })
+        : new Response(JSON.stringify({ encoding: 'base64', content: Buffer.from('hi').toString('base64') }))) as typeof fetch
+    const client = new GitHubClient()
+    const waits: number[] = []
+    ;(client as unknown as { sleep: (ms: number) => Promise<void> }).sleep = async (ms) => void waits.push(ms)
+    try {
+      await assert.rejects(client.fetchFileContent('a/b', 'x.json'), /rate limit/)
+      const long = waits.filter((ms) => ms > 1000)
+      assert.equal(long.length, 3)
+      assert.ok(long.every((ms) => ms > 590_000 && ms < 610_000), `waited ${long}`)
+      // Five rate-limited requests in a row used to open the breaker for good.
+      assert.equal(await client.fetchFileContent('a/b', 'x.json'), 'hi')
+    } finally {
+      globalThis.fetch = realFetch
+    }
+  })
+
+  it('tells a missing file (404) and a forbidden repo (403) apart from a failed request', async () => {
+    const realFetch = globalThis.fetch
+    let status = 404
+    globalThis.fetch = (async () => new Response('{"message":"Repository access blocked"}', { status })) as typeof fetch
+    const client = new GitHubClient()
+    try {
+      await assert.rejects(client.fetchFileContent('a/b', 'x.json'), GitHubNotFoundError)
+      status = 403
+      await assert.rejects(client.fetchFileContent('a/b', 'x.json'), (e: Error) => !(e instanceof GitHubNotFoundError) && /403/.test(e.message))
     } finally {
       globalThis.fetch = realFetch
     }

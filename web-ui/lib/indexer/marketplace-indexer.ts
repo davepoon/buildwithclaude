@@ -1,6 +1,6 @@
 import { db } from '@/lib/db/client'
 import { marketplaces, marketplaceStats, plugins, submissionReviews } from '@/lib/db/schema'
-import { getGitHubClient, GitHubRepo } from '@/lib/github/client'
+import { getGitHubClient, GitHubNotFoundError, GitHubRepo } from '@/lib/github/client'
 import { parseMarketplaceJson, extractCounts, extractCategories as extractPluginCategories } from './parser'
 import { analyzeRepository, hasSkillIndicators } from './repo-analyzer'
 import { scanSkillContent, getSubmissionStatus } from './content-scanner'
@@ -270,6 +270,9 @@ async function processRepository(repoFullName: string, repoMeta: GitHubRepo): Pr
       console.log(`  Failed to parse marketplace.json from ${repoFullName}`)
     }
   } catch (error) {
+    // A request that failed says nothing about the manifest: let the caller
+    // skip this repo rather than record it as having no plugins.
+    if (!(error instanceof GitHubNotFoundError)) throw error
     // Try alternate path
     try {
       const content = await github.fetchFileContent(repoFullName, 'marketplace.json')
@@ -284,7 +287,8 @@ async function processRepository(repoFullName: string, repoMeta: GitHubRepo): Pr
       } else {
         console.log(`  Failed to parse marketplace.json from ${repoFullName} (alt path)`)
       }
-    } catch {
+    } catch (altError) {
+      if (!(altError instanceof GitHubNotFoundError)) throw altError
       // No marketplace.json found, use estimated counts from known marketplaces
       console.log(`  No marketplace.json found in ${repoFullName}, using fallback counts`)
     }

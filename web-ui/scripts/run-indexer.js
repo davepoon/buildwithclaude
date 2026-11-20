@@ -34,6 +34,7 @@ const { indexMCPServers, syncMCPServerStats } = jiti(
 const { indexMarketplaces } = jiti('../lib/indexer/marketplace-indexer.ts')
 const { indexPlugins } = jiti('../lib/indexer/plugin-indexer.ts')
 const { indexSkillsFromSkillsSh } = jiti('../lib/indexer/skills-sh-indexer.ts')
+const { getGitHubClient } = jiti('../lib/github/client.ts')
 
 const APP_BASE_URL = process.env.APP_BASE_URL || 'https://buildwithclaude.com'
 
@@ -126,6 +127,8 @@ const TASKS = {
  */
 async function runPrimaryTask(task) {
   const { run, reindex } = TASKS[task]
+  // A GitHub outage during one task must not fail the next one on its first request.
+  getGitHubClient().resetCircuitBreaker()
   try {
     const result = await run()
     reindex.forEach((type) => pendingReindex.add(type))
