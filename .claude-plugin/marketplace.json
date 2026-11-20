@@ -6140,6 +6140,25 @@
         "path": "plugins/textmock",
         "sha": "bab04a90fca677f49851a3949de584d8707e05a3"
       }
+    },
+    {
+      "name": "personaxpand-social-media-skills",
+      "description": "Draft replies to social media comments and DMs in your own voice, sort your inbox, design auto-reply rules, and write, plan and report on posts. Works on pasted text with no account. Flags complaints, never invents facts and never denies being AI. The optional PersonaXpand connector (remote MCP, OAuth) reads your inbox and sends or posts only after you approve the exact text.",
+      "version": "0.1.2",
+      "author": {
+        "name": "Mohammad Hayat",
+        "url": "https://github.com/hayat-nextoriainfotech"
+      },
+      "homepage": "https://github.com/hayat-nextoriainfotech/social-media-skills#readme",
+      "repository": "https://github.com/hayat-nextoriainfotech/social-media-skills",
+      "license": "MIT",
+      "keywords": ["social-media", "comment-replies", "inbox", "auto-reply", "content-planning", "analytics", "mcp"],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "hayat-nextoriainfotech/social-media-skills",
+        "sha": "c48fafeae6e29c8d34a1868655f9b2844847b335"
+      }
     }
   ]
 }
