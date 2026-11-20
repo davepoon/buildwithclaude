@@ -3,9 +3,11 @@ name: redya-xiaohongshu
 description: Create illustrated posts, product posts, adaptations of reference posts, and Live Photos. Choose an outline or direct generation, check sensitive wording, and hand drafts to the publishing editor.
 category: social-media
 license: MIT
+metadata:
+  displayName: "小红书图文与实况图·红鸦 AI"
 ---
 
-# 红鸦开放平台:小红书图文生成
+# 小红书图文与实况图·红鸦 AI
 
 通过红鸦(RedYA)开放平台 API,为用户生成完整的小红书图文笔记:标题 + 正文 + 多页配图。支持普通图文、商品图文、逐页爆文复刻和 Live 实况图文。
 
