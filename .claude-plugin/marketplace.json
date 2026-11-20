@@ -6140,6 +6140,30 @@
         "path": "plugins/textmock",
         "sha": "bab04a90fca677f49851a3949de584d8707e05a3"
       }
+    },
+    {
+      "name": "movoa",
+      "description": "MCP server and video generation skill for movoa.ai: generate short video clips with synchronized audio from text prompts or photos using your MOVOA_API_KEY.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Movoa",
+        "url": "https://movoa.ai/"
+      },
+      "homepage": "https://movoa.ai/",
+      "repository": "https://github.com/hanshs474/movoa-mcp",
+      "license": "MIT",
+      "keywords": [
+        "ai",
+        "video-generation",
+        "text-to-video",
+        "image-to-video",
+        "mcp"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "github",
+        "repo": "hanshs474/movoa-mcp"
+      }
     }
   ]
 }
