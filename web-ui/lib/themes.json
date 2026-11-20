@@ -1137,5 +1137,34 @@
       "/plugin marketplace add PerspicaciousGuy/ClaudeCodeThemes",
       "/plugin install theme-library@claude-code-themes"
     ]
+  },
+  {
+    "slug": "skynettheone-claude-themes",
+    "name": "Claude Themes (908 themes)",
+    "author": "Skynettheone",
+    "repo": "Skynettheone/claude-themes",
+    "kind": "desktop",
+    "appearance": "both",
+    "description": "908 color themes from popular VS Code themes like Catppuccin, Dracula, Tokyo Night, GitHub and Kanagawa, one plugin each. Recolors the whole app, code highlighting included, with darker chrome around the chat like VS Code.",
+    "preview": "https://raw.githubusercontent.com/Skynettheone/claude-themes/main/docs/images/claude-themes.png",
+    "install": [
+      "/plugin marketplace add Skynettheone/claude-themes",
+      "/plugin install github-dark-default@claude-themes-library"
+    ]
+  },
+  {
+    "slug": "skynettheone-terminal-themes",
+    "name": "Claude Themes terminal pack (907 themes)",
+    "author": "Skynettheone",
+    "repo": "Skynettheone/claude-themes",
+    "path": "packs/terminal-themes",
+    "kind": "terminal",
+    "appearance": "both",
+    "description": "907 /theme color themes in one plugin, from Catppuccin, Dracula, Tokyo Night, GitHub, Kanagawa and more, with matching color schemes for Windows Terminal, iTerm2, Ghostty, kitty, Alacritty and WezTerm.",
+    "preview": "https://raw.githubusercontent.com/Skynettheone/claude-themes/main/docs/images/terminal-themes.png",
+    "install": [
+      "/plugin marketplace add Skynettheone/claude-themes",
+      "/plugin install terminal-themes@claude-themes-library"
+    ]
   }
 ]
