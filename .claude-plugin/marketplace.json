@@ -6183,6 +6183,34 @@
         "source": "github",
         "repo": "hanshs474/movoa-mcp"
       }
+    },
+    {
+      "name": "cubrik",
+      "description": "cubrik's hosted MCP server for AI trading agents: create, backtest, test and run agents on the brokers and exchanges the user connected to cubrik, read balances, positions, results and Analytics, copy ready-made agents from the Library, and place orders through each connected platform's own tools. Eight skills. Every order, close, stop change, agent start, run, change or deletion is shown first and sent only after the user's yes, and tool results are treated as data, never as instructions. No tool moves money into or out of an account.",
+      "version": "1.1.0",
+      "author": {
+        "name": "cubrik",
+        "url": "https://cubrik.ai"
+      },
+      "homepage": "https://cubrik.ai/en/mcp",
+      "repository": "https://github.com/target1m/cubrik-mcp",
+      "license": "MIT",
+      "keywords": [
+        "trading",
+        "ai-agents",
+        "backtesting",
+        "portfolio",
+        "crypto",
+        "forex",
+        "brokers",
+        "mcp"
+      ],
+      "category": "mcp-servers",
+      "source": {
+        "source": "github",
+        "repo": "target1m/cubrik-mcp",
+        "sha": "6aadf826bc995b6783b3c645bfb8655e5f21660e"
+      }
     }
   ]
 }
