@@ -1,11 +1,15 @@
 import { z } from 'zod'
 
 // Rate limiting configuration
-// 0.75s between requests is 4,800 an hour, just inside GitHub's 5,000 an hour.
-const MIN_DELAY_MS = 750
+// 0.9s between requests is 4,000 an hour against GitHub's 5,000: at 0.75s a
+// crawl ran at the limit and anything else on the token tipped it over.
+const MIN_DELAY_MS = 900
 const MAX_RETRIES = 3
 const MAX_CONSECUTIVE_FAILURES = 5 // Circuit breaker threshold
-const MAX_RATE_LIMIT_WAIT_MS = 15000 // Cap wait time at 15s for serverless
+const MAX_RATE_LIMIT_WAIT_MS = 65 * 60 * 1000 // The hourly limit resets within the hour
+
+/** The requested file or repository does not exist (404), as opposed to a request that failed. */
+export class GitHubNotFoundError extends Error {}
 const REPO_BATCH = 100 // Repositories per GraphQL metadata request
 const GRAPHQL_ATTEMPTS = 3
 const FILE_BATCH = 20 // Repositories per GraphQL file-contents request
@@ -174,7 +178,8 @@ export class GitHubClient {
     const response = await this.fetchWithRetry(url)
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch ${path} from ${repoFullName}: ${response.status}`)
+      const message = `Failed to fetch ${path} from ${repoFullName}: ${response.status}`
+      throw response.status === 404 ? new GitHubNotFoundError(message) : new Error(message)
     }
 
     const data = await response.json()
@@ -396,19 +401,27 @@ export class GitHubClient {
       try {
         const response = await fetch(url, { ...init, headers: this.headers })
 
-        // Handle rate limiting
-        if (response.status === 429 || response.status === 403) {
-          rateLimited = true
-          const retryAfter = response.headers.get('retry-after')
-          // Cap wait time to avoid consuming entire timeout budget
+        // Handle rate limiting. GitHub also uses 403 for "forbidden" (a blocked
+        // repository), which no amount of waiting fixes, so check the body.
+        const limited =
+          response.status === 429 ||
+          (response.status === 403 && /rate limit|abuse/i.test(await response.clone().text()))
+        if (limited) rateLimited = true
+        if (limited && attempt < MAX_RETRIES) {
+          // GitHub's guidance: honour retry-after; else, when the hourly quota
+          // is spent, wait for its reset; else (secondary limit) wait a minute.
+          const retryAfter = parseInt(response.headers.get('retry-after') || '')
+          const reset = parseInt(response.headers.get('x-ratelimit-reset') || '')
+          const spent = response.headers.get('x-ratelimit-remaining') === '0' && reset
           const waitTime = Math.min(
-            retryAfter ? parseInt(retryAfter) * 1000 : 1000 * Math.pow(2, attempt),
+            retryAfter ? retryAfter * 1000 : spent ? Math.max(0, reset * 1000 - Date.now()) + 5000 : 60000,
             MAX_RATE_LIMIT_WAIT_MS
           )
-          console.warn(`Rate limited. Waiting ${waitTime / 1000}s before retry... (attempt ${attempt + 1}/${MAX_RETRIES})`)
+          console.warn(`Rate limited. Waiting ${Math.round(waitTime / 1000)}s before retry... (attempt ${attempt + 1}/${MAX_RETRIES})`)
           await this.sleep(waitTime)
           continue
         }
+        if (limited) break
 
         // GitHub answers a slow or overloaded request (the batched GraphQL
         // query especially) with a 5xx. Retry; the last attempt's response is
@@ -434,8 +447,9 @@ export class GitHubClient {
       }
     }
 
-    // All retries exhausted - increment circuit breaker counter
-    this.consecutiveFailures++
+    // All retries exhausted. A rate limit is GitHub working as designed, not
+    // an outage, so it does not count toward the circuit breaker.
+    if (!rateLimited) this.consecutiveFailures++
     console.warn(`GitHub request failed after ${MAX_RETRIES} retries. Consecutive failures: ${this.consecutiveFailures}/${MAX_CONSECUTIVE_FAILURES}`)
 
     if (rateLimited && !lastError) {
