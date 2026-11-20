@@ -6183,6 +6183,31 @@
         "source": "github",
         "repo": "hanshs474/movoa-mcp"
       }
+    },
+    {
+      "name": "ratchet",
+      "description": "A code-size budget that only goes down, so coding agents can't bloat your repo. Adds a SessionStart hook that prints the budget, a PostToolUse meter that warns when an edit goes over, a Stop hook that runs `ratchet check` so Claude can't end a turn over budget, and a /ratchet:setup command that installs ratchet (pip install ratchet-size) and records the ceiling with `ratchet init`. Only a human can raise the ceiling, with `ratchet grant`.",
+      "version": "0.2.3",
+      "author": {
+        "name": "Krishan Subudhi",
+        "url": "https://github.com/krishansubudhi"
+      },
+      "homepage": "https://github.com/krishansubudhi/ratchet",
+      "repository": "https://github.com/krishansubudhi/ratchet",
+      "license": "Apache-2.0",
+      "keywords": [
+        "code-size",
+        "budget",
+        "hooks",
+        "lint",
+        "guardrails"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "krishansubudhi/ratchet",
+        "sha": "1f7bf90255015df6581cb4d08b8ab2b41a23a87f"
+      }
     }
   ]
 }
