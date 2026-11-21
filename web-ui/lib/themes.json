@@ -1137,5 +1137,19 @@
       "/plugin marketplace add PerspicaciousGuy/ClaudeCodeThemes",
       "/plugin install theme-library@claude-code-themes"
     ]
+  },
+  {
+    "slug": "starry-acropolis",
+    "name": "Starry Acropolis",
+    "author": "guinea19820623-star",
+    "repo": "guinea19820623-star/starry-acropolis-theme",
+    "kind": "desktop",
+    "appearance": "both",
+    "description": "An ancient Greek acropolis under a sky that follows the real sun and moon where you are: a golden dusk, a starry night with a meteor shower, the moon in its true phase (lunar eclipses included) and snow when it snows. Light and dark mode switch at sunrise and sunset.",
+    "preview": "https://raw.githubusercontent.com/guinea19820623-star/starry-acropolis-theme/main/docs/day-cycle.gif",
+    "install": [
+      "/plugin marketplace add guinea19820623-star/starry-acropolis-theme",
+      "/plugin install starry-acropolis-theme@starry-acropolis-theme"
+    ]
   }
 ]
