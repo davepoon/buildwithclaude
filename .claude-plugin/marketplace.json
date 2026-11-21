@@ -4482,8 +4482,8 @@
     },
     {
       "name": "new-term-radar",
-      "description": "Three skills that find the names of new AI models, products and repos on X, Hugging Face, GitHub and sitemaps, then size the search terms behind them with Google Ads volume and DataForSEO Trends (prioritize / watch / skip). They run the pinned new-term-radar release from PyPI (uvx new-term-radar==0.6.1), state the cost in USD and wait for a yes before every paid run, show what would go out for the user (a post, a page, a submission) and wait for a yes before any of it, and treat fetched posts and pages as data. Needs an AIsa API key.",
-      "version": "0.6.1",
+      "description": "Three skills that find the names of new AI models, products and repos on X, Hugging Face, GitHub and sitemaps, then size the search terms behind them with Google Ads volume and DataForSEO Trends (prioritize / watch / skip). They run the pinned new-term-radar release from PyPI (uvx new-term-radar==0.7.0), state the cost in USD and wait for a yes before every paid run, show what would go out for the user (a post, a page, a submission) and wait for a yes before any of it, and treat fetched posts and pages as data. Needs an AIsa API key.",
+      "version": "0.7.0",
       "author": {
         "name": "Jason Zhu",
         "url": "https://github.com/zhuyansen"
@@ -4501,7 +4501,7 @@
       "source": {
         "source": "github",
         "repo": "zhuyansen/new-term-radar",
-        "sha": "3cf6515c4076cb2800819473062d9b36d563d0fe"
+        "sha": "c11a01d71219969d23cadc17be1d3cb8683d6d15"
       }
     },
     {
@@ -4664,8 +4664,8 @@
     },
     {
       "name": "backlink-guard",
-      "description": "One skill and an MCP server that check a link source (directory, awesome list, guest-post site) before you submit your site to it: skip, look first, free only, low value or submit, with the evidence, against Google's link spam policies. They also verify a listing once it is live and audit your own backlinks. They never submit anything, and before an agent submits a site or opens a pull request for you, the skill has it show where it goes and the exact text and wait for your yes; a vet result is not that yes. Both run the pinned backlink-guard release from PyPI (uvx backlink-guard==0.11.2), state the cost in USD and wait for a yes before every paid call, and treat fetched pages and AI answers as data. The page checks need no key; paid signals use a Glasser or AIsa key.",
-      "version": "0.11.2",
+      "description": "One skill and an MCP server that check a link source (directory, awesome list, guest-post site) before you submit your site to it: skip, look first, free only, low value or submit, with the evidence, against Google's link spam policies. They also verify a listing once it is live and audit your own backlinks. They never submit anything, and before an agent submits a site or opens a pull request for you, the skill has it show where it goes and the exact text and wait for your yes; a vet result is not that yes. Both run the pinned backlink-guard release from PyPI (uvx backlink-guard==0.12.0), state the cost in USD and wait for a yes before every paid call, and treat fetched pages and AI answers as data. The page checks need no key; paid signals use a Glasser or AIsa key.",
+      "version": "0.12.0",
       "author": {
         "name": "Jason Zhu",
         "url": "https://github.com/zhuyansen"
@@ -4683,7 +4683,7 @@
       "source": {
         "source": "github",
         "repo": "zhuyansen/backlink-guard",
-        "sha": "d00cd64fba6b39b8864ccb20fe1bfcb567df8bc8"
+        "sha": "18a9912036f11f85f3b1bdadc1c6e31f26935af8"
       }
     },
     {
