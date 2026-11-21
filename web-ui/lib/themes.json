@@ -1137,5 +1137,20 @@
       "/plugin marketplace add PerspicaciousGuy/ClaudeCodeThemes",
       "/plugin install theme-library@claude-code-themes"
     ]
+  },
+  {
+    "slug": "vibeswitch",
+    "name": "VibeSwitch",
+    "author": "ruihaomei",
+    "repo": "ruihaomei/vibeswitch",
+    "kind": "desktop",
+    "appearance": "both",
+    "description": "One /vibe command over your installed desktop themes: Anthropic's 38 official scenes plus Rainy Window, Garden and Backdrops, with a gallery of real previews and default, per-project and per-session picks. Lists and saves picks in the Claude Code CLI too.",
+    "preview": "https://raw.githubusercontent.com/ruihaomei/vibeswitch/main/docs/reel.gif",
+    "install": [
+      "/plugin install theme-examples@claude-plugins-official",
+      "/plugin marketplace add ruihaomei/vibeswitch",
+      "/plugin install vibeswitch@vibeswitch"
+    ]
   }
 ]
