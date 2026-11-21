@@ -1145,7 +1145,7 @@
     "repo": "guinea19820623-star/starry-acropolis-theme",
     "kind": "desktop",
     "appearance": "both",
-    "description": "An ancient Greek acropolis under a sky that follows the real sun and moon where you are: a golden dusk, a starry night with a meteor shower, the moon in its true phase (lunar eclipses included) and snow when it snows. Light and dark mode switch at sunrise and sunset.",
+    "description": "An ancient Greek acropolis under the real sky where you are: the sun and moon in their true places and phases (lunar eclipses included), and at night the real stars with the Greek-myth constellations in faint gold, the milky way along the galactic plane and a gentle meteor shower. Snow falls when it snows there, and light and dark mode switch at sunrise and sunset.",
     "preview": "https://raw.githubusercontent.com/guinea19820623-star/starry-acropolis-theme/main/docs/day-cycle.gif",
     "install": [
       "/plugin marketplace add guinea19820623-star/starry-acropolis-theme",
