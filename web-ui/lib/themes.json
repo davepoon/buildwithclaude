@@ -1151,5 +1151,19 @@
       "/plugin marketplace add guinea19820623-star/starry-acropolis-theme",
       "/plugin install starry-acropolis-theme@starry-acropolis-theme"
     ]
+  },
+  {
+    "slug": "pixel-office",
+    "name": "Pixel Office",
+    "author": "spaut33",
+    "repo": "spaut33/claude-pixel-office",
+    "kind": "desktop",
+    "appearance": "both",
+    "description": "A pixel-art office behind the chat: Claude and its subagents walk to the filing cabinet, bookcase, server rack or globe as their tools run, and rest in the kitchen between turns. A wall board shows how full the context is, paper piles up as it fills, and a janitor clears it after a compaction; day in light mode, night in dark.",
+    "preview": "https://raw.githubusercontent.com/spaut33/claude-pixel-office/main/docs/preview.png",
+    "install": [
+      "/plugin marketplace add spaut33/claude-pixel-office",
+      "/plugin install pixel-office@claude-pixel-office"
+    ]
   }
 ]
