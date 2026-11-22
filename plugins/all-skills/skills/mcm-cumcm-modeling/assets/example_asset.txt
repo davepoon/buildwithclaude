@@ -1,0 +1,3 @@
+This asset directory contains reusable, intentionally incomplete templates under templates/.
+Copy templates into the contest workspace before filling them; never treat blank templates as evidence.
+Templates cover requirements, model cards, internal review scores, run records, issue tracking, sensitivity, robustness and uncertainty planning.

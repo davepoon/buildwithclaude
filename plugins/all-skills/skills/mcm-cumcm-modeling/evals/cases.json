@@ -1,0 +1,102 @@
+{
+  "version": "1.0.0",
+  "purpose": "Synthetic routing and quality-gate evaluations; not official contest problems or award predictors.",
+  "cases": [
+    {
+      "id": "A-thermal-inverse",
+      "family": "MCM-A",
+      "prompt": "根据杆上若干时刻和位置的温度观测，估计热扩散参数并预测未来温度；附件包含噪声测量。",
+      "expected_routes": ["PDE", "parameter-estimation", "prediction"],
+      "required_checks": ["units", "initial-boundary-conditions", "grid-convergence", "identifiability", "prediction-interval"],
+      "trap": "只报告拟合误差并声称参数唯一、模型正确。"
+    },
+    {
+      "id": "B-time-window-routing",
+      "family": "MCM-B",
+      "prompt": "在车辆容量和客户时间窗下设计成本最低的路线，并研究需求增加时的方案。",
+      "expected_routes": ["MILP-or-routing", "optimization"],
+      "required_checks": ["feasibility", "baseline", "bound-or-gap", "stress-test"],
+      "trap": "遗传算法单次运行后直接宣称全局最优。"
+    },
+    {
+      "id": "C-temporal-demand",
+      "family": "MCM-C",
+      "prompt": "利用多年历史需求、节假日和天气预测下一季度需求，并比较多个地区。",
+      "expected_routes": ["time-series", "regression", "prediction"],
+      "required_checks": ["rolling-validation", "leakage-audit", "naive-baseline", "coverage-and-width", "regional-errors"],
+      "trap": "随机划分时间数据或在全数据上拟合标准化器。"
+    },
+    {
+      "id": "D-network-resilience",
+      "family": "ICM-D",
+      "prompt": "分析物流网络在关键边失效和拥堵下的服务韧性，并提出恢复策略。",
+      "expected_routes": ["network", "simulation", "optimization"],
+      "required_checks": ["network-definition", "cascade-assumptions", "random-and-targeted-failures", "recovery-feasibility"],
+      "trap": "只计算中心性，把最高中心性节点等同于全部韧性。"
+    },
+    {
+      "id": "E-water-sustainability",
+      "family": "ICM-E",
+      "prompt": "在人口增长、气候变化和用水政策下评估流域未来三十年的水资源可持续性。",
+      "expected_routes": ["system-dynamics", "scenario", "multi-objective"],
+      "required_checks": ["stock-flow-units", "feedback-delay", "long-horizon-scenarios", "parameter-uncertainty", "distribution-effects"],
+      "trap": "把单一路径外推当作确定未来。"
+    },
+    {
+      "id": "F-subsidy-policy",
+      "family": "ICM-F",
+      "prompt": "评估清洁能源补贴对采用率、财政成本和不同收入群体的影响，提出政策组合。",
+      "expected_routes": ["policy", "scenario", "cost-benefit", "fairness"],
+      "required_checks": ["causal-boundary", "stakeholders", "implementation-cost", "unintended-consequences", "value-assumptions"],
+      "trap": "由相关关系直接声称补贴造成全部采用增长。"
+    },
+    {
+      "id": "CUMCM-evaluation",
+      "family": "CUMCM",
+      "prompt": "对多个城市建立综合发展评价并给出稳定排名，部分指标由专家打分。",
+      "expected_routes": ["AHP-or-EWM", "TOPSIS-or-alternative", "evaluation"],
+      "required_checks": ["indicator-direction", "AHP-consistency", "weight-provenance", "rank-sensitivity", "alternative-method"],
+      "trap": "机械使用 AHP+熵权+TOPSIS 并将主观权重称为客观。"
+    },
+    {
+      "id": "CUMCM-classification-clustering",
+      "family": "CUMCM",
+      "prompt": "先根据无标签样本发现客户群，再利用少量已标注样本识别高风险客户，正负类极不平衡。",
+      "expected_routes": ["clustering", "classification"],
+      "required_checks": ["cluster-stability", "label-credibility", "class-imbalance", "confusion-matrix", "group-split"],
+      "trap": "把聚类编号当作真实风险标签并只报告准确率。"
+    },
+    {
+      "id": "CUMCM-mechanism-fit",
+      "family": "CUMCM",
+      "prompt": "用观测数据拟合种群动力学模型，比较不同捕捞策略的长期影响。",
+      "expected_routes": ["ODE", "calibration", "simulation"],
+      "required_checks": ["nonnegativity", "equilibrium", "identifiability", "structural-sensitivity", "long-term-behavior"],
+      "trap": "拟合曲线接近即证明生态机制正确。"
+    },
+    {
+      "id": "CUMCM-forecast-optimize",
+      "family": "CUMCM",
+      "prompt": "预测下周需求后制定库存和调度方案，要求评估预测误差对方案的影响。",
+      "expected_routes": ["forecast", "optimization", "uncertainty-propagation"],
+      "required_checks": ["forecast-interval", "scenario-or-robust-optimization", "downstream-regret", "feasibility"],
+      "trap": "把点预测当真值，分别报告两个模型误差而不检查最终方案。"
+    },
+    {
+      "id": "audit-fabrication",
+      "family": "review",
+      "prompt": "审查一份只写‘代码已运行，准确率98%，模型稳定’但没有输出、划分和灵敏度记录的论文。",
+      "expected_routes": ["independent-review"],
+      "required_checks": ["execution-evidence", "data-split", "metric-definition", "sensitivity-evidence", "claim-downgrade"],
+      "trap": "根据文字描述补造代码结果或给高分。"
+    },
+    {
+      "id": "resume-upstream-change",
+      "family": "resume",
+      "prompt": "续做已有项目：发现上游数据单位错误，但论文、图表和摘要已经完成。",
+      "expected_routes": ["impact-analysis", "targeted-rework"],
+      "required_checks": ["preserve-original", "downstream-dependency", "rerun", "paper-result-consistency", "regression-review"],
+      "trap": "只修改数据文件或摘要数字，不重跑受影响模型和验证。"
+    }
+  ]
+}

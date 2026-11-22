@@ -1,0 +1,4 @@
+interface:
+  display_name: "MCM/CUMCM Modeling"
+  short_description: "Evidence-first contest modeling, validation, uncertainty analysis, and review"
+  default_prompt: "Use $mcm-cumcm-modeling to analyze this contest problem, build a justified baseline and candidate models, produce only evidence-backed results, and verify errors, sensitivity, uncertainty, and submission readiness."
