@@ -6210,6 +6210,35 @@
         "source": "github",
         "repo": "hanshs474/movoa-mcp"
       }
+    },
+    {
+      "name": "mira",
+      "description": "Lets Claude watch Instagram, TikTok, YouTube, Pinterest, X and Facebook videos and read web pages: voiceover transcript, on-screen text, caption, and a structured extract of places, recipes, products and notes. The Extract + Video plan also downloads the original video. Read-only tools. Needs a paid Mira subscription; without one, the tools only explain how to subscribe.",
+      "version": "1.0.5",
+      "author": {
+        "name": "Mira AI Tools",
+        "url": "https://mira-ai-skill.pro"
+      },
+      "homepage": "https://mira-ai-skill.pro",
+      "repository": "https://github.com/Mira-AI-Tools/mira-skill",
+      "license": "MIT",
+      "keywords": [
+        "video",
+        "transcript",
+        "tiktok",
+        "instagram",
+        "youtube",
+        "recipes",
+        "places",
+        "mcp"
+      ],
+      "category": "research",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Mira-AI-Tools/mira-skill.git",
+        "path": "plugins/mira",
+        "sha": "f4076af2d73b4bd3de04923969bf45e3beb60c25"
+      }
     }
   ]
 }
