@@ -1,15 +1,19 @@
 ---
 name: mcm-cumcm-modeling
 description: End-to-end, evidence-first mathematical modeling for CUMCM and MCM/ICM A-F. This skill should be used for 数学建模、美赛、国赛、赛题解析、模型选择、附件数据、代码求解、误差分析、灵敏度分析、不确定性量化、竞赛论文、摘要或提交审查; when selecting a problem, comparing models, implementing solvers, validating results, resuming a project, or auditing delivery. Supports continuous, discrete, data, operations/network, sustainability, policy, evaluation, forecasting, optimization, ODE/PDE and simulation. Not for generic homework or ordinary data analysis without a modeling-contest context.
-compatibility: Portable Agent Skills package. Python 3.9+ is recommended for optional deterministic scripts; no network, MCP server, proprietary API, or specific agent harness is required.
-metadata:
-  version: "1.0.0"
-  language: "zh-CN"
-  scope: "CUMCM, MCM, ICM"
-agent_created: true
+category: research
+license: MIT
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep
 ---
 
 # MCM / ICM / CUMCM 数学建模工作流
+
+## 版本与兼容性
+
+- 版本：`1.0.0`
+- 语言：中文（英文说明见仓库 `README-EN.md`）
+- 范围：CUMCM、MCM、ICM
+- 兼容性：可移植 Agent Skills 包。Python 3.9+ 仅用于可选脚本；不依赖网络、MCP 服务、专有 API 或特定 Agent 运行时。
 
 ## 目标
 
