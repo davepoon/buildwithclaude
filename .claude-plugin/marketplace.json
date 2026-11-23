@@ -6297,6 +6297,32 @@
       "skills": [
         "./"
       ]
+    },
+    {
+      "name": "last30days",
+      "description": "Research any topic across Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web from the last 30 days. Ranks results by real engagement (upvotes, likes, prediction-market odds) and writes one cited brief. Reddit, Hacker News, Polymarket, and GitHub work with no setup; an optional setup wizard adds X, YouTube, TikTok, and more.",
+      "version": "4.6.0",
+      "author": {
+        "name": "Matt Van Horn",
+        "url": "https://github.com/mvanhorn"
+      },
+      "homepage": "https://github.com/mvanhorn/last30days-skill",
+      "repository": "https://github.com/mvanhorn/last30days-skill",
+      "license": "MIT",
+      "keywords": [
+        "research",
+        "reddit",
+        "hacker-news",
+        "polymarket",
+        "youtube",
+        "trends"
+      ],
+      "category": "research",
+      "source": {
+        "source": "github",
+        "repo": "mvanhorn/last30days-skill",
+        "sha": "64b1f006f800640022ce07f51de5ce56aad34b76"
+      }
     }
   ]
 }
