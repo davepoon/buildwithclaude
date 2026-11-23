@@ -1180,5 +1180,19 @@
       "/plugin marketplace add ruihaomei/vibeswitch",
       "/plugin install vibeswitch@vibeswitch"
     ]
+  },
+  {
+    "slug": "spider-terminal",
+    "name": "Spider Terminal",
+    "author": "kunal202426",
+    "repo": "kunal202426/spider-terminal",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "A near-black pixel theme with a spider on a thread in front of a web, a faint scrolling terminal, and pixel dials with git and usage windows that show live session figures.",
+    "preview": "https://raw.githubusercontent.com/kunal202426/spider-terminal/main/docs/preview.png",
+    "install": [
+      "/plugin marketplace add kunal202426/spider-terminal",
+      "/plugin install spider-terminal@spider-terminal"
+    ]
   }
 ]
