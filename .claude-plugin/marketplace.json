@@ -2832,6 +2832,34 @@
       }
     },
   {
+    "name": "userproof",
+    "description": "UX analytics for your coding agent: sets up session recording or imports PostHog/Clarity data from the terminal, returns the single highest-impact conversion fix from real visitor sessions (dead clicks, rage clicks, errors on click, mobile drop-offs) with the file and line to change, and verifies after you ship whether conversions improved.",
+    "version": "3.12.2",
+    "author": {
+      "name": "UserProof",
+      "url": "https://getuserproof.com"
+    },
+    "homepage": "https://getuserproof.com",
+    "repository": "https://github.com/GetUserProof/userproof",
+    "license": "MIT",
+    "keywords": [
+      "ux",
+      "analytics",
+      "session-replay",
+      "conversion",
+      "dead-clicks",
+      "rage-clicks",
+      "mcp"
+    ],
+    "category": "monitoring",
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/GetUserProof/userproof.git",
+      "path": "plugin",
+      "sha": "32099f2c5d9ab64977121aad316b1a55f9b94d01"
+    }
+  },
+  {
     "name": "clawd-actor",
     "description": "While Claude works, Clawd (Claude Code's mascot) acts out the spinner's -ing word and the running tool on a little stage above the prompt: 26 animated scenes, wandering the band, changing scene every 30 seconds on long turns.",
     "version": "0.3.0",
