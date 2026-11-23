@@ -6266,6 +6266,37 @@
         "path": "plugins/agent-city",
         "sha": "87c91de2849a2d210687b015af7e4739ad510145"
       }
+    },
+    {
+      "name": "trayui",
+      "description": "Build and fix web pages and app screens with Tray UI, an MIT-licensed design system in plain HTML and CSS: 108 components, 64 blocks (whole screens), 118 icons and 10 themes, and the typed React components in trayui-react. The skill gives the agent the rules, every page of the docs as Markdown, and a bundled Node checker (scripts/check.mjs) that it runs on the markup it writes; the checker only reads the files it is given. Needs no account, key or server.",
+      "version": "0.4.1",
+      "author": {
+        "name": "Vladyslav Korzh",
+        "url": "https://github.com/VladislavKorzh"
+      },
+      "homepage": "https://trayui.com/docs/skill",
+      "repository": "https://github.com/VladislavKorzh/trayui",
+      "license": "MIT",
+      "keywords": [
+        "design-system",
+        "html",
+        "css",
+        "ui",
+        "accessibility",
+        "tray-ui"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/VladislavKorzh/trayui.git",
+        "path": "system/dist/skills/trayui",
+        "sha": "a39f43a34cc9ebadac29376265e79253e8d51550"
+      },
+      "strict": false,
+      "skills": [
+        "./"
+      ]
     }
   ]
 }
