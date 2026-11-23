@@ -6239,6 +6239,33 @@
         "path": "plugins/mira",
         "sha": "a953c04315b79476557a37eb61ba1ca660329ed4"
       }
+    },
+    {
+      "name": "agent-city",
+      "description": "Watch your Claude Code sessions as gangs in Agent City, a local 3D open-world city. Watch-only: one Node hook forwards each session event to the Agent City daemon on 127.0.0.1 and skips the event when the daemon is not running. It never blocks or steers Claude and shows no cost data. Start the city with npx agent-city-ai@0.1.3.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Tal Mogendorff",
+        "url": "https://github.com/Lulu-The-Narwhal"
+      },
+      "homepage": "https://github.com/Lulu-The-Narwhal/agent-city#install-as-a-claude-code-plugin",
+      "repository": "https://github.com/Lulu-The-Narwhal/agent-city",
+      "license": "MIT",
+      "keywords": [
+        "agent-city",
+        "hooks",
+        "agent-dashboard",
+        "agent-monitoring",
+        "visualization",
+        "game"
+      ],
+      "category": "monitoring",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Lulu-The-Narwhal/agent-city.git",
+        "path": "plugins/agent-city",
+        "sha": "87c91de2849a2d210687b015af7e4739ad510145"
+      }
     }
   ]
 }
