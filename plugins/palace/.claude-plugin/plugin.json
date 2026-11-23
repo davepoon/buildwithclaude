@@ -1,0 +1,13 @@
+{
+  "name": "palace",
+  "displayName": "Palace",
+  "description": "Local-first memory for Claude Code: the Palace MCP server plus hooks that recall memory as you work and nudge the agent to save it. Needs the palace binary on PATH.",
+  "author": {
+    "name": "AncientiCe",
+    "url": "https://github.com/AncientiCe"
+  },
+  "homepage": "https://palacememory.com",
+  "repository": "https://github.com/AncientiCe/palace-rs",
+  "license": "MIT",
+  "keywords": ["memory", "mcp", "local-first", "embeddings", "hooks"]
+}

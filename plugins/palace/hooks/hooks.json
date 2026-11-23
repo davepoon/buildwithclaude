@@ -1,0 +1,34 @@
+{
+  "description": "Palace memory hooks: session-start context, prompt-time recall, recall while reading code, and a save nudge before stopping.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          { "type": "command", "command": "palace hook session-start --client claude --plugin" }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          { "type": "command", "command": "palace hook user-prompt-submit --client claude --plugin" }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Grep|Read|Glob|mcp__plugin_palace_palace__.*",
+        "hooks": [
+          { "type": "command", "command": "palace hook post-tool-use --client claude --plugin" }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "palace hook stop --client claude --plugin" }
+        ]
+      }
+    ]
+  }
+}

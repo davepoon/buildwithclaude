@@ -6297,6 +6297,27 @@
       "skills": [
         "./"
       ]
+    },
+    {
+      "name": "palace",
+      "description": "Palace is local-first memory for coding agents: one Rust binary and one SQLite file, local embeddings, hybrid BM25 plus vector search, hooks inject cited memories into Claude Code sessions; LongMemEval s_cleaned retrieval recall R@5 0.987. Not associated in any way with the popular mempalace python. Needs the palace binary on PATH.",
+      "version": "0.20.10",
+      "author": {
+        "name": "AncientiCe",
+        "url": "https://github.com/AncientiCe"
+      },
+      "homepage": "https://palacememory.com",
+      "repository": "https://github.com/AncientiCe/palace-rs",
+      "license": "MIT",
+      "keywords": [
+        "memory",
+        "mcp",
+        "local-first",
+        "embeddings",
+        "hooks"
+      ],
+      "category": "productivity",
+      "source": "./plugins/palace"
     }
   ]
 }
