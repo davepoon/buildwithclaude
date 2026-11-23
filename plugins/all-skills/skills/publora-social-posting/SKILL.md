@@ -40,8 +40,8 @@ No OAuth in your client? Use an API key from
    `get_upload_url` → HTTP PUT the bytes → `complete_media`.
 5. Change a draft or scheduled post with `update_post` (keep the same `postGroupId`); check the
    result with `get_post`.
-6. Statistics: `post_stats` for Instagram, Threads, Mastodon and Bluesky posts, `profile_stats`
-   for account-level numbers.
+6. Statistics for Instagram, Threads, Mastodon and Bluesky: `post_stats` (pass the `postedId`
+   from `get_post` or `list_posts`) and `profile_stats` for followers and post counts.
 
 Show the user the draft and agree the time and timezone before scheduling or publishing.
 
