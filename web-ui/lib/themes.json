@@ -1165,5 +1165,20 @@
       "/plugin marketplace add spaut33/claude-pixel-office",
       "/plugin install pixel-office@claude-pixel-office"
     ]
+  },
+  {
+    "slug": "vibeswitch",
+    "name": "VibeSwitch",
+    "author": "ruihaomei",
+    "repo": "ruihaomei/vibeswitch",
+    "kind": "desktop",
+    "appearance": "both",
+    "description": "One /vibe command over your installed desktop themes: Anthropic's 38 official scenes plus Rainy Window, Garden and Backdrops, with a gallery of real previews and default, per-project and per-session picks. The previews ship with the plugin; it never starts a program or runs another plugin's code. Lists and saves picks in the Claude Code CLI too.",
+    "preview": "https://raw.githubusercontent.com/ruihaomei/vibeswitch/main/docs/reel.gif",
+    "install": [
+      "/plugin install theme-examples@claude-plugins-official",
+      "/plugin marketplace add ruihaomei/vibeswitch",
+      "/plugin install vibeswitch@vibeswitch"
+    ]
   }
 ]
