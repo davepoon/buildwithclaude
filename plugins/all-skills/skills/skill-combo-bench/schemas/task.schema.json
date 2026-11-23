@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-combo-bench.local/schemas/task.schema.json",
+  "title": "V6.0 Offline Task",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["task_id", "version", "description", "modalities", "turns", "assertions"],
+  "properties": {
+    "task_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "description": {"type": "string", "minLength": 1},
+    "modalities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "enum": ["text", "image", "audio", "video", "structured_data"]}
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["synthetic", "result_classification"],
+      "properties": {
+        "synthetic": {"const": true},
+        "result_classification": {"const": "MOCK_ONLY"},
+        "tags": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "turns": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/turn"}
+    },
+    "assertions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/assertion"}
+    }
+  },
+  "$defs": {
+    "turn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["turn_index", "input", "mock_output", "tool_calls", "state_writes", "state_probes"],
+      "properties": {
+        "turn_index": {"type": "integer", "minimum": 1},
+        "input": {"type": "string"},
+        "mock_output": {"type": "string"},
+        "tool_calls": {"type": "array", "items": {"$ref": "#/$defs/toolCall"}},
+        "state_writes": {"type": "object"},
+        "state_probes": {"type": "array", "items": {"$ref": "#/$defs/stateProbe"}},
+        "faults": {"type": "array", "items": {"$ref": "#/$defs/fault"}}
+      }
+    },
+    "toolCall": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["call_id", "name", "arguments", "save_as"],
+      "properties": {
+        "call_id": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "enum": ["mock_calculator", "mock_database", "mock_weather", "mock_file_store", "mock_search"]},
+        "arguments": {"type": "object"},
+        "save_as": {"type": ["string", "null"], "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"name": {"const": "mock_calculator"}}},
+          "then": {"properties": {"arguments": {"$ref": "#/$defs/calculatorArguments"}}}
+        },
+        {
+          "if": {"properties": {"name": {"const": "mock_database"}}},
+          "then": {"properties": {"arguments": {"$ref": "#/$defs/databaseArguments"}}}
+        },
+        {
+          "if": {"properties": {"name": {"const": "mock_weather"}}},
+          "then": {"properties": {"arguments": {"$ref": "#/$defs/weatherArguments"}}}
+        },
+        {
+          "if": {"properties": {"name": {"const": "mock_file_store"}}},
+          "then": {"properties": {"arguments": {"$ref": "#/$defs/fileStoreArguments"}}}
+        },
+        {
+          "if": {"properties": {"name": {"const": "mock_search"}}},
+          "then": {"properties": {"arguments": {"$ref": "#/$defs/searchArguments"}}}
+        }
+      ]
+    },
+    "calculatorArguments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expression"],
+      "properties": {"expression": {"type": "string", "minLength": 1}}
+    },
+    "databaseArguments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operation", "collection", "record_id"],
+      "properties": {
+        "operation": {"type": "string", "enum": ["create", "get", "update", "assert"]},
+        "collection": {"type": "string", "minLength": 1},
+        "record_id": {"type": "string", "minLength": 1},
+        "record": {"type": "object"},
+        "expected": {"type": "object"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"operation": {"enum": ["create", "update"]}}},
+          "then": {"required": ["record"]}
+        },
+        {
+          "if": {"properties": {"operation": {"const": "assert"}}},
+          "then": {"required": ["expected"]}
+        }
+      ]
+    },
+    "weatherArguments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["location"],
+      "properties": {"location": {"type": "string", "minLength": 1}}
+    },
+    "fileStoreArguments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operation", "path"],
+      "properties": {
+        "operation": {"type": "string", "enum": ["write", "read", "hash"]},
+        "path": {"type": "string", "minLength": 1},
+        "content": {"type": "string"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"operation": {"const": "write"}}},
+          "then": {"required": ["content"]}
+        }
+      ]
+    },
+    "searchArguments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["query"],
+      "properties": {"query": {"type": "string", "minLength": 1}}
+    },
+    "stateProbe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["probe_id", "state_key", "first_write_turn", "read_turn", "expected", "comparison", "allow_user_update", "failure_type"],
+      "properties": {
+        "probe_id": {"type": "string", "minLength": 1},
+        "state_key": {"type": "string", "minLength": 1},
+        "first_write_turn": {"type": "integer", "minimum": 1},
+        "read_turn": {"type": "integer", "minimum": 1},
+        "expected": true,
+        "comparison": {"type": "string", "enum": ["exact", "equals_saved_value", "contains"]},
+        "allow_user_update": {"type": "boolean"},
+        "failure_type": {"type": "string", "enum": ["omission", "wrong_value", "stale_value", "unauthorized_overwrite"]}
+      }
+    },
+    "fault": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fault_id", "target_call_id", "fault_type", "trigger", "on_attempt", "seed"],
+      "properties": {
+        "fault_id": {"type": "string", "minLength": 1},
+        "target_call_id": {"type": "string", "minLength": 1},
+        "fault_type": {"type": "string", "enum": ["timeout", "invalid_argument", "server_error", "intermittent_failure", "duplicate_response", "stale_state", "partial_result"]},
+        "trigger": {"type": "string", "enum": ["once", "always", "probabilistic"]},
+        "on_attempt": {"type": "integer", "minimum": 1},
+        "probability": {"type": "number", "minimum": 0, "maximum": 1, "default": 1},
+        "max_triggers": {"type": "integer", "minimum": 1, "default": 1},
+        "delay_seconds": {"type": "number", "minimum": 0, "default": 0},
+        "error_code": {"type": ["integer", "null"]},
+        "message": {"type": "string"},
+        "seed": {"type": "integer"}
+      }
+    },
+    "assertion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["probe_id", "skill_id", "probe_family", "turn_index", "type", "expected", "weight", "evidence_source"],
+      "properties": {
+        "probe_id": {"type": "string", "minLength": 1},
+        "skill_id": {"type": "string", "minLength": 1},
+        "probe_family": {"type": "string", "enum": ["instruction", "format_schema", "fact_canary", "state_tracking", "tool_chain", "fault_recovery", "multimodal", "mutation"]},
+        "turn_index": {"type": "integer", "minimum": 1},
+        "type": {"type": "string", "enum": ["output_contains", "output_exact", "output_json_field", "tool_called", "tool_argument", "tool_chain", "state_equals", "fault_recovery", "safe_behavior", "asset_contains"]},
+        "expected": true,
+        "weight": {"type": "number", "exclusiveMinimum": 0},
+        "evidence_source": {"type": "string", "enum": ["mock_output", "tool_events", "state_trace", "run_trace", "asset_metadata", "human_review"]}
+      }
+    }
+  }
+}

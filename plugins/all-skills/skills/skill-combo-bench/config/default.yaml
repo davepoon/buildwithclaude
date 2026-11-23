@@ -1,0 +1,115 @@
+# V6.0 默认配置：完全离线，仅用于软件闭环的 Mock 验证。
+schema_version: "6.0.0"
+mode: LOCAL
+result_classification: MOCK_ONLY
+offline: true
+mock_tools: true
+seed: 6000
+
+agent:
+  id: mock_agent
+  version: "6.0.0"
+harness:
+  id: mock_harness
+  version: "6.0.0"
+provider:
+  id: mock_provider
+  version: "6.0.0"
+  model_id: mock-model-v1
+
+task_set: datasets/tasks/task_set.json
+conditions: [N, A, B, AB]
+repeat: 2
+turn_mode: SHORT
+skills:
+  A: tests/mock_skills/instruction-skill.md
+  B: tests/mock_skills/format-skill.md
+skill_manifests:
+  A: tests/mock_skills/instruction-skill.manifest.json
+  B: tests/mock_skills/format-skill.manifest.json
+
+context_modes:
+  SHORT:
+    max_turns: 3
+    min_input_tokens: 0
+    max_input_tokens: 4000
+  MEDIUM:
+    max_turns: 8
+    min_input_tokens: 4001
+    max_input_tokens: 16000
+  LONG:
+    max_turns: 20
+    min_input_tokens: 16001
+    max_input_tokens: 64000
+turn_weights:
+  default: 1.0
+  final_turn: 1.0
+
+runtime:
+  max_tool_calls_per_run: 12
+  max_runtime_seconds: 120
+  tool_timeout_seconds: 5
+  concurrency: 1
+  max_queue_length: 40
+  provider_requests_per_minute: 60
+  tool_requests_per_minute: 120
+  honor_retry_after: true
+  checkpoint_enabled: true
+  checkpoint_path: artifacts/checkpoint.json
+  cancel_on_budget_exhaustion: true
+retry:
+  max_retries: 2
+  backoff_strategy: exponential
+  initial_backoff_seconds: 0.1
+  max_backoff_seconds: 2.0
+  retryable_errors: [timeout, server_error, rate_limited, intermittent_failure]
+  repeated_call_limit: 3
+  repeated_error_limit: 3
+circuit_breaker:
+  consecutive_failure_threshold: 5
+  empty_response_threshold: 3
+  cooldown_seconds: 30
+
+fault_injection:
+  enabled: true
+  profile: deterministic_smoke
+  seed: 6000
+  probability: 1.0
+  max_injections_per_run: 1
+  delay_seconds: 0.0
+
+judge:
+  enabled: false
+  adapter: mock
+  version: judge-v6.0.0
+  blind_conditions: true
+  store_raw_content: false
+
+safety:
+  allowed_tool_names: [mock_calculator, mock_database, mock_weather, mock_file_store, mock_search]
+  filesystem_allowlist: [artifacts, datasets]
+  network_allowlist: []
+  require_confirmation_for: [delete, payment, send_message, production_write]
+  execute_agent_output_as_shell: false
+  isolate_prompt_injection_tests: true
+  max_file_bytes: 1048576
+cost:
+  currency: USD
+  max_total_cost: 0.0
+  pricing_config: config/pricing.example.yaml
+  estimate_only: true
+  unknown_price_behavior: COST_UNKNOWN
+privacy:
+  anonymize: true
+  anonymization_rules_version: synthetic-default-v1
+  store_raw_content: false
+  retention_days: 7
+  stable_pseudonyms: true
+  log_tool_arguments: redacted
+  allow_sensitive_media_to_third_parties: false
+  export_requires_review: true
+
+output_dir: reports
+artifact_dir: artifacts
+dataset_version: synthetic-v6.0.0
+# FILE END: config/default.yaml

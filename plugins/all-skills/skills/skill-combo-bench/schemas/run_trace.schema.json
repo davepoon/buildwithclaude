@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-combo-bench.local/schemas/run_trace.schema.json",
+  "title": "V6.0 Observable Run Trace Event",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "run_id", "experiment_id", "task_id", "condition_id", "agent_id", "harness_id", "provider_id", "model_id", "skill_hashes", "turn_index", "event_type", "timestamp", "latency_ms", "token_usage", "tool_event", "status", "error", "artifact_hashes"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "run_id": {"type": "string", "minLength": 1},
+    "experiment_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "condition_id": {"type": "string", "minLength": 1},
+    "agent_id": {"type": "string"},
+    "harness_id": {"type": "string"},
+    "provider_id": {"type": "string"},
+    "model_id": {"type": "string"},
+    "skill_hashes": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+    "turn_index": {"type": "integer", "minimum": 0},
+    "event_type": {"type": "string"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "latency_ms": {"type": ["number", "null"], "minimum": 0},
+    "token_usage": {"$ref": "#/$defs/tokenUsage"},
+    "tool_event": {"anyOf": [{"$ref": "#/$defs/toolEvent"}, {"type": "null"}]},
+    "status": {"type": "string"},
+    "error": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": true,
+          "required": ["error_type", "message"],
+          "properties": {
+            "error_type": {"type": "string"},
+            "message": {"type": "string"},
+            "retryable": {"type": "boolean"}
+          }
+        },
+        {"type": "null"}
+      ]
+    },
+    "artifact_hashes": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+  },
+  "$defs": {
+    "tokenUsage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["input", "output", "cached", "tool", "total"],
+      "properties": {
+        "input": {"type": ["integer", "null"], "minimum": 0},
+        "output": {"type": ["integer", "null"], "minimum": 0},
+        "cached": {"type": ["integer", "null"], "minimum": 0},
+        "tool": {"type": ["integer", "null"], "minimum": 0},
+        "total": {"type": ["integer", "null"], "minimum": 0}
+      }
+    },
+    "toolEvent": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["tool_call_id", "run_id", "turn_index", "tool_name", "arguments_redacted", "started_at", "ended_at", "status", "result_digest", "error_type", "retry_index"],
+      "properties": {
+        "tool_call_id": {"type": "string"},
+        "run_id": {"type": "string"},
+        "turn_index": {"type": "integer", "minimum": 1},
+        "tool_name": {"type": "string"},
+        "arguments_redacted": {"type": "object"},
+        "started_at": {"type": ["string", "null"], "format": "date-time"},
+        "ended_at": {"type": ["string", "null"], "format": "date-time"},
+        "status": {"type": "string"},
+        "result_digest": {"type": ["string", "null"]},
+        "error_type": {"type": ["string", "null"]},
+        "retry_index": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}

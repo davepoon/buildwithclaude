@@ -1,0 +1,45 @@
+{
+  "manifest_version": "1.0.0",
+  "result_classification": "MOCK_ONLY",
+  "assets": [
+    {
+      "asset_id": "synthetic-sales-csv-v1",
+      "path": "datasets/multimodal/sales.csv",
+      "sha256": "4631ff33ae41c969bc9f9a80db47b2c02c624f8b0180de37e8b5d812b8c92bfd",
+      "mime_type": "text/csv",
+      "byte_size": 80,
+      "modality": "structured_data",
+      "source_type": "synthetic",
+      "preprocessing": ["utf8_decode", "csv_standard_parse"],
+      "license_or_permission_note": "原创合成数据，可用于本离线测试；无真实交易。",
+      "privacy_classification": "synthetic_public",
+      "generation_note": "datasets/multimodal/GENERATION.md#salescsv"
+    },
+    {
+      "asset_id": "synthetic-sales-metadata-v1",
+      "path": "datasets/multimodal/sales_metadata.json",
+      "sha256": "4e146f73a361a287f339f19f27eb606edbb3f32757178d1a7235bbe040d85430",
+      "mime_type": "application/json",
+      "byte_size": 288,
+      "modality": "structured_data",
+      "source_type": "synthetic",
+      "preprocessing": ["utf8_decode", "json_standard_parse"],
+      "license_or_permission_note": "原创合成元数据；USD 仅为测试单位。",
+      "privacy_classification": "synthetic_public",
+      "generation_note": "datasets/multimodal/GENERATION.md#sales_metadatajson"
+    },
+    {
+      "asset_id": "synthetic-inventory-svg-v1",
+      "path": "datasets/multimodal/inventory.svg",
+      "sha256": "dd1032d4cd6b543ddcdac4414266000e273c1e6fc529a46e4bd85295009e518c",
+      "mime_type": "image/svg+xml",
+      "byte_size": 1148,
+      "modality": "image",
+      "source_type": "synthetic",
+      "preprocessing": ["none"],
+      "license_or_permission_note": "原创合成 SVG；desc 含无害注入测试字符串。",
+      "privacy_classification": "synthetic_public",
+      "generation_note": "datasets/multimodal/GENERATION.md#inventorysvg"
+    }
+  ]
+}

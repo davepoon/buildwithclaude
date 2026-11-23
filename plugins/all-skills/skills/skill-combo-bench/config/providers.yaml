@@ -1,0 +1,57 @@
+# Provider 与 Agent 能力声明；状态不代表已执行外部集成测试。
+schema_version: "6.0.0"
+default_provider: mock_provider
+providers:
+  mock_provider:
+    adapter: mock
+    model_id: mock-model-v1
+    offline: true
+    input_modalities: [text, structured_data]
+    output_modalities: [text]
+    credential_env: null
+  openai_compatible:
+    adapter: openai_compatible
+    model_id: CONFIGURE_EXPLICITLY
+    base_url_env: OPENAI_BASE_URL
+    api_key_env: OPENAI_API_KEY
+    input_modalities: [text]
+    output_modalities: [text]
+    offline: false
+
+compatibility_matrix:
+  Codex:
+    adapter: codex_adapter
+    status: NOT_VERIFIED
+    integration_test_status: NOT_RUN
+    notes: 仅保留适配器边界，未验证专有命令或接口。
+  Claude Code:
+    adapter: claude_code_adapter
+    status: NOT_VERIFIED
+    integration_test_status: NOT_RUN
+    notes: 仅保留适配器边界，未验证专有命令或接口。
+  OpenCode:
+    adapter: opencode_adapter
+    status: NOT_VERIFIED
+    integration_test_status: NOT_RUN
+    notes: 仅保留适配器边界，未验证专有命令或接口。
+  DeepSeek Harness:
+    adapter: deepseek_harness_adapter
+    status: NOT_VERIFIED
+    integration_test_status: NOT_RUN
+    notes: 仅保留适配器边界，未验证专有命令或接口。
+  Zcode:
+    adapter: zcode_adapter
+    status: NOT_VERIFIED
+    integration_test_status: NOT_RUN
+    notes: 仅保留适配器边界，未验证专有命令或接口。
+  Generic CLI:
+    adapter: generic_cli
+    status: NOT_VERIFIED
+    integration_test_status: NOT_RUN
+    notes: 通用进程协议需要由使用者提供并验证具体命令模板。
+  Mock:
+    adapter: mock_agent
+    status: INTEGRATION_TESTED
+    integration_test_status: PASS
+    notes: 离线预设行为；通过 tests/e2e 与 tests/integration 端到端闭环。该状态仅证明本地逻辑，不代表真实模型能力。
+# FILE END: config/providers.yaml

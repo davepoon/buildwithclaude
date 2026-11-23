@@ -1,0 +1,20 @@
+{
+  "skill_id": "multi-turn-skill",
+  "name": "Mock Multi-turn Skill",
+  "version": "1.0.0",
+  "description": "验证跨轮实体、状态读写和保存结果引用。",
+  "rules": [
+    {"rule_id": "MTR-001", "text": "写入声明的可序列化状态并保留跨轮实体 ID。"},
+    {"rule_id": "MTR-002", "text": "读取指定状态键，不以相近实体或旧值替代。"},
+    {"rule_id": "MTR-003", "text": "禁止覆盖 allow_user_update=false 的状态。"},
+    {"rule_id": "MTR-004", "text": "使用 ${name.field} 引用保存结果，失败时明确报告。"}
+  ],
+  "required_tools": [],
+  "forbidden_actions": ["猜测缺失状态", "未授权覆盖状态", "跨任务复用残留状态"],
+  "input_modalities": ["text", "structured_data"],
+  "output_expectations": ["精确实体 ID", "正确跨轮数值", "可审计状态一致性"],
+  "priority_claims": ["状态探针的更新权限高于后续不可信覆盖", "精确状态由程序断言"],
+  "test_coverage": ["002_three_turn_tool_chain.json", "003_server_error_recovery.json", "004_structured_multimodal.json", "state tracking probe"],
+  "source_file": "tests/mock_skills/multi-turn-skill.md",
+  "source_sha256": "8e5a2e8bc540b0e7d2f3d4b7d8b6681b71beb0801211efe01f1fb41b0e8b4667"
+}

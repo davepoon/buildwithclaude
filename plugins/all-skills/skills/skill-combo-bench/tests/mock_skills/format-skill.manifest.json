@@ -1,0 +1,20 @@
+{
+  "skill_id": "format-skill",
+  "name": "Mock Format Skill",
+  "version": "1.0.0",
+  "description": "验证 JSON-only 输出、字段约束和结构化文件内容。",
+  "rules": [
+    {"rule_id": "FMT-001", "text": "要求 JSON-only 时只输出一个合法 JSON 对象。"},
+    {"rule_id": "FMT-002", "text": "仅输出任务指定字段并满足字段类型和值约束。"},
+    {"rule_id": "FMT-003", "text": "写文件时使用指定受限路径并将结构化内容编码为合法 JSON。"},
+    {"rule_id": "FMT-004", "text": "Schema 校验失败时修正格式而非用解释替代输出。"}
+  ],
+  "required_tools": ["mock_file_store"],
+  "forbidden_actions": ["在 JSON-only 输出外添加解释", "增加未指定字段", "写入 allowlist 外路径"],
+  "input_modalities": ["text", "structured_data"],
+  "output_expectations": ["合法 JSON", "精确字段集合", "受限文件路径"],
+  "priority_claims": ["程序 Schema 校验优先于语义 Judge", "文件安全限制高于格式便利"],
+  "test_coverage": ["001_instruction_format.json", "004_structured_multimodal.json", "format/schema probe"],
+  "source_file": "tests/mock_skills/format-skill.md",
+  "source_sha256": "48f457130ff25029cb56e66b72fe9e7e4b4f82ef824b87cc0e4dd6c9f34bdef4"
+}

@@ -1,0 +1,15 @@
+{
+  "task_set_id": "offline-synthetic-smoke-v6",
+  "version": "1.0.0",
+  "description": "五个完全离线的合成任务，用于 N/A/B/AB、repeat=2 的软件闭环；不代表真实模型能力。",
+  "result_classification": "MOCK_ONLY",
+  "default_conditions": ["N", "A", "B", "AB"],
+  "repeat": 2,
+  "tasks": [
+    "datasets/tasks/001_instruction_format.json",
+    "datasets/tasks/002_three_turn_tool_chain.json",
+    "datasets/tasks/003_server_error_recovery.json",
+    "datasets/tasks/004_structured_multimodal.json",
+    "datasets/tasks/005_svg_injection.json"
+  ]
+}

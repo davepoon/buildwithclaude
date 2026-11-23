@@ -1,0 +1,24 @@
+# 价格示例而非当前报价；null 必须产生 COST_UNKNOWN。
+schema_version: "6.0.0"
+price_version: example-not-a-quote
+currency: USD
+effective_date: null
+source_note: 示例结构，没有引用真实价格，不得用于实际账单。
+prices:
+  mock_provider:
+    model_id: mock-model-v1
+    input_per_million_tokens: 0.0
+    output_per_million_tokens: 0.0
+    cached_input_per_million_tokens: 0.0
+    tool_cost_per_call: 0.0
+    effective_date: "2026-01-01"
+    source_note: 本地确定性 Mock 不产生供应商费用；本地资源成本未计入。
+  openai_compatible:
+    model_id: CONFIGURE_EXPLICITLY
+    input_per_million_tokens: null
+    output_per_million_tokens: null
+    cached_input_per_million_tokens: null
+    tool_cost_per_call: null
+    effective_date: null
+    source_note: 使用前必须填写可审计的价格来源与日期。
+# FILE END: config/pricing.example.yaml

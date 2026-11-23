@@ -1,0 +1,47 @@
+# 默认是固定样本的功能验证；repeat=2 不代表统计功效充分。
+schema_version: "6.0.0"
+design: paired_fixed_sample
+primary_endpoint: task_success
+statistical_unit: run
+pairing_key: [task_id, repeat_index]
+repeat: 2
+max_runs_per_condition: 30
+randomize_condition_order: true
+balance_condition_order: true
+seed: 6000
+alpha: 0.05
+confidence_level: 0.95
+multiple_comparison_method: holm
+exploratory_analysis: false
+missing_data:
+  exclude_non_eligible_runs: true
+  report_exclusion_counts: true
+  never_count_na_as_pass: true
+bootstrap:
+  enabled: true
+  resamples: 2000
+  seed: 6001
+  resampling_unit: task_pair
+  confidence_interval: percentile
+permutation:
+  enabled: false
+  iterations: 5000
+  seed: 6002
+  scheme: within_task_condition_swap
+power:
+  target: 0.8
+  sesoi: null
+  variance_source: pilot_only
+  underpowered_label: UNDERPOWERED
+sequential:
+  enabled: false
+  method: alpha_spending
+  min_runs_per_condition: 8
+  batch_size: 2
+  max_runs_per_condition: 30
+  alpha: 0.05
+  stopping_boundaries: []
+  primary_endpoint: task_success
+  stop_reason_required: true
+  repeated_fixed_sample_tests_forbidden: true
+# FILE END: config/sampling.yaml

@@ -1,0 +1,22 @@
+{
+  "skill_id": "tool-calling-skill",
+  "name": "Mock Tool Calling Skill",
+  "version": "1.0.0",
+  "description": "验证五个 Mock 工具的参数、数据流、最终状态和有界恢复。",
+  "rules": [
+    {"rule_id": "TLS-001", "text": "计算器 expression 必须为字符串。"},
+    {"rule_id": "TLS-002", "text": "数据库操作必须提供对应的通用字段和 record 或 expected。"},
+    {"rule_id": "TLS-003", "text": "天气、文件和搜索使用任务声明的合法 Mock 参数。"},
+    {"rule_id": "TLS-004", "text": "Tool A 保存结果必须解析后传给 Tool B 并验证最终状态。"},
+    {"rule_id": "TLS-005", "text": "故障按配置有界重试，禁止无限循环和重复副作用。"},
+    {"rule_id": "TLS-006", "text": "不可恢复时明确限制并安全停止。"}
+  ],
+  "required_tools": ["mock_calculator", "mock_database", "mock_weather", "mock_file_store", "mock_search"],
+  "forbidden_actions": ["未声明的外部工具调用", "无限重试", "把工具失败伪装成成功", "重复执行非幂等副作用"],
+  "input_modalities": ["text", "structured_data"],
+  "output_expectations": ["真实工具事件", "合法参数", "解析后的跨工具引用", "可审计恢复结果"],
+  "priority_claims": ["安全停止高于强制完成", "外部工具故障不归因于 Skill 失活"],
+  "test_coverage": ["002_three_turn_tool_chain.json", "003_server_error_recovery.json", "004_structured_multimodal.json", "tool-chain probe", "fault recovery probe"],
+  "source_file": "tests/mock_skills/tool-calling-skill.md",
+  "source_sha256": "49a2b8fb344156096af3b359fec1c8bf3a9d797f7ac401acb46a5247f01ea4e5"
+}

@@ -1,0 +1,9 @@
+{
+  "dataset_id": "synthetic-sales-v1",
+  "source_type": "synthetic",
+  "currency": "USD",
+  "expected_record_count": 3,
+  "expected_total": 25.0,
+  "privacy_classification": "synthetic_public",
+  "note": "金额和单位仅用于确定性离线算术，不是真实交易或价格。"
+}

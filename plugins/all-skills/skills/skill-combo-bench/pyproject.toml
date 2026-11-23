@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "skill-combo-bench"
+version = "6.0.0"
+description = "Auditable offline-first benchmark for skill combinations across agents"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "skill-combo-bench contributors"}]
+dependencies = [
+  "PyYAML>=6.0",
+  "jsonschema>=4.18",
+]
+
+[project.optional-dependencies]
+stats = ["numpy>=1.24", "scipy>=1.10"]
+media = ["Pillow>=9.0"]
+dev = ["pytest>=7.0", "numpy>=1.24", "scipy>=1.10", "Pillow>=9.0"]
+
+[project.scripts]
+skill-combo-bench = "tools.bench_runner:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["engine*", "adapters*", "tools*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+# FILE END: pyproject.toml

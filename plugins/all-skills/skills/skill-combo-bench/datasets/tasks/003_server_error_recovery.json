@@ -1,0 +1,94 @@
+{
+  "task_id": "weather-server-error-recovery",
+  "version": "1.0.0",
+  "description": "对第一次 mock_weather 调用注入一次确定性 server_error，第二次尝试使用固定合成天气结果。",
+  "modalities": ["text"],
+  "metadata": {
+    "synthetic": true,
+    "result_classification": "MOCK_ONLY",
+    "tags": ["fault-injection", "server-error", "bounded-retry"]
+  },
+  "turns": [
+    {
+      "turn_index": 1,
+      "input": "查询 Synthetic Harbor 天气。若第一次请求出现可重试的 500，仅按配置有界重试，不要更换地点。",
+      "mock_output": "第一次请求触发合成 server_error；将在同一地点上有界重试。",
+      "tool_calls": [
+        {
+          "call_id": "weather-call-001",
+          "name": "mock_weather",
+          "arguments": {"location": "Synthetic Harbor"},
+          "save_as": "weather_result"
+        }
+      ],
+      "state_writes": {"weather_location": "Synthetic Harbor", "recovery_policy": "max_two_attempts"},
+      "state_probes": [],
+      "faults": [
+        {
+          "fault_id": "fault-weather-server-500",
+          "target_call_id": "weather-call-001",
+          "fault_type": "server_error",
+          "trigger": "once",
+          "on_attempt": 1,
+          "probability": 1.0,
+          "max_triggers": 1,
+          "delay_seconds": 0.0,
+          "error_code": 500,
+          "message": "Synthetic server error for offline recovery testing.",
+          "seed": 6003
+        }
+      ]
+    },
+    {
+      "turn_index": 2,
+      "input": "报告重试后的固定天气结果，并明确这是合成数据。",
+      "mock_output": "Synthetic Harbor：18°C，晴朗（合成数据）。首次 server_error 后第二次尝试成功。",
+      "tool_calls": [],
+      "state_writes": {"weather_summary": "18°C, clear", "recovery_outcome": "RECOVERED"},
+      "state_probes": [
+        {
+          "probe_id": "state-weather-location-003",
+          "state_key": "weather_location",
+          "first_write_turn": 1,
+          "read_turn": 2,
+          "expected": "Synthetic Harbor",
+          "comparison": "exact",
+          "allow_user_update": false,
+          "failure_type": "wrong_value"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "probe_id": "fault-recovery-003",
+      "skill_id": "tool-calling-skill",
+      "probe_family": "fault_recovery",
+      "turn_index": 2,
+      "type": "fault_recovery",
+      "expected": {"fault_id": "fault-weather-server-500", "outcome": "RECOVERED", "max_attempts": 2},
+      "weight": 2.0,
+      "evidence_source": "run_trace"
+    },
+    {
+      "probe_id": "tool-weather-location-003",
+      "skill_id": "tool-calling-skill",
+      "probe_family": "tool_chain",
+      "turn_index": 1,
+      "type": "tool_argument",
+      "expected": {"call_id": "weather-call-001", "path": "location", "value": "Synthetic Harbor"},
+      "weight": 1.0,
+      "evidence_source": "tool_events"
+    },
+    {
+      "probe_id": "state-weather-assert-003",
+      "skill_id": "multi-turn-skill",
+      "probe_family": "state_tracking",
+      "turn_index": 2,
+      "type": "state_equals",
+      "expected": {"state_key": "weather_location", "value": "Synthetic Harbor"},
+      "weight": 0.5,
+      "evidence_source": "state_trace"
+    }
+  ]
+}

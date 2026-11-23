@@ -1,0 +1,64 @@
+{
+  "task_id": "instruction-format-baseline",
+  "version": "1.0.0",
+  "description": "验证合成 canary 与 JSON-only 格式规则；mock_output 是预设重放文本。",
+  "modalities": ["text"],
+  "metadata": {
+    "synthetic": true,
+    "result_classification": "MOCK_ONLY",
+    "tags": ["instruction", "format", "canary", "short"]
+  },
+  "turns": [
+    {
+      "turn_index": 1,
+      "input": "只输出 JSON 对象，包含 status 和 canary 两个字段。status 固定为 ok，canary 使用 ORCHID-17，不要添加其他字段。",
+      "mock_output": "{\"status\":\"ok\",\"canary\":\"ORCHID-17\"}",
+      "tool_calls": [],
+      "state_writes": {"canary": "ORCHID-17", "response_format": "json_only"},
+      "state_probes": [
+        {
+          "probe_id": "state-canary-001",
+          "state_key": "canary",
+          "first_write_turn": 1,
+          "read_turn": 1,
+          "expected": "ORCHID-17",
+          "comparison": "exact",
+          "allow_user_update": false,
+          "failure_type": "wrong_value"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "probe_id": "canary-output-001",
+      "skill_id": "instruction-skill",
+      "probe_family": "fact_canary",
+      "turn_index": 1,
+      "type": "output_json_field",
+      "expected": {"path": "canary", "value": "ORCHID-17"},
+      "weight": 1.0,
+      "evidence_source": "mock_output"
+    },
+    {
+      "probe_id": "format-json-001",
+      "skill_id": "format-skill",
+      "probe_family": "format_schema",
+      "turn_index": 1,
+      "type": "output_exact",
+      "expected": "{\"status\":\"ok\",\"canary\":\"ORCHID-17\"}",
+      "weight": 1.0,
+      "evidence_source": "mock_output"
+    },
+    {
+      "probe_id": "state-canary-assert-001",
+      "skill_id": "multi-turn-skill",
+      "probe_family": "state_tracking",
+      "turn_index": 1,
+      "type": "state_equals",
+      "expected": {"state_key": "canary", "value": "ORCHID-17"},
+      "weight": 0.5,
+      "evidence_source": "state_trace"
+    }
+  ]
+}

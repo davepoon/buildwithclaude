@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-combo-bench.local/schemas/judge_result.schema.json",
+  "title": "V6.0 Blind LLM Judge Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["judge_version", "task_id", "run_id", "criterion_scores", "total_score", "deductions", "evidence_quotes", "uncertainty", "abstain", "abstain_reason"],
+  "properties": {
+    "judge_version": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "criterion_scores": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["criterion", "score", "max_score", "rationale"],
+        "properties": {
+          "criterion": {"type": "string", "enum": ["factual_correctness", "completeness", "rule_compliance", "clarity"]},
+          "score": {"type": ["number", "null"], "minimum": 0},
+          "max_score": {"type": "number", "exclusiveMinimum": 0},
+          "rationale": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "total_score": {"type": ["number", "null"], "minimum": 0},
+    "deductions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["criterion", "points", "reason"],
+        "properties": {
+          "criterion": {"type": "string"},
+          "points": {"type": "number", "minimum": 0},
+          "reason": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "evidence_quotes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["criterion", "quote"],
+        "properties": {
+          "criterion": {"type": "string"},
+          "quote": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "uncertainty": {"type": "number", "minimum": 0, "maximum": 1},
+    "abstain": {"type": "boolean"},
+    "abstain_reason": {"type": ["string", "null"]}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"abstain": {"const": true}}},
+      "then": {"properties": {"abstain_reason": {"type": "string", "minLength": 1}, "total_score": {"type": "null"}}},
+      "else": {"properties": {"abstain_reason": {"type": "null"}, "total_score": {"type": "number", "minimum": 0}}}
+    }
+  ]
+}

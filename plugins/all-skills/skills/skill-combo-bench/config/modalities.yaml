@@ -1,0 +1,42 @@
+# 模态能力默认值；不支持的模态必须显式标记 UNSUPPORTED。
+schema_version: "6.0.0"
+unsupported_behavior: UNSUPPORTED
+record_asset_sha256: true
+record_preprocessing: true
+default_privacy_classification: synthetic_public
+modalities:
+  text:
+    enabled: true
+    mime_types: [text/plain]
+    max_bytes: 1048576
+    preprocessing: []
+  structured_data:
+    enabled: true
+    mime_types: [text/csv, application/json]
+    max_bytes: 1048576
+    preprocessing: [utf8_decode, schema_inspection]
+  image:
+    enabled: true
+    mime_types: [image/svg+xml, image/png, image/jpeg]
+    max_bytes: 5242880
+    preprocessing: [none]
+    note: 是否真正理解图像取决于 Adapter；文本读取 SVG 不等于视觉能力验证。
+  audio:
+    enabled: false
+    mime_types: [audio/wav, audio/mpeg]
+    max_bytes: 10485760
+    preprocessing: [asr_required]
+    unsupported_status: UNSUPPORTED
+  video:
+    enabled: false
+    mime_types: [video/mp4]
+    max_bytes: 52428800
+    preprocessing: [frame_sampling_required]
+    frame_rate: 1.0
+    unsupported_status: UNSUPPORTED
+assets:
+  allow_user_provided: false
+  allow_third_party_sensitive_upload: false
+  store_raw_media_in_reports: false
+  metadata_only_in_public_reports: true
+# FILE END: config/modalities.yaml

@@ -1,0 +1,100 @@
+{
+  "task_id": "structured-csv-json-summary",
+  "version": "1.0.0",
+  "description": "从合成 CSV 与 JSON 元数据提取数值，计算总额并写入受限的 Mock 文件存储。",
+  "modalities": ["text", "structured_data"],
+  "metadata": {
+    "synthetic": true,
+    "result_classification": "MOCK_ONLY",
+    "tags": ["csv", "json", "calculator", "file-store"]
+  },
+  "turns": [
+    {
+      "turn_index": 1,
+      "input": "读取 datasets/multimodal/sales.csv 和 datasets/multimodal/sales_metadata.json。对三行 amount 求和，并使用元数据中的货币单位。",
+      "mock_output": "三条合成记录金额合计 25.00 USD。",
+      "tool_calls": [
+        {
+          "call_id": "calc-sales-total",
+          "name": "mock_calculator",
+          "arguments": {"expression": "12.50 + 7.50 + 5.00"},
+          "save_as": "sales_total"
+        }
+      ],
+      "state_writes": {"sales_total": 25.0, "currency": "USD"},
+      "state_probes": []
+    },
+    {
+      "turn_index": 2,
+      "input": "将上一轮的 25.0 和 USD 写入 artifacts/synthetic_sales_summary.json，保留 total、currency、source 三个字段，source 为 synthetic。",
+      "mock_output": "已生成合成汇总：{\"total\":25.0,\"currency\":\"USD\",\"source\":\"synthetic\"}。",
+      "tool_calls": [
+        {
+          "call_id": "file-write-summary",
+          "name": "mock_file_store",
+          "arguments": {
+            "operation": "write",
+            "path": "artifacts/synthetic_sales_summary.json",
+            "content": "{\"total\":25.0,\"currency\":\"USD\",\"source\":\"synthetic\"}"
+          },
+          "save_as": "summary_file"
+        }
+      ],
+      "state_writes": {"summary_path": "artifacts/synthetic_sales_summary.json"},
+      "state_probes": [
+        {
+          "probe_id": "state-sales-total-004",
+          "state_key": "sales_total",
+          "first_write_turn": 1,
+          "read_turn": 2,
+          "expected": 25.0,
+          "comparison": "exact",
+          "allow_user_update": false,
+          "failure_type": "stale_value"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "probe_id": "asset-csv-row-004",
+      "skill_id": "multimodal-skill",
+      "probe_family": "multimodal",
+      "turn_index": 1,
+      "type": "asset_contains",
+      "expected": {"asset": "datasets/multimodal/sales.csv", "value": "r-003,alpha,5.00"},
+      "weight": 1.0,
+      "evidence_source": "asset_metadata"
+    },
+    {
+      "probe_id": "tool-sales-expression-004",
+      "skill_id": "tool-calling-skill",
+      "probe_family": "tool_chain",
+      "turn_index": 1,
+      "type": "tool_argument",
+      "expected": {"call_id": "calc-sales-total", "path": "expression", "value": "12.50 + 7.50 + 5.00"},
+      "weight": 1.0,
+      "evidence_source": "tool_events"
+    },
+    {
+      "probe_id": "state-sales-total-assert-004",
+      "skill_id": "multi-turn-skill",
+      "probe_family": "state_tracking",
+      "turn_index": 2,
+      "type": "state_equals",
+      "expected": {"state_key": "sales_total", "value": 25.0},
+      "weight": 1.0,
+      "evidence_source": "state_trace"
+    },
+    {
+      "probe_id": "tool-file-path-004",
+      "skill_id": "format-skill",
+      "probe_family": "format_schema",
+      "turn_index": 2,
+      "type": "tool_argument",
+      "expected": {"call_id": "file-write-summary", "path": "path", "value": "artifacts/synthetic_sales_summary.json"},
+      "weight": 1.0,
+      "evidence_source": "tool_events"
+    }
+  ]
+}

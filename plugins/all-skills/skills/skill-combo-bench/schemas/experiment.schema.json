@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-combo-bench.local/schemas/experiment.schema.json",
+  "title": "V6.0 Experiment Snapshot",
+  "description": "Stored experiment definition. Partial runs (e.g. a single condition) are valid; extra provenance fields are permitted.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["experiment_id", "version", "created_at", "task_set", "dataset_version", "seed", "result_classification"],
+  "properties": {
+    "experiment_id": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "task_set": {"type": "string", "minLength": 1},
+    "dataset_version": {"type": "string", "minLength": 1},
+    "conditions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "repeat": {"type": "integer", "minimum": 1},
+    "turn_mode": {"type": "string", "minLength": 1},
+    "seed": {"type": "integer"},
+    "agent": {"$ref": "#/$defs/component"},
+    "harness": {"$ref": "#/$defs/component"},
+    "provider": {"$ref": "#/$defs/component"},
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["skill_id", "sha256"],
+        "properties": {
+          "skill_id": {"type": "string", "minLength": 1},
+          "version": {"type": "string"},
+          "source_file": {"type": "string"},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "load_order": {"type": "integer", "minimum": 1}
+        }
+      }
+    },
+    "judge_version": {"type": ["string", "null"]},
+    "config_hashes": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+    "result_classification": {"type": "string", "enum": ["MOCK_ONLY", "REAL", "PARTIAL", "ESTIMATE"]},
+    "git_commit": {"type": ["string", "null"]},
+    "platform": {"type": "string"},
+    "project_version": {"type": "string"},
+    "pricing_config_version": {"type": "string"},
+    "config": {"type": "object"},
+    "run_plan": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "conditions": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "repeat": {"type": "integer", "minimum": 1},
+        "seed": {"type": "integer"},
+        "task_set": {"type": ["string", "null"]},
+        "turn_mode": {"type": "string"}
+      }
+    },
+    "adapter_versions": {"type": "object", "additionalProperties": {"type": "string"}},
+    "notes": {"type": "string"}
+  },
+  "$defs": {
+    "component": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["id", "version"],
+      "properties": {"id": {"type": "string", "minLength": 1}, "version": {"type": "string", "minLength": 1}}
+    }
+  }
+}

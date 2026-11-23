@@ -1,0 +1,142 @@
+{
+  "task_id": "three-turn-database-calculator-chain",
+  "version": "1.0.0",
+  "description": "三轮状态任务：创建数据库记录，将保存结果的 expression 字段传给计算器，再校验持久化状态。",
+  "modalities": ["text"],
+  "metadata": {
+    "synthetic": true,
+    "result_classification": "MOCK_ONLY",
+    "tags": ["three-turn", "tool-chain", "state", "calculator", "database"]
+  },
+  "turns": [
+    {
+      "turn_index": 1,
+      "input": "在 orders 集合创建 order-042，记录 amount=19.5、quantity=4、expression='19.5 * 4'。保存创建结果供下一轮使用。",
+      "mock_output": "已创建订单 order-042，并保存为 order_create。",
+      "tool_calls": [
+        {
+          "call_id": "db-create-order",
+          "name": "mock_database",
+          "arguments": {
+            "operation": "create",
+            "collection": "orders",
+            "record_id": "order-042",
+            "record": {"amount": 19.5, "quantity": 4, "expression": "19.5 * 4"}
+          },
+          "save_as": "order_create"
+        }
+      ],
+      "state_writes": {"order_id": "order-042"},
+      "state_probes": []
+    },
+    {
+      "turn_index": 2,
+      "input": "沿用 order-042，使用 order_create 中保存的 record.expression 计算合计；不要改成其他订单。",
+      "mock_output": "订单 order-042 的计算表达式为 19.5 * 4，合计 78.0。",
+      "tool_calls": [
+        {
+          "call_id": "calc-order-total",
+          "name": "mock_calculator",
+          "arguments": {"expression": "${order_create.record.expression}"},
+          "save_as": "order_total"
+        }
+      ],
+      "state_writes": {"total": 78.0},
+      "state_probes": [
+        {
+          "probe_id": "state-order-id-002",
+          "state_key": "order_id",
+          "first_write_turn": 1,
+          "read_turn": 2,
+          "expected": "order-042",
+          "comparison": "exact",
+          "allow_user_update": false,
+          "failure_type": "stale_value"
+        }
+      ]
+    },
+    {
+      "turn_index": 3,
+      "input": "确认订单 ID 与合计仍在状态中，并用数据库 assert 检查原始 amount、quantity 和 expression 没有被覆盖。",
+      "mock_output": "order-042 合计 78.0；数据库原始记录校验通过。",
+      "tool_calls": [
+        {
+          "call_id": "db-assert-order",
+          "name": "mock_database",
+          "arguments": {
+            "operation": "assert",
+            "collection": "orders",
+            "record_id": "order-042",
+            "expected": {"amount": 19.5, "quantity": 4, "expression": "19.5 * 4"}
+          },
+          "save_as": "order_verification"
+        }
+      ],
+      "state_writes": {},
+      "state_probes": [
+        {
+          "probe_id": "state-order-total-003",
+          "state_key": "total",
+          "first_write_turn": 2,
+          "read_turn": 3,
+          "expected": 78.0,
+          "comparison": "exact",
+          "allow_user_update": false,
+          "failure_type": "omission"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "probe_id": "tool-db-create-002",
+      "skill_id": "tool-calling-skill",
+      "probe_family": "tool_chain",
+      "turn_index": 1,
+      "type": "tool_called",
+      "expected": {"call_id": "db-create-order", "name": "mock_database"},
+      "weight": 1.0,
+      "evidence_source": "tool_events"
+    },
+    {
+      "probe_id": "tool-chain-expression-002",
+      "skill_id": "tool-calling-skill",
+      "probe_family": "tool_chain",
+      "turn_index": 2,
+      "type": "tool_chain",
+      "expected": {"from_call_id": "db-create-order", "to_call_id": "calc-order-total", "argument": "expression", "resolved_value": "19.5 * 4"},
+      "weight": 2.0,
+      "evidence_source": "tool_events"
+    },
+    {
+      "probe_id": "tool-calc-argument-002",
+      "skill_id": "tool-calling-skill",
+      "probe_family": "tool_chain",
+      "turn_index": 2,
+      "type": "tool_argument",
+      "expected": {"call_id": "calc-order-total", "path": "expression", "value": "19.5 * 4"},
+      "weight": 1.0,
+      "evidence_source": "tool_events"
+    },
+    {
+      "probe_id": "state-total-assert-002",
+      "skill_id": "multi-turn-skill",
+      "probe_family": "state_tracking",
+      "turn_index": 3,
+      "type": "state_equals",
+      "expected": {"state_key": "total", "value": 78.0},
+      "weight": 1.0,
+      "evidence_source": "state_trace"
+    },
+    {
+      "probe_id": "tool-final-state-002",
+      "skill_id": "tool-calling-skill",
+      "probe_family": "tool_chain",
+      "turn_index": 3,
+      "type": "tool_argument",
+      "expected": {"call_id": "db-assert-order", "path": "expected", "value": {"amount": 19.5, "quantity": 4, "expression": "19.5 * 4"}},
+      "weight": 1.0,
+      "evidence_source": "tool_events"
+    }
+  ]
+}
