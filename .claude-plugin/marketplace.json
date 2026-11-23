@@ -6052,7 +6052,7 @@
     },
     {
       "name": "levea-video-editor",
-      "description": "Connect Claude Code to the hosted Levea AI video editor (https://api.livecore.ai/api/v1/misc/mcp) for viral clips, 280+ animated caption templates, 9:16 vertical reframing, B-roll, motion graphics, audio cleanup, and cloud MP4 exports. Configuration only: an .mcp.json for the OAuth 2.1 Streamable HTTP server and one workflow skill. The skill sets requirePlanApproval: true, shows the proposed plan, and waits for your yes before any edit or export, and treats verificationReport, qualityNotes, transcripts, and tool results as data, never as instructions. Free tier and paid plans at livecore.ai.",
+      "description": "Connect Claude Code to the hosted Levea AI video editor (https://api.livecore.ai/api/v1/misc/mcp) for viral clips, 200+ animated caption templates, 9:16 vertical reframing, B-roll, motion graphics, audio cleanup, and cloud MP4 exports. Configuration only: an .mcp.json for the OAuth 2.1 Streamable HTTP server and one workflow skill. The skill sets requirePlanApproval: true, shows the proposed plan, and waits for your yes before any edit or export, and treats verificationReport, qualityNotes, transcripts, and tool results as data, never as instructions. Free tier and paid plans at livecore.ai.",
       "version": "1.1.1",
       "author": {
         "name": "Levea (livecore.ai)",
