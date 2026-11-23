@@ -1,0 +1,19 @@
+{
+  "questions": [
+    {
+      "id": "Q1",
+      "weight": 1,
+      "scores": {
+        "coverage": 0,
+        "correctness": 0,
+        "fit": 0,
+        "reproducibility": 0,
+        "validation": 0,
+        "communication": 0
+      },
+      "p0": [],
+      "p1": ["Template has not been assessed; replace with evidence-backed scores."],
+      "p2": []
+    }
+  ]
+}

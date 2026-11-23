@@ -1,0 +1,28 @@
+# Model Card
+
+- Model ID:
+- Question / requirement:
+- Purpose and direct answer:
+- Status: proposed / executed / verified / reproduced
+- System boundary and scales:
+- Inputs and data provenance:
+- Outputs, units and interpretation:
+- Exogenous inputs:
+- Decision variables:
+- State variables:
+- Parameters, units, ranges and sources:
+- Random quantities and dependence:
+- Assumptions and justification:
+- Core equations and derivation:
+- Baseline and alternatives:
+- Selection evidence:
+- Solver, initialization and stopping rule:
+- Known-answer / synthetic test:
+- Verification evidence:
+- Validation evidence:
+- Error metrics:
+- Sensitivity and reversal thresholds:
+- Uncertainty propagation:
+- Failure modes and limitations:
+- Code, run, result and figure paths:
+- Downstream claims affected by changes:

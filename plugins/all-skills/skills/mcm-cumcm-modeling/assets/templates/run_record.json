@@ -1,0 +1,20 @@
+{
+  "run_id": null,
+  "parent_run_id": null,
+  "status": "proposed",
+  "question": null,
+  "command": null,
+  "working_directory": null,
+  "code_version_or_hash": null,
+  "input_paths_and_hashes": [],
+  "parameters": {},
+  "random_seed": null,
+  "environment": null,
+  "started_at": null,
+  "finished_at": null,
+  "exit_status": null,
+  "warnings": [],
+  "output_paths": [],
+  "verification_paths": [],
+  "notes": "Use executed only after a real successful run; preserve failed runs for diagnosis."
+}
