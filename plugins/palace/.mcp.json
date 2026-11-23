@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "palace": {
+      "command": "palace",
+      "args": ["mcp"]
+    }
+  }
+}
