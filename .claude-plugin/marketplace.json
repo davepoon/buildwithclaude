@@ -6297,6 +6297,33 @@
       "skills": [
         "./"
       ]
+    },
+    {
+      "name": "smartdrugs",
+      "description": "Adds the hosted SmartDrugs MCP server (https://smartdrugs.com.br/mcp, Streamable HTTP) plus one Agent Skill, smartdrugs-evidence. Sourced profiles on 152 nootropics, peptides, functional mushrooms, adaptogens and cannabinoids: study doses, drug interactions, 24 h curves and stack checks. Public read-only access with no sign-up; after Google sign-in, the person can also join the community (5 tools: report, comment, react, join/leave), and the skill makes the agent show the exact action and wait for the person's own yes in a later turn. Content in Brazilian Portuguese. Educational, not medical advice. No hooks, no commands, no settings changes.",
+      "version": "1.5.0",
+      "author": {
+        "name": "SmartDrugs",
+        "url": "https://smartdrugs.com.br/"
+      },
+      "homepage": "https://smartdrugs.com.br/desenvolvedores/",
+      "repository": "https://github.com/smartdrugs-org/mcp",
+      "license": "MIT",
+      "keywords": [
+        "smartdrugs",
+        "nootropics",
+        "peptides",
+        "supplements",
+        "drug-interactions",
+        "evidence-based",
+        "mcp"
+      ],
+      "category": "mcp-servers",
+      "source": {
+        "source": "github",
+        "repo": "smartdrugs-org/mcp",
+        "sha": "6f24985e9e09a4a738e5c5926662c79dc961856b"
+      }
     }
   ]
 }
