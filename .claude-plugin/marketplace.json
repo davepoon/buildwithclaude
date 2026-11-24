@@ -6297,6 +6297,33 @@
       "skills": [
         "./"
       ]
+    },
+    {
+      "name": "qrdx",
+      "description": "Styled, scannable QR codes from Claude Code: a skill that runs the QRdx CLI (@qrdx/cli, pinned) on your machine, and the hosted QRdx MCP server for scan-checked designs, barcodes, Wi-Fi, contact and payment codes, and dynamic codes. No account or key needed to draw codes; the dynamic-code tools ask you to sign in.",
+      "version": "0.1.7",
+      "author": {
+        "name": "QRdx",
+        "url": "https://qrdx.dev"
+      },
+      "homepage": "https://qrdx.dev/docs/developers/mcp",
+      "repository": "https://github.com/qrdxinc/qrdx",
+      "license": "MIT",
+      "keywords": [
+        "qr-code",
+        "barcode",
+        "svg",
+        "png",
+        "mcp",
+        "cli"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/qrdxinc/qrdx.git",
+        "path": "plugins/agent",
+        "sha": "cb537cdcb47aa18fafc5ddf90afb7929cdd4c2c6"
+      }
     }
   ]
 }
