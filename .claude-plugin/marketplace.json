@@ -4930,8 +4930,8 @@
     },
     {
       "name": "logbrew",
-      "description": "Fix production bugs with LogBrew error tracking, performance monitoring, logs, and product analytics. Connects the hosted LogBrew MCP server over OAuth and adds 4 skills: debug a production error, instrument an app, read product analytics, and check a release. Reads only the projects you approve. Every step that creates, installs, records, or changes something shows the exact command and waits for your yes. Generous free tier, no card needed.",
-      "version": "0.3.2",
+      "description": "Error tracking, logs, APM, and product analytics your AI agent can read. Generous free tier, no card needed. Connects the hosted LogBrew MCP server over OAuth and adds 4 skills to debug a production error, add error tracking to an app, read product analytics, and check a release. Reads only the projects you approve. Every step that creates, installs, records, or changes something shows the exact command and waits for your yes.",
+      "version": "0.3.5",
       "author": {
         "name": "LogBrew",
         "url": "https://logbrew.co"
@@ -4953,7 +4953,7 @@
         "source": "git-subdir",
         "url": "https://github.com/LogBrewCo/skills.git",
         "path": "plugins/logbrew",
-        "sha": "976224b269dc28556cc43794269972ce737a1dc2"
+        "sha": "487dc126c432be4456a1fc90b16165a1cc460b24"
       }
     },
     {
