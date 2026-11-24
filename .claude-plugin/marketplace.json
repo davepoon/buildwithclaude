@@ -6297,6 +6297,34 @@
       "skills": [
         "./"
       ]
+    },
+    {
+      "name": "hermoso",
+      "description": "Launch and market from your coding agent: put the site you built live with a domain, email and payments, then research ads, make image and video ads, post and schedule, and run campaigns. Seven skills that drive the hermoso CLI. Requires a Hermoso account (free to start).",
+      "version": "1.3.23",
+      "author": {
+        "name": "Hermoso AI",
+        "url": "https://hermoso.ai"
+      },
+      "homepage": "https://hermoso.ai/mcp/",
+      "repository": "https://github.com/hermoso-ai/hermoso",
+      "license": "MIT",
+      "keywords": [
+        "marketing",
+        "ads",
+        "websites",
+        "domains",
+        "social-media",
+        "scheduling",
+        "ai-video",
+        "ai-image"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "hermoso-ai/hermoso",
+        "sha": "a286c4c9fc27d51cf34380c0d6ecde1011e5883e"
+      }
     }
   ]
 }
