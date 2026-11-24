@@ -6297,6 +6297,32 @@
       "skills": [
         "./"
       ]
+    },
+    {
+      "name": "skill-combo-bench",
+      "description": "Offline-first, auditable benchmark for how skill combinations change agent behaviour: RC/TI/SS/CE/CPS/RS metrics, a deterministic mock loop, and evidence-producing adapter verification for Codex, Claude Code, OpenCode, DeepSeek Harness and Zcode. It is a full Python harness, installed as an external plugin pinned to a commit.",
+      "author": {
+        "name": "Timevelyer",
+        "url": "https://github.com/Timevelyer"
+      },
+      "homepage": "https://github.com/Timevelyer/skill-combo-bench",
+      "repository": "https://github.com/Timevelyer/skill-combo-bench",
+      "license": "MIT",
+      "keywords": [
+        "benchmark",
+        "evaluation",
+        "skill-combinations",
+        "agents",
+        "reproducibility",
+        "claude-code"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "Timevelyer/skill-combo-bench",
+        "ref": "v6.1.3",
+        "sha": "a89c156c19a673c0ce0d49ee1d5376544932f6e7"
+      }
     }
   ]
 }
