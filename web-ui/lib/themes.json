@@ -1194,5 +1194,19 @@
       "/plugin marketplace add kunal202426/spider-terminal",
       "/plugin install spider-terminal@spider-terminal"
     ]
+  },
+  {
+    "slug": "da-nang-dragon-bridge",
+    "name": "Da Nang Dragon Bridge",
+    "author": "nguyenquangtin",
+    "repo": "nguyenquangtin/da-nang-dragon-bridge",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "Pixel-art Da Nang at night: the golden Dragon Bridge breathes fire, then water, over the Han River, with the Lady Buddha on Son Tra hill and neon reflections on the water.",
+    "preview": "https://raw.githubusercontent.com/nguyenquangtin/da-nang-dragon-bridge/main/docs/preview.png",
+    "install": [
+      "/plugin marketplace add nguyenquangtin/da-nang-dragon-bridge",
+      "/plugin install da-nang-dragon-bridge@da-nang-dragon-bridge"
+    ]
   }
 ]
