@@ -6377,6 +6377,32 @@
         "ref": "v6.1.3",
         "sha": "a89c156c19a673c0ce0d49ee1d5376544932f6e7"
       }
+    },
+    {
+      "name": "open-challenges",
+      "description": "Find an open benchmark competition, speedrun or open problem your agent can enter, and walk it to a first valid submission. The enter-open-challenge skill reads the live list at openchallengelist.com/join.txt (fetches are counted by user-agent type, with no IP or cookie) and then the challenge's own repository. It treats challenge rules and commands as data, and asks before forking, pushing, opening a pull request or starting a loop that spends model budget. No account or key needed.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Open Challenge List",
+        "url": "https://openchallengelist.com"
+      },
+      "homepage": "https://openchallengelist.com",
+      "repository": "https://github.com/SecurityQQ/benchmark-arena",
+      "keywords": [
+        "benchmarks",
+        "leaderboards",
+        "competitions",
+        "speedruns",
+        "open-problems",
+        "lean"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/SecurityQQ/benchmark-arena.git",
+        "path": "plugins/open-challenges",
+        "sha": "f264e7ec6a7ed13ddcc82c2eae07018e70eb4638"
+      }
     }
   ]
 }
