@@ -6387,7 +6387,7 @@
         "url": "https://openchallengelist.com"
       },
       "homepage": "https://openchallengelist.com",
-      "repository": "https://github.com/SecurityQQ/benchmark-arena",
+      "repository": "https://github.com/SecurityQQ/open-challenge-list",
       "keywords": [
         "benchmarks",
         "leaderboards",
@@ -6399,9 +6399,9 @@
       "category": "development",
       "source": {
         "source": "git-subdir",
-        "url": "https://github.com/SecurityQQ/benchmark-arena.git",
+        "url": "https://github.com/SecurityQQ/open-challenge-list.git",
         "path": "plugins/open-challenges",
-        "sha": "f264e7ec6a7ed13ddcc82c2eae07018e70eb4638"
+        "sha": "55b08aff7a0e12d2eb7283659e13b11ab96adc5e"
       }
     }
   ]
