@@ -6407,6 +6407,32 @@
         "repo": "tonone-ai/tonone",
         "sha": "1897fba40e75ed3c272205cd5b302acb7d5686cf"
       }
+    },
+    {
+      "name": "greenbar",
+      "description": "Stop hook that runs the checks you list in .claude/done-gate.json (tests, type-check, lint) each time Claude Code tries to end a turn, and blocks the stop while any fail; it skips the run when the turn changed no files and lets Claude stop after three failed attempts in a row. A PreToolUse guard blocks reading .env and key files, adding skip markers or deleting tests, force-push, --no-verify, git reset --hard and rm -rf of the project root. A repo's config runs only after you trust it. Python 3.9+ standard library, no network. macOS and Linux.",
+      "author": {
+        "name": "anchorcoteam",
+        "url": "https://github.com/anchorcoteam"
+      },
+      "homepage": "https://github.com/anchorcoteam/greenbar",
+      "repository": "https://github.com/anchorcoteam/greenbar",
+      "license": "MIT",
+      "keywords": [
+        "hooks",
+        "stop-hook",
+        "testing",
+        "verification",
+        "guardrails",
+        "secrets"
+      ],
+      "category": "hooks",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anchorcoteam/greenbar.git",
+        "path": "plugins/greenbar",
+        "sha": "693945b6a4e664dc9f692437ce0c6ebc47a19eb7"
+      }
     }
   ]
 }
