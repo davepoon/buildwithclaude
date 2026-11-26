@@ -52,7 +52,7 @@ license: MIT
 调用任何红鸦接口前,先确认环境里有 `REDYA_API_KEY`(以 `rk-` 开头)。**没有、或任何接口返回 401,就停下来引导用户自助创建,不要瞎猜、不要反复重试。** 直接对用户说(可照抄):
 
 > 你还没配置红鸦 API Key,几步就能拿到:
-> 1. 打开 **https://hy.ithinkai.cn**,用微信扫码登录
+> 1. 打开 **https://hy.ithinkai.cn/developer?skill_channel=build-with-claude**,用微信扫码登录
 > 2. 点左侧栏「**红鸦 Skills**」(或首页输入框上方的 🦞 红鸦 Skills 入口)
 > 3. 点「**生成 API Key**」,复制 `rk-` 开头的 key(明文只显示这一次)
 > 4. 回到这里设置环境变量:`export REDYA_API_KEY=rk-你复制的key`(默认 base url 为 https://hy.ithinkai.cn,私有部署再设 `REDYA_BASE_URL`)
@@ -457,7 +457,7 @@ curl -sS "${REDYA_BASE_URL:-https://hy.ithinkai.cn}/openapi/v1/me" \
 
 | 状态码 | code | Agent 该怎么做 |
 |---|---|---|
-| 401 | `missing_key`/`invalid_key`/`key_disabled`/`key_expired`/`user_disabled` | Key 缺失或无效。**引导用户自助创建**(见上文「确认有可用的 API Key」):访问 https://hy.ithinkai.cn 微信登录 → 左栏「红鸦 Skills」→「生成 API Key」→ 复制后 `export REDYA_API_KEY=rk-xxx`。不要反复重试或猜测 key |
+| 401 | `missing_key`/`invalid_key`/`key_disabled`/`key_expired`/`user_disabled` | Key 缺失或无效。**引导用户自助创建**(见上文「确认有可用的 API Key」):访问 https://hy.ithinkai.cn/developer?skill_channel=build-with-claude 微信登录 → 左栏「红鸦 Skills」→「生成 API Key」→ 复制后 `export REDYA_API_KEY=rk-xxx`。不要反复重试或猜测 key |
 | 402 | `insufficient_points` | 积分不足。调 `GET /me` 拿 `points_balance` 告诉用户当前余额,引导用户去红鸦网页端充值后再继续 |
 | 403 | `forbidden` | 访问了他人资源,检查 record_id/product_id 是否属于当前 key 的账号 |
 | 404 | `not_found` | 资源不存在,检查 id 是否拼错 |
