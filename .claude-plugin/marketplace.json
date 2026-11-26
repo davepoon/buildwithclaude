@@ -6461,6 +6461,36 @@
         "repo": "hermoso-ai/hermoso",
         "sha": "c9f3476e577448841b910e4c938b68c2fcfb2a1d"
       }
+    },
+    {
+      "name": "autotroph-verified-data",
+      "description": "Schema-verified, zero-proxy MCP data and compliance tools for Claude Code: SEC EDGAR 10-K/10-Q XBRL financials, EU TED eForms tenders, SAM.gov & USAspending federal contracts, USPTO global patents, and US Federal Register rules (each record includes deterministic integrity_valid: true proof). Includes bundled MCP config and agent skill. Requires an Apify API token ($5/mo free credit = 1,000+ calls).",
+      "version": "1.0.2",
+      "author": {
+        "name": "Autotroph",
+        "url": "https://char5742.github.io/autotroph-mcp-catalog/"
+      },
+      "homepage": "https://char5742.github.io/autotroph-mcp-catalog/",
+      "repository": "https://github.com/char5742/autotroph-mcp-catalog",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "sec-edgar",
+        "xbrl",
+        "financial-data",
+        "ted-europa",
+        "usaspending",
+        "uspto",
+        "federal-register",
+        "compliance",
+        "apify"
+      ],
+      "category": "mcp-servers",
+      "source": {
+        "source": "github",
+        "repo": "char5742/autotroph-mcp-catalog",
+        "sha": "581c5002cc0ccd48eca52762f759608c6f411138"
+      }
     }
   ]
 }
