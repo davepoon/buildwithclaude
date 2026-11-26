@@ -6377,6 +6377,36 @@
         "ref": "v6.1.3",
         "sha": "a89c156c19a673c0ce0d49ee1d5376544932f6e7"
       }
+    },
+    {
+      "name": "tonone",
+      "description": "Open-source team of 140 specialist agents and 573 skills across 15 teams: engineering, product, revenue, marketing, finance, people, operations, support, legal, design, data science, security operations, developer experience, infrastructure, and AI operations. An engineering lead agent (Apex) scopes work into depth tiers with token and cost estimates, then routes it to specialists. /apex-profile scopes the installed roster to what a project needs.",
+      "version": "1.20.0",
+      "author": {
+        "name": "tonone-ai",
+        "url": "https://tonone.ai"
+      },
+      "homepage": "https://github.com/tonone-ai/tonone",
+      "repository": "https://github.com/tonone-ai/tonone",
+      "license": "MIT",
+      "keywords": [
+        "agents",
+        "skills",
+        "orchestration",
+        "engineering-team",
+        "product",
+        "devops",
+        "security",
+        "design",
+        "legal",
+        "claude-code"
+      ],
+      "category": "orchestration",
+      "source": {
+        "source": "github",
+        "repo": "tonone-ai/tonone",
+        "sha": "1897fba40e75ed3c272205cd5b302acb7d5686cf"
+      }
     }
   ]
 }
