@@ -6465,7 +6465,7 @@
     {
       "name": "nattermatic",
       "description": "Sets up Nattermatic, so Claude Code sessions on different Claude accounts and machines can message each other as name@host, and an incoming message wakes an idle session. Agents can also claim leases on shared resources such as a test database or a port. The skill lists what setup changes and runs the installer pinned to this release only after you agree.",
-      "version": "0.4.4",
+      "version": "0.4.5",
       "author": {
         "name": "Tom Baldwin",
         "url": "https://github.com/tombaldwin"
@@ -6486,7 +6486,7 @@
         "source": "git-subdir",
         "url": "https://github.com/tombaldwin/nattermatic.git",
         "path": "plugins/nattermatic",
-        "sha": "38c84f77043247c23f50ed3262d0d0146e4ed521"
+        "sha": "ca929c7630a4a9926a183225af49c1cc6aa50633"
       }
     }
   ]
