@@ -1208,5 +1208,19 @@
       "/plugin marketplace add nguyenquangtin/da-nang-dragon-bridge",
       "/plugin install da-nang-dragon-bridge@da-nang-dragon-bridge"
     ]
+  },
+  {
+    "slug": "night-circuit",
+    "name": "Night Circuit",
+    "author": "wahnahbe",
+    "repo": "wahnahbe/night-circuit",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "A neon night-city HUD: blue-black panels, a hazard-yellow accent and cyan-edged boxes, framed by red and yellow rails with running lights, marching hazard bars, a scan line and a brief screen glitch.",
+    "preview": "https://raw.githubusercontent.com/wahnahbe/night-circuit/main/docs/preview.png",
+    "install": [
+      "/plugin marketplace add wahnahbe/night-circuit",
+      "/plugin install night-circuit@night-circuit"
+    ]
   }
 ]
