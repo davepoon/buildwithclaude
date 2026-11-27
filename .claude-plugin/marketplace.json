@@ -6461,6 +6461,32 @@
         "repo": "hermoso-ai/hermoso",
         "sha": "c9f3476e577448841b910e4c938b68c2fcfb2a1d"
       }
+    },
+    {
+      "name": "archlang",
+      "description": "Floor plans as code: Claude writes a plain-text .arch file and the ArchLang compiler draws a dimensioned plan (SVG, DXF, PDF) and reports what is wrong, with machine-applicable fixes. Five skills (author, brief to plan, edit, review, export) drive the archlang CLI (Node 18+, run with npx), plus the hosted ArchLang MCP server at https://mcp.archlang.uk/mcp (no sign-in).",
+      "author": {
+        "name": "Chan Meng",
+        "url": "https://github.com/ChanMeng666"
+      },
+      "homepage": "https://archlang.uk",
+      "repository": "https://github.com/ChanMeng666/archlang",
+      "license": "MIT",
+      "keywords": [
+        "floor-plan",
+        "architecture",
+        "dsl",
+        "svg",
+        "dxf",
+        "cad"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/ChanMeng666/archlang.git",
+        "path": "plugins/archlang",
+        "sha": "50b5ac2d0060e7daae5e335306ca3eb1d9700309"
+      }
     }
   ]
 }
