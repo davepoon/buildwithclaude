@@ -1,6 +1,6 @@
 ---
 name: lyricsmove
-description: Browse LyricsMove animated lyric video styles, 9 AI music video looks (Cinema V2: 8-32 beat-snapped story scenes), exact free/Pro/AI MV pricing, and direct Suno/MP3 studio links. Use when the user wants to make a lyric video, Suno music video, Utattemita cover video, or convert MP3/WAV to SRT, LRC, or MP4 without needing an API key.
+description: Browse LyricsMove animated lyric video styles, 9 AI music video looks (Cinema V2, 8-32 beat-snapped story scenes), exact free/Pro/AI MV pricing, and direct Suno/MP3 studio links. Use when the user wants to make a lyric video, Suno music video, Utattemita cover video, or convert MP3/WAV to SRT, LRC, or MP4 without needing an API key.
 category: media-content
 license: MIT
 ---
