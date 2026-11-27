@@ -1,7 +1,7 @@
 {
   "name": "all-skills",
   "version": "1.0.0",
-  "description": "Complete collection of 239 Claude Code skills for document processing, development, business productivity, research, media safety, and creative tasks",
+  "description": "Complete collection of 240 Claude Code skills for document processing, development, business productivity, research, media safety, and creative tasks",
   "author": {
     "name": "BuildWithClaude Community",
     "url": "https://github.com/davepoon/buildwithclaude"
@@ -100,6 +100,7 @@
     "hourlore",
     "e2e",
     "mcm-cumcm-modeling",
-    "skill-arbiter"
+    "skill-arbiter",
+    "lyricsmove"
   ]
 }
