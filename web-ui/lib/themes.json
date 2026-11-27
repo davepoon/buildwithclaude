@@ -1216,7 +1216,7 @@
     "repo": "wahnahbe/night-circuit",
     "kind": "desktop",
     "appearance": "dark",
-    "description": "A neon night-city HUD: blue-black panels, a hazard-yellow accent and cyan-edged boxes, framed by red and yellow rails with running lights, marching hazard bars, a scan line and a brief screen glitch.",
+    "description": "A neon night-city HUD frame behind the chat: red and yellow rails with angular corner brackets, running lights, marching hazard bars, a slow cyan scan line and a brief screen glitch.",
     "preview": "https://raw.githubusercontent.com/wahnahbe/night-circuit/main/docs/preview.png",
     "install": [
       "/plugin marketplace add wahnahbe/night-circuit",
