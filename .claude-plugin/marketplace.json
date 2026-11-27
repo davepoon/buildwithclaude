@@ -6461,6 +6461,31 @@
         "repo": "hermoso-ai/hermoso",
         "sha": "c9f3476e577448841b910e4c938b68c2fcfb2a1d"
       }
+    },
+    {
+      "name": "nimply",
+      "description": "Official Nimply skill. Explains the AI social media workforce (agents, Planner, Inbox, automations, API, MCP) and designs a tailored setup for any business. Bundles the hosted Nimply MCP server.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Nimply",
+        "url": "https://nimply.io"
+      },
+      "homepage": "https://nimply.io",
+      "repository": "https://github.com/nimply/skills",
+      "license": "MIT",
+      "keywords": [
+        "social-media",
+        "ai-agents",
+        "marketing",
+        "automation",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "nimply/skills",
+        "sha": "06a9dcdb6473bba8cc66b77aa402398d6628c63b"
+      }
     }
   ]
 }
