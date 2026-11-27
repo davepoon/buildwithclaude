@@ -6461,6 +6461,31 @@
         "repo": "hermoso-ai/hermoso",
         "sha": "c9f3476e577448841b910e4c938b68c2fcfb2a1d"
       }
+    },
+    {
+      "name": "meanwhile",
+      "description": "Meet someone while Claude Code works: type /mw, get matched 1:1 with another developer who's waiting on their agent, and chat in a side panel. Anonymous, no account. Talks only to meanwhile.gripe (matching and chat relay); never reads your conversation, code or files. Chats live in memory and are dropped unless both people keep them or one of them reports the chat. A Claude Code mod (hooks module with a side pane).",
+      "version": "0.11.0",
+      "author": {
+        "name": "radioheavy",
+        "url": "https://github.com/radioheavy"
+      },
+      "homepage": "https://meanwhile.gripe",
+      "repository": "https://github.com/radioheavy/meanwhile",
+      "license": "MIT",
+      "keywords": [
+        "chat",
+        "social",
+        "matching",
+        "mod",
+        "side-pane"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "github",
+        "repo": "radioheavy/meanwhile",
+        "sha": "73fb789076d430961f175d4af448585cd9b855fa"
+      }
     }
   ]
 }
