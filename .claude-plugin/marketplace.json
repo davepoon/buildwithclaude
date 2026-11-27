@@ -6461,6 +6461,32 @@
         "repo": "hermoso-ai/hermoso",
         "sha": "c9f3476e577448841b910e4c938b68c2fcfb2a1d"
       }
+    },
+    {
+      "name": "taplio",
+      "description": "Find leads, write, schedule and analyze LinkedIn posts, find inspiration, comment, like and connect. 27 LinkedIn skills that run on your Taplio account through the official Taplio MCP server (https://mcp.taplio.com/, OAuth).",
+      "author": {
+        "name": "Taplio",
+        "url": "https://taplio.com"
+      },
+      "homepage": "https://taplio.com/claude-skills-for-linkedin",
+      "repository": "https://github.com/TaplioOfficial/taplio-linkedin-plugin",
+      "license": "MIT",
+      "keywords": [
+        "linkedin",
+        "taplio",
+        "mcp",
+        "leads",
+        "content-creation",
+        "social-media",
+        "personal-branding"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "TaplioOfficial/taplio-linkedin-plugin",
+        "sha": "de35243952a753ff53a1e9f0c8ebf537263a1436"
+      }
     }
   ]
 }
