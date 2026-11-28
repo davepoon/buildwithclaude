@@ -1251,5 +1251,19 @@
       "/plugin marketplace add bmconsult/dusk-glass",
       "/plugin install dusk-glass@dusk-glass"
     ]
+  },
+  {
+    "slug": "taiwan-magpie",
+    "name": "Taiwan Blue Magpie",
+    "author": "guinea19820623-star",
+    "repo": "guinea19820623-star/taiwan-magpie-theme",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "A night copperplate engraving in white lines: a Taiwan blue magpie draws itself stroke by stroke on a dead branch, then its name is written in bright gold with a sparkler at the pen tip. Buttons above the prompt replay the opening and play a real recorded magpie call.",
+    "preview": "https://raw.githubusercontent.com/guinea19820623-star/taiwan-magpie-theme/main/docs/opening.gif",
+    "install": [
+      "/plugin marketplace add guinea19820623-star/taiwan-magpie-theme",
+      "/plugin install taiwan-magpie-theme@taiwan-magpie-theme"
+    ]
   }
 ]
