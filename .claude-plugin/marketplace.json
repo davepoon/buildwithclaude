@@ -6725,6 +6725,36 @@
         "path": "plugins/nattermatic",
         "sha": "ca929c7630a4a9926a183225af49c1cc6aa50633"
       }
+    },
+    {
+      "name": "seniormode",
+      "description": "Make and verify engineering decisions for coding agents across new projects and existing codebases, with practical guides for architecture, correctness, reliability and product behavior.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Enes Kerem Aydın",
+        "url": "https://github.com/EnesKeremAYDIN"
+      },
+      "homepage": "https://github.com/EnesKeremAYDIN/SeniorMode/tree/v1.0.0/skills/seniormode",
+      "repository": "https://github.com/EnesKeremAYDIN/SeniorMode",
+      "license": "(MIT AND CC-BY-4.0)",
+      "keywords": [
+        "engineering",
+        "architecture",
+        "coding-agents",
+        "verification",
+        "agent-skill"
+      ],
+      "category": "development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/EnesKeremAYDIN/SeniorMode.git",
+        "path": "skills/seniormode",
+        "sha": "824f4239c54e777b4cabe8b7431d74df42d7d179"
+      },
+      "strict": false,
+      "skills": [
+        "./"
+      ]
     }
   ]
 }
