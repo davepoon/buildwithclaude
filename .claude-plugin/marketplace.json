@@ -6617,6 +6617,32 @@
         "repo": "Balance0014/claude-code-claim-check",
         "sha": "5a896f86068f7c2fbc662db40c3473b2f03ba698"
       }
+    },
+    {
+      "name": "runlater",
+      "description": "Schedule HTTP requests from Claude Code: call any public URL once at an exact time or on a cron schedule, with retries and a log of every run. A skill that previews each schedule (method, URL, when in plain words, next 3 run times, time zone) and waits for a yes before creating it, plus the hosted RunLater MCP server (10 tools, OAuth sign-in, no key to paste). Scheduling needs a RunLater plan (from $15/mo, 14-day trial).",
+      "version": "1.2.0",
+      "author": {
+        "name": "Great Work LLC",
+        "url": "https://runlater.app"
+      },
+      "homepage": "https://runlater.app",
+      "repository": "https://github.com/runlater-app/runlater-plugin",
+      "license": "MIT",
+      "keywords": [
+        "cron",
+        "scheduler",
+        "webhooks",
+        "scheduled-jobs",
+        "http-requests",
+        "mcp"
+      ],
+      "category": "automation",
+      "source": {
+        "source": "github",
+        "repo": "runlater-app/runlater-plugin",
+        "sha": "944e251fdc38019a554868085545322f2b692cbe"
+      }
     }
   ]
 }
