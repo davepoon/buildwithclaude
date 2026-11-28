@@ -1265,5 +1265,19 @@
       "/plugin marketplace add guinea19820623-star/taiwan-magpie-theme",
       "/plugin install taiwan-magpie-theme@taiwan-magpie-theme"
     ]
+  },
+  {
+    "slug": "night-circuit",
+    "name": "Night Circuit",
+    "author": "wahnahbe",
+    "repo": "wahnahbe/night-circuit",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "A neon night-city HUD frame behind the chat: red and yellow rails with angular corner brackets, running lights, marching hazard bars, a slow cyan scan line and a brief screen glitch.",
+    "preview": "https://raw.githubusercontent.com/wahnahbe/night-circuit/main/docs/preview.png",
+    "install": [
+      "/plugin marketplace add wahnahbe/night-circuit",
+      "/plugin install night-circuit@night-circuit"
+    ]
   }
 ]
