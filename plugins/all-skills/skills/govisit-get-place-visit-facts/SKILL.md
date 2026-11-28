@@ -1,14 +1,8 @@
 ---
 name: "govisit-get-place-visit-facts"
 description: "Read the practical facts GoVisit publishes for a visit to this place. Use it to plan a visit or answer logistics questions about getting there, making contact, and what to expect. Returns compact facts with the source page and its freshness."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "get_place_visit_facts"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-get-place-visit-facts/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Get place visit facts

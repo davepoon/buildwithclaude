@@ -1,14 +1,8 @@
 ---
 name: "govisit-get-documentation-page"
 description: "Read a specific GoVisit documentation article or one of its sections. Use it to retrieve instructions or reference material after identifying the right page. Returns structured published content, its canonical URL, and any truncation information."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "get_documentation_page"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-get-documentation-page/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Read documentation page

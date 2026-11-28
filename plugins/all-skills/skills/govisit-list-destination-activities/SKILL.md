@@ -1,14 +1,8 @@
 ---
 name: "govisit-list-destination-activities"
 description: "Browse the activities featured on a GoVisit destination page. Use it to discover experiences the destination presents and follow their links for more detail. Results reflect the activities published on the selected page."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "list_destination_activities"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-list-destination-activities/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Get destination activities

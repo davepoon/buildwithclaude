@@ -1,14 +1,8 @@
 ---
 name: "govisit-search-destinations"
 description: "Find GoVisit destinations by name or travel intent. Use it to identify the right geographic area before exploring its places, activities, or collections. Returns matching destinations with stable codes, canonical links, and the scope searched."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "search_destinations"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-search-destinations/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Search destinations

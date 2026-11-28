@@ -1,14 +1,8 @@
 ---
 name: "govisit-get-place-overview"
 description: "Read the published profile for a GoVisit place. Use it to understand what the place is, where it is, and what the profile says about it. Returns the main description and identifying details, with the canonical page and freshness information."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "get_place_overview"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-get-place-overview/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Get place overview

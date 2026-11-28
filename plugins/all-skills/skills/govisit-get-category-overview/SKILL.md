@@ -1,14 +1,8 @@
 ---
 name: "govisit-get-category-overview"
 description: "Identify a place category on a GoVisit destination page. Use it to confirm the category and its destination before browsing the places listed under it. Returns the published label and code, with a parent category and count where available."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "get_category_overview"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-get-category-overview/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Get category overview

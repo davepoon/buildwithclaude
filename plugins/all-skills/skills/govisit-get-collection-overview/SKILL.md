@@ -1,14 +1,8 @@
 ---
 name: "govisit-get-collection-overview"
 description: "Read the published introduction to a GoVisit destination collection. Use it to understand the collection's theme, confirm which destination it belongs to, and decide whether to explore its entries. Returns the title, description, and published count where available."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "get_collection_overview"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-get-collection-overview/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Get collection overview

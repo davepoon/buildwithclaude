@@ -1,14 +1,8 @@
 ---
 name: "govisit-search-availability"
 description: "Find bookable options for supported hotels, restaurants, tours, activities and experiences, and transport services. Search using the requested dates or time and party size. Returns matching options, rates or prices when supplied, and a prefilled booking URL where available."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "search_availability"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-search-availability/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Search availability

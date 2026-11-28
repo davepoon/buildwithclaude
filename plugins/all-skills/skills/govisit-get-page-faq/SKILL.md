@@ -1,14 +1,8 @@
 ---
 name: "govisit-get-page-faq"
 description: "Read the published questions and answers on the current GoVisit blog or documentation page. Use it to find an answer already provided by that page. An optional search narrows the returned entries, which include links back to their source."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "get_page_faq"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-get-page-faq/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Read published page FAQs

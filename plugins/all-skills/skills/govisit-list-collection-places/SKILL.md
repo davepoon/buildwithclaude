@@ -1,14 +1,8 @@
 ---
 name: "govisit-list-collection-places"
 description: "Browse or filter the published place cards in a named GoVisit destination collection. Use it to pick entries that fit the traveler's needs and open their profiles. The results reflect the collection's published selection."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "list_collection_places"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-list-collection-places/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # List collection places

@@ -1,14 +1,8 @@
 ---
 name: "govisit-get-blog-post"
 description: "Read the current GoVisit blog article or a selected section. Use it to extract the article's published content and context, including available FAQs and related posts. Returns structured content with source and coverage information."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "get_blog_post"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-get-blog-post/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Read blog post

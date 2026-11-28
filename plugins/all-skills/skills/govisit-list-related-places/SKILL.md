@@ -1,14 +1,8 @@
 ---
 name: "govisit-list-related-places"
 description: "Browse or filter the related place cards shown on a GoVisit place profile. Use it to discover published nearby suggestions around the selected place and follow their profile links. Results cover the related places featured on that page."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "list_related_places"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-list-related-places/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Get related places

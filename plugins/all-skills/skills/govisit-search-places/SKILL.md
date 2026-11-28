@@ -1,14 +1,8 @@
 ---
 name: "govisit-search-places"
 description: "Find GoVisit places by name or by what the traveler wants to do. Use it to identify a specific place or build a shortlist within the requested geography. Returns matching places with profile links, the search scope, and any coverage limits."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "search_places"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-search-places/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Search places

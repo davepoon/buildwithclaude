@@ -1,14 +1,8 @@
 ---
 name: "govisit-list-destination-highlights"
 description: "Read the highlights featured on a GoVisit destination page. Use it to get a quick orientation or start a shortlist of notable places to explore. Returns the published highlight cards and links for the selected destination."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "list_destination_highlights"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-list-destination-highlights/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Get destination highlights

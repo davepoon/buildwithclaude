@@ -1,14 +1,8 @@
 ---
 name: "govisit-search-documentation"
 description: "Find relevant published documentation linked from the current GoVisit documentation index. Use it to locate a guide or reference before reading its content. Returns matching document titles and canonical links from that index."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "search_documentation"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-search-documentation/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Search documentation

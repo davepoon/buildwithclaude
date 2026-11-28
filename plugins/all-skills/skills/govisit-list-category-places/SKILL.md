@@ -1,14 +1,8 @@
 ---
 name: "govisit-list-category-places"
 description: "Browse or filter the place cards shown for one category within a GoVisit destination. Use it to shortlist places from that category page and follow their profiles. Results cover the page's published selection."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "list_category_places"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-list-category-places/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # List category places

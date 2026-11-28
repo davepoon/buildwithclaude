@@ -1,14 +1,8 @@
 ---
 name: "govisit-list-destination-categories"
 description: "List the categories shown on a GoVisit destination page. Use it to see how that destination organizes its places and choose a category to explore next. Returns published labels and codes with parent relationships and counts where available."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "list_destination_categories"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-list-destination-categories/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Get destination categories

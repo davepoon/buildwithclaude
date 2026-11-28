@@ -1,14 +1,8 @@
 ---
 name: "govisit-get-statistics"
 description: "Read published GoVisit catalog coverage counts for the world or the destination in scope. Use it to answer how much of the catalog is covered and when it was measured. Results include observation metadata and distinguish missing counts from measured zeroes."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "get_statistics"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-get-statistics/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Get statistics

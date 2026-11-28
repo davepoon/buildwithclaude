@@ -1,14 +1,8 @@
 ---
 name: "govisit-search-blog-posts"
 description: "Find articles among the posts shown on the current GoVisit blog index. Use it to identify relevant articles by topic, title, or author. Returns matching summaries and links, with coverage information for the index page searched."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "search_blog_posts"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-search-blog-posts/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Search blog posts

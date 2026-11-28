@@ -1,14 +1,8 @@
 ---
 name: "govisit-get-place-section"
 description: "Read one section of a published GoVisit place profile. Use it when a traveler needs detail on a particular part of the profile, such as location, experiences, accessibility, or nearby places. Returns the selected section and its source page."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "get_place_section"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-get-place-section/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Get place section

@@ -1,14 +1,8 @@
 ---
 name: "govisit-get-destination-overview"
 description: "Read the published overview of a GoVisit destination. Use it to identify the destination, understand its geographic context, and get an introduction before exploring its places or activities. Returns the overview with its canonical page and freshness."
+category: research
 license: MIT
-metadata:
-  author: "GoVisit.ai"
-  tool: "get_destination_overview"
-  version: "1-7907965bb88a5107"
-  contract-version: "1"
-  canonical-url: "https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-get-destination-overview/SKILL.md"
-  source-digest: "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f"
 ---
 
 # Get destination overview
