@@ -1,0 +1,1599 @@
+{
+  "tool": "get_blog_post",
+  "contractVersion": "1",
+  "method": "POST",
+  "endpoint": "https://govisit.ai/api/tools/v1/get_blog_post",
+  "contentType": "application/json",
+  "context": "page",
+  "defaults": {
+    "language": "pagePath",
+    "scope": "page-published"
+  },
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "pagePath": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1000,
+        "description": "Canonical GoVisit page path supplying this tool's published context; no origin, query or fragment."
+      },
+      "section": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200,
+        "description": "Optional heading anchor identifying one published section."
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "pagePath"
+    ]
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "schemaVersion": {
+        "const": "1"
+      },
+      "pageType": {
+        "const": "blog-post"
+      },
+      "pageId": {
+        "type": "string",
+        "maxLength": 4000
+      },
+      "locale": {
+        "type": "string",
+        "maxLength": 100
+      },
+      "canonicalUrl": {
+        "type": "string",
+        "maxLength": 4000
+      },
+      "contentVersion": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "maxLength": 4000
+      },
+      "updatedAt": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "maxLength": 4000
+      },
+      "freshness": {
+        "type": "object",
+        "properties": {
+          "contentVersion": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "contentVersion",
+          "updatedAt"
+        ],
+        "additionalProperties": false
+      },
+      "completeness": {
+        "type": "string",
+        "maxLength": 4000
+      },
+      "data": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "headings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "maxLength": 4000
+                },
+                "anchor": {
+                  "type": "string",
+                  "maxLength": 4000
+                },
+                "level": {
+                  "type": "integer",
+                  "minimum": 2,
+                  "maximum": 6
+                }
+              },
+              "required": [
+                "title",
+                "anchor",
+                "level"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 20
+          },
+          "section": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 200
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "maxLength": 100
+              },
+              "language": {
+                "type": "string",
+                "maxLength": 100
+              },
+              "publishedAt": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "maxLength": 4000
+              },
+              "updatedAt": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "maxLength": 4000
+              },
+              "authors": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/author"
+                },
+                "maxItems": 20
+              },
+              "publisher": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "maxLength": 4000
+                      },
+                      "url": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "maxLength": 4000
+                      },
+                      "id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "maxLength": 4000
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "url",
+                      "id"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "categories": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 4000
+                },
+                "maxItems": 20
+              },
+              "images": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/image"
+                },
+                "maxItems": 20
+              },
+              "languageAlternates": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "language": {
+                      "type": "string",
+                      "maxLength": 100
+                    },
+                    "url": {
+                      "type": "string",
+                      "maxLength": 4000
+                    }
+                  },
+                  "required": [
+                    "language",
+                    "url"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 20
+              },
+              "wordCount": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "citations": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 4000
+                },
+                "maxItems": 20
+              },
+              "keywords": {
+                "description": "Localized topics in editorial order. Aim for 6–10 distinct phrases of 1–4 words, each at most 48 Unicode code points. Null means uncurated and an empty array means explicitly none.",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 48
+                },
+                "maxItems": 10
+              }
+            },
+            "required": [
+              "status",
+              "language",
+              "publishedAt",
+              "updatedAt",
+              "authors",
+              "publisher",
+              "categories",
+              "images",
+              "languageAlternates",
+              "wordCount",
+              "citations",
+              "keywords"
+            ],
+            "additionalProperties": false
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/block0"
+            },
+            "maxItems": 80
+          },
+          "faqs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "question": {
+                  "type": "string",
+                  "maxLength": 4000
+                },
+                "answer": {
+                  "type": "string",
+                  "maxLength": 4000
+                },
+                "url": {
+                  "type": "string",
+                  "maxLength": 4000
+                },
+                "links": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/link"
+                  },
+                  "maxItems": 20
+                }
+              },
+              "required": [
+                "question",
+                "answer",
+                "url",
+                "links"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 20
+          },
+          "relatedPosts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/summary"
+            },
+            "maxItems": 20
+          },
+          "coverage": {
+            "type": "object",
+            "properties": {
+              "contentTruncated": {
+                "type": "boolean"
+              },
+              "headingsTruncated": {
+                "type": "boolean"
+              },
+              "metadataTruncated": {
+                "type": "boolean"
+              },
+              "faqsTruncated": {
+                "type": "boolean"
+              },
+              "relatedPostsTruncated": {
+                "type": "boolean"
+              },
+              "projectionComplete": {
+                "type": "boolean"
+              },
+              "unsupportedContentTypes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                "maxItems": 80
+              }
+            },
+            "required": [
+              "contentTruncated",
+              "headingsTruncated",
+              "metadataTruncated",
+              "faqsTruncated",
+              "relatedPostsTruncated",
+              "projectionComplete",
+              "unsupportedContentTypes"
+            ],
+            "additionalProperties": false
+          },
+          "truncated": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "title",
+          "description",
+          "headings",
+          "section",
+          "metadata",
+          "content",
+          "faqs",
+          "relatedPosts",
+          "coverage",
+          "truncated"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "schemaVersion",
+      "pageType",
+      "pageId",
+      "locale",
+      "canonicalUrl",
+      "contentVersion",
+      "updatedAt",
+      "freshness",
+      "completeness",
+      "data"
+    ],
+    "additionalProperties": false,
+    "$defs": {
+      "author": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "organization": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "articleRelevance": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "avatarUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "linkedinUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "agentCardUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "affiliationUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "name",
+          "title",
+          "organization",
+          "articleRelevance",
+          "avatarUrl",
+          "linkedinUrl",
+          "agentCardUrl",
+          "affiliationUrl"
+        ],
+        "additionalProperties": false
+      },
+      "summaryAuthor": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "organization": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "articleRelevance": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "avatarUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "linkedinUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "agentCardUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "affiliationUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "image": {
+        "type": "object",
+        "properties": {
+          "src": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "alt": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "kind": {
+            "enum": [
+              "square",
+              "landscape",
+              "hero"
+            ]
+          },
+          "width": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "height": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        "required": [
+          "src",
+          "alt",
+          "kind"
+        ],
+        "additionalProperties": false
+      },
+      "summary": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "url": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "canonicalUrl": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "category": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 4000
+            },
+            "maxItems": 20
+          },
+          "publishedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "status": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "authors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/summaryAuthor"
+            },
+            "maxItems": 20
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/image"
+            },
+            "maxItems": 20
+          },
+          "keywords": {
+            "description": "Localized topics in editorial order. Aim for 6–10 distinct phrases of 1–4 words, each at most 48 Unicode code points. Null means uncurated and an empty array means explicitly none.",
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 48
+            },
+            "maxItems": 10
+          }
+        },
+        "required": [
+          "title",
+          "url",
+          "canonicalUrl",
+          "description",
+          "category",
+          "categories",
+          "publishedAt",
+          "updatedAt",
+          "status",
+          "authors",
+          "images",
+          "keywords"
+        ],
+        "additionalProperties": false
+      },
+      "link": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "url": {
+            "type": "string",
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "text",
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "block0": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/richHeading"
+          },
+          {
+            "$ref": "#/$defs/richParagraph"
+          },
+          {
+            "$ref": "#/$defs/richText"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "list"
+              },
+              "ordered": {
+                "type": "boolean"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/block1"
+                      },
+                      "maxItems": 80
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 20
+              }
+            },
+            "required": [
+              "type",
+              "ordered",
+              "items"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "$ref": "#/$defs/richCode"
+          },
+          {
+            "$ref": "#/$defs/richTextTemplate"
+          },
+          {
+            "$ref": "#/$defs/richQuote"
+          },
+          {
+            "$ref": "#/$defs/richTable"
+          },
+          {
+            "$ref": "#/$defs/richImage"
+          },
+          {
+            "$ref": "#/$defs/richStat"
+          },
+          {
+            "$ref": "#/$defs/richLink"
+          },
+          {
+            "$ref": "#/$defs/richMedia"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "disclosure"
+              },
+              "summary": {
+                "type": "string",
+                "maxLength": 4000
+              },
+              "content": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/block1"
+                },
+                "maxItems": 80
+              }
+            },
+            "required": [
+              "type",
+              "summary",
+              "content"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "block1": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/richHeading"
+          },
+          {
+            "$ref": "#/$defs/richParagraph"
+          },
+          {
+            "$ref": "#/$defs/richText"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "list"
+              },
+              "ordered": {
+                "type": "boolean"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/block2"
+                      },
+                      "maxItems": 80
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 20
+              }
+            },
+            "required": [
+              "type",
+              "ordered",
+              "items"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "$ref": "#/$defs/richCode"
+          },
+          {
+            "$ref": "#/$defs/richTextTemplate"
+          },
+          {
+            "$ref": "#/$defs/richQuote"
+          },
+          {
+            "$ref": "#/$defs/richTable"
+          },
+          {
+            "$ref": "#/$defs/richImage"
+          },
+          {
+            "$ref": "#/$defs/richStat"
+          },
+          {
+            "$ref": "#/$defs/richLink"
+          },
+          {
+            "$ref": "#/$defs/richMedia"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "disclosure"
+              },
+              "summary": {
+                "type": "string",
+                "maxLength": 4000
+              },
+              "content": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/block2"
+                },
+                "maxItems": 80
+              }
+            },
+            "required": [
+              "type",
+              "summary",
+              "content"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "block2": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/richHeading"
+          },
+          {
+            "$ref": "#/$defs/richParagraph"
+          },
+          {
+            "$ref": "#/$defs/richText"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "list"
+              },
+              "ordered": {
+                "type": "boolean"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/block3"
+                      },
+                      "maxItems": 80
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 20
+              }
+            },
+            "required": [
+              "type",
+              "ordered",
+              "items"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "$ref": "#/$defs/richCode"
+          },
+          {
+            "$ref": "#/$defs/richTextTemplate"
+          },
+          {
+            "$ref": "#/$defs/richQuote"
+          },
+          {
+            "$ref": "#/$defs/richTable"
+          },
+          {
+            "$ref": "#/$defs/richImage"
+          },
+          {
+            "$ref": "#/$defs/richStat"
+          },
+          {
+            "$ref": "#/$defs/richLink"
+          },
+          {
+            "$ref": "#/$defs/richMedia"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "disclosure"
+              },
+              "summary": {
+                "type": "string",
+                "maxLength": 4000
+              },
+              "content": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/block3"
+                },
+                "maxItems": 80
+              }
+            },
+            "required": [
+              "type",
+              "summary",
+              "content"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "block3": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/richHeading"
+          },
+          {
+            "$ref": "#/$defs/richParagraph"
+          },
+          {
+            "$ref": "#/$defs/richText"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "list"
+              },
+              "ordered": {
+                "type": "boolean"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/block4"
+                      },
+                      "maxItems": 80
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 20
+              }
+            },
+            "required": [
+              "type",
+              "ordered",
+              "items"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "$ref": "#/$defs/richCode"
+          },
+          {
+            "$ref": "#/$defs/richTextTemplate"
+          },
+          {
+            "$ref": "#/$defs/richQuote"
+          },
+          {
+            "$ref": "#/$defs/richTable"
+          },
+          {
+            "$ref": "#/$defs/richImage"
+          },
+          {
+            "$ref": "#/$defs/richStat"
+          },
+          {
+            "$ref": "#/$defs/richLink"
+          },
+          {
+            "$ref": "#/$defs/richMedia"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "disclosure"
+              },
+              "summary": {
+                "type": "string",
+                "maxLength": 4000
+              },
+              "content": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/block4"
+                },
+                "maxItems": 80
+              }
+            },
+            "required": [
+              "type",
+              "summary",
+              "content"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "block4": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/richHeading"
+          },
+          {
+            "$ref": "#/$defs/richParagraph"
+          },
+          {
+            "$ref": "#/$defs/richText"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "list"
+              },
+              "ordered": {
+                "type": "boolean"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "content": {
+                      "type": "array",
+                      "items": false,
+                      "maxItems": 0
+                    }
+                  },
+                  "required": [
+                    "content"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 20
+              }
+            },
+            "required": [
+              "type",
+              "ordered",
+              "items"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "$ref": "#/$defs/richCode"
+          },
+          {
+            "$ref": "#/$defs/richTextTemplate"
+          },
+          {
+            "$ref": "#/$defs/richQuote"
+          },
+          {
+            "$ref": "#/$defs/richTable"
+          },
+          {
+            "$ref": "#/$defs/richImage"
+          },
+          {
+            "$ref": "#/$defs/richStat"
+          },
+          {
+            "$ref": "#/$defs/richLink"
+          },
+          {
+            "$ref": "#/$defs/richMedia"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "disclosure"
+              },
+              "summary": {
+                "type": "string",
+                "maxLength": 4000
+              },
+              "content": {
+                "type": "array",
+                "items": false,
+                "maxItems": 0
+              }
+            },
+            "required": [
+              "type",
+              "summary",
+              "content"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "richHeading": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "heading"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "anchor": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "level": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 6
+          }
+        },
+        "required": [
+          "type",
+          "title",
+          "anchor",
+          "level"
+        ],
+        "additionalProperties": false
+      },
+      "richParagraph": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "paragraph"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/link"
+            },
+            "maxItems": 20
+          }
+        },
+        "required": [
+          "type",
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "richText": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "text"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/link"
+            },
+            "maxItems": 20
+          }
+        },
+        "required": [
+          "type",
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "richCode": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "code"
+          },
+          "language": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "code": {
+            "type": "string",
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "type",
+          "language",
+          "code"
+        ],
+        "additionalProperties": false
+      },
+      "richTextTemplate": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "textTemplate"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "type",
+          "title",
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "richQuote": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "quote"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/link"
+            },
+            "maxItems": 20
+          },
+          "author": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "maxLength": 4000
+              },
+              "role": {
+                "type": "string",
+                "maxLength": 4000
+              },
+              "avatarUrl": {
+                "type": "string",
+                "maxLength": 4000
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "type",
+          "text"
+        ],
+        "additionalProperties": false
+      },
+      "richTable": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "table"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cells": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string",
+                        "maxLength": 4000
+                      },
+                      "header": {
+                        "type": "boolean"
+                      },
+                      "scope": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "maxLength": 4000
+                      },
+                      "rowSpan": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "colSpan": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "links": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/$defs/link"
+                        },
+                        "maxItems": 20
+                      }
+                    },
+                    "required": [
+                      "text",
+                      "header",
+                      "scope",
+                      "rowSpan",
+                      "colSpan"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "maxItems": 20
+                }
+              },
+              "required": [
+                "cells"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 20
+          }
+        },
+        "required": [
+          "type",
+          "caption",
+          "rows"
+        ],
+        "additionalProperties": false
+      },
+      "richImage": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "image"
+          },
+          "src": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "alt": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "credit": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "creditUrl": {
+            "type": "string",
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "type",
+          "src",
+          "alt"
+        ],
+        "additionalProperties": false
+      },
+      "richStat": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "stat"
+          },
+          "value": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "type",
+          "value",
+          "label"
+        ],
+        "additionalProperties": false
+      },
+      "richLink": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "link"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "url": {
+            "type": "string",
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "type",
+          "title",
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "richMedia": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "media"
+          },
+          "kind": {
+            "enum": [
+              "audio",
+              "video"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "src": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "src": {
+                  "type": "string",
+                  "maxLength": 4000
+                },
+                "type": {
+                  "type": "string",
+                  "maxLength": 4000
+                }
+              },
+              "required": [
+                "src"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 20
+          },
+          "poster": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "type",
+          "kind",
+          "title"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "errorSchema": {
+    "type": "object",
+    "properties": {
+      "schemaVersion": {
+        "const": "1"
+      },
+      "completeness": {
+        "enum": [
+          "invalid-input",
+          "not-found",
+          "unavailable"
+        ]
+      },
+      "error": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "schemaVersion",
+      "completeness",
+      "error"
+    ],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "untrustedContentHint": true
+  },
+  "sourceDigest": "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f",
+  "version": "1-7907965bb88a5107"
+}
