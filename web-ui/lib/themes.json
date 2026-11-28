@@ -1208,5 +1208,19 @@
       "/plugin marketplace add nguyenquangtin/da-nang-dragon-bridge",
       "/plugin install da-nang-dragon-bridge@da-nang-dragon-bridge"
     ]
+  },
+  {
+    "slug": "marble-statues",
+    "name": "Marble Statues",
+    "author": "guinea19820623-star",
+    "repo": "guinea19820623-star/marble-statues-theme",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "Marble statues rise out of the night as if lit by the moon: the Venus de Milo, Michelangelo's Moses, Athena and a Caryatid of the Erechtheion, drawn from public-domain 3D scans, each one's name then written in gold. Buttons above the prompt switch statues and play Bach's Air.",
+    "preview": "https://raw.githubusercontent.com/guinea19820623-star/marble-statues-theme/main/docs/preview.gif",
+    "install": [
+      "/plugin marketplace add guinea19820623-star/marble-statues-theme",
+      "/plugin install marble-statues-theme@marble-statues-theme"
+    ]
   }
 ]
