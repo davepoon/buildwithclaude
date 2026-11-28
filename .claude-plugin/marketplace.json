@@ -6461,6 +6461,35 @@
         "repo": "hermoso-ai/hermoso",
         "sha": "c9f3476e577448841b910e4c938b68c2fcfb2a1d"
       }
+    },
+    {
+      "name": "genaya",
+      "description": "Ask Genaya about your own service business from Claude Code: today's schedule, who owes you, revenue, calls, clients and your team, answered from your Genaya records through the hosted Genaya MCP server (https://api.genaya.com/mcp, OAuth sign-in). Skills cover the daily briefing, schedule, open invoices, money, calls, clients and team. Ask for a change (a task, a client, a reschedule) and Genaya prepares it, shows a preview and runs nothing until you confirm. Needs a Genaya account.",
+      "version": "1.1.0",
+      "author": {
+        "name": "Genaya",
+        "url": "https://www.genaya.com"
+      },
+      "homepage": "https://developer.genaya.com/mcp",
+      "repository": "https://github.com/genaya-app/genaya-claude-plugins",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "business",
+        "crm",
+        "scheduling",
+        "invoices",
+        "calls",
+        "field-service",
+        "operations"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/genaya-app/genaya-claude-plugins.git",
+        "path": "plugins/genaya",
+        "sha": "2c5c71ac70aac2dbd61295ae708ec9a11892ab97"
+      }
     }
   ]
 }
