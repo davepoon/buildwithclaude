@@ -6542,6 +6542,31 @@
         "path": "plugins/archlang",
         "sha": "50b5ac2d0060e7daae5e335306ca3eb1d9700309"
       }
+    },
+    {
+      "name": "nimply",
+      "description": "Official Nimply skill. Explains the AI social media workforce (agents, Planner, Inbox, automations, API, MCP) and designs a tailored setup for any business. Bundles the hosted Nimply MCP server.",
+      "version": "1.0.1",
+      "author": {
+        "name": "Nimply",
+        "url": "https://nimply.io"
+      },
+      "homepage": "https://nimply.io",
+      "repository": "https://github.com/nimply/skills",
+      "license": "MIT",
+      "keywords": [
+        "social-media",
+        "ai-agents",
+        "marketing",
+        "automation",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "nimply/skills",
+        "sha": "fbafad96e2dd278d73f0a992e2c0605cf3c811a8"
+      }
     }
   ]
 }
