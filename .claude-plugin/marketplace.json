@@ -6755,6 +6755,31 @@
       "skills": [
         "./"
       ]
+    },
+    {
+      "name": "meanwhile",
+      "description": "Meet someone while Claude Code works: type /mw, get matched 1:1 with another developer who's waiting on their agent, and chat in a side panel. 18+ only. Matching uses the gender you pick and who you're looking for; optional view-once photo sharing. Anonymous, no account. Talks only to meanwhile.gripe (matching and chat relay); never reads your conversation, code or files. Chats live in memory and are dropped unless both people keep them or one of them reports the chat. A Claude Code mod (hooks module with a side pane).",
+      "version": "0.11.1",
+      "author": {
+        "name": "radioheavy",
+        "url": "https://github.com/radioheavy"
+      },
+      "homepage": "https://meanwhile.gripe",
+      "repository": "https://github.com/radioheavy/meanwhile",
+      "license": "MIT",
+      "keywords": [
+        "chat",
+        "social",
+        "matching",
+        "mod",
+        "side-pane"
+      ],
+      "category": "creative",
+      "source": {
+        "source": "github",
+        "repo": "radioheavy/meanwhile",
+        "sha": "28373d816bd6dc4082db9f2d79773ae200a98d25"
+      }
     }
   ]
 }
