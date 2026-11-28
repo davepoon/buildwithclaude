@@ -6567,6 +6567,31 @@
         "repo": "nimply/skills",
         "sha": "fbafad96e2dd278d73f0a992e2c0605cf3c811a8"
       }
+    },
+    {
+      "name": "when-to-clear",
+      "description": "Shows how much of your Claude Code usage goes to re-reading long conversations, from the token counts already saved in your local transcripts. A Stop hook prints a one-line reminder when a conversation passes 200k tokens (once per size step; it never blocks), and a handoff skill writes a short note so /clear does not lose your place. Standard-library Python, local files only, no network.",
+      "version": "0.1.1",
+      "author": {
+        "name": "Balance Zhao",
+        "url": "https://github.com/Balance0014"
+      },
+      "homepage": "https://github.com/Balance0014/claude-code-when-to-clear",
+      "repository": "https://github.com/Balance0014/claude-code-when-to-clear",
+      "license": "MIT",
+      "keywords": [
+        "monitoring",
+        "tokens",
+        "usage",
+        "context",
+        "stop-hook"
+      ],
+      "category": "monitoring",
+      "source": {
+        "source": "github",
+        "repo": "Balance0014/claude-code-when-to-clear",
+        "sha": "8212a4a17ab1d2769af04b1b12b9271f3e4de8ab"
+      }
     }
   ]
 }
