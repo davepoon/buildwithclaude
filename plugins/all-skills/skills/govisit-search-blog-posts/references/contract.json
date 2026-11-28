@@ -1,0 +1,503 @@
+{
+  "tool": "search_blog_posts",
+  "contractVersion": "1",
+  "method": "POST",
+  "endpoint": "https://govisit.ai/api/tools/v1/search_blog_posts",
+  "contentType": "application/json",
+  "context": "page",
+  "defaults": {
+    "language": "pagePath",
+    "scope": "page-published"
+  },
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "pagePath": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1000,
+        "description": "Canonical GoVisit page path supplying this tool's published context; no origin, query or fragment."
+      },
+      "query": {
+        "type": "string",
+        "description": "Optional title, description, category or author name text to match across the rendered page projection.",
+        "maxLength": 200
+      },
+      "limit": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 20,
+        "description": "Maximum number of matching posts to return, from 1 to 20; defaults to 10."
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "pagePath"
+    ]
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "schemaVersion": {
+        "const": "1"
+      },
+      "pageType": {
+        "const": "blog-index"
+      },
+      "pageId": {
+        "type": "string",
+        "maxLength": 4000
+      },
+      "locale": {
+        "type": "string",
+        "maxLength": 100
+      },
+      "canonicalUrl": {
+        "type": "string",
+        "maxLength": 4000
+      },
+      "contentVersion": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "maxLength": 4000
+      },
+      "updatedAt": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "maxLength": 4000
+      },
+      "freshness": {
+        "type": "object",
+        "properties": {
+          "contentVersion": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "contentVersion",
+          "updatedAt"
+        ],
+        "additionalProperties": false
+      },
+      "completeness": {
+        "type": "string",
+        "maxLength": 4000
+      },
+      "data": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/summary"
+            },
+            "maxItems": 20
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 20
+          },
+          "matchedCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 200
+          },
+          "renderedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "truncated": {
+            "type": "boolean"
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "nextPageUrl": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "maxLength": 4000
+              }
+            },
+            "required": [
+              "nextPageUrl"
+            ],
+            "additionalProperties": false
+          },
+          "coverage": {
+            "type": "object",
+            "properties": {
+              "scanTruncated": {
+                "type": "boolean"
+              },
+              "itemsTruncated": {
+                "type": "boolean"
+              },
+              "fieldsTruncated": {
+                "type": "boolean"
+              },
+              "projectionComplete": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "scanTruncated",
+              "itemsTruncated",
+              "fieldsTruncated",
+              "projectionComplete"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "items",
+          "count",
+          "matchedCount",
+          "renderedCount",
+          "truncated",
+          "pagination",
+          "coverage"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "schemaVersion",
+      "pageType",
+      "pageId",
+      "locale",
+      "canonicalUrl",
+      "contentVersion",
+      "updatedAt",
+      "freshness",
+      "completeness",
+      "data"
+    ],
+    "additionalProperties": false,
+    "$defs": {
+      "author": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "organization": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "articleRelevance": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "avatarUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "linkedinUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "agentCardUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "affiliationUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "name",
+          "title",
+          "organization",
+          "articleRelevance",
+          "avatarUrl",
+          "linkedinUrl",
+          "agentCardUrl",
+          "affiliationUrl"
+        ],
+        "additionalProperties": false
+      },
+      "summaryAuthor": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "organization": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "articleRelevance": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "avatarUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "linkedinUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "agentCardUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "affiliationUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      "image": {
+        "type": "object",
+        "properties": {
+          "src": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "alt": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "kind": {
+            "enum": [
+              "square",
+              "landscape",
+              "hero"
+            ]
+          },
+          "width": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "height": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        "required": [
+          "src",
+          "alt",
+          "kind"
+        ],
+        "additionalProperties": false
+      },
+      "summary": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "url": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "canonicalUrl": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "category": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 4000
+            },
+            "maxItems": 20
+          },
+          "publishedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "updatedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 4000
+          },
+          "status": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "authors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/summaryAuthor"
+            },
+            "maxItems": 20
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/image"
+            },
+            "maxItems": 20
+          },
+          "keywords": {
+            "description": "Localized topics in editorial order. Aim for 6–10 distinct phrases of 1–4 words, each at most 48 Unicode code points. Null means uncurated and an empty array means explicitly none.",
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 48
+            },
+            "maxItems": 10
+          }
+        },
+        "required": [
+          "title",
+          "url",
+          "canonicalUrl",
+          "description",
+          "category",
+          "categories",
+          "publishedAt",
+          "updatedAt",
+          "status",
+          "authors",
+          "images",
+          "keywords"
+        ],
+        "additionalProperties": false
+      },
+      "link": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "url": {
+            "type": "string",
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "text",
+          "url"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "errorSchema": {
+    "type": "object",
+    "properties": {
+      "schemaVersion": {
+        "const": "1"
+      },
+      "completeness": {
+        "enum": [
+          "invalid-input",
+          "not-found",
+          "unavailable"
+        ]
+      },
+      "error": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "schemaVersion",
+      "completeness",
+      "error"
+    ],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "untrustedContentHint": true
+  },
+  "sourceDigest": "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f",
+  "version": "1-7907965bb88a5107"
+}

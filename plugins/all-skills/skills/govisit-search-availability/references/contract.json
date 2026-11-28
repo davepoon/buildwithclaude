@@ -1,0 +1,388 @@
+{
+  "tool": "search_availability",
+  "contractVersion": "1",
+  "method": "POST",
+  "endpoint": "https://govisit.ai/api/tools/v1/search_availability",
+  "contentType": "application/json",
+  "context": "page",
+  "defaults": {
+    "language": "pagePath",
+    "scope": "page-published"
+  },
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "pagePath": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1000,
+        "description": "Canonical GoVisit page path supplying this tool's published context; no origin, query or fragment."
+      },
+      "checkIn": {
+        "type": "string",
+        "format": "date",
+        "description": "Check-in date in the hotel’s local calendar, in YYYY-MM-DD format."
+      },
+      "checkOut": {
+        "type": "string",
+        "format": "date",
+        "description": "Check-out date in YYYY-MM-DD format, after check-in."
+      },
+      "adults": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 14,
+        "description": "Number of adults staying in one room."
+      },
+      "childAges": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 17
+        },
+        "maxItems": 13,
+        "description": "Each child’s age at check-in. Omit when no children are traveling. Some providers only support adults."
+      },
+      "currency": {
+        "type": "string",
+        "enum": [
+          "EUR",
+          "USD",
+          "CAD",
+          "GBP",
+          "AUD",
+          "JPY",
+          "CZK"
+        ],
+        "default": "EUR",
+        "description": "Requested quote currency. Defaults to EUR. Unsupported currencies are returned without substitution."
+      }
+    },
+    "required": [
+      "pagePath",
+      "checkIn",
+      "checkOut",
+      "adults"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "schemaVersion": {
+        "const": "1"
+      },
+      "status": {
+        "enum": [
+          "available",
+          "sold_out",
+          "unsupported",
+          "provider_unavailable",
+          "rate_limited"
+        ]
+      },
+      "request": {
+        "type": "object",
+        "properties": {
+          "checkIn": {
+            "type": "string",
+            "format": "date"
+          },
+          "checkOut": {
+            "type": "string",
+            "format": "date"
+          },
+          "adults": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 14
+          },
+          "childAges": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 17
+            },
+            "maxItems": 13
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "EUR",
+              "USD",
+              "CAD",
+              "GBP",
+              "AUD",
+              "JPY",
+              "CZK"
+            ],
+            "default": "EUR"
+          }
+        },
+        "required": [
+          "checkIn",
+          "checkOut",
+          "adults",
+          "childAges",
+          "currency"
+        ],
+        "additionalProperties": false
+      },
+      "observedAt": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time"
+      },
+      "offers": {
+        "type": "array",
+        "maxItems": 30,
+        "items": {
+          "type": "object",
+          "properties": {
+            "roomTypeId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "roomTypeName": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "ratePlanId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "ratePlanName": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "nightlyRate": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+                  "maxLength": 24
+                },
+                "currency": {
+                  "type": "string",
+                  "enum": [
+                    "EUR",
+                    "USD",
+                    "CAD",
+                    "GBP",
+                    "AUD",
+                    "JPY",
+                    "CZK"
+                  ]
+                }
+              },
+              "required": [
+                "value",
+                "currency"
+              ],
+              "additionalProperties": false
+            },
+            "stayTotal": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+                  "maxLength": 24
+                },
+                "currency": {
+                  "type": "string",
+                  "enum": [
+                    "EUR",
+                    "USD",
+                    "CAD",
+                    "GBP",
+                    "AUD",
+                    "JPY",
+                    "CZK"
+                  ]
+                }
+              },
+              "required": [
+                "value",
+                "currency"
+              ],
+              "additionalProperties": false
+            },
+            "stayTotalWithTaxes": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "pattern": "^(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$",
+                  "maxLength": 24
+                },
+                "currency": {
+                  "type": "string",
+                  "enum": [
+                    "EUR",
+                    "USD",
+                    "CAD",
+                    "GBP",
+                    "AUD",
+                    "JPY",
+                    "CZK"
+                  ]
+                }
+              },
+              "required": [
+                "value",
+                "currency"
+              ],
+              "additionalProperties": false
+            },
+            "refundability": {
+              "enum": [
+                "refundable",
+                "non_refundable"
+              ]
+            }
+          },
+          "required": [
+            "roomTypeId",
+            "roomTypeName",
+            "ratePlanId",
+            "ratePlanName",
+            "stayTotal"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "bookingUrl": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uri",
+        "pattern": "^https://",
+        "maxLength": 2048
+      },
+      "bookingUrlScope": {
+        "enum": [
+          "dates",
+          "itinerary",
+          null
+        ]
+      },
+      "retryAfter": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "warnings": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "enum": [
+            "price_currency_unverified",
+            "occupancy_unverified"
+          ]
+        },
+        "description": "Pilot provider caveats. Verify the reported currency, final price and guest occupancy at checkout."
+      }
+    },
+    "required": [
+      "schemaVersion",
+      "status",
+      "request",
+      "observedAt",
+      "offers",
+      "bookingUrl",
+      "bookingUrlScope"
+    ],
+    "additionalProperties": false,
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "status": {
+              "const": "available"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "offers": {
+              "minItems": 1
+            },
+            "observedAt": {
+              "type": "string"
+            }
+          }
+        },
+        "else": {
+          "properties": {
+            "offers": {
+              "maxItems": 0
+            },
+            "bookingUrl": {
+              "type": "null"
+            },
+            "bookingUrlScope": {
+              "type": "null"
+            }
+          }
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "status": {
+              "const": "sold_out"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "observedAt": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "errorSchema": {
+    "type": "object",
+    "properties": {
+      "schemaVersion": {
+        "const": "1"
+      },
+      "completeness": {
+        "enum": [
+          "invalid-input",
+          "not-found",
+          "unavailable"
+        ]
+      },
+      "error": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "schemaVersion",
+      "completeness",
+      "error"
+    ],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "openWorldHint": true,
+    "untrustedContentHint": true
+  },
+  "sourceDigest": "sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f",
+  "version": "1-7907965bb88a5107"
+}

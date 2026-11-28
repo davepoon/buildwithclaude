@@ -1,12 +1,13 @@
 ---
 name: "govisit-search-destinations"
-description: "Search GoVisit destinations by name or traveler intent and return canonical destination codes and URLs. Use when a traveler needs to identify or explore a country, region, district, city, or highlight."
+description: "Find GoVisit destinations by name or travel intent. Use it to identify the right geographic area before exploring its places, activities, or collections. Returns matching destinations with stable codes, canonical links, and the scope searched."
 category: research
 license: MIT
 ---
+
 # Search destinations
 
-Search GoVisit destinations by name or traveler intent and return canonical destination codes and URLs. Use when a traveler needs to identify or explore a country, region, district, city, or highlight.
+Find GoVisit destinations by name or travel intent. Use it to identify the right geographic area before exploring its places, activities, or collections. Returns matching destinations with stable codes, canonical links, and the scope searched.
 
 ## Call the tool
 
@@ -25,7 +26,7 @@ SSE connection, cookies, or session is required.
 
 Read [references/contract.json](references/contract.json) for the exact input and
 output JSON schemas, supported fields, and defaults. On the website this reference
-is available at https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.0/skills/govisit-search-destinations/references/contract.json.
+is available at https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-search-destinations/references/contract.json.
 
 The HTTP default language is English and its default scope is all indexed records. There is no current page or inferred traveler location. Supply language and scope explicitly when the traveler has established them.
 
@@ -56,15 +57,15 @@ defaults above. Browser WebMCP uses `document.modelContext`, not an SSE server.
 
 ## Source and updates
 
-Canonical skill: https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.0/skills/govisit-search-destinations/SKILL.md
+Canonical skill: https://raw.githubusercontent.com/inhotel-io/govisit-toolkit/v0.2.3/skills/govisit-search-destinations/SKILL.md
 
-Downloadable package: https://github.com/inhotel-io/govisit-toolkit/releases/download/v0.2.0/govisit-skill-search-destinations.tar.gz
+Downloadable package: https://github.com/inhotel-io/govisit-toolkit/releases/download/v0.2.3/govisit-skill-search-destinations.tar.gz
 
 Discovery index: https://govisit.ai/.well-known/agent-skills/index.json
 
 This package was generated from GoVisit's reviewed tool catalog, shared template,
-and implementation sources. Its version is `1-c49af023b65d166a`; its source digest is
-`sha256:c49af023b65d166a756510a83fe95de27f16b096bfc488f5ceb92ad5355bdceb`. The index publishes the downloadable package's SHA-256 digest.
+and implementation sources. Its version is `1-7907965bb88a5107`; its source digest is
+`sha256:7907965bb88a5107bf84c6b01972a00fe47e834b3eddcace4d82779ed8c7ce4f`. The index publishes the downloadable package's SHA-256 digest.
 For updates, refresh this whole skill directory from the canonical source using
 your installer's update mechanism. If this is a directory submission, replace it
 with the freshly generated package; do not edit the copied contract independently.
