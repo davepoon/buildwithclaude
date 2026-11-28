@@ -1294,4 +1294,94 @@
       "/plugin install marble-statues-theme@marble-statues-theme"
     ]
   }
+{
+    "slug": "christmas-theme",
+    "name": "Christmas",
+    "author": "malenaaza",
+    "repo": "malenaaza/pretty-mods",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "A pine-green Christmas night with slow snowfall and Santa's sleigh, pulled by three reindeer, climbing across the sky.",
+    "preview": "https://raw.githubusercontent.com/malenaaza/pretty-mods/main/docs/previews/christmas-theme.png",
+    "path": "plugins/christmas-theme",
+    "install": [
+      "/plugin marketplace add malenaaza/pretty-mods",
+      "/plugin install christmas-theme@pretty-mods"
+    ]
+  },
+  {
+    "slug": "christmas-town-theme",
+    "name": "Christmas Town",
+    "author": "malenaaza",
+    "repo": "malenaaza/pretty-mods",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "A midnight-blue snowy town with lit windows, a church, trees with lights and drifting chimney smoke.",
+    "preview": "https://raw.githubusercontent.com/malenaaza/pretty-mods/main/docs/previews/christmas-town-theme.png",
+    "path": "plugins/christmas-town-theme",
+    "install": [
+      "/plugin marketplace add malenaaza/pretty-mods",
+      "/plugin install christmas-town-theme@pretty-mods"
+    ]
+  },
+  {
+    "slug": "christmas-market-theme",
+    "name": "Christmas Market",
+    "author": "malenaaza",
+    "repo": "malenaaza/pretty-mods",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "A night Christmas market with three wooden stalls, string lights, steaming mugs and people eating and drinking.",
+    "preview": "https://raw.githubusercontent.com/malenaaza/pretty-mods/main/docs/previews/christmas-market-theme.png",
+    "path": "plugins/christmas-market-theme",
+    "install": [
+      "/plugin marketplace add malenaaza/pretty-mods",
+      "/plugin install christmas-market-theme@pretty-mods"
+    ]
+  },
+  {
+    "slug": "kitty-theme",
+    "name": "Kitty",
+    "author": "malenaaza",
+    "repo": "malenaaza/pretty-mods",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "A soft plum night with a moon and a sleepy cat on a ledge whose tail sways slowly.",
+    "preview": "https://raw.githubusercontent.com/malenaaza/pretty-mods/main/docs/previews/kitty-theme.png",
+    "path": "plugins/kitty-theme",
+    "install": [
+      "/plugin marketplace add malenaaza/pretty-mods",
+      "/plugin install kitty-theme@pretty-mods"
+    ]
+  },
+  {
+    "slug": "snowman-theme",
+    "name": "Snowman",
+    "author": "malenaaza",
+    "repo": "malenaaza/pretty-mods",
+    "kind": "desktop",
+    "appearance": "both",
+    "description": "A snowman and decorated fir trees on a snowy hill, by day or by night to follow your light or dark mode.",
+    "preview": "https://raw.githubusercontent.com/malenaaza/pretty-mods/main/docs/previews/snowman-theme.png",
+    "path": "plugins/snowman-theme",
+    "install": [
+      "/plugin marketplace add malenaaza/pretty-mods",
+      "/plugin install snowman-theme@pretty-mods"
+    ]
+  },
+  {
+    "slug": "new-year-theme",
+    "name": "New Year",
+    "author": "malenaaza",
+    "repo": "malenaaza/pretty-mods",
+    "kind": "desktop",
+    "appearance": "dark",
+    "description": "Fireworks over a city skyline, a countdown in the last ten minutes of the year, then the new year from midnight.",
+    "preview": "https://raw.githubusercontent.com/malenaaza/pretty-mods/main/docs/previews/new-year-theme.png",
+    "path": "plugins/new-year-theme",
+    "install": [
+      "/plugin marketplace add malenaaza/pretty-mods",
+      "/plugin install new-year-theme@pretty-mods"
+    ]
+  }  
 ]
