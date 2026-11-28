@@ -6755,6 +6755,42 @@
       "skills": [
         "./"
       ]
+    },
+    {
+      "name": "adkit",
+      "description": "Run and report on ad campaigns from Claude Code: Meta, Google, TikTok, Reddit, LinkedIn, X, Microsoft and Pinterest Ads through AdKit's hosted MCP server, which can also search competitor ads and generate ad images. Four skills cover setup, reading performance, launching campaigns and researching competitor ads. Every change is saved as a draft and published only after you approve it. Nothing is installed locally. Requires an AdKit account (free demo of 50 actions, paid plans from $29 per month).",
+      "version": "1.0.5",
+      "author": {
+        "name": "AdKit",
+        "url": "https://adkit.so"
+      },
+      "homepage": "https://adkit.so/features/ads-mcp",
+      "repository": "https://github.com/adkit/ads-mcp",
+      "license": "MIT",
+      "keywords": [
+        "ads",
+        "advertising",
+        "meta-ads",
+        "google-ads",
+        "tiktok-ads",
+        "linkedin-ads",
+        "ppc",
+        "mcp"
+      ],
+      "category": "sales-marketing",
+      "source": {
+        "source": "github",
+        "repo": "adkit/ads-mcp",
+        "sha": "9fa8373893984124eb41f46146602d7eaaa53e7b"
+      },
+      "strict": false,
+      "mcpServers": "./.mcp-core.json",
+      "skills": [
+        "./skills/analyze/",
+        "./skills/launch/",
+        "./skills/setup/",
+        "./skills/spy/"
+      ]
     }
   ]
 }
