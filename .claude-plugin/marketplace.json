@@ -6643,6 +6643,32 @@
         "repo": "runlater-app/runlater-plugin",
         "sha": "944e251fdc38019a554868085545322f2b692cbe"
       }
+    },
+    {
+      "name": "machine-transfer",
+      "description": "Move a multi-session Claude Code workspace to another Mac by fresh restarts, one sidebar section at a time. Each lead session writes a handoff note and a branch ledger and pushes its work; a successor on the new Mac checks every branch head against the ledger, then restarts its child sessions. Includes bash scripts for scanning unpushed work and sealing archives (secret-scanned, checksummed, optionally age-encrypted). macOS to macOS, with the Claude desktop app and Remote Control.",
+      "version": "26.11.3",
+      "author": {
+        "name": "n-uf",
+        "url": "https://github.com/n-uf"
+      },
+      "homepage": "https://n-uf.com/claude-machine-transfer",
+      "repository": "https://github.com/n-uf/claude-machine-transfer",
+      "license": "MIT",
+      "keywords": [
+        "claude-code",
+        "skill",
+        "migration",
+        "machine-transfer",
+        "handoff",
+        "remote-control"
+      ],
+      "category": "productivity",
+      "source": {
+        "source": "github",
+        "repo": "n-uf/claude-machine-transfer",
+        "sha": "5d49b608c4b43ad8ae9d3083940d5ce752d12392"
+      }
     }
   ]
 }
