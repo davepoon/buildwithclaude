@@ -6756,5 +6756,29 @@
         "./"
       ]
     }
+,
+    {
+      "name": "100x-engineer-skill",
+      "description": "Skills that plan the work before coding and verify it with tests and formal checks before calling it done, for Claude Code, Cursor and Codex.",
+      "version": "0.1.0",
+      "author": {
+        "name": "DeadInternetStudios",
+        "url": "https://github.com/DeadInternetStudios"
+      },
+      "homepage": "https://github.com/DeadInternetStudios/100x-engineer-skill",
+      "repository": "https://github.com/DeadInternetStudios/100x-engineer-skill",
+      "license": "MIT",
+      "keywords": [
+        "skills",
+        "planning",
+        "verification",
+        "workflow"
+      ],
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "DeadInternetStudios/100x-engineer-skill"
+      }
+    }
   ]
 }
