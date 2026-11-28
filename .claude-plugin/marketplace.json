@@ -6669,6 +6669,35 @@
         "repo": "n-uf/claude-machine-transfer",
         "sha": "5d49b608c4b43ad8ae9d3083940d5ce752d12392"
       }
+    },
+    {
+      "name": "research-skills",
+      "description": "22 skills for survey and research methods: check a questionnaire for bias, size a sample, write a screener, design and score MaxDiff and conjoint, run Van Westendorp and Gabor-Granger pricing, score NPS, CSAT/CES, PMF, Likert, Kano and SUS, build crosstabs, weight a sample, clean a survey export, code open-ended answers, and turn a discussion guide into an AI interview brief. Scripts are Python 3.9+ standard library with tests and no network calls, and every skill works on your own files with no account. An optional last step shows how to field the study with QuestionPunk's MCP server.",
+      "version": "0.2.2",
+      "author": {
+        "name": "QuestionPunk",
+        "url": "https://github.com/questionpunk"
+      },
+      "homepage": "https://github.com/questionpunk/research-skills",
+      "repository": "https://github.com/questionpunk/research-skills",
+      "license": "MIT",
+      "keywords": [
+        "agent-skills",
+        "surveys",
+        "market-research",
+        "ux-research",
+        "pricing-research",
+        "statistics",
+        "nps",
+        "maxdiff"
+      ],
+      "category": "research",
+      "source": {
+        "source": "github",
+        "repo": "questionpunk/research-skills",
+        "sha": "668a5d0755adac02ef01c31d306c47b6d3d08f8f"
+      },
+      "strict": false
     }
   ]
 }
