@@ -1237,5 +1237,19 @@
       "/plugin marketplace add Skynettheone/claude-themes",
       "/plugin install terminal-themes@claude-themes-library"
     ]
+  },
+  {
+    "slug": "dusk-glass",
+    "name": "Dusk Glass",
+    "author": "bmconsult",
+    "repo": "bmconsult/dusk-glass",
+    "kind": "desktop",
+    "appearance": "both",
+    "description": "Lavender-dusk colours and a living dusk sky behind the conversation: fireflies glowing up one or two at a time, a little pen-drawn bee, and flowers growing out of the corner. Optional Comic Sans chat text on Windows.",
+    "preview": "https://raw.githubusercontent.com/bmconsult/dusk-glass/main/docs/preview.png",
+    "install": [
+      "/plugin marketplace add bmconsult/dusk-glass",
+      "/plugin install dusk-glass@dusk-glass"
+    ]
   }
 ]
